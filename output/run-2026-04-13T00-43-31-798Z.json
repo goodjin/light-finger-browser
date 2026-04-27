@@ -1,0 +1,77 @@
+{
+  "runId": "2026-04-13T00-43-31-798Z",
+  "startedAt": "2026-04-13T00:43:31.798Z",
+  "endedAt": "2026-04-13T00:43:33.123Z",
+  "events": [
+    {
+      "at": "2026-04-13T00:43:32.141Z",
+      "type": "session_start",
+      "userId": "acct-1",
+      "username": "user01"
+    },
+    {
+      "at": "2026-04-13T00:43:32.156Z",
+      "type": "session_start",
+      "userId": "acct-2",
+      "username": "user02"
+    },
+    {
+      "at": "2026-04-13T00:43:32.161Z",
+      "type": "session_start",
+      "userId": "acct-3",
+      "username": "user03"
+    },
+    {
+      "at": "2026-04-13T00:43:32.874Z",
+      "type": "action",
+      "userId": "acct-1",
+      "action": "login",
+      "ok": false,
+      "error": "login-selectors-not-found",
+      "durationMs": 733
+    },
+    {
+      "at": "2026-04-13T00:43:32.874Z",
+      "type": "session_end",
+      "userId": "acct-1",
+      "username": "user01"
+    },
+    {
+      "at": "2026-04-13T00:43:32.951Z",
+      "type": "action",
+      "userId": "acct-3",
+      "action": "login",
+      "ok": false,
+      "error": "login-selectors-not-found",
+      "durationMs": 790
+    },
+    {
+      "at": "2026-04-13T00:43:32.951Z",
+      "type": "session_end",
+      "userId": "acct-3",
+      "username": "user03"
+    },
+    {
+      "at": "2026-04-13T00:43:33.089Z",
+      "type": "action",
+      "userId": "acct-2",
+      "action": "login",
+      "ok": false,
+      "error": "login-selectors-not-found",
+      "durationMs": 933
+    },
+    {
+      "at": "2026-04-13T00:43:33.089Z",
+      "type": "session_end",
+      "userId": "acct-2",
+      "username": "user02"
+    }
+  ],
+  "summary": {
+    "users": 3,
+    "actions": 3,
+    "success": 0,
+    "failed": 3,
+    "avgStepMs": 818.67
+  }
+}

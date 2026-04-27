@@ -1,0 +1,28 @@
+# monitoring/prometheus.yml
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'tmos-api'
+    static_configs:
+      - targets: ['api:8081']
+    metrics_path: /metrics
+
+  - job_name: 'tmos-mcp'
+    static_configs:
+      - targets: ['mcp:8080']
+    metrics_path: /metrics
+
+  - job_name: 'tmos-worker'
+    static_configs:
+      - targets: ['worker:8082']
+    metrics_path: /metrics
+
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['postgres:5432']
+
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis:6379']

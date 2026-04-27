@@ -1,0 +1,18 @@
+[
+  {
+    "id": "fixture-phone-001",
+    "number": "+1987654321",
+    "country": "US",
+    "type": "disposable",
+    "provider": "smsactivate",
+    "status": "available"
+  },
+  {
+    "id": "fixture-phone-002",
+    "number": "+1987654322",
+    "country": "UK",
+    "type": "rental",
+    "provider": "textnow",
+    "status": "active"
+  }
+]

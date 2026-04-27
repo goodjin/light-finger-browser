@@ -1,0 +1,38 @@
+[
+  {
+    "id": "fixture-proxy-001",
+    "ip": "10.0.1.1",
+    "port": 8080,
+    "country": "US",
+    "city": "New York",
+    "type": "residential",
+    "status": "available",
+    "success_rate": 0.95,
+    "latency": 80,
+    "provider": "brightdata"
+  },
+  {
+    "id": "fixture-proxy-002",
+    "ip": "10.0.1.2",
+    "port": 8080,
+    "country": "US",
+    "city": "Los Angeles",
+    "type": "residential",
+    "status": "available",
+    "success_rate": 0.88,
+    "latency": 120,
+    "provider": "oxylabs"
+  },
+  {
+    "id": "fixture-proxy-003",
+    "ip": "10.0.1.3",
+    "port": 8080,
+    "country": "DE",
+    "city": "Berlin",
+    "type": "datacenter",
+    "status": "dead",
+    "success_rate": 0.15,
+    "latency": 300,
+    "provider": "brightdata"
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "id": "fixture-instance-001",
+    "status": "running",
+    "fingerprint": {
+      "browser": "chrome",
+      "version": "120",
+      "platform": "windows"
+    },
+    "port": 34901,
+    "group": "fixture-group"
+  },
+  {
+    "id": "fixture-instance-002",
+    "status": "stopped",
+    "fingerprint": {
+      "browser": "chrome",
+      "version": "119",
+      "platform": "macos"
+    },
+    "port": 34902,
+    "group": "fixture-group"
+  }
+]

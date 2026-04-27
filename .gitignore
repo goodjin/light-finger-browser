@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Build outputs
+build/
+*.exe
+*.dmg
+*.app
+
+# Binary
+fingerbrower
+fingerbrower.db*
+fingerbrower_test
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Database
+*.db
+
+# Wails
+frontend/src/wailsjs/
+frontend/node_modules/
+frontend/dist/
+
+# Go
+*.test
+coverage.txt

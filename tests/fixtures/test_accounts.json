@@ -1,0 +1,26 @@
+[
+  {
+    "id": "fixture-account-001",
+    "username": "fixture_user_001",
+    "email": "fixture001@test.com",
+    "status": "active",
+    "account_level": 1,
+    "group": "fixture-group"
+  },
+  {
+    "id": "fixture-account-002",
+    "username": "fixture_user_002",
+    "email": "fixture002@test.com",
+    "status": "pending",
+    "account_level": 0,
+    "group": "fixture-group"
+  },
+  {
+    "id": "fixture-account-003",
+    "username": "fixture_user_003",
+    "email": "fixture003@test.com",
+    "status": "suspended",
+    "account_level": 2,
+    "group": "fixture-group"
+  }
+]
