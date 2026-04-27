@@ -4,9 +4,8 @@ import {
   DestroyInstance,
   ListInstances,
   GenerateRandomFingerprint,
-  type BrowserInstance,
-  type InstanceConfig,
 } from '../wailsjs/go/main';
+import type { BrowserInstance, InstanceConfig } from '../types/wails';
 
 const COUNTRIES = [
   { code: 'US', name: 'United States' },
