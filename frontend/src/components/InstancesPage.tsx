@@ -1,4 +1,12 @@
 import { useState, useEffect } from 'react';
+import {
+  CreateInstance,
+  DestroyInstance,
+  ListInstances,
+  GenerateRandomFingerprint,
+  type BrowserInstance,
+  type InstanceConfig,
+} from '../wailsjs/go/main';
 
 const COUNTRIES = [
   { code: 'US', name: 'United States' },
@@ -12,48 +20,6 @@ const COUNTRIES = [
   { code: 'BR', name: 'Brazil' },
   { code: 'IN', name: 'India' },
 ];
-
-// Wails bindings - these are auto-generated at runtime
-declare const window: Window & {
-  go: {
-    main: {
-      App: {
-        CreateInstance(cfg: any): Promise<any>;
-        DestroyInstance(id: string): Promise<void>;
-        GetInstance(id: string): Promise<any>;
-        ListInstances(filter: any): Promise<any[]>;
-        GenerateFingerprint(seed: string, country: string): Promise<any>;
-        GenerateRandomFingerprint(country: string): Promise<any>;
-        ValidateFingerprint(fp: any): Promise<void>;
-        ConnectRemote(host: string, port: number, binaryPath: string): Promise<void>;
-        DisconnectRemote(host: string, port: number): Promise<void>;
-        ListRemoteTargets(host: string, port: number): Promise<any[]>;
-        GetRemoteCDPEndpoint(host: string, port: number): Promise<string>;
-        Greet(name: string): Promise<string>;
-      };
-    };
-  };
-};
-
-interface BrowserInstance {
-  id: string;
-  status: string;
-  fingerprint: any;
-  proxy_id: string;
-  account_id: string;
-  cdp_endpoint: string;
-  pid: number;
-  port: number;
-  user_data_dir: string;
-  group: string;
-}
-
-interface InstanceConfig {
-  fingerprint: any;
-  account_id: string;
-  group: string;
-  headless: boolean;
-}
 
 export function InstancesPage() {
   const [instances, setInstances] = useState<BrowserInstance[]>([]);
@@ -72,7 +38,7 @@ export function InstancesPage() {
 
   async function loadInstances() {
     try {
-      const list = await window.go.main.App.ListInstances(null);
+      const list = await ListInstances(null);
       setInstances(list || []);
       setError(null);
     } catch (err) {
@@ -85,14 +51,14 @@ export function InstancesPage() {
   async function createInstance() {
     try {
       setLoading(true);
-      const fp = await window.go.main.App.GenerateRandomFingerprint(country);
+      const fp = await GenerateRandomFingerprint(country);
       const cfg: InstanceConfig = {
         fingerprint: fp,
         account_id: '',
         group,
         headless,
       };
-      await window.go.main.App.CreateInstance(cfg);
+      await CreateInstance(cfg);
       await loadInstances();
       setShowCreate(false);
     } catch (err) {
@@ -105,7 +71,7 @@ export function InstancesPage() {
   async function destroyInstance(id: string) {
     if (!confirm('Are you sure you want to stop this instance?')) return;
     try {
-      await window.go.main.App.DestroyInstance(id);
+      await DestroyInstance(id);
       await loadInstances();
     } catch (err) {
       setError(String(err));

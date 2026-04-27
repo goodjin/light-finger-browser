@@ -1,15 +1,5 @@
 import { useState } from 'react';
-
-declare const window: Window & {
-  go: {
-    main: {
-      App: {
-        ConnectRemote(host: string, port: number, binaryPath: string): Promise<void>;
-        DisconnectRemote(host: string, port: number): Promise<void>;
-      };
-    };
-  };
-};
+import { ConnectRemote, DisconnectRemote } from '../wailsjs/go/main';
 
 interface RemoteConfig {
   host: string;
@@ -40,7 +30,7 @@ export function SettingsPage() {
       return;
     }
     try {
-      await window.go.main.App.ConnectRemote(newRemote.host, newRemote.port, newRemote.binaryPath);
+      await ConnectRemote(newRemote.host, newRemote.port, newRemote.binaryPath);
       setRemoteConfigs([...remoteConfigs, { ...newRemote, connected: true }]);
       setNewRemote({ host: '', port: 9222, binaryPath: '', connected: false });
       setSuccess('Connected to remote CloakBrowser');
@@ -51,7 +41,7 @@ export function SettingsPage() {
 
   async function handleDisconnect(config: RemoteConfig) {
     try {
-      await window.go.main.App.DisconnectRemote(config.host, config.port);
+      await DisconnectRemote(config.host, config.port);
       setRemoteConfigs(remoteConfigs.filter(r => r.host !== config.host));
       setSuccess('Disconnected');
     } catch (err) {
