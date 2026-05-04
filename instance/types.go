@@ -10,38 +10,43 @@ import (
 type InstanceStatus string
 
 const (
-	StatusPending   InstanceStatus = "pending"
-	StatusStarting  InstanceStatus = "starting"
-	StatusRunning   InstanceStatus = "running"
-	StatusStopping  InstanceStatus = "stopping"
-	StatusStopped   InstanceStatus = "stopped"
-	StatusError     InstanceStatus = "error"
+	StatusPending  InstanceStatus = "pending"
+	StatusStarting InstanceStatus = "starting"
+	StatusRunning  InstanceStatus = "running"
+	StatusStopping InstanceStatus = "stopping"
+	StatusStopped  InstanceStatus = "stopped"
+	StatusError    InstanceStatus = "error"
 )
 
 // BrowserInstance represents a managed browser instance.
 type BrowserInstance struct {
-	ID           string            `json:"id"`
-	Status       InstanceStatus    `json:"status"`
+	ID           string                   `json:"id"`
+	Name         string                   `json:"name"`
+	Status       InstanceStatus           `json:"status"`
 	Fingerprint  *fingerprint.Fingerprint `json:"fingerprint"`
-	ProxyID      string            `json:"proxy_id"`
-	AccountID    string            `json:"account_id"`
-	CDPEndpoint string            `json:"cdp_endpoint"`
-	PID          int               `json:"pid"`
-	Port         int               `json:"port"`
-	UserDataDir  string            `json:"user_data_dir"`
-	Group        string            `json:"group"`
-	StartedAt    time.Time         `json:"started_at"`
-	LastActiveAt time.Time         `json:"last_active_at"`
-	CreatedAt    time.Time         `json:"created_at"`
+	ProxyID      string                   `json:"proxy_id"`
+	ProxyURL     string                   `json:"proxy_url"`
+	AccountID    string                   `json:"account_id"`
+	CDPEndpoint  string                   `json:"cdp_endpoint"`
+	PID          int                      `json:"pid"`
+	Port         int                      `json:"port"`
+	UserDataDir  string                   `json:"user_data_dir"`
+	Group        string                   `json:"group"`
+	Headless     bool                     `json:"headless"`
+	StartedAt    time.Time                `json:"started_at"`
+	LastActiveAt time.Time                `json:"last_active_at"`
+	CreatedAt    time.Time                `json:"created_at"`
 }
 
 // InstanceConfig contains configuration for creating a new instance.
 type InstanceConfig struct {
-	Fingerprint *fingerprint.Fingerprint `json:"fingerprint"`
-	Proxy       *ProxyConfig             `json:"proxy"`
-	AccountID   string                   `json:"account_id"`
-	Group       string                   `json:"group"`
-	Headless    bool                     `json:"headless"`
+	Name         string                   `json:"name"`
+	AccountLabel string                   `json:"account_label"`
+	Fingerprint  *fingerprint.Fingerprint `json:"fingerprint"`
+	Proxy        *ProxyConfig             `json:"proxy"`
+	AccountID    string                   `json:"account_id"`
+	Group        string                   `json:"group"`
+	Headless     bool                     `json:"headless"`
 }
 
 // ProxyConfig contains proxy configuration for an instance.
@@ -53,10 +58,10 @@ type ProxyConfig struct {
 
 // InstanceFilter contains filter criteria for listing instances.
 type InstanceFilter struct {
-	Status   *InstanceStatus `json:"status"`
-	Group    string          `json:"group"`
-	ProxyID  string          `json:"proxy_id"`
-	AccountID string         `json:"account_id"`
+	Status    *InstanceStatus `json:"status"`
+	Group     string          `json:"group"`
+	ProxyID   string          `json:"proxy_id"`
+	AccountID string          `json:"account_id"`
 }
 
 // MaxInstancesPerServer is the maximum number of instances per server.

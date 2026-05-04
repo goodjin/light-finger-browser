@@ -26,6 +26,9 @@ func main() {
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
+		Bind: []interface{}{
+			fingerbrowerApp,
+		},
 		Mac: &mac.Options{
 			TitleBar: mac.TitleBarDefault(),
 		},

@@ -35,23 +35,26 @@ func (s *PostgresStore) Save(instance *BrowserInstance) (*BrowserInstance, error
 	}
 
 	query := `
-		INSERT INTO browser_instances (id, status, fingerprint_json, proxy_id, account_id, cdp_endpoint, pid, port, user_data_dir, group_name, started_at, last_active_at, created_at)
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+		INSERT INTO browser_instances (id, name, status, fingerprint_json, proxy_id, proxy_url, account_id, cdp_endpoint, pid, port, user_data_dir, group_name, headless, started_at, last_active_at, created_at)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
 		RETURNING created_at
 	`
 
 	err = s.db.QueryRow(
 		query,
 		instance.ID,
+		instance.Name,
 		instance.Status,
 		fingerprintJSON,
 		instance.ProxyID,
+		instance.ProxyURL,
 		instance.AccountID,
 		instance.CDPEndpoint,
 		instance.PID,
 		instance.Port,
 		instance.UserDataDir,
 		instance.Group,
+		instance.Headless,
 		instance.StartedAt,
 		instance.LastActiveAt,
 		instance.CreatedAt,
@@ -67,7 +70,7 @@ func (s *PostgresStore) Save(instance *BrowserInstance) (*BrowserInstance, error
 // Get retrieves an instance by ID.
 func (s *PostgresStore) Get(id string) (*BrowserInstance, error) {
 	query := `
-		SELECT id, status, fingerprint_json, proxy_id, account_id, cdp_endpoint, pid, port, user_data_dir, group_name, started_at, last_active_at, created_at
+		SELECT id, name, status, fingerprint_json, proxy_id, proxy_url, account_id, cdp_endpoint, pid, port, user_data_dir, group_name, headless, started_at, last_active_at, created_at
 		FROM browser_instances
 		WHERE id = $1
 	`
@@ -77,15 +80,18 @@ func (s *PostgresStore) Get(id string) (*BrowserInstance, error) {
 
 	err := s.db.QueryRow(query, id).Scan(
 		&instance.ID,
+		&instance.Name,
 		&instance.Status,
 		&fingerprintJSON,
 		&instance.ProxyID,
+		&instance.ProxyURL,
 		&instance.AccountID,
 		&instance.CDPEndpoint,
 		&instance.PID,
 		&instance.Port,
 		&instance.UserDataDir,
 		&instance.Group,
+		&instance.Headless,
 		&instance.StartedAt,
 		&instance.LastActiveAt,
 		&instance.CreatedAt,
@@ -108,7 +114,7 @@ func (s *PostgresStore) Get(id string) (*BrowserInstance, error) {
 // List returns instances matching the filter.
 func (s *PostgresStore) List(filter *InstanceFilter) ([]*BrowserInstance, error) {
 	query := `
-		SELECT id, status, fingerprint_json, proxy_id, account_id, cdp_endpoint, pid, port, user_data_dir, group_name, started_at, last_active_at, created_at
+		SELECT id, name, status, fingerprint_json, proxy_id, proxy_url, account_id, cdp_endpoint, pid, port, user_data_dir, group_name, headless, started_at, last_active_at, created_at
 		FROM browser_instances
 		WHERE 1=1
 	`
@@ -154,15 +160,18 @@ func (s *PostgresStore) List(filter *InstanceFilter) ([]*BrowserInstance, error)
 
 		err := rows.Scan(
 			&instance.ID,
+			&instance.Name,
 			&instance.Status,
 			&fingerprintJSON,
 			&instance.ProxyID,
+			&instance.ProxyURL,
 			&instance.AccountID,
 			&instance.CDPEndpoint,
 			&instance.PID,
 			&instance.Port,
 			&instance.UserDataDir,
 			&instance.Group,
+			&instance.Headless,
 			&instance.StartedAt,
 			&instance.LastActiveAt,
 			&instance.CreatedAt,
@@ -194,22 +203,25 @@ func (s *PostgresStore) Update(instance *BrowserInstance) error {
 
 	query := `
 		UPDATE browser_instances
-		SET status = $2, fingerprint_json = $3, proxy_id = $4, account_id = $5, cdp_endpoint = $6, pid = $7, port = $8, user_data_dir = $9, group_name = $10, started_at = $11, last_active_at = $12
+		SET name = $2, status = $3, fingerprint_json = $4, proxy_id = $5, proxy_url = $6, account_id = $7, cdp_endpoint = $8, pid = $9, port = $10, user_data_dir = $11, group_name = $12, headless = $13, started_at = $14, last_active_at = $15
 		WHERE id = $1
 	`
 
 	result, err := s.db.Exec(
 		query,
 		instance.ID,
+		instance.Name,
 		instance.Status,
 		fingerprintJSON,
 		instance.ProxyID,
+		instance.ProxyURL,
 		instance.AccountID,
 		instance.CDPEndpoint,
 		instance.PID,
 		instance.Port,
 		instance.UserDataDir,
 		instance.Group,
+		instance.Headless,
 		instance.StartedAt,
 		instance.LastActiveAt,
 	)

@@ -48,8 +48,8 @@ func (g *Generator) Generate(seed string, country string) (*Fingerprint, error) 
 	timezone := config.Timezone
 	locale := g.generateLocale(rng, config)
 	webgl := g.generateWebGL(rng, config)
-	canvas := g.generateCanvas(rng)
-	audio := g.generateAudio(rng)
+	canvas := g.generateCanvas(seed)
+	audio := g.generateAudio(seed)
 	hardware := g.generateHardware(rng, config)
 	network := g.generateNetwork(rng)
 
@@ -218,23 +218,13 @@ func (g *Generator) extractVendor(renderer string) string {
 }
 
 // generateCanvas generates a canvas hash.
-func (g *Generator) generateCanvas(rng *DeterministicRand) CanvasConfig {
-	hashBytes := make([]byte, 16)
-	for i := range hashBytes {
-		hashBytes[i] = byte(rng.Intn(256))
-	}
-	hash := fmt.Sprintf("%x", sha256.Sum256(hashBytes))[:32]
-	return CanvasConfig{Hash: hash}
+func (g *Generator) generateCanvas(seed string) CanvasConfig {
+	return CanvasConfig{Hash: canvasNoiseHash(seed)}
 }
 
 // generateAudio generates an audio hash.
-func (g *Generator) generateAudio(rng *DeterministicRand) AudioConfig {
-	hashBytes := make([]byte, 8)
-	for i := range hashBytes {
-		hashBytes[i] = byte(rng.Intn(256))
-	}
-	hash := fmt.Sprintf("%x", sha256.Sum256(hashBytes))[:16]
-	return AudioConfig{Hash: hash}
+func (g *Generator) generateAudio(seed string) AudioConfig {
+	return AudioConfig{Hash: audioNoiseHash(seed)}
 }
 
 // generateHardware generates a hardware configuration.

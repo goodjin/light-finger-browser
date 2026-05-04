@@ -1,108 +1,118 @@
 # PRD-架构覆盖报告
 
+> 本报告只覆盖当前活动文档集：**指纹、实例、代理、浏览器运行时、浏览器内核计划**。旧 TMOS/TikTok 业务文档已从活动文档集中移除，不再参与覆盖统计。
+
+## 文档信息
+
+| 字段 | 内容 |
+|------|------|
+| **版本** | v2.1 |
+| **更新日期** | 2026-04-30 |
+| **对应 PRD** | `docs/v1/01-prd.md` v2.0 |
+
+---
+
+## 状态图例
+
+| 符号 | 含义 | 判定标准 |
+|------|------|---------|
+| ✅ | 已实现 / 已覆盖 | 已有明确架构承接，且代码或产物已落地 |
+| 🟡 | 部分落地 | 已有代码、存储或契约，但尚未形成完整闭环或发布门禁 |
+| ⏳ | 已设计 / 已规划 | 已有架构或计划，但尚未进入实现阶段 |
+
 ## 覆盖统计
 
-| 类型 | PRD总数 | 已覆盖 | 未覆盖 | 覆盖率 |
-|-----|--------|-------|-------|-------|
-| 功能需求 | 12 | 12 | 0 | 100% |
-| 用户故事 | 4 | 4 | 0 | 100% |
-| 数据实体 | 3 | 3 | 0 | 100% |
-| 业务流程 | 2 | 2 | 0 | 100% |
-| 验收标准 | 7 | 7 | 0 | 100% |
-| 业务规则 | 3 | 3 | 0 | 100% |
+| 类型 | PRD总数 | 已有架构/计划承接 | 待补充 | 覆盖率 |
+|-----|--------|------------------|-------|-------|
+| 功能需求 | 8 | 8 | 0 | 100% |
+| 用户故事 | 3 | 3 | 0 | 100% |
+| 数据实体 | 5 | 5 | 0 | 100% |
+| 业务规则 | 5 | 5 | 0 | 100% |
 
 ---
 
 ## 功能需求覆盖
 
-| PRD编号 | 功能名称 | 架构模块 | 接口规约 | 数据规约 | 状态 |
-|---------|---------|---------|---------|---------|------|
-| FR-001 | 多实例浏览器管理 | MOD-02 | API-M2-001~005 | DATA-001 | ✅ |
-| FR-002 | 独立指纹生成 | MOD-01 | API-M1-001~003 | DATA-001 | ✅ |
-| FR-003 | 住宅 IP 代理绑定 | MOD-03 | API-M3-001~006 | DATA-003 | ✅ |
-| FR-004 | 账号批量注册 | MOD-05 | API-M5-001~003 | DATA-002 | ✅ |
-| FR-005 | 验证码自动接收 | MOD-04 | API-M4-001~005 | DATA-004 | ✅ |
-| FR-006 | 固定号换绑 | MOD-05 | API-M5-004 | DATA-002 | ✅ |
-| FR-007 | AI 内容生成 | MOD-06 | API-M6-001 | DATA-005 | ✅ |
-| FR-008 | 批量发布管理 | MOD-06 | API-M6-002~003 | DATA-005 | ✅ |
-| FR-009 | 账号养号自动化 | MOD-06 | API-M6-004 | DATA-005 | ✅ |
-| FR-010 | MCP 服务端 | MOD-06 | API-M6-005~010 | DATA-005 | ✅ |
-| FR-011 | REST API | MOD-06 | API-M6-011~020 | DATA-005 | ✅ |
-| FR-012 | Docker 部署 | DEPLOY-01 | - | - | ✅ |
+| PRD编号 | 功能名称 | 主承接文档 | 代码/产物 | 状态 |
+|---------|---------|-----------|----------|------|
+| FR-001 | 多实例浏览器管理 | `03-mod-02-instance.md` | `instance/` | ✅ 已实现 |
+| FR-002 | 独立指纹生成与校验 | `03-mod-01-fingerprint.md` | `fingerprint/` | ✅ 已实现 |
+| FR-003 | 代理绑定与健康检查 | `03-mod-03-proxy.md` | `proxy/` | ✅ 已实现 |
+| FR-004 | 浏览器运行时发现 | `01-browser-build-runtime.md` | `app/commands/browser_runtime.go` | ✅ 已实现 |
+| FR-005 | 浏览器产物清单契约 | `01-browser-build-runtime.md` | `resources/cloakbrowser/artifacts.json` | ✅ 已落地基础契约 |
+| FR-006 | Chromium 源码基线与 patch overlay | `02-browser-core-technical-design.md` / `10-browser-core-program.md` | - | ⏳ 已设计，待执行 |
+| FR-007 | 指纹诊断与验证闭环 | `03-mod-01-fingerprint.md` / `01-browser-build-runtime.md` | `app/commands/fingerprint_diagnostics.go`, `app/commands/fingerprint_coverage.go` | 🟡 已有采样与覆盖报告，但未纳入发布门禁 |
+| FR-008 | 构建、签名、发布、回滚流水线 | `09-browser-source-build.md` / `10-browser-core-program.md` | - | ⏳ 已规划，待执行 |
 
 ---
 
 ## 用户故事覆盖
 
-| PRD编号 | 用户故事 | 接口规约 | 状态机 | 边界条件 | 状态 |
-|---------|---------|---------|-------|---------|------|
-| US-001 | 账号批量注册 | API-M5-001~003 | STATE-FLOW-001 | BOUND-001~003 | ✅ |
-| US-002 | 多实例并行管理 | API-M2-001~005 | STATE-INSTANCE | BOUND-004~006 | ✅ |
-| US-003 | AI 自动化发布 | API-M6-001~010 | - | BOUND-007~009 | ✅ |
-| US-004 | 固定号换绑 | API-M5-004, API-M4-001 | - | BOUND-010~011 | ✅ |
+| PRD编号 | 用户故事 | 主承接文档 | 状态 |
+|---------|---------|-----------|------|
+| US-001 | 创建一个可复现的隔离浏览器实例 | `03-mod-01-fingerprint.md` + `03-mod-02-instance.md` + `03-mod-03-proxy.md` | ✅ |
+| US-002 | 交付一套可被应用层消费的浏览器产物 | `01-browser-build-runtime.md` + `09-browser-source-build.md` | ✅ |
+| US-003 | 在发布前验证真实运行时指纹 | `01-browser-build-runtime.md` + `02-browser-core-technical-design.md` | ✅ |
 
 ---
 
 ## 数据实体覆盖
 
-| PRD编号 | 实体名称 | 数据结构规约 | 索引设计 | 状态 |
-|---------|---------|------------|---------|------|
-| Entity-001 | BrowserInstance | DATA-001 | IDX-001~003 | ✅ |
-| Entity-002 | TikTokAccount | DATA-002 | IDX-004~006 | ✅ |
-| Entity-003 | ProxyPool | DATA-003 | IDX-007~009 | ✅ |
-
-**额外实体（架构设计补充）**：
-
-| 编号 | 实体名称 | 用途 | 对应功能 |
-|------|---------|------|---------|
-| DATA-004 | PhoneNumber | 手机号码管理 | FR-005, FR-006 |
-| DATA-005 | Content | 内容管理 | FR-007, FR-008 |
-| DATA-006 | PublishTask | 发布任务 | FR-008 |
-| DATA-007 | InteractionTask | 互动任务 | FR-009 |
+| PRD编号 | 实体名称 | 主承接文档 | 代码/产物 | 状态 |
+|---------|---------|-----------|----------|------|
+| Entity-001 | BrowserInstance | `03-mod-02-instance.md` | `instance/types.go` | ✅ |
+| Entity-002 | FingerprintProfile | `03-mod-01-fingerprint.md` | `fingerprint/types.go` | ✅ |
+| Entity-003 | ProxyEndpoint | `03-mod-03-proxy.md` | `proxy/types.go` | ✅ |
+| Entity-004 | BrowserArtifactManifest | `01-browser-build-runtime.md` | `resources/cloakbrowser/artifacts.json` | ✅ |
+| Entity-005 | FingerprintSnapshot | `01-browser-build-runtime.md` | `app/commands/fingerprint_diagnostics.go`, `storage/sqlite/fingerprint_snapshot.go` | 🟡 已有采样与持久化，但未形成完整验证闭环 |
 
 ---
 
-## 业务流程覆盖
+## 业务规则覆盖
 
-| PRD编号 | 流程名称 | 状态机规约 | 状态 | 备注 |
-|---------|---------|-----------|------|------|
-| Flow-001 | 账号注册流程 | STATE-FLOW-001 | ✅ | 已细化为状态机 |
-| Flow-002 | 内容发布流程 | STATE-FLOW-002 | ✅ | 已细化为状态机 |
-
----
-
-## 验收标准覆盖
-
-| PRD编号 | 验收标准 | 边界条件规约 | 测试场景 | 状态 |
-|---------|---------|------------|---------|------|
-| AC-001-01 | 50 账号注册 < 1 小时 | BOUND-001 | TEST-001 | ✅ |
-| AC-001-02 | 独立指纹 + IP | BOUND-002 | TEST-002 | ✅ |
-| AC-001-03 | 验证码自动接收 | BOUND-003 | TEST-003 | ✅ |
-| AC-002-01 | 单服务器 50+ 并发 | BOUND-004 | TEST-004 | ✅ |
-| AC-002-02 | 进程 100% 隔离 | BOUND-005 | TEST-005 | ✅ |
-| AC-003-01 | MCP 响应 < 1s | BOUND-006 | TEST-006 | ✅ |
-| AC-004-01 | 固定号换绑自动化 | BOUND-007 | TEST-007 | ✅ |
+| PRD编号 | 规则名称 | 主承接文档 | 状态 |
+|---------|---------|-----------|------|
+| Rule-001 | 一实例一代理 | `03-mod-03-proxy.md` | ✅ |
+| Rule-002 | 指纹一致性 | `03-mod-01-fingerprint.md` | ✅ |
+| Rule-003 | 浏览器版本锁定 | `01-browser-build-runtime.md` | ✅ |
+| Rule-004 | 运行时发现优先级 | `01-browser-build-runtime.md` | ✅ |
+| Rule-005 | 发布门禁 | `02-browser-core-technical-design.md` | ✅ |
 
 ---
 
-## 未覆盖项
+## 当前未落地项
 
-**无未覆盖项**
+1. 自维护 Chromium 源码 fork
+2. stealth / anti-detect patch overlay
+3. 三平台构建、签名、发布、回滚流水线
+4. 诊断与验证能力的发布门禁化
 
 ---
 
-## 模块-接口映射
+## 活动模块映射
 
-| 模块编号 | 模块名称 | 接口数 | 接口列表 |
-|---------|---------|-------|---------|
-| MOD-01 | 指纹引擎模块 | 3 | API-M1-001, API-M1-002, API-M1-003 |
-| MOD-02 | 实例管理模块 | 5 | API-M2-001, API-M2-002, API-M2-003, API-M2-004, API-M2-005 |
-| MOD-03 | IP 池模块 | 6 | API-M3-001, API-M3-002, API-M3-003, API-M3-004, API-M3-005, API-M3-006 |
-| MOD-04 | 验证码模块 | 5 | API-M4-001, API-M4-002, API-M4-003, API-M4-004, API-M4-005 |
-| MOD-05 | 账号注册模块 | 4 | API-M5-001, API-M5-002, API-M5-003, API-M5-004 |
-| MOD-06 | AI 自动化模块 | 20 | API-M6-001 ~ API-M6-020 |
+| 文档 | 角色 | 当前状态 |
+|------|------|---------|
+| `03-mod-01-fingerprint.md` | 当前仓库已实现模块 | ✅ |
+| `03-mod-02-instance.md` | 当前仓库已实现模块 | ✅ |
+| `03-mod-03-proxy.md` | 当前仓库已实现模块 | ✅ |
+| `01-browser-build-runtime.md` | 当前仓库运行时架构 | ✅ |
+| `02-browser-core-technical-design.md` | 浏览器内核目标设计 | ✅ |
+| `09-browser-source-build.md` | 浏览器专项改进方案 | ✅ |
+| `10-browser-core-program.md` | 浏览器内核执行计划 | ✅ |
 
-**总计接口数：43 个**
+---
+
+## 文档编号规则
+
+`02-architecture/` 目录当前采用**分类编号**而非连续流水号：
+
+1. `00-*`：索引 / 覆盖类文档
+2. `01-*`：浏览器运行时架构
+3. `02-*`：浏览器内核技术设计
+4. `03-*`：当前活动模块架构文档
+
+> 旧业务模块文档移除后，不再为已删除类别回填新编号。
 
 ---
 
@@ -110,4 +120,7 @@
 
 | 版本 | 日期 | 变更内容 | 作者 |
 |-----|------|---------|------|
+| 2.1 | 2026-04-30 | 补充文档信息、状态图例与架构编号规则，明确 🟡 的定义 | Claude |
+| 2.0 | 2026-04-30 | 收缩覆盖范围到当前浏览器产品文档集，移除 TMOS/TikTok 业务模块映射 | Claude |
+| 1.3 | 2026-04-30 | 将浏览器扩展覆盖口径调整为 Chromium 基线 + 自研 stealth 浏览器方案，不再假设可获取 CloakBrowser 完整源码 | Claude |
 | 1.0 | 2026-04-21 | 初始版本 | Claude |

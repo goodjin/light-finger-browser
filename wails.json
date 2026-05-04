@@ -15,7 +15,7 @@
     "copyright": "Copyright 2024",
     "comments": "Browser Fingerprint Management Desktop Application"
   },
-  "wailsjsdir": "./frontend/src/wailsjs",
+  "wailsjsdir": "./frontend/src",
   "version": "2",
   "outputType": "desktop"
 }

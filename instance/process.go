@@ -103,6 +103,7 @@ func (pm *ProcessManager) Start(ctx context.Context, cfg *InstanceConfig) (*Brow
 	now := time.Now()
 	instance := &BrowserInstance{
 		ID:           uuidVal.String(),
+		Name:         cfg.Name,
 		Status:       StatusRunning,
 		Fingerprint:  cfg.Fingerprint,
 		ProxyID:      "", // Default empty

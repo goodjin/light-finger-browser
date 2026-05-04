@@ -2,6 +2,7 @@ package sqlite
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -79,6 +80,14 @@ func (db *DB) Migrate() error {
 			provider TEXT NOT NULL,
 			created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 		)`,
+		`CREATE TABLE IF NOT EXISTS fingerprint_snapshots (
+			id TEXT PRIMARY KEY,
+			account_id TEXT,
+			instance_id TEXT,
+			proxy_id TEXT,
+			snapshot_json TEXT NOT NULL,
+			created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+		)`,
 	}
 
 	for _, m := range migrations {
@@ -87,6 +96,60 @@ func (db *DB) Migrate() error {
 		}
 	}
 
+	accountColumns := map[string]string{
+		"proxy_id":            "proxy_id TEXT",
+		"proxy_url":           "proxy_url TEXT",
+		"fingerprint_seed":    "fingerprint_seed TEXT",
+		"fingerprint_country": "fingerprint_country TEXT",
+		"instance_name":       "instance_name TEXT",
+		"headless":            "headless INTEGER NOT NULL DEFAULT 0",
+		"pending_restart":     "pending_restart INTEGER NOT NULL DEFAULT 0",
+	}
+	for name, definition := range accountColumns {
+		if err := ensureColumn(db.DB, "tiktok_accounts", name, definition); err != nil {
+			return err
+		}
+	}
+
+	instanceColumns := map[string]string{
+		"name":      "name TEXT",
+		"proxy_url": "proxy_url TEXT",
+		"headless":  "headless INTEGER NOT NULL DEFAULT 0",
+	}
+	for name, definition := range instanceColumns {
+		if err := ensureColumn(db.DB, "browser_instances", name, definition); err != nil {
+			return err
+		}
+	}
+
 	log.Println("Database migrations completed")
 	return nil
+}
+
+func ensureColumn(db *sql.DB, table string, column string, definition string) error {
+	rows, err := db.Query(fmt.Sprintf("PRAGMA table_info(%s)", table))
+	if err != nil {
+		return err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var cid int
+		var name string
+		var ctype string
+		var notnull int
+		var dflt sql.NullString
+		var pk int
+		if err := rows.Scan(&cid, &name, &ctype, &notnull, &dflt, &pk); err != nil {
+			return err
+		}
+		if name == column {
+			return nil
+		}
+	}
+	if err := rows.Err(); err != nil {
+		return err
+	}
+	_, err = db.Exec(fmt.Sprintf("ALTER TABLE %s ADD COLUMN %s", table, definition))
+	return err
 }

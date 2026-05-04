@@ -21,16 +21,16 @@ func (s *InstanceStore) Save(inst *instance.BrowserInstance) (*instance.BrowserI
 	fpJSON, _ := json.Marshal(inst.Fingerprint)
 
 	query := `INSERT INTO browser_instances
-		(id, status, fingerprint_json, proxy_id, account_id, cdp_endpoint, pid, port, user_data_dir, group_name, started_at, last_active_at, created_at)
-		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+		(id, name, status, fingerprint_json, proxy_id, proxy_url, account_id, cdp_endpoint, pid, port, user_data_dir, group_name, headless, started_at, last_active_at, created_at)
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
 
 	now := time.Now()
 	inst.CreatedAt = now
 	inst.LastActiveAt = now
 
 	_, err := s.db.Exec(query,
-		inst.ID, inst.Status, fpJSON, inst.ProxyID, inst.AccountID,
-		inst.CDPEndpoint, inst.PID, inst.Port, inst.UserDataDir, inst.Group,
+		inst.ID, inst.Name, inst.Status, fpJSON, inst.ProxyID, inst.ProxyURL, inst.AccountID,
+		inst.CDPEndpoint, inst.PID, inst.Port, inst.UserDataDir, inst.Group, boolToInt(inst.Headless),
 		inst.StartedAt, inst.LastActiveAt, inst.CreatedAt,
 	)
 	if err != nil {
@@ -40,7 +40,7 @@ func (s *InstanceStore) Save(inst *instance.BrowserInstance) (*instance.BrowserI
 }
 
 func (s *InstanceStore) Get(id string) (*instance.BrowserInstance, error) {
-	query := `SELECT id, status, fingerprint_json, proxy_id, account_id, cdp_endpoint, pid, port, user_data_dir, group_name, started_at, last_active_at, created_at
+	query := `SELECT id, name, status, fingerprint_json, proxy_id, proxy_url, account_id, cdp_endpoint, pid, port, user_data_dir, group_name, headless, started_at, last_active_at, created_at
 		FROM browser_instances WHERE id = ?`
 
 	row := s.db.QueryRow(query, id)
@@ -48,7 +48,7 @@ func (s *InstanceStore) Get(id string) (*instance.BrowserInstance, error) {
 }
 
 func (s *InstanceStore) List(filter *instance.InstanceFilter) ([]*instance.BrowserInstance, error) {
-	query := `SELECT id, status, fingerprint_json, proxy_id, account_id, cdp_endpoint, pid, port, user_data_dir, group_name, started_at, last_active_at, created_at
+	query := `SELECT id, name, status, fingerprint_json, proxy_id, proxy_url, account_id, cdp_endpoint, pid, port, user_data_dir, group_name, headless, started_at, last_active_at, created_at
 		FROM browser_instances WHERE 1=1`
 	args := []interface{}{}
 
@@ -93,14 +93,14 @@ func (s *InstanceStore) Update(inst *instance.BrowserInstance) error {
 	inst.LastActiveAt = time.Now()
 
 	query := `UPDATE browser_instances SET
-		status = ?, fingerprint_json = ?, proxy_id = ?, account_id = ?,
-		cdp_endpoint = ?, pid = ?, port = ?, user_data_dir = ?, group_name = ?,
+		name = ?, status = ?, fingerprint_json = ?, proxy_id = ?, proxy_url = ?, account_id = ?,
+		cdp_endpoint = ?, pid = ?, port = ?, user_data_dir = ?, group_name = ?, headless = ?,
 		started_at = ?, last_active_at = ?
 		WHERE id = ?`
 
 	_, err := s.db.Exec(query,
-		inst.Status, fpJSON, inst.ProxyID, inst.AccountID,
-		inst.CDPEndpoint, inst.PID, inst.Port, inst.UserDataDir, inst.Group,
+		inst.Name, inst.Status, fpJSON, inst.ProxyID, inst.ProxyURL, inst.AccountID,
+		inst.CDPEndpoint, inst.PID, inst.Port, inst.UserDataDir, inst.Group, boolToInt(inst.Headless),
 		inst.StartedAt, inst.LastActiveAt, inst.ID,
 	)
 	return err
@@ -133,11 +133,19 @@ func (s *InstanceStore) Count(filter *instance.InstanceFilter) (int, error) {
 
 func (s *InstanceStore) scanInstance(row *sql.Row) (*instance.BrowserInstance, error) {
 	var inst instance.BrowserInstance
+	var name sql.NullString
+	var proxyID sql.NullString
+	var proxyURL sql.NullString
+	var accountID sql.NullString
+	var cdpEndpoint sql.NullString
+	var userDataDir sql.NullString
+	var group sql.NullString
+	var headless int
 	var fpJSON sql.NullString
 
 	err := row.Scan(
-		&inst.ID, &inst.Status, &fpJSON, &inst.ProxyID, &inst.AccountID,
-		&inst.CDPEndpoint, &inst.PID, &inst.Port, &inst.UserDataDir, &inst.Group,
+		&inst.ID, &name, &inst.Status, &fpJSON, &proxyID, &proxyURL, &accountID,
+		&cdpEndpoint, &inst.PID, &inst.Port, &userDataDir, &group, &headless,
 		&inst.StartedAt, &inst.LastActiveAt, &inst.CreatedAt,
 	)
 	if err != nil {
@@ -149,17 +157,48 @@ func (s *InstanceStore) scanInstance(row *sql.Row) (*instance.BrowserInstance, e
 		json.Unmarshal([]byte(fpJSON.String), &fp)
 		inst.Fingerprint = &fp
 	}
+
+	if name.Valid {
+		inst.Name = name.String
+	}
+	if proxyID.Valid {
+		inst.ProxyID = proxyID.String
+	}
+	if proxyURL.Valid {
+		inst.ProxyURL = proxyURL.String
+	}
+	if accountID.Valid {
+		inst.AccountID = accountID.String
+	}
+	if cdpEndpoint.Valid {
+		inst.CDPEndpoint = cdpEndpoint.String
+	}
+	if userDataDir.Valid {
+		inst.UserDataDir = userDataDir.String
+	}
+	if group.Valid {
+		inst.Group = group.String
+	}
+	inst.Headless = headless == 1
 
 	return &inst, nil
 }
 
 func (s *InstanceStore) scanInstanceFromRows(rows *sql.Rows) (*instance.BrowserInstance, error) {
 	var inst instance.BrowserInstance
+	var name sql.NullString
+	var proxyID sql.NullString
+	var proxyURL sql.NullString
+	var accountID sql.NullString
+	var cdpEndpoint sql.NullString
+	var userDataDir sql.NullString
+	var group sql.NullString
+	var headless int
 	var fpJSON sql.NullString
 
 	err := rows.Scan(
-		&inst.ID, &inst.Status, &fpJSON, &inst.ProxyID, &inst.AccountID,
-		&inst.CDPEndpoint, &inst.PID, &inst.Port, &inst.UserDataDir, &inst.Group,
+		&inst.ID, &name, &inst.Status, &fpJSON, &proxyID, &proxyURL, &accountID,
+		&cdpEndpoint, &inst.PID, &inst.Port, &userDataDir, &group, &headless,
 		&inst.StartedAt, &inst.LastActiveAt, &inst.CreatedAt,
 	)
 	if err != nil {
@@ -171,6 +210,29 @@ func (s *InstanceStore) scanInstanceFromRows(rows *sql.Rows) (*instance.BrowserI
 		json.Unmarshal([]byte(fpJSON.String), &fp)
 		inst.Fingerprint = &fp
 	}
+
+	if name.Valid {
+		inst.Name = name.String
+	}
+	if proxyID.Valid {
+		inst.ProxyID = proxyID.String
+	}
+	if proxyURL.Valid {
+		inst.ProxyURL = proxyURL.String
+	}
+	if accountID.Valid {
+		inst.AccountID = accountID.String
+	}
+	if cdpEndpoint.Valid {
+		inst.CDPEndpoint = cdpEndpoint.String
+	}
+	if userDataDir.Valid {
+		inst.UserDataDir = userDataDir.String
+	}
+	if group.Valid {
+		inst.Group = group.String
+	}
+	inst.Headless = headless == 1
 
 	return &inst, nil
 }

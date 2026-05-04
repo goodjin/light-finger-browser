@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { ConnectRemote, DisconnectRemote } from '../wailsjs/go/main';
+import { useEffect, useState } from 'react';
+import { ConnectRemote, DisconnectRemote, GetFingerprintCoverageReport } from '../wailsjs/go/main/App';
+import { commands } from '../wailsjs/go/models';
 
 interface RemoteConfig {
   host: string;
@@ -11,6 +12,7 @@ interface RemoteConfig {
 export function SettingsPage() {
   const [chromePath, setChromePath] = useState('');
   const [remoteConfigs, setRemoteConfigs] = useState<RemoteConfig[]>([]);
+  const [coverageReport, setCoverageReport] = useState<commands.FingerprintCoverageReport | null>(null);
   const [newRemote, setNewRemote] = useState<RemoteConfig>({
     host: '',
     port: 9222,
@@ -19,6 +21,19 @@ export function SettingsPage() {
   });
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+
+  useEffect(() => {
+    loadCoverage();
+  }, []);
+
+  async function loadCoverage() {
+    try {
+      const report = await GetFingerprintCoverageReport();
+      setCoverageReport(report || null);
+    } catch (err) {
+      setError(String(err));
+    }
+  }
 
   async function detectChrome() {
     setSuccess('Chrome detection would run here');
@@ -59,7 +74,7 @@ export function SettingsPage() {
       <section className="settings-section">
         <h3>Local Chrome</h3>
         <p className="section-desc">
-          Configure the local Chrome browser for fingerprint injection.
+          Local Chrome is now a development fallback only. Production instances default to CloakBrowser.
         </p>
         <div className="form-group">
           <label>Chrome Path</label>
@@ -78,7 +93,7 @@ export function SettingsPage() {
       <section className="settings-section">
         <h3>Remote CloakBrowser</h3>
         <p className="section-desc">
-          Connect to remote CloakBrowser instances for distributed browsing.
+          Connect to a remote CloakBrowser host so browser processes run on another machine and are controlled via CDP.
         </p>
 
         <div className="remote-list">
@@ -136,6 +151,32 @@ export function SettingsPage() {
             Add Connection
           </button>
         </div>
+      </section>
+
+      <section className="settings-section">
+        <h3>Fingerprint Runtime Coverage</h3>
+        <p className="section-desc">
+          Shows which generated fingerprint fields are actually injected into the running browser.
+        </p>
+        {coverageReport ? (
+          <>
+            <div className="coverage-summary">
+              <strong>Active Engine:</strong> {coverageReport.active_engine}
+            </div>
+            <div className="coverage-list">
+              {coverageReport.fields.map(field => (
+                <div key={field.field} className="coverage-row">
+                  <div className="coverage-field">{field.field}</div>
+                  <div className="coverage-value">Local Chrome: {field.local_chrome}</div>
+                  <div className="coverage-value">CloakBrowser: {field.cloakbrowser}</div>
+                  <div className="helper-text">{field.notes}</div>
+                </div>
+              ))}
+            </div>
+          </>
+        ) : (
+          <div className="text-muted">Coverage report unavailable.</div>
+        )}
       </section>
 
       <section className="settings-section">
