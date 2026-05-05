@@ -1,0 +1,12 @@
+{
+  "train": 1,
+  "domain": "identity",
+  "patches": [
+    "identity/platform-consistency",
+    "identity/locale-consistency",
+    "identity/timezone-consistency",
+    "identity/screen-consistency",
+    "identity/hardware-consistency",
+    "identity/renderer-switch-forwarding"
+  ]
+}

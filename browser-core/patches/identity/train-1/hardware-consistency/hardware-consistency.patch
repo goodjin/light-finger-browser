@@ -1,0 +1,98 @@
+diff --git a/third_party/blink/renderer/core/frame/navigator_concurrent_hardware.cc b/third_party/blink/renderer/core/frame/navigator_concurrent_hardware.cc
+index fd1c20fd1c3ad..d9ae4a01f93c9 100644
+--- a/third_party/blink/renderer/core/frame/navigator_concurrent_hardware.cc
++++ b/third_party/blink/renderer/core/frame/navigator_concurrent_hardware.cc
+@@ -5,12 +5,36 @@
+ 
+ #include "third_party/blink/renderer/core/frame/navigator_concurrent_hardware.h"
+ 
++#include "base/command_line.h"
++#include "base/strings/string_number_conversions.h"
+ #include "base/system/sys_info.h"
+ 
+ namespace blink {
+ 
++namespace {
++bool GetHardwareConcurrencyOverride(unsigned* out) {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line)
++    return false;
++  const std::string value =
++      command_line->GetSwitchValueASCII("hardware-concurrency");
++  if (value.empty())
++    return false;
++  int parsed = 0;
++  if (!base::StringToInt(value, &parsed) || parsed <= 0)
++    return false;
++  *out = static_cast<unsigned>(parsed);
++  return true;
++}
++
++}  // namespace
++
+ unsigned NavigatorConcurrentHardware::hardwareConcurrency() const {
++  unsigned override_value = 0;
++  if (GetHardwareConcurrencyOverride(&override_value))
++    return override_value;
+   return static_cast<unsigned>(base::SysInfo::NumberOfProcessors());
+ }
+ 
+ }  // namespace blink
+diff --git a/third_party/blink/renderer/core/frame/navigator_device_memory.cc b/third_party/blink/renderer/core/frame/navigator_device_memory.cc
+index 7d2f4d41b2730..c600e41747ec6 100644
+--- a/third_party/blink/renderer/core/frame/navigator_device_memory.cc
++++ b/third_party/blink/renderer/core/frame/navigator_device_memory.cc
+@@ -3,16 +3,52 @@
+ // found in the LICENSE file.
+ 
+ #include "third_party/blink/renderer/core/frame/navigator_device_memory.h"
+ 
++#include <cmath>
++
++#include "base/command_line.h"
++#include "base/strings/string_number_conversions.h"
+ #include "third_party/blink/public/common/device_memory/approximated_device_memory.h"
+ #include "third_party/blink/public/mojom/use_counter/metrics/web_feature.mojom-shared.h"
+ #include "third_party/blink/renderer/core/dom/document.h"
+ #include "third_party/blink/renderer/core/frame/local_dom_window.h"
+ 
+ namespace blink {
+ 
++namespace {
++bool IsAllowedDeviceMemoryValue(double value) {
++  constexpr double kAllowedValues[] = {0.25, 0.5, 1, 2, 4, 8, 16, 32};
++  for (double allowed : kAllowedValues) {
++    if (std::abs(value - allowed) < 0.001)
++      return true;
++  }
++  return false;
++}
++
++bool GetDeviceMemoryOverride(float* out) {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line)
++    return false;
++  const std::string value = command_line->GetSwitchValueASCII("device-memory");
++  if (value.empty())
++    return false;
++  double parsed = 0.0;
++  if (!base::StringToDouble(value, &parsed) || parsed <= 0.0)
++    return false;
++  if (!IsAllowedDeviceMemoryValue(parsed))
++    return false;
++  *out = static_cast<float>(parsed);
++  return true;
++}
++
++}  // namespace
++
+ float NavigatorDeviceMemory::deviceMemory() const {
++  float override_value = 0.0f;
++  if (GetDeviceMemoryOverride(&override_value))
++    return override_value;
+   return ApproximatedDeviceMemory::GetApproximatedDeviceMemory();
+ }
+ 
+ }  // namespace blink

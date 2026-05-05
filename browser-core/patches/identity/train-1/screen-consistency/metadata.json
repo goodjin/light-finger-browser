@@ -1,0 +1,12 @@
+{
+  "id": "identity/screen-consistency",
+  "domain": "identity",
+  "description": "Override screen metrics and devicePixelRatio via command-line switches",
+  "owner": "browser-core",
+  "status": "active",
+  "default_enabled": true,
+  "toggle_key": "patch.identity.screen-consistency",
+  "files": [
+    "screen-consistency.patch"
+  ]
+}

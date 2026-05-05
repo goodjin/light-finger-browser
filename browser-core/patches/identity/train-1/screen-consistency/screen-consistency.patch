@@ -1,0 +1,170 @@
+diff --git a/third_party/blink/renderer/core/frame/screen.cc b/third_party/blink/renderer/core/frame/screen.cc
+index 7bfc4a99d46e7..4a32e83b8d6d1 100644
+--- a/third_party/blink/renderer/core/frame/screen.cc
++++ b/third_party/blink/renderer/core/frame/screen.cc
+@@ -29,7 +29,9 @@
+ 
+ #include "third_party/blink/renderer/core/frame/screen.h"
+ 
++#include "base/command_line.h"
+ #include "base/numerics/safe_conversions.h"
++#include "base/strings/string_number_conversions.h"
+ #include "services/network/public/mojom/permissions_policy/permissions_policy_feature.mojom-blink.h"
+ #include "third_party/blink/renderer/core/event_target_names.h"
+ #include "third_party/blink/renderer/core/frame/local_dom_window.h"
+@@ -42,6 +44,46 @@
+ 
+ namespace blink {
+ 
++namespace {
++bool ParseIntSwitch(const char* switch_name, int* out) {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line)
++    return false;
++  const std::string value = command_line->GetSwitchValueASCII(switch_name);
++  if (value.empty())
++    return false;
++  return base::StringToInt(value, out);
++}
++
++bool ParsePositiveIntSwitch(const char* switch_name, int* out) {
++  int value = 0;
++  if (!ParseIntSwitch(switch_name, &value) || value <= 0)
++    return false;
++  *out = value;
++  return true;
++}
++
++bool ParseNonNegativeIntSwitch(const char* switch_name, int* out) {
++  int value = 0;
++  if (!ParseIntSwitch(switch_name, &value) || value < 0)
++    return false;
++  *out = value;
++  return true;
++}
++
++bool GetColorDepthOverride(unsigned* out) {
++  int value = 0;
++  if (!ParseIntSwitch("screen-color-depth", &value))
++    return false;
++  if (value != 24 && value != 30 && value != 32)
++    return false;
++  *out = static_cast<unsigned>(value);
++  return true;
++}
++
++}  // namespace
++
+ Screen::Screen(LocalDOMWindow* window, int64_t display_id)
+     : ExecutionContextClient(window), display_id_(display_id) {}
+ 
+@@ -75,12 +112,18 @@ bool Screen::AreWebExposedScreenPropertiesEqual(
+ int Screen::height() const {
+   if (!DomWindow())
+     return 0;
++  int override_value = 0;
++  if (ParsePositiveIntSwitch("screen-height", &override_value))
++    return override_value;
+   return GetRect(/*available=*/false).height();
+ }
+ 
+ int Screen::width() const {
+   if (!DomWindow())
+     return 0;
++  int override_value = 0;
++  if (ParsePositiveIntSwitch("screen-width", &override_value))
++    return override_value;
+   return GetRect(/*available=*/false).width();
+ }
+ 
+@@ -95,6 +140,9 @@ unsigned Screen::colorDepth() const {
+   if (!DomWindow()) {
+     return unknown_color_depth;
+   }
++  unsigned override_value = 0;
++  if (GetColorDepthOverride(&override_value))
++    return override_value;
+   return GetScreenInfo().depth == 0
+              ? unknown_color_depth
+              : base::saturated_cast<unsigned>(GetScreenInfo().depth);
+@@ -108,22 +156,34 @@ int Screen::availLeft() const {
+   if (!DomWindow())
+     return 0;
++  int override_value = 0;
++  if (ParseNonNegativeIntSwitch("screen-avail-left", &override_value))
++    return override_value;
+   return GetRect(/*available=*/true).x();
+ }
+ 
+ int Screen::availTop() const {
+   if (!DomWindow())
+     return 0;
++  int override_value = 0;
++  if (ParseNonNegativeIntSwitch("screen-avail-top", &override_value))
++    return override_value;
+   return GetRect(/*available=*/true).y();
+ }
+ 
+ int Screen::availHeight() const {
+   if (!DomWindow())
+     return 0;
++  int override_value = 0;
++  if (ParsePositiveIntSwitch("screen-avail-height", &override_value))
++    return override_value;
+   return GetRect(/*available=*/true).height();
+ }
+ 
+ int Screen::availWidth() const {
+   if (!DomWindow())
+     return 0;
++  int override_value = 0;
++  if (ParsePositiveIntSwitch("screen-avail-width", &override_value))
++    return override_value;
+   return GetRect(/*available=*/true).width();
+ }
+diff --git a/third_party/blink/renderer/core/frame/local_dom_window.cc b/third_party/blink/renderer/core/frame/local_dom_window.cc
+index 7fb4d909f1f2a..b3538adab2cf3 100644
+--- a/third_party/blink/renderer/core/frame/local_dom_window.cc
++++ b/third_party/blink/renderer/core/frame/local_dom_window.cc
+@@ -31,7 +31,8 @@
+ #include <optional>
+ #include <utility>
+ 
+ #include "base/command_line.h"
++#include "base/strings/string_number_conversions.h"
+ #include "base/metrics/histogram_macros.h"
+ #include "base/task/single_thread_task_runner.h"
+ #include "base/trace_event/trace_id_helper.h"
+@@ -178,5 +179,21 @@ namespace blink {
+ 
+ namespace {
++bool GetDevicePixelRatioOverride(double* out) {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line)
++    return false;
++  const std::string value =
++      command_line->GetSwitchValueASCII("device-pixel-ratio");
++  if (value.empty())
++    return false;
++  double parsed = 0.0;
++  if (!base::StringToDouble(value, &parsed) || parsed <= 0.0)
++    return false;
++  *out = parsed;
++  return true;
++}
++
+ bool IsRunningMicrotasks(ScriptState* script_state) {
+   if (auto* microtask_queue = ToMicrotaskQueue(script_state))
+     return microtask_queue->IsRunningMicrotasks();
+@@ -1802,5 +1815,9 @@ double LocalDOMWindow::devicePixelRatio() const {
+   if (!GetFrame())
+     return 0.0;
+ 
++  double override_value = 0.0;
++  if (GetDevicePixelRatioOverride(&override_value))
++    return override_value;
++
+   return GetFrame()->DevicePixelRatio();
+ }

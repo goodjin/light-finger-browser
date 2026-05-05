@@ -1,0 +1,9 @@
+{
+  "train": 1,
+  "domain": "rendering",
+  "patches": [
+    "rendering/canvas-consistency",
+    "rendering/webgl-consistency",
+    "rendering/audio-fonts-consistency"
+  ]
+}

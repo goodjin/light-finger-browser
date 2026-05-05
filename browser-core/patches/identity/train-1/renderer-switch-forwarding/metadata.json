@@ -1,0 +1,12 @@
+{
+  "id": "identity/renderer-switch-forwarding",
+  "domain": "identity",
+  "description": "Forward identity override switches to renderer processes",
+  "owner": "browser-core",
+  "status": "active",
+  "default_enabled": true,
+  "toggle_key": "patch.identity.renderer-switch-forwarding",
+  "files": [
+    "renderer-switch-forwarding.patch"
+  ]
+}

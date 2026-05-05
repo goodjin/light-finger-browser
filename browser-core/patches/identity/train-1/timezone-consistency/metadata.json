@@ -1,0 +1,12 @@
+{
+  "id": "identity/timezone-consistency",
+  "domain": "identity",
+  "description": "Override Intl timezone via command-line switch",
+  "owner": "browser-core",
+  "status": "active",
+  "default_enabled": true,
+  "toggle_key": "patch.identity.timezone-consistency",
+  "files": [
+    "timezone-consistency.patch"
+  ]
+}

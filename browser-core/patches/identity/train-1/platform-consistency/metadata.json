@@ -1,0 +1,12 @@
+{
+  "id": "identity/platform-consistency",
+  "domain": "identity",
+  "description": "Override navigator.platform via command-line switch",
+  "owner": "browser-core",
+  "status": "active",
+  "default_enabled": true,
+  "toggle_key": "patch.identity.platform-consistency",
+  "files": [
+    "platform-consistency.patch"
+  ]
+}

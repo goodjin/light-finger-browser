@@ -1,0 +1,12 @@
+{
+  "id": "rendering/webgl-consistency",
+  "domain": "rendering",
+  "description": "Stabilize WebGL vendor/renderer, extensions, precision, and limits via command-line overrides",
+  "owner": "browser-core",
+  "status": "active",
+  "default_enabled": true,
+  "toggle_key": "patch.rendering.webgl-consistency",
+  "files": [
+    "webgl-consistency.patch"
+  ]
+}

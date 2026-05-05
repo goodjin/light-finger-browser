@@ -1,0 +1,384 @@
+diff --git a/chrome/browser/chrome_content_browser_client.cc b/chrome/browser/chrome_content_browser_client.cc
+index 91ec3849b5aee..c87b1230a9b4 100644
+--- a/chrome/browser/chrome_content_browser_client.cc
++++ b/chrome/browser/chrome_content_browser_client.cc
+@@ -2843,5 +2843,20 @@ void ChromeContentBrowserClient::AppendExtraCommandLineSwitches(
+   static const char* const kStealthIdentitySwitches[] = {
+       "platform",
+       "locale",
+       "timezone",
+   };
++
++  static const char* const kStealthRenderingSwitches[] = {
++      "webgl-vendor",
++      "webgl-renderer",
++      "webgl-extensions",
++      "webgl-parameters",
++      "webgl-precision",
++      "webgl-context-attributes",
++      "audio-fingerprint-offset",
++      "audio-fingerprint-scale",
++      "audio-fingerprint-seed",
++      "font-allowlist",
++      "fingerprint",
++      "fingerprint-noise",
++  };
+@@ -2851,7 +2859,9 @@ void ChromeContentBrowserClient::AppendExtraCommandLineSwitches(
+ 
+   if (process_type == switches::kRendererProcess) {
+     command_line->CopySwitchesFrom(browser_command_line,
+                                    kStealthIdentitySwitches);
++    command_line->CopySwitchesFrom(browser_command_line,
++                                   kStealthRenderingSwitches);
+     content::RenderProcessHost* process =
+         content::RenderProcessHost::FromID(child_process_id);
+     if (process) {
+diff --git a/third_party/blink/renderer/modules/webgl/webgl_rendering_context_base.cc b/third_party/blink/renderer/modules/webgl/webgl_rendering_context_base.cc
+index 5f5449fd151f1..a48ab62c78b3e 100644
+--- a/third_party/blink/renderer/modules/webgl/webgl_rendering_context_base.cc
++++ b/third_party/blink/renderer/modules/webgl/webgl_rendering_context_base.cc
+@@ -27,13 +27,18 @@
+ 
+ #include "base/bit_cast.h"
+ #include "base/byte_size.h"
++#include "base/command_line.h"
+ #include "base/compiler_specific.h"
+ #include "base/feature_list.h"
+ #include "base/memory/scoped_refptr.h"
+ #include "base/metrics/histogram_functions.h"
+ #include "base/metrics/histogram_macros.h"
++#include "base/no_destructor.h"
+ #include "base/notimplemented.h"
+ #include "base/numerics/checked_math.h"
++#include "base/strings/string_number_conversions.h"
++#include "base/strings/string_split.h"
++#include "base/strings/string_util.h"
+ #include "base/synchronization/lock.h"
+ #include "base/task/single_thread_task_runner.h"
+ #include "base/trace_event/trace_event.h"
+@@ -94,6 +99,7 @@
+ #include "third_party/blink/renderer/core/layout/layout_box.h"
+ #include "third_party/blink/renderer/core/offscreencanvas/offscreen_canvas.h"
+ #include "third_party/blink/renderer/core/paint/cull_rect_updater.h"
++#include "third_party/blink/renderer/platform/wtf/hash_map.h"
+ #include "third_party/blink/renderer/core/paint/paint_layer_painter.h"
+ #include "third_party/blink/renderer/core/probe/core_probes.h"
+ #include "third_party/blink/renderer/core/svg/svg_graphics_element.h"
+@@ -206,6 +212,224 @@ unsigned WebGLRenderingContextBase::max_active_webgl_contexts_ = 0;
+ unsigned WebGLRenderingContextBase::max_active_webgl_contexts_on_worker_ = 0;
+ 
+ namespace {
++
++struct WebGLContextAttributeOverrides {
++  std::optional<bool> alpha;
++  std::optional<bool> depth;
++  std::optional<bool> stencil;
++  std::optional<bool> antialias;
++  std::optional<bool> premultiplied_alpha;
++  std::optional<bool> preserve_drawing_buffer;
++  std::optional<bool> fail_if_major_performance_caveat;
++  std::optional<bool> desynchronized;
++  std::optional<bool> xr_compatible;
++};
++
++struct WebGLOverrideConfig {
++  String vendor;
++  String renderer;
++  Vector<String> extensions;
++  HashMap<GLenum, GLint> parameter_overrides;
++  bool has_precision_override = false;
++  GLint precision_range_min = 0;
++  GLint precision_range_max = 0;
++  GLint precision = 0;
++  WebGLContextAttributeOverrides context_attributes;
++};
++
++std::optional<bool> ParseBoolOverride(const std::string& value) {
++  if (value == "1" || base::EqualsCaseInsensitiveASCII(value, "true")) {
++    return true;
++  }
++  if (value == "0" || base::EqualsCaseInsensitiveASCII(value, "false")) {
++    return false;
++  }
++  return std::nullopt;
++}
++
++bool ParseWebGLParameterName(const std::string& token, GLenum* pname) {
++  std::string normalized = base::ToUpperASCII(token);
++  base::ReplaceChars(normalized, "-", "_", &normalized);
++  if (normalized == "MAX_TEXTURE_SIZE") {
++    *pname = GL_MAX_TEXTURE_SIZE;
++    return true;
++  }
++  if (normalized == "MAX_RENDERBUFFER_SIZE") {
++    *pname = GL_MAX_RENDERBUFFER_SIZE;
++    return true;
++  }
++  if (normalized == "MAX_VERTEX_ATTRIBS") {
++    *pname = GL_MAX_VERTEX_ATTRIBS;
++    return true;
++  }
++  if (normalized == "MAX_VERTEX_UNIFORM_VECTORS") {
++    *pname = GL_MAX_VERTEX_UNIFORM_VECTORS;
++    return true;
++  }
++  if (normalized == "MAX_FRAGMENT_UNIFORM_VECTORS") {
++    *pname = GL_MAX_FRAGMENT_UNIFORM_VECTORS;
++    return true;
++  }
++  if (normalized == "MAX_VARYING_VECTORS") {
++    *pname = GL_MAX_VARYING_VECTORS;
++    return true;
++  }
++  if (normalized == "MAX_COMBINED_TEXTURE_IMAGE_UNITS") {
++    *pname = GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS;
++    return true;
++  }
++
++  int parsed_value = 0;
++  if (base::HexStringToInt(token, &parsed_value) ||
++      base::StringToInt(token, &parsed_value)) {
++    *pname = static_cast<GLenum>(parsed_value);
++    return true;
++  }
++
++  return false;
++}
++
++void PopulateWebGLOverrides(WebGLOverrideConfig* config) {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return;
++  }
++
++  const std::string vendor_override =
++      command_line->GetSwitchValueASCII("webgl-vendor");
++  if (!vendor_override.empty()) {
++    config->vendor = String::FromUtf8(vendor_override);
++  }
++
++  const std::string renderer_override =
++      command_line->GetSwitchValueASCII("webgl-renderer");
++  if (!renderer_override.empty()) {
++    config->renderer = String::FromUtf8(renderer_override);
++  }
++
++  const std::string extensions_override =
++      command_line->GetSwitchValueASCII("webgl-extensions");
++  if (!extensions_override.empty()) {
++    std::vector<std::string> extensions = base::SplitString(
++        extensions_override, ",", base::TRIM_WHITESPACE,
++        base::SPLIT_WANT_NONEMPTY);
++    for (const auto& extension : extensions) {
++      config->extensions.push_back(String::FromUtf8(extension));
++    }
++  }
++
++  const std::string parameter_override =
++      command_line->GetSwitchValueASCII("webgl-parameters");
++  if (!parameter_override.empty()) {
++    std::vector<std::string> entries = base::SplitString(
++        parameter_override, ",;", base::TRIM_WHITESPACE,
++        base::SPLIT_WANT_NONEMPTY);
++    for (const auto& entry : entries) {
++      std::vector<std::string> parts = base::SplitString(
++          entry, "=", base::TRIM_WHITESPACE, base::SPLIT_WANT_NONEMPTY);
++      if (parts.size() != 2) {
++        continue;
++      }
++      GLenum pname = 0;
++      if (!ParseWebGLParameterName(parts[0], &pname)) {
++        continue;
++      }
++      int value = 0;
++      if (!base::StringToInt(parts[1], &value)) {
++        continue;
++      }
++      config->parameter_overrides.Set(pname, value);
++    }
++  }
++
++  const std::string precision_override =
++      command_line->GetSwitchValueASCII("webgl-precision");
++  if (!precision_override.empty()) {
++    std::vector<std::string> parts = base::SplitString(
++        precision_override, ",:", base::TRIM_WHITESPACE,
++        base::SPLIT_WANT_NONEMPTY);
++    if (parts.size() == 3) {
++      int range_min = 0;
++      int range_max = 0;
++      int precision = 0;
++      if (base::StringToInt(parts[0], &range_min) &&
++          base::StringToInt(parts[1], &range_max) &&
++          base::StringToInt(parts[2], &precision)) {
++        config->has_precision_override = true;
++        config->precision_range_min = range_min;
++        config->precision_range_max = range_max;
++        config->precision = precision;
++      }
++    }
++  }
++
++  const std::string context_attributes_override =
++      command_line->GetSwitchValueASCII("webgl-context-attributes");
++  if (!context_attributes_override.empty()) {
++    std::vector<std::string> entries = base::SplitString(
++        context_attributes_override, ",", base::TRIM_WHITESPACE,
++        base::SPLIT_WANT_NONEMPTY);
++    for (const auto& entry : entries) {
++      std::vector<std::string> parts = base::SplitString(
++          entry, "=", base::TRIM_WHITESPACE, base::SPLIT_WANT_NONEMPTY);
++      if (parts.size() != 2) {
++        continue;
++      }
++      std::string key = base::ToLowerASCII(parts[0]);
++      std::optional<bool> value = ParseBoolOverride(parts[1]);
++      if (!value.has_value()) {
++        continue;
++      }
++      if (key == "alpha") {
++        config->context_attributes.alpha = value;
++      } else if (key == "depth") {
++        config->context_attributes.depth = value;
++      } else if (key == "stencil") {
++        config->context_attributes.stencil = value;
++      } else if (key == "antialias") {
++        config->context_attributes.antialias = value;
++      } else if (key == "premultipliedalpha") {
++        config->context_attributes.premultiplied_alpha = value;
++      } else if (key == "preservedrawingbuffer") {
++        config->context_attributes.preserve_drawing_buffer = value;
++      } else if (key == "failifmajorperformancecaveat") {
++        config->context_attributes.fail_if_major_performance_caveat = value;
++      } else if (key == "desynchronized") {
++        config->context_attributes.desynchronized = value;
++      } else if (key == "xrcompatible") {
++        config->context_attributes.xr_compatible = value;
++      }
++    }
++  }
++}
++
++const WebGLOverrideConfig& WebGLOverridesFromCommandLine() {
++  static base::NoDestructor<WebGLOverrideConfig> config;
++  static bool initialized = false;
++  if (!initialized) {
++    initialized = true;
++    PopulateWebGLOverrides(config.get());
++  }
++  return *config;
++}
++
++constexpr GLenum kUnmaskedVendorWebGL = 0x9245;
++constexpr GLenum kUnmaskedRendererWebGL = 0x9246;
++
++bool WebGLExtensionAllowedByOverride(const WebGLOverrideConfig& config,
++                                     const String& name) {
++  if (config.extensions.empty()) {
++    return true;
++  }
++  for (const auto& extension : config.extensions) {
++    if (DeprecatedEqualIgnoringCase(extension, name)) {
++      return true;
++    }
++  }
++  return false;
++}
++
+ enum class WebGLANGLEImplementation {
+   // These values are persisted to logs. Entries should not be renumbered and
+   // numeric values should never be reused.
+@@ -3683,6 +3833,30 @@ WebGLContextAttributes* WebGLRenderingContextBase::getContextAttributes()
+   WebGLContextAttributes* result =
+       ToWebGLContextAttributes(CreationAttributes());
+ 
++  const WebGLOverrideConfig& overrides = WebGLOverridesFromCommandLine();
++  const WebGLContextAttributeOverrides& attribute_overrides =
++      overrides.context_attributes;
++  if (attribute_overrides.alpha.has_value())
++    result->setAlpha(*attribute_overrides.alpha);
++  if (attribute_overrides.depth.has_value())
++    result->setDepth(*attribute_overrides.depth);
++  if (attribute_overrides.stencil.has_value())
++    result->setStencil(*attribute_overrides.stencil);
++  if (attribute_overrides.antialias.has_value())
++    result->setAntialias(*attribute_overrides.antialias);
++  if (attribute_overrides.premultiplied_alpha.has_value())
++    result->setPremultipliedAlpha(*attribute_overrides.premultiplied_alpha);
++  if (attribute_overrides.preserve_drawing_buffer.has_value())
++    result->setPreserveDrawingBuffer(
++        *attribute_overrides.preserve_drawing_buffer);
++  if (attribute_overrides.fail_if_major_performance_caveat.has_value())
++    result->setFailIfMajorPerformanceCaveat(
++        *attribute_overrides.fail_if_major_performance_caveat);
++  if (attribute_overrides.desynchronized.has_value())
++    result->setDesynchronized(*attribute_overrides.desynchronized);
++  if (attribute_overrides.xr_compatible.has_value())
++    result->setXrCompatible(*attribute_overrides.xr_compatible);
++
+   // Some requested attributes may not be honored, so we need to query the
+   // underlying context/drawing buffer and adjust accordingly.
+   if (CreationAttributes().depth && !GetDrawingBuffer()->HasDepthBuffer())
+@@ -3776,6 +3940,12 @@ ScriptObject WebGLRenderingContextBase::getExtension(ScriptState* script_state,
+                                                      const String& name) {
+   ExecutionContext* context = ExecutionContext::From(script_state);
+ 
++  const WebGLOverrideConfig& overrides = WebGLOverridesFromCommandLine();
++  if (!WebGLExtensionAllowedByOverride(overrides, name)) {
++    return ScriptObject(script_state->GetIsolate(),
++                        v8::Null(script_state->GetIsolate()));
++  }
++
+   if (name == WebGLDebugRendererInfo::ExtensionName()) {
+     UseCounter::Count(context, WebFeature::kWebGLDebugRendererInfo);
+   }
+@@ -3891,6 +4068,21 @@ ScriptValue WebGLRenderingContextBase::getParameter(ScriptState* script_state,
+                                                     GLenum pname) {
+   if (isContextLost())
+     return ScriptValue::CreateNull(script_state->GetIsolate());
++
++  const WebGLOverrideConfig& overrides = WebGLOverridesFromCommandLine();
++  if (!overrides.vendor.IsNull() &&
++      (pname == GL_VENDOR || pname == kUnmaskedVendorWebGL)) {
++    return WebGLAny(script_state, overrides.vendor);
++  }
++  if (!overrides.renderer.IsNull() &&
++      (pname == GL_RENDERER || pname == kUnmaskedRendererWebGL)) {
++    return WebGLAny(script_state, overrides.renderer);
++  }
++  auto parameter_override = overrides.parameter_overrides.find(pname);
++  if (parameter_override != overrides.parameter_overrides.end()) {
++    return WebGLAny(script_state, parameter_override->value);
++  }
++
+   const int kIntZero = 0;
+   switch (pname) {
+     case GL_ACTIVE_TEXTURE:
+@@ -4388,8 +4580,15 @@ WebGLShaderPrecisionFormat* WebGLRenderingContextBase::getShaderPrecisionFormat(
+     default:
+       SynthesizeGLError(GL_INVALID_ENUM, "getShaderPrecisionFormat",
+                         "invalid precision type");
+       return nullptr;
+   }
++
++  const WebGLOverrideConfig& overrides = WebGLOverridesFromCommandLine();
++  if (overrides.has_precision_override) {
++    return MakeGarbageCollected<WebGLShaderPrecisionFormat>(
++        overrides.precision_range_min, overrides.precision_range_max,
++        overrides.precision);
++  }
+ 
+   GLint range[2] = {0, 0};
+   GLint precision = 0;
+@@ -4413,5 +4611,10 @@ std::optional<Vector<String>>
+ WebGLRenderingContextBase::getSupportedExtensions() {
+   if (isContextLost())
+     return std::nullopt;
++
++  const WebGLOverrideConfig& overrides = WebGLOverridesFromCommandLine();
++  if (!overrides.extensions.empty()) {
++    return overrides.extensions;
++  }
+ 
+   Vector<String> result;

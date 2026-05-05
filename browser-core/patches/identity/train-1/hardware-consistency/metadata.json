@@ -1,0 +1,12 @@
+{
+  "id": "identity/hardware-consistency",
+  "domain": "identity",
+  "description": "Override hardware concurrency and device memory via command-line switches",
+  "owner": "browser-core",
+  "status": "active",
+  "default_enabled": true,
+  "toggle_key": "patch.identity.hardware-consistency",
+  "files": [
+    "hardware-consistency.patch"
+  ]
+}

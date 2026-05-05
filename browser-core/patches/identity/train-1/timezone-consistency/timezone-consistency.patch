@@ -1,0 +1,54 @@
+diff --git a/third_party/blink/renderer/core/timezone/timezone_controller.cc b/third_party/blink/renderer/core/timezone/timezone_controller.cc
+index 48eb8d2fbdcf5..02e5a60ee09e7 100644
+--- a/third_party/blink/renderer/core/timezone/timezone_controller.cc
++++ b/third_party/blink/renderer/core/timezone/timezone_controller.cc
+@@ -4,6 +4,8 @@
+ 
+ #include "third_party/blink/renderer/core/timezone/timezone_controller.h"
+ 
++#include "base/command_line.h"
+ #include "base/feature_list.h"
++#include "base/no_destructor.h"
+ #include "mojo/public/cpp/bindings/pending_remote.h"
+ #include "mojo/public/cpp/bindings/remote.h"
+@@ -89,6 +91,32 @@ void NotifyTimezoneChangeOnMainThread() {
+   DispatchTimeZoneChangeEventToFrames();
+ }
+ 
++std::unique_ptr<TimeZoneController::TimeZoneOverride>&
++CommandLineTimezoneOverride() {
++  static base::NoDestructor<std::unique_ptr<TimeZoneController::TimeZoneOverride>>
++      handle;
++  return *handle;
++}
++
++void ApplyCommandLineTimezoneOverride() {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return;
++  }
++  const std::string timezone_value =
++      command_line->GetSwitchValueASCII("timezone");
++  if (timezone_value.empty()) {
++    return;
++  }
++  auto result =
++      TimeZoneController::SetTimeZoneOverride(String::FromUtf8(timezone_value));
++  if (result.status == TimeZoneController::TimeZoneOverrideStatus::kSuccess &&
++      result.handle) {
++    CommandLineTimezoneOverride() = std::move(result.handle);
++  }
++}
++
+ }  // namespace
+ 
+ TimeZoneController::TimeZoneController() {
+@@ -109,6 +137,7 @@ void TimeZoneController::Init() {
+   Platform::Current()->GetBrowserInterfaceBroker()->GetInterface(
+       monitor.BindNewPipeAndPassReceiver());
+   monitor->AddClient(instance().receiver_.BindNewPipeAndPassRemote());
++  ApplyCommandLineTimezoneOverride();
+ }
+ 
+ // static

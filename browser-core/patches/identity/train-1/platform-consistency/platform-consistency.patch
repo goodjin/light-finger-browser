@@ -1,0 +1,48 @@
+diff --git a/third_party/blink/renderer/core/frame/navigator.cc b/third_party/blink/renderer/core/frame/navigator.cc
+index 583f05f8dd5fb..658e6c4e542ae 100644
+--- a/third_party/blink/renderer/core/frame/navigator.cc
++++ b/third_party/blink/renderer/core/frame/navigator.cc
+@@ -23,6 +23,7 @@
+ 
+ #include "third_party/blink/renderer/core/frame/navigator.h"
+ 
++#include "base/command_line.h"
+ #include "third_party/blink/renderer/bindings/core/v8/script_controller.h"
+ #include "third_party/blink/renderer/core/dom/document.h"
+ #include "third_party/blink/renderer/core/execution_context/navigator_base.h"
+@@ -37,6 +38,24 @@
+ 
+ namespace blink {
+ 
++namespace {
++
++String PlatformOverrideFromCommandLine() {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return String();
++  }
++  const std::string override_value =
++      command_line->GetSwitchValueASCII("platform");
++  if (override_value.empty()) {
++    return String();
++  }
++  return String::FromUtf8(override_value);
++}
++
++}  // namespace
++
+ Navigator::Navigator(ExecutionContext* context) : NavigatorBase(context) {}
+ 
+ String Navigator::productSub() const {
+@@ -56,6 +75,10 @@ String Navigator::vendorSub() const {
+ }
+ 
+ String Navigator::platform() const {
++  if (String override_value = PlatformOverrideFromCommandLine();
++      !override_value.empty()) {
++    return override_value;
++  }
+   // TODO(955620): Consider changing devtools overrides to only allow overriding
+   // the platform with a frozen platform to distinguish between
+   // mobile and desktop when ReduceUserAgent is enabled.

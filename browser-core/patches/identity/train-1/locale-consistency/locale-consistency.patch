@@ -1,0 +1,43 @@
+diff --git a/third_party/blink/renderer/core/frame/navigator_language.cc b/third_party/blink/renderer/core/frame/navigator_language.cc
+index 75cd3461317b7..0691ab81b2ed1 100644
+--- a/third_party/blink/renderer/core/frame/navigator_language.cc
++++ b/third_party/blink/renderer/core/frame/navigator_language.cc
+@@ -14,6 +14,24 @@
+ 
+ namespace blink {
+ 
++namespace {
++
++String LocaleOverrideFromCommandLine() {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return String();
++  }
++  const std::string locale_value =
++      command_line->GetSwitchValueASCII("locale");
++  if (locale_value.empty()) {
++    return String();
++  }
++  return String::FromUtf8(locale_value);
++}
++
++}  // namespace
++
+ Vector<String> ParseAndSanitize(const String& accept_languages) {
+   Vector<String> languages = accept_languages.SplitSkippingEmpty(',');
+ 
+@@ -69,6 +87,13 @@ void NavigatorLanguage::SetLanguagesForTesting(const String& languages) {
+ }
+ 
+ void NavigatorLanguage::EnsureUpdatedLanguage() {
++  String locale_override = LocaleOverrideFromCommandLine();
++  if (!locale_override.IsNull()) {
++    languages_ = ParseAndSanitize(locale_override);
++    languages_dirty_ = true;
++    return;
++  }
++
+   String accept_languages_override;
+   probe::ApplyAcceptLanguageOverride(execution_context_,
+                                      &accept_languages_override);

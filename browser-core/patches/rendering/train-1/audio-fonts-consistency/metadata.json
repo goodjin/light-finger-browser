@@ -1,0 +1,12 @@
+{
+  "id": "rendering/audio-fonts-consistency",
+  "domain": "rendering",
+  "description": "Stabilize audio buffer/frequency reads and font availability via command-line overrides",
+  "owner": "browser-core",
+  "status": "active",
+  "default_enabled": true,
+  "toggle_key": "patch.rendering.audio-fonts-consistency",
+  "files": [
+    "audio-fonts-consistency.patch"
+  ]
+}

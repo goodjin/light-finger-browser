@@ -1,0 +1,36 @@
+diff --git a/chrome/browser/chrome_content_browser_client.cc b/chrome/browser/chrome_content_browser_client.cc
+index 91ec3849b5aee..8f90dac0d464c 100644
+--- a/chrome/browser/chrome_content_browser_client.cc
++++ b/chrome/browser/chrome_content_browser_client.cc
+@@ -2843,6 +2843,12 @@ void ChromeContentBrowserClient::AppendExtraCommandLineSwitches(
+   command_line->CopySwitchesFrom(browser_command_line,
+                                  kDinosaurEasterEggSwitches);
+ 
++  static const char* const kStealthIdentitySwitches[] = {
++      "platform",
++      "locale",
++      "timezone",
++      "screen-width",
++      "screen-height",
++      "screen-avail-width",
++      "screen-avail-height",
++      "screen-avail-left",
++      "screen-avail-top",
++      "screen-color-depth",
++      "device-pixel-ratio",
++      "hardware-concurrency",
++      "device-memory",
++  };
++
+ #if BUILDFLAG(IS_CHROMEOS)
+   // On Chrome OS need to pass primary user homedir (in multi-profiles session).
+   base::FilePath homedir;
+@@ -2851,6 +2857,8 @@ void ChromeContentBrowserClient::AppendExtraCommandLineSwitches(
+ #endif
+ 
+   if (process_type == switches::kRendererProcess) {
++    command_line->CopySwitchesFrom(browser_command_line,
++                                   kStealthIdentitySwitches);
+     content::RenderProcessHost* process =
+         content::RenderProcessHost::FromID(child_process_id);
+     if (process) {

@@ -1,0 +1,12 @@
+{
+  "id": "rendering/canvas-consistency",
+  "domain": "rendering",
+  "description": "Apply seed-based canvas readback noise for deterministic fingerprints",
+  "owner": "browser-core",
+  "status": "active",
+  "default_enabled": true,
+  "toggle_key": "patch.rendering.canvas-consistency",
+  "files": [
+    "canvas-consistency.patch"
+  ]
+}

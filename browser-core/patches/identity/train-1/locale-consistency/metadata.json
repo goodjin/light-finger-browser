@@ -1,0 +1,12 @@
+{
+  "id": "identity/locale-consistency",
+  "domain": "identity",
+  "description": "Override navigator.language/navigator.languages via command-line switch",
+  "owner": "browser-core",
+  "status": "active",
+  "default_enabled": true,
+  "toggle_key": "patch.identity.locale-consistency",
+  "files": [
+    "locale-consistency.patch"
+  ]
+}
