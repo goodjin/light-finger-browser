@@ -6,30 +6,30 @@ import (
 	"testing"
 )
 
-func TestResolveCloakBrowserBinaryPathPrefersExplicitEnv(t *testing.T) {
+func TestResolveBrowserBinaryPathPrefersExplicitEnv(t *testing.T) {
 	t.Parallel()
 
 	env := func(key string) string {
-		if key == "CLOAKBROWSER_PATH" {
-			return "/custom/cloakbrowser"
+		if key == "BROWSER_BINARY" {
+			return "/custom/selfbuilt"
 		}
 		return ""
 	}
 
-	path, source := resolveCloakBrowserBinaryPath("linux", "amd64", "/tmp/app", "", env)
-	if path != "/custom/cloakbrowser" {
+	path, source := resolveBrowserBinaryPath("linux", "amd64", "/tmp/app", "", env)
+	if path != "/custom/selfbuilt" {
 		t.Fatalf("expected explicit env path, got %q", path)
 	}
-	if source != "env:CLOAKBROWSER_PATH" {
+	if source != "env:BROWSER_BINARY" {
 		t.Fatalf("expected env source, got %q", source)
 	}
 }
 
-func TestResolveCloakBrowserBinaryPathUsesManifest(t *testing.T) {
+func TestResolveBrowserBinaryPathUsesManifest(t *testing.T) {
 	t.Parallel()
 
 	tempDir := t.TempDir()
-	artifactPath := filepath.Join(tempDir, "resources", "cloakbrowser", "darwin-arm64", "Chromium.app", "Contents", "MacOS", "Chromium")
+	artifactPath := filepath.Join(tempDir, "resources", "selfbuilt", "darwin-arm64", "Chromium.app", "Contents", "MacOS", "Chromium")
 	if err := os.MkdirAll(filepath.Dir(artifactPath), 0755); err != nil {
 		t.Fatalf("mkdir: %v", err)
 	}
@@ -37,13 +37,13 @@ func TestResolveCloakBrowserBinaryPathUsesManifest(t *testing.T) {
 		t.Fatalf("write artifact: %v", err)
 	}
 
-	manifestPath := filepath.Join(tempDir, "resources", "cloakbrowser", "artifacts.json")
+	manifestPath := filepath.Join(tempDir, "resources", "selfbuilt", "artifacts.json")
 	manifest := `{"version":1,"artifacts":[{"os":"darwin","arch":"arm64","path":"darwin-arm64/Chromium.app/Contents/MacOS/Chromium"}]}`
 	if err := os.WriteFile(manifestPath, []byte(manifest), 0644); err != nil {
 		t.Fatalf("write manifest: %v", err)
 	}
 
-	path, source := resolveCloakBrowserBinaryPath("darwin", "arm64", filepath.Join(tempDir, "Fingerbrower.app", "Contents", "MacOS", "fingerbrower"), tempDir, func(string) string {
+	path, source := resolveBrowserBinaryPath("darwin", "arm64", filepath.Join(tempDir, "Fingerbrower.app", "Contents", "MacOS", "fingerbrower"), tempDir, func(string) string {
 		return ""
 	})
 	if path != artifactPath {
@@ -54,11 +54,11 @@ func TestResolveCloakBrowserBinaryPathUsesManifest(t *testing.T) {
 	}
 }
 
-func TestResolveCloakBrowserBinaryPathFallsBackToBundledCandidate(t *testing.T) {
+func TestResolveBrowserBinaryPathFallsBackToBundledCandidate(t *testing.T) {
 	t.Parallel()
 
 	tempDir := t.TempDir()
-	bundledPath := filepath.Join(tempDir, "resources", "cloakbrowser", "cloakbrowser")
+	bundledPath := filepath.Join(tempDir, "resources", "selfbuilt", "selfbuilt")
 	if err := os.MkdirAll(filepath.Dir(bundledPath), 0755); err != nil {
 		t.Fatalf("mkdir: %v", err)
 	}
@@ -66,7 +66,7 @@ func TestResolveCloakBrowserBinaryPathFallsBackToBundledCandidate(t *testing.T) 
 		t.Fatalf("write bundled path: %v", err)
 	}
 
-	path, source := resolveCloakBrowserBinaryPath("linux", "amd64", filepath.Join(tempDir, "fingerbrower"), tempDir, func(string) string {
+	path, source := resolveBrowserBinaryPath("linux", "amd64", filepath.Join(tempDir, "fingerbrower"), tempDir, func(string) string {
 		return ""
 	})
 	if path != bundledPath {
@@ -77,11 +77,11 @@ func TestResolveCloakBrowserBinaryPathFallsBackToBundledCandidate(t *testing.T) 
 	}
 }
 
-func TestResolveCloakBrowserBinaryPathUsesChannelManifest(t *testing.T) {
+func TestResolveBrowserBinaryPathUsesChannelManifest(t *testing.T) {
 	t.Parallel()
 
 	tempDir := t.TempDir()
-	artifactPath := filepath.Join(tempDir, "resources", "cloakbrowser", "channels", "alpha", "darwin-arm64", "Chromium.app", "Contents", "MacOS", "Chromium")
+	artifactPath := filepath.Join(tempDir, "resources", "selfbuilt", "channels", "alpha", "darwin-arm64", "Chromium.app", "Contents", "MacOS", "Chromium")
 	if err := os.MkdirAll(filepath.Dir(artifactPath), 0755); err != nil {
 		t.Fatalf("mkdir: %v", err)
 	}
@@ -89,13 +89,13 @@ func TestResolveCloakBrowserBinaryPathUsesChannelManifest(t *testing.T) {
 		t.Fatalf("write artifact: %v", err)
 	}
 
-	manifestPath := filepath.Join(tempDir, "resources", "cloakbrowser", "channels", "alpha", "artifacts.json")
+	manifestPath := filepath.Join(tempDir, "resources", "selfbuilt", "channels", "alpha", "artifacts.json")
 	manifest := `{"version":2,"channel":"alpha","artifacts":[{"os":"darwin","arch":"arm64","path":"darwin-arm64/Chromium.app/Contents/MacOS/Chromium","version":"124.0.0"}]}`
 	if err := os.WriteFile(manifestPath, []byte(manifest), 0644); err != nil {
 		t.Fatalf("write manifest: %v", err)
 	}
 
-	path, source := resolveCloakBrowserBinaryPath("darwin", "arm64", filepath.Join(tempDir, "Fingerbrower.app", "Contents", "MacOS", "fingerbrower"), tempDir, func(key string) string {
+	path, source := resolveBrowserBinaryPath("darwin", "arm64", filepath.Join(tempDir, "Fingerbrower.app", "Contents", "MacOS", "fingerbrower"), tempDir, func(key string) string {
 		if key == "BROWSER_CHANNEL" {
 			return "alpha"
 		}
@@ -109,11 +109,11 @@ func TestResolveCloakBrowserBinaryPathUsesChannelManifest(t *testing.T) {
 	}
 }
 
-func TestResolveCloakBrowserBinaryPathFallsBackToStableChannel(t *testing.T) {
+func TestResolveBrowserBinaryPathFallsBackToStableChannel(t *testing.T) {
 	t.Parallel()
 
 	tempDir := t.TempDir()
-	artifactPath := filepath.Join(tempDir, "resources", "cloakbrowser", "channels", "stable", "darwin-arm64", "Chromium.app", "Contents", "MacOS", "Chromium")
+	artifactPath := filepath.Join(tempDir, "resources", "selfbuilt", "channels", "stable", "darwin-arm64", "Chromium.app", "Contents", "MacOS", "Chromium")
 	if err := os.MkdirAll(filepath.Dir(artifactPath), 0755); err != nil {
 		t.Fatalf("mkdir: %v", err)
 	}
@@ -121,13 +121,13 @@ func TestResolveCloakBrowserBinaryPathFallsBackToStableChannel(t *testing.T) {
 		t.Fatalf("write artifact: %v", err)
 	}
 
-	manifestPath := filepath.Join(tempDir, "resources", "cloakbrowser", "channels", "stable", "artifacts.json")
+	manifestPath := filepath.Join(tempDir, "resources", "selfbuilt", "channels", "stable", "artifacts.json")
 	manifest := `{"version":2,"channel":"stable","artifacts":[{"os":"darwin","arch":"arm64","path":"darwin-arm64/Chromium.app/Contents/MacOS/Chromium","version":"124.0.0"}]}`
 	if err := os.WriteFile(manifestPath, []byte(manifest), 0644); err != nil {
 		t.Fatalf("write manifest: %v", err)
 	}
 
-	path, source := resolveCloakBrowserBinaryPath("darwin", "arm64", filepath.Join(tempDir, "Fingerbrower.app", "Contents", "MacOS", "fingerbrower"), tempDir, func(key string) string {
+	path, source := resolveBrowserBinaryPath("darwin", "arm64", filepath.Join(tempDir, "Fingerbrower.app", "Contents", "MacOS", "fingerbrower"), tempDir, func(key string) string {
 		if key == "BROWSER_CHANNEL" {
 			return "alpha"
 		}
@@ -141,11 +141,11 @@ func TestResolveCloakBrowserBinaryPathFallsBackToStableChannel(t *testing.T) {
 	}
 }
 
-func TestResolveCloakBrowserBinaryPathRespectsVersionSelection(t *testing.T) {
+func TestResolveBrowserBinaryPathRespectsVersionSelection(t *testing.T) {
 	t.Parallel()
 
 	tempDir := t.TempDir()
-	artifactPath := filepath.Join(tempDir, "resources", "cloakbrowser", "channels", "stable", "darwin-arm64", "Chromium.app", "Contents", "MacOS", "Chromium")
+	artifactPath := filepath.Join(tempDir, "resources", "selfbuilt", "channels", "stable", "darwin-arm64", "Chromium.app", "Contents", "MacOS", "Chromium")
 	if err := os.MkdirAll(filepath.Dir(artifactPath), 0755); err != nil {
 		t.Fatalf("mkdir: %v", err)
 	}
@@ -153,13 +153,13 @@ func TestResolveCloakBrowserBinaryPathRespectsVersionSelection(t *testing.T) {
 		t.Fatalf("write artifact: %v", err)
 	}
 
-	manifestPath := filepath.Join(tempDir, "resources", "cloakbrowser", "channels", "stable", "artifacts.json")
+	manifestPath := filepath.Join(tempDir, "resources", "selfbuilt", "channels", "stable", "artifacts.json")
 	manifest := `{"version":2,"channel":"stable","artifacts":[{"os":"darwin","arch":"arm64","path":"darwin-arm64/Chromium.app/Contents/MacOS/Chromium","version":"124.0.0"}]}`
 	if err := os.WriteFile(manifestPath, []byte(manifest), 0644); err != nil {
 		t.Fatalf("write manifest: %v", err)
 	}
 
-	path, source := resolveCloakBrowserBinaryPath("darwin", "arm64", filepath.Join(tempDir, "Fingerbrower.app", "Contents", "MacOS", "fingerbrower"), tempDir, func(key string) string {
+	path, source := resolveBrowserBinaryPath("darwin", "arm64", filepath.Join(tempDir, "Fingerbrower.app", "Contents", "MacOS", "fingerbrower"), tempDir, func(key string) string {
 		if key == "BROWSER_VERSION" {
 			return "124.0.0"
 		}

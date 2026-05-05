@@ -19,6 +19,8 @@ export function SettingsPage() {
     binaryPath: '',
     connected: false,
   });
+  const [connecting, setConnecting] = useState(false);
+  const [disconnectingKey, setDisconnectingKey] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
@@ -45,22 +47,37 @@ export function SettingsPage() {
       return;
     }
     try {
+      if (connecting) {
+        return;
+      }
+      setConnecting(true);
+      setError(null);
       await ConnectRemote(newRemote.host, newRemote.port, newRemote.binaryPath);
       setRemoteConfigs([...remoteConfigs, { ...newRemote, connected: true }]);
       setNewRemote({ host: '', port: 9222, binaryPath: '', connected: false });
-      setSuccess('Connected to remote CloakBrowser');
+      setSuccess('Connected to remote browser');
     } catch (err) {
       setError(String(err));
+    } finally {
+      setConnecting(false);
     }
   }
 
   async function handleDisconnect(config: RemoteConfig) {
     try {
+      const key = `${config.host}:${config.port}`;
+      if (disconnectingKey === key) {
+        return;
+      }
+      setDisconnectingKey(key);
+      setError(null);
       await DisconnectRemote(config.host, config.port);
       setRemoteConfigs(remoteConfigs.filter(r => r.host !== config.host));
       setSuccess('Disconnected');
     } catch (err) {
       setError(String(err));
+    } finally {
+      setDisconnectingKey(null);
     }
   }
 
@@ -74,26 +91,27 @@ export function SettingsPage() {
       <section className="settings-section">
         <h3>Local Chrome</h3>
         <p className="section-desc">
-          Local Chrome is now a development fallback only. Production instances default to CloakBrowser.
+          Local Chrome is available as a diagnostic fallback. Production instances use the self-built browser.
         </p>
         <div className="form-group">
           <label>Chrome Path</label>
           <div className="input-with-button">
-            <input
-              type="text"
-              value={chromePath}
-              onChange={e => setChromePath(e.target.value)}
-              placeholder="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-            />
-            <button onClick={detectChrome}>Detect</button>
-          </div>
-        </div>
-      </section>
+                <input
+                  type="text"
+                  value={chromePath}
+                  disabled={connecting}
+                  onChange={e => setChromePath(e.target.value)}
+                  placeholder="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+                />
+                <button onClick={detectChrome} disabled={connecting}>Detect</button>
+              </div>
+            </div>
+          </section>
 
       <section className="settings-section">
-        <h3>Remote CloakBrowser</h3>
+        <h3>Remote Browser</h3>
         <p className="section-desc">
-          Connect to a remote CloakBrowser host so browser processes run on another machine and are controlled via CDP.
+          Connect to a remote browser host so browser processes run on another machine and are controlled via CDP.
         </p>
 
         <div className="remote-list">
@@ -109,8 +127,9 @@ export function SettingsPage() {
                 <button
                   className="btn-small btn-danger"
                   onClick={() => handleDisconnect(config)}
+                  disabled={disconnectingKey === `${config.host}:${config.port}`}
                 >
-                  Disconnect
+                  {disconnectingKey === `${config.host}:${config.port}` ? 'Disconnecting...' : 'Disconnect'}
                 </button>
               )}
             </div>
@@ -122,33 +141,36 @@ export function SettingsPage() {
           <div className="form-row">
             <div className="form-group">
               <label>Host</label>
-              <input
-                type="text"
-                value={newRemote.host}
-                onChange={e => setNewRemote({ ...newRemote, host: e.target.value })}
-                placeholder="192.168.1.100"
-              />
+                <input
+                  type="text"
+                  value={newRemote.host}
+                  disabled={connecting}
+                  onChange={e => setNewRemote({ ...newRemote, host: e.target.value })}
+                  placeholder="192.168.1.100"
+                />
             </div>
             <div className="form-group">
               <label>Port</label>
-              <input
-                type="number"
-                value={newRemote.port}
-                onChange={e => setNewRemote({ ...newRemote, port: parseInt(e.target.value) })}
-              />
+                <input
+                  type="number"
+                  value={newRemote.port}
+                  disabled={connecting}
+                  onChange={e => setNewRemote({ ...newRemote, port: parseInt(e.target.value) })}
+                />
             </div>
           </div>
           <div className="form-group">
-            <label>CloakBrowser Binary Path (optional)</label>
-            <input
-              type="text"
-              value={newRemote.binaryPath}
-              onChange={e => setNewRemote({ ...newRemote, binaryPath: e.target.value })}
-              placeholder="/path/to/cloakbrowser"
-            />
-          </div>
-          <button className="btn-primary" onClick={handleConnectRemote}>
-            Add Connection
+            <label>Browser Binary Path (optional)</label>
+                <input
+                  type="text"
+                  value={newRemote.binaryPath}
+                  disabled={connecting}
+                  onChange={e => setNewRemote({ ...newRemote, binaryPath: e.target.value })}
+                  placeholder="/path/to/browser"
+                />
+              </div>
+          <button className="btn-primary" onClick={handleConnectRemote} disabled={connecting}>
+            {connecting ? 'Connecting...' : 'Add Connection'}
           </button>
         </div>
       </section>
@@ -168,7 +190,7 @@ export function SettingsPage() {
                 <div key={field.field} className="coverage-row">
                   <div className="coverage-field">{field.field}</div>
                   <div className="coverage-value">Local Chrome: {field.local_chrome}</div>
-                  <div className="coverage-value">CloakBrowser: {field.cloakbrowser}</div>
+                  <div className="coverage-value">Self Built: {field.self_built}</div>
                   <div className="helper-text">{field.notes}</div>
                 </div>
               ))}

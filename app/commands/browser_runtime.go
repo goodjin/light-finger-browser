@@ -22,44 +22,44 @@ type browserRuntimeManager interface {
 type browserEngine string
 
 const (
-	browserEngineCloakBrowser browserEngine = "cloakbrowser"
-	browserEngineLocalChrome  browserEngine = "local-chrome"
+	browserEngineSelfBuilt browserEngine = "self-built"
+	browserEngineLocal     browserEngine = "local"
 )
 
 type browserEngineConfig struct {
-	Engine                 browserEngine
-	CloakBrowserPath       string
-	CloakBrowserPathSource string
+	Engine                browserEngine
+	BrowserBinaryPath     string
+	BrowserBinarySource   string
 }
 
 func loadBrowserEngineConfig() browserEngineConfig {
 	rawEngine := strings.TrimSpace(strings.ToLower(os.Getenv("BROWSER_ENGINE")))
 	switch rawEngine {
-	case "", "cloakbrowser", "cloak":
-		rawEngine = string(browserEngineCloakBrowser)
+	case "", "self-built", "selfbuilt":
+		rawEngine = string(browserEngineSelfBuilt)
 	case "local", "local-chrome", "chrome":
-		rawEngine = string(browserEngineLocalChrome)
+		rawEngine = string(browserEngineLocal)
 	default:
-		rawEngine = string(browserEngineCloakBrowser)
+		rawEngine = string(browserEngineSelfBuilt)
 	}
 
 	executablePath, _ := os.Executable()
 	workingDir, _ := os.Getwd()
-	path, source := resolveCloakBrowserBinaryPath(runtime.GOOS, runtime.GOARCH, executablePath, workingDir, os.Getenv)
+	path, source := resolveBrowserBinaryPath(runtime.GOOS, runtime.GOARCH, executablePath, workingDir, os.Getenv)
 
 	return browserEngineConfig{
-		Engine:                 browserEngine(rawEngine),
-		CloakBrowserPath:       path,
-		CloakBrowserPathSource: source,
+		Engine:               browserEngine(rawEngine),
+		BrowserBinaryPath:    path,
+		BrowserBinarySource:  source,
 	}
 }
 
 func newBrowserRuntimeManager(db *sqlite.DB) browserRuntimeManager {
 	cfg := loadBrowserEngineConfig()
-	if cfg.Engine == browserEngineLocalChrome {
+	if cfg.Engine == browserEngineLocal {
 		return NewLocalChromeManager(db)
 	}
-	return NewCloakBrowserManager(db, cfg.CloakBrowserPath)
+	return NewSelfBuiltBrowserManager(db, cfg.BrowserBinaryPath)
 }
 
 type browserArtifactManifest struct {
@@ -83,9 +83,9 @@ type browserArtifactManifestMeta struct {
 	Checksums string `json:"checksums,omitempty"`
 }
 
-func resolveCloakBrowserBinaryPath(goos, goarch, executablePath, workingDir string, getenv func(string) string) (string, string) {
+func resolveBrowserBinaryPath(goos, goarch, executablePath, workingDir string, getenv func(string) string) (string, string) {
 	if getenv != nil {
-		for _, envKey := range []string{"CLOAKBROWSER_PATH", "BROWSER_BINARY"} {
+		for _, envKey := range []string{"BROWSER_BINARY", "SELF_BUILT_BROWSER_PATH"} {
 			if candidate := strings.TrimSpace(getenv(envKey)); candidate != "" {
 				return candidate, "env:" + envKey
 			}
@@ -98,19 +98,19 @@ func resolveCloakBrowserBinaryPath(goos, goarch, executablePath, workingDir stri
 	}
 
 	for _, manifestPath := range browserArtifactManifestCandidates(executablePath, workingDir, goos, selectedChannel) {
-		if candidate := resolveCloakBrowserPathFromManifest(manifestPath, goos, goarch, selectedChannel, selectedVersion); candidate != "" {
+		if candidate := resolveBrowserPathFromManifest(manifestPath, goos, goarch, selectedChannel, selectedVersion); candidate != "" {
 			return candidate, "artifact-manifest"
 		}
 	}
 	if selectedVersion != "" || selectedChannel != "stable" {
 		for _, manifestPath := range browserArtifactManifestCandidates(executablePath, workingDir, goos, "stable") {
-			if candidate := resolveCloakBrowserPathFromManifest(manifestPath, goos, goarch, "stable", ""); candidate != "" {
+			if candidate := resolveBrowserPathFromManifest(manifestPath, goos, goarch, "stable", ""); candidate != "" {
 				return candidate, "artifact-manifest"
 			}
 		}
 	}
 
-	for _, candidate := range bundledCloakBrowserCandidates(executablePath, workingDir, goos) {
+	for _, candidate := range bundledBrowserCandidates(executablePath, workingDir, goos) {
 		if fileExists(candidate) {
 			return candidate, "bundled"
 		}
@@ -126,17 +126,17 @@ func browserArtifactManifestCandidates(executablePath, workingDir, goos, channel
 		switch goos {
 		case "darwin":
 			candidates = appendUniquePath(candidates,
-				filepath.Clean(filepath.Join(execDir, "..", "Resources", "cloakbrowser", "artifacts.json")),
-				filepath.Clean(filepath.Join(execDir, "..", "Resources", "cloakbrowser", "channels", channel, "artifacts.json")),
+				filepath.Clean(filepath.Join(execDir, "..", "Resources", "selfbuilt", "artifacts.json")),
+				filepath.Clean(filepath.Join(execDir, "..", "Resources", "selfbuilt", "channels", channel, "artifacts.json")),
 				filepath.Clean(filepath.Join(execDir, "..", "Resources", "artifacts.json")),
 				filepath.Join(execDir, "artifacts.json"),
 			)
 		default:
 			candidates = appendUniquePath(candidates,
-				filepath.Join(execDir, "cloakbrowser", "artifacts.json"),
-				filepath.Join(execDir, "cloakbrowser", "channels", channel, "artifacts.json"),
-				filepath.Join(execDir, "resources", "cloakbrowser", "artifacts.json"),
-				filepath.Join(execDir, "resources", "cloakbrowser", "channels", channel, "artifacts.json"),
+				filepath.Join(execDir, "selfbuilt", "artifacts.json"),
+				filepath.Join(execDir, "selfbuilt", "channels", channel, "artifacts.json"),
+				filepath.Join(execDir, "resources", "selfbuilt", "artifacts.json"),
+				filepath.Join(execDir, "resources", "selfbuilt", "channels", channel, "artifacts.json"),
 				filepath.Join(execDir, "resources", "artifacts.json"),
 				filepath.Join(execDir, "artifacts.json"),
 			)
@@ -144,41 +144,41 @@ func browserArtifactManifestCandidates(executablePath, workingDir, goos, channel
 	}
 	if workingDir != "" {
 		candidates = appendUniquePath(candidates,
-			filepath.Join(workingDir, "resources", "cloakbrowser", "artifacts.json"),
-			filepath.Join(workingDir, "resources", "cloakbrowser", "channels", channel, "artifacts.json"),
+			filepath.Join(workingDir, "resources", "selfbuilt", "artifacts.json"),
+			filepath.Join(workingDir, "resources", "selfbuilt", "channels", channel, "artifacts.json"),
 			filepath.Join(workingDir, "resources", "artifacts.json"),
 		)
 	}
 	return candidates
 }
 
-func bundledCloakBrowserCandidates(executablePath, workingDir, goos string) []string {
+func bundledBrowserCandidates(executablePath, workingDir, goos string) []string {
 	var candidates []string
 	if executablePath != "" {
 		execDir := filepath.Dir(executablePath)
 		switch goos {
 		case "darwin":
 			candidates = appendUniquePath(candidates,
-				filepath.Clean(filepath.Join(execDir, "..", "Resources", "cloakbrowser", "Chromium.app", "Contents", "MacOS", "Chromium")),
-				filepath.Clean(filepath.Join(execDir, "..", "Resources", "CloakBrowser", "Chromium.app", "Contents", "MacOS", "Chromium")),
+				filepath.Clean(filepath.Join(execDir, "..", "Resources", "selfbuilt", "Chromium.app", "Contents", "MacOS", "Chromium")),
+				filepath.Clean(filepath.Join(execDir, "..", "Resources", "SelfBuiltBrowser", "Chromium.app", "Contents", "MacOS", "Chromium")),
 				filepath.Clean(filepath.Join(execDir, "..", "Resources", "Chromium.app", "Contents", "MacOS", "Chromium")),
-				filepath.Join(execDir, "cloakbrowser"),
+				filepath.Join(execDir, "selfbuilt"),
 			)
 		case "windows":
 			candidates = appendUniquePath(candidates,
-				filepath.Join(execDir, "cloakbrowser", "cloakbrowser.exe"),
-				filepath.Join(execDir, "cloakbrowser", "chrome.exe"),
-				filepath.Join(execDir, "CloakBrowser", "cloakbrowser.exe"),
-				filepath.Join(execDir, "CloakBrowser", "chrome.exe"),
-				filepath.Join(execDir, "cloakbrowser.exe"),
+				filepath.Join(execDir, "selfbuilt", "selfbuilt.exe"),
+				filepath.Join(execDir, "selfbuilt", "chrome.exe"),
+				filepath.Join(execDir, "SelfBuiltBrowser", "selfbuilt.exe"),
+				filepath.Join(execDir, "SelfBuiltBrowser", "chrome.exe"),
+				filepath.Join(execDir, "selfbuilt.exe"),
 			)
 		default:
 			candidates = appendUniquePath(candidates,
-				filepath.Join(execDir, "cloakbrowser", "cloakbrowser"),
-				filepath.Join(execDir, "cloakbrowser", "chrome"),
-				filepath.Join(execDir, "CloakBrowser", "cloakbrowser"),
-				filepath.Join(execDir, "CloakBrowser", "chrome"),
-				filepath.Join(execDir, "cloakbrowser"),
+				filepath.Join(execDir, "selfbuilt", "selfbuilt"),
+				filepath.Join(execDir, "selfbuilt", "chrome"),
+				filepath.Join(execDir, "SelfBuiltBrowser", "selfbuilt"),
+				filepath.Join(execDir, "SelfBuiltBrowser", "chrome"),
+				filepath.Join(execDir, "selfbuilt"),
 				filepath.Join(execDir, "chrome"),
 			)
 		}
@@ -188,18 +188,18 @@ func bundledCloakBrowserCandidates(executablePath, workingDir, goos string) []st
 		switch goos {
 		case "darwin":
 			candidates = appendUniquePath(candidates,
-				filepath.Join(workingDir, "resources", "cloakbrowser", "Chromium.app", "Contents", "MacOS", "Chromium"),
+				filepath.Join(workingDir, "resources", "selfbuilt", "Chromium.app", "Contents", "MacOS", "Chromium"),
 				filepath.Join(workingDir, "resources", "Chromium.app", "Contents", "MacOS", "Chromium"),
 			)
 		case "windows":
 			candidates = appendUniquePath(candidates,
-				filepath.Join(workingDir, "resources", "cloakbrowser", "cloakbrowser.exe"),
-				filepath.Join(workingDir, "resources", "cloakbrowser", "chrome.exe"),
+				filepath.Join(workingDir, "resources", "selfbuilt", "selfbuilt.exe"),
+				filepath.Join(workingDir, "resources", "selfbuilt", "chrome.exe"),
 			)
 		default:
 			candidates = appendUniquePath(candidates,
-				filepath.Join(workingDir, "resources", "cloakbrowser", "cloakbrowser"),
-				filepath.Join(workingDir, "resources", "cloakbrowser", "chrome"),
+				filepath.Join(workingDir, "resources", "selfbuilt", "selfbuilt"),
+				filepath.Join(workingDir, "resources", "selfbuilt", "chrome"),
 			)
 		}
 	}
@@ -207,7 +207,7 @@ func bundledCloakBrowserCandidates(executablePath, workingDir, goos string) []st
 	return candidates
 }
 
-func resolveCloakBrowserPathFromManifest(manifestPath, goos, goarch, channel, version string) string {
+func resolveBrowserPathFromManifest(manifestPath, goos, goarch, channel, version string) string {
 	if !fileExists(manifestPath) {
 		return ""
 	}

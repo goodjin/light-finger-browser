@@ -184,17 +184,17 @@ func (a *App) GetFingerprintCoverageReport() *commands.FingerprintCoverageReport
 
 // ==================== Remote Browser Commands ====================
 
-// ConnectRemote connects to a remote CloakBrowser instance.
+// ConnectRemote connects to a remote browser instance.
 func (a *App) ConnectRemote(host string, port int, binaryPath string) error {
 	return a.remoteSvc.Connect(a.appContext(), host, port, binaryPath)
 }
 
-// DisconnectRemote disconnects from a remote CloakBrowser instance.
+// DisconnectRemote disconnects from a remote browser instance.
 func (a *App) DisconnectRemote(host string, port int) error {
 	return a.remoteSvc.Disconnect(a.appContext(), host, port)
 }
 
-// ListRemoteTargets lists available CDP targets on a remote CloakBrowser.
+// ListRemoteTargets lists available CDP targets on a remote browser.
 func (a *App) ListRemoteTargets(host string, port int) ([]*commands.CDPTarget, error) {
 	return a.remoteSvc.ListTargets(a.appContext(), host, port)
 }

@@ -37,8 +37,13 @@ export function InstancesPage({ createRequest }: InstancesPageProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showCreate, setShowCreate] = useState(false);
+  const [creating, setCreating] = useState(false);
   const [pendingStopID, setPendingStopID] = useState<string | null>(null);
   const [pendingDeleteID, setPendingDeleteID] = useState<string | null>(null);
+  const [stoppingId, setStoppingId] = useState<string | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [restartingId, setRestartingId] = useState<string | null>(null);
+  const [checkingId, setCheckingId] = useState<string | null>(null);
   const [fingerprintResult, setFingerprintResult] = useState<commands.FingerprintCheckResult | null>(null);
   const [fingerprintError, setFingerprintError] = useState<string | null>(null);
   const [name, setName] = useState('');
@@ -100,7 +105,12 @@ export function InstancesPage({ createRequest }: InstancesPageProps) {
 
   async function createInstance() {
     try {
+      if (creating) {
+        return;
+      }
+      setCreating(true);
       setLoading(true);
+      setError(null);
       if (selectedAccountID) {
         if (selectedAccount?.instance_status && selectedAccount.instance_status !== 'stopped') {
           throw new Error('Selected account is already bound to a running instance. Stop it before creating a new one.');
@@ -129,61 +139,82 @@ export function InstancesPage({ createRequest }: InstancesPageProps) {
               url: selectedProxy.url,
             })
             : undefined,
-        });
+          });
         await CreateInstance(cfg);
       }
-      await loadAll();
       setShowCreate(false);
-      setName('');
-      setNameTouched(false);
-      setGroup('');
-      setGroupTouched(false);
-      setHeadless(false);
-      setHeadlessTouched(false);
-      setSelectedAccountID('');
-      setSelectedProxyID('');
+      resetCreateForm();
+      await loadAll();
     } catch (err) {
       setError(String(err));
     } finally {
       setLoading(false);
+      setCreating(false);
     }
   }
 
-  async function stopInstance(id: string) {
+  async function stopInstance(id: string): Promise<boolean> {
     try {
       await StopInstance(id);
       await loadAll();
+      return true;
     } catch (err) {
       setError(String(err));
+      return false;
     }
   }
 
   async function restartInstance(id: string) {
     try {
+      if (restartingId === id) {
+        return;
+      }
+      setRestartingId(id);
       await RestartInstance(id);
       await loadAll();
     } catch (err) {
       setError(String(err));
+    } finally {
+      setRestartingId(null);
     }
   }
 
-  async function deleteInstance(id: string) {
+  async function deleteInstance(id: string): Promise<boolean> {
     try {
       await DeleteInstance(id);
       await loadAll();
+      return true;
     } catch (err) {
       setError(String(err));
+      return false;
     }
   }
 
   async function checkFingerprint(id: string) {
     try {
+      if (checkingId === id) {
+        return;
+      }
+      setCheckingId(id);
       setFingerprintError(null);
       const result = await CheckFingerprint(id);
       setFingerprintResult(result || null);
     } catch (err) {
       setFingerprintError(String(err));
+    } finally {
+      setCheckingId(null);
     }
+  }
+
+  function resetCreateForm() {
+    setName('');
+    setNameTouched(false);
+    setGroup('');
+    setGroupTouched(false);
+    setHeadless(false);
+    setHeadlessTouched(false);
+    setSelectedAccountID('');
+    setSelectedProxyID('');
   }
 
   function getStatusColor(status: string): string {
@@ -220,6 +251,7 @@ export function InstancesPage({ createRequest }: InstancesPageProps) {
               <input
                 type="text"
                 value={name}
+                disabled={creating}
                 onChange={e => {
                   setNameTouched(true);
                   setName(e.target.value);
@@ -231,6 +263,7 @@ export function InstancesPage({ createRequest }: InstancesPageProps) {
               <label>Account (optional)</label>
               <select
                 value={selectedAccountID}
+                disabled={creating}
                 onChange={e => setSelectedAccountID(e.target.value)}
               >
                 <option value="">No account</option>
@@ -251,8 +284,8 @@ export function InstancesPage({ createRequest }: InstancesPageProps) {
               <label>Country (for fingerprint)</label>
               <select
                 value={country}
+                disabled={creating || !!selectedAccountID}
                 onChange={e => setCountry(e.target.value)}
-                disabled={!!selectedAccountID}
               >
                 {COUNTRIES.map(c => (
                   <option key={c.code} value={c.code}>{c.name}</option>
@@ -267,6 +300,7 @@ export function InstancesPage({ createRequest }: InstancesPageProps) {
               <input
                 type="text"
                 value={group}
+                disabled={creating}
                 onChange={e => {
                   setGroupTouched(true);
                   setGroup(e.target.value);
@@ -278,6 +312,7 @@ export function InstancesPage({ createRequest }: InstancesPageProps) {
               <label>Proxy (optional)</label>
               <select
                 value={selectedProxyID}
+                disabled={creating}
                 onChange={e => setSelectedProxyID(e.target.value)}
               >
                 <option value="">No proxy</option>
@@ -298,28 +333,24 @@ export function InstancesPage({ createRequest }: InstancesPageProps) {
               <label>
                 <input
                   type="checkbox"
-                  checked={headless}
-                  onChange={e => {
-                    setHeadlessTouched(true);
-                    setHeadless(e.target.checked);
+                    checked={headless}
+                    disabled={creating}
+                    onChange={e => {
+                      setHeadlessTouched(true);
+                      setHeadless(e.target.checked);
                   }}
                 />
                 Headless mode
               </label>
             </div>
             <div className="modal-actions">
-              <button onClick={() => {
+              <button disabled={creating} onClick={() => {
                 setShowCreate(false);
-                setName('');
-                setNameTouched(false);
-                setGroup('');
-                setGroupTouched(false);
-                setHeadless(false);
-                setHeadlessTouched(false);
-                setSelectedAccountID('');
-                setSelectedProxyID('');
+                resetCreateForm();
               }}>Cancel</button>
-              <button className="btn-primary" onClick={createInstance}>Create</button>
+              <button className="btn-primary" onClick={createInstance} disabled={creating}>
+                {creating ? 'Creating...' : 'Create'}
+              </button>
             </div>
           </div>
         </div>
@@ -331,21 +362,31 @@ export function InstancesPage({ createRequest }: InstancesPageProps) {
             <h3>Stop Instance</h3>
             <p>This will terminate the running browser process.</p>
             <div className="modal-actions">
-              <button onClick={() => setPendingStopID(null)}>Cancel</button>
-              <button
-                className="btn-danger"
-                onClick={async () => {
-                  const id = pendingStopID;
-                  setPendingStopID(null);
-                  await stopInstance(id);
-                }}
-              >
-                Stop
-              </button>
+                <button onClick={() => setPendingStopID(null)} disabled={stoppingId === pendingStopID}>
+                  Cancel
+                </button>
+                <button
+                  className="btn-danger"
+                  onClick={async () => {
+                    const id = pendingStopID;
+                    if (!id || stoppingId) {
+                      return;
+                    }
+                    setStoppingId(id);
+                    const ok = await stopInstance(id);
+                    if (ok) {
+                      setPendingStopID(null);
+                    }
+                    setStoppingId(null);
+                  }}
+                  disabled={stoppingId === pendingStopID}
+                >
+                  {stoppingId === pendingStopID ? 'Stopping...' : 'Stop'}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
       {pendingDeleteID && (
         <div className="modal-overlay">
@@ -353,21 +394,31 @@ export function InstancesPage({ createRequest }: InstancesPageProps) {
             <h3>Delete Instance</h3>
             <p>This will remove the instance record and its user data directory.</p>
             <div className="modal-actions">
-              <button onClick={() => setPendingDeleteID(null)}>Cancel</button>
-              <button
-                className="btn-danger"
-                onClick={async () => {
-                  const id = pendingDeleteID;
-                  setPendingDeleteID(null);
-                  await deleteInstance(id);
-                }}
-              >
-                Delete
-              </button>
+                <button onClick={() => setPendingDeleteID(null)} disabled={deletingId === pendingDeleteID}>
+                  Cancel
+                </button>
+                <button
+                  className="btn-danger"
+                  onClick={async () => {
+                    const id = pendingDeleteID;
+                    if (!id || deletingId) {
+                      return;
+                    }
+                    setDeletingId(id);
+                    const ok = await deleteInstance(id);
+                    if (ok) {
+                      setPendingDeleteID(null);
+                    }
+                    setDeletingId(null);
+                  }}
+                  disabled={deletingId === pendingDeleteID}
+                >
+                  {deletingId === pendingDeleteID ? 'Deleting...' : 'Delete'}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
       {fingerprintResult && (
         <div className="modal-overlay">
@@ -449,29 +500,30 @@ export function InstancesPage({ createRequest }: InstancesPageProps) {
                 <button
                   className="btn-danger"
                   onClick={() => setPendingStopID(inst.id)}
-                  disabled={inst.status === 'stopping' || inst.status === 'stopped'}
+                  disabled={stoppingId === inst.id || inst.status === 'stopping' || inst.status === 'stopped'}
                 >
-                  Stop
+                  {stoppingId === inst.id ? 'Stopping...' : 'Stop'}
                 </button>
                 <button
                   className="btn-secondary"
                   onClick={() => restartInstance(inst.id)}
-                  disabled={inst.status !== 'stopped'}
+                  disabled={restartingId === inst.id || inst.status !== 'stopped'}
                 >
-                  Restart
+                  {restartingId === inst.id ? 'Restarting...' : 'Restart'}
                 </button>
                 <button
                   className="btn-secondary"
                   onClick={() => setPendingDeleteID(inst.id)}
-                  disabled={inst.status !== 'stopped'}
+                  disabled={deletingId === inst.id || inst.status !== 'stopped'}
                 >
-                  Delete
+                  {deletingId === inst.id ? 'Deleting...' : 'Delete'}
                 </button>
                 <button
                   className="btn-secondary"
                   onClick={() => checkFingerprint(inst.id)}
+                  disabled={checkingId === inst.id}
                 >
-                  Fingerprint
+                  {checkingId === inst.id ? 'Checking...' : 'Fingerprint'}
                 </button>
               </div>
             </div>

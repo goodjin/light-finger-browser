@@ -352,8 +352,8 @@ func currentVerificationCoverageGaps() []string {
 	}
 	var gaps []string
 	for _, field := range report.Fields {
-		status := field.CloakBrowser
-		if report.ActiveEngine == string(browserEngineLocalChrome) {
+		status := field.SelfBuilt
+		if report.ActiveEngine == string(browserEngineLocal) {
 			status = field.LocalChrome
 		}
 		if status == "unsupported" || status == "metadata-only" {

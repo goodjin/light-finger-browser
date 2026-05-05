@@ -20,6 +20,10 @@ export function AccountsPage({ createRequest }: AccountsPageProps) {
   const [pendingUpdate, setPendingUpdate] = useState<commands.AccountUpdateRequest | null>(null);
   const [showRestartPrompt, setShowRestartPrompt] = useState(false);
   const [pendingDeleteID, setPendingDeleteID] = useState<string | null>(null);
+  const [creating, setCreating] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [restartingId, setRestartingId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   // Form state
@@ -67,6 +71,11 @@ export function AccountsPage({ createRequest }: AccountsPageProps) {
 
   async function createAccount() {
     try {
+      if (creating) {
+        return;
+      }
+      setCreating(true);
+      setError(null);
       const created = await CreateAccount({
         email,
         username,
@@ -82,6 +91,8 @@ export function AccountsPage({ createRequest }: AccountsPageProps) {
       setShowCreate(false);
     } catch (err) {
       setError(String(err));
+    } finally {
+      setCreating(false);
     }
   }
 
@@ -111,7 +122,8 @@ export function AccountsPage({ createRequest }: AccountsPageProps) {
   }
 
   async function saveAccount() {
-    if (!editingAccount) return;
+    if (!editingAccount || saving) return;
+    setError(null);
 
     const update: commands.AccountUpdateRequest = {
       id: editingAccount.id,
@@ -144,30 +156,46 @@ export function AccountsPage({ createRequest }: AccountsPageProps) {
 
   async function applyUpdate(update: commands.AccountUpdateRequest) {
     try {
+      if (saving) {
+        return;
+      }
+      setSaving(true);
+      setError(null);
       const updated = await UpdateAccount(update);
       setAccounts(accounts.map(acc => acc.id === updated.id ? updated : acc));
       setEditingAccount(null);
       resetForm();
     } catch (err) {
       setError(String(err));
+    } finally {
+      setSaving(false);
     }
   }
 
   async function restartInstance(account: commands.Account) {
     try {
+      if (restartingId === account.id) {
+        return;
+      }
+      setRestartingId(account.id);
+      setError(null);
       const updated = await RestartAccountInstance(account.id);
       setAccounts(accounts.map(acc => acc.id === updated.id ? updated : acc));
     } catch (err) {
       setError(String(err));
+    } finally {
+      setRestartingId(null);
     }
   }
 
-  async function deleteAccount(id: string) {
+  async function deleteAccount(id: string): Promise<boolean> {
     try {
       await DeleteAccount(id);
       setAccounts(accounts.filter(acc => acc.id !== id));
+      return true;
     } catch (err) {
       setError(String(err));
+      return false;
     }
   }
 
@@ -194,6 +222,7 @@ export function AccountsPage({ createRequest }: AccountsPageProps) {
               <input
                 type="text"
                 value={username}
+                disabled={creating}
                 onChange={e => setUsername(e.target.value)}
                 placeholder="Account username"
               />
@@ -203,6 +232,7 @@ export function AccountsPage({ createRequest }: AccountsPageProps) {
               <input
                 type="email"
                 value={email}
+                disabled={creating}
                 onChange={e => setEmail(e.target.value)}
                 placeholder="account@example.com"
               />
@@ -212,6 +242,7 @@ export function AccountsPage({ createRequest }: AccountsPageProps) {
               <input
                 type="text"
                 value={group}
+                disabled={creating}
                 onChange={e => setGroup(e.target.value)}
                 placeholder="e.g., growth"
               />
@@ -221,6 +252,7 @@ export function AccountsPage({ createRequest }: AccountsPageProps) {
               <input
                 type="text"
                 value={instanceName}
+                disabled={creating}
                 onChange={e => {
                   setInstanceNameTouched(true);
                   setInstanceName(e.target.value);
@@ -233,6 +265,7 @@ export function AccountsPage({ createRequest }: AccountsPageProps) {
               <input
                 type="text"
                 value={proxyURL}
+                disabled={creating}
                 onChange={e => setProxyURL(e.target.value)}
                 placeholder="user:pass@host:port"
               />
@@ -242,13 +275,18 @@ export function AccountsPage({ createRequest }: AccountsPageProps) {
               <input
                 type="text"
                 value={fingerprintSeed}
+                disabled={creating}
                 onChange={e => setFingerprintSeed(e.target.value)}
                 placeholder="leave blank to auto-generate"
               />
             </div>
             <div className="form-group">
               <label>Fingerprint Country</label>
-              <select value={fingerprintCountry} onChange={e => setFingerprintCountry(e.target.value)}>
+              <select
+                value={fingerprintCountry}
+                disabled={creating}
+                onChange={e => setFingerprintCountry(e.target.value)}
+              >
                 <option value="US">United States</option>
                 <option value="GB">United Kingdom</option>
                 <option value="DE">Germany</option>
@@ -266,17 +304,20 @@ export function AccountsPage({ createRequest }: AccountsPageProps) {
                 <input
                   type="checkbox"
                   checked={headless}
+                  disabled={creating}
                   onChange={e => setHeadless(e.target.checked)}
                 />
                 Headless mode
               </label>
             </div>
             <div className="modal-actions">
-              <button onClick={() => {
+              <button disabled={creating} onClick={() => {
                 setShowCreate(false);
                 resetForm();
               }}>Cancel</button>
-              <button className="btn-primary" onClick={createAccount}>Add</button>
+              <button className="btn-primary" onClick={createAccount} disabled={creating}>
+                {creating ? 'Creating...' : 'Add'}
+              </button>
             </div>
           </div>
         </div>
@@ -291,6 +332,7 @@ export function AccountsPage({ createRequest }: AccountsPageProps) {
               <input
                 type="text"
                 value={username}
+                disabled={saving}
                 onChange={e => setUsername(e.target.value)}
               />
             </div>
@@ -299,6 +341,7 @@ export function AccountsPage({ createRequest }: AccountsPageProps) {
               <input
                 type="email"
                 value={email}
+                disabled={saving}
                 onChange={e => setEmail(e.target.value)}
               />
             </div>
@@ -307,6 +350,7 @@ export function AccountsPage({ createRequest }: AccountsPageProps) {
               <input
                 type="text"
                 value={group}
+                disabled={saving}
                 onChange={e => setGroup(e.target.value)}
               />
             </div>
@@ -315,6 +359,7 @@ export function AccountsPage({ createRequest }: AccountsPageProps) {
               <input
                 type="text"
                 value={instanceName}
+                disabled={saving}
                 onChange={e => {
                   setInstanceNameTouched(true);
                   setInstanceName(e.target.value);
@@ -326,6 +371,7 @@ export function AccountsPage({ createRequest }: AccountsPageProps) {
               <input
                 type="text"
                 value={proxyURL}
+                disabled={saving}
                 onChange={e => setProxyURL(e.target.value)}
               />
             </div>
@@ -334,12 +380,17 @@ export function AccountsPage({ createRequest }: AccountsPageProps) {
               <input
                 type="text"
                 value={fingerprintSeed}
+                disabled={saving}
                 onChange={e => setFingerprintSeed(e.target.value)}
               />
             </div>
             <div className="form-group">
               <label>Fingerprint Country</label>
-              <select value={fingerprintCountry} onChange={e => setFingerprintCountry(e.target.value)}>
+              <select
+                value={fingerprintCountry}
+                disabled={saving}
+                onChange={e => setFingerprintCountry(e.target.value)}
+              >
                 <option value="US">United States</option>
                 <option value="GB">United Kingdom</option>
                 <option value="DE">Germany</option>
@@ -357,17 +408,20 @@ export function AccountsPage({ createRequest }: AccountsPageProps) {
                 <input
                   type="checkbox"
                   checked={headless}
+                  disabled={saving}
                   onChange={e => setHeadless(e.target.checked)}
                 />
                 Headless mode
               </label>
             </div>
             <div className="modal-actions">
-              <button onClick={() => {
+              <button disabled={saving} onClick={() => {
                 setEditingAccount(null);
                 resetForm();
               }}>Cancel</button>
-              <button className="btn-primary" onClick={saveAccount}>Save</button>
+              <button className="btn-primary" onClick={saveAccount} disabled={saving}>
+                {saving ? 'Saving...' : 'Save'}
+              </button>
             </div>
           </div>
         </div>
@@ -379,18 +433,18 @@ export function AccountsPage({ createRequest }: AccountsPageProps) {
             <h3>Restart Required</h3>
             <p>Proxy or fingerprint changes require restarting the instance to take effect.</p>
             <div className="modal-actions">
-              <button onClick={() => {
+              <button disabled={saving} onClick={() => {
                 setShowRestartPrompt(false);
                 setPendingUpdate(null);
               }}>Cancel</button>
-              <button onClick={async () => {
+              <button disabled={saving} onClick={async () => {
                 const update = pendingUpdate;
                 update.restart = false;
                 setShowRestartPrompt(false);
                 setPendingUpdate(null);
                 await applyUpdate(update);
               }}>Save without restart</button>
-              <button className="btn-primary" onClick={async () => {
+              <button className="btn-primary" disabled={saving} onClick={async () => {
                 const update = pendingUpdate;
                 update.restart = true;
                 setShowRestartPrompt(false);
@@ -408,16 +462,26 @@ export function AccountsPage({ createRequest }: AccountsPageProps) {
             <h3>Delete Account</h3>
             <p>The account instance must be stopped before deletion.</p>
             <div className="modal-actions">
-              <button onClick={() => setPendingDeleteID(null)}>Cancel</button>
+              <button onClick={() => setPendingDeleteID(null)} disabled={deletingId === pendingDeleteID}>
+                Cancel
+              </button>
               <button
                 className="btn-danger"
                 onClick={async () => {
                   const id = pendingDeleteID;
-                  setPendingDeleteID(null);
-                  await deleteAccount(id);
+                  if (!id || deletingId) {
+                    return;
+                  }
+                  setDeletingId(id);
+                  const ok = await deleteAccount(id);
+                  if (ok) {
+                    setPendingDeleteID(null);
+                  }
+                  setDeletingId(null);
                 }}
+                disabled={deletingId === pendingDeleteID}
               >
-                Delete
+                {deletingId === pendingDeleteID ? 'Deleting...' : 'Delete'}
               </button>
             </div>
           </div>
@@ -450,12 +514,18 @@ export function AccountsPage({ createRequest }: AccountsPageProps) {
               <div className="account-actions">
                 <button className="btn-secondary" onClick={() => startEdit(account)}>Edit</button>
                 {account.pending_restart && (
-                  <button className="btn-primary" onClick={() => restartInstance(account)}>Restart</button>
+                  <button
+                    className="btn-primary"
+                    onClick={() => restartInstance(account)}
+                    disabled={restartingId === account.id}
+                  >
+                    {restartingId === account.id ? 'Restarting...' : 'Restart'}
+                  </button>
                 )}
                 <button
                   className="btn-secondary"
                   onClick={() => setPendingDeleteID(account.id)}
-                  disabled={!!account.instance_status && account.instance_status !== 'stopped'}
+                  disabled={deletingId === account.id || (!!account.instance_status && account.instance_status !== 'stopped')}
                 >
                   Delete
                 </button>

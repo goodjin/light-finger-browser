@@ -13,6 +13,8 @@ export function ProxiesPage() {
   const [loading, setLoading] = useState(true);
   const [showCreate, setShowCreate] = useState(false);
   const [pendingDeleteID, setPendingDeleteID] = useState<string | null>(null);
+  const [creating, setCreating] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const [url, setURL] = useState('');
@@ -48,6 +50,11 @@ export function ProxiesPage() {
 
   async function createProxy() {
     try {
+      if (creating) {
+        return;
+      }
+      setCreating(true);
+      setError(null);
       const created = await CreateProxy({
         url,
         country,
@@ -62,15 +69,19 @@ export function ProxiesPage() {
       setProxyType('residential');
     } catch (err) {
       setError(String(err));
+    } finally {
+      setCreating(false);
     }
   }
 
-  async function deleteProxy(id: string) {
+  async function deleteProxy(id: string): Promise<boolean> {
     try {
       await DeleteProxy(id);
       setProxies(proxies.filter(p => p.id !== id));
+      return true;
     } catch (err) {
       setError(String(err));
+      return false;
     }
   }
 
@@ -94,6 +105,7 @@ export function ProxiesPage() {
               <input
                 type="text"
                 value={url}
+                disabled={creating}
                 onChange={e => setURL(e.target.value)}
                 placeholder="user:pass@host:port"
               />
@@ -102,15 +114,20 @@ export function ProxiesPage() {
               <div className="form-group">
                 <label>Country (optional)</label>
                 <input
-                  type="text"
-                  value={country}
-                  onChange={e => setCountry(e.target.value)}
-                  placeholder="US"
-                />
+                type="text"
+                value={country}
+                disabled={creating}
+                onChange={e => setCountry(e.target.value)}
+                placeholder="US"
+              />
               </div>
               <div className="form-group">
                 <label>Type</label>
-                <select value={proxyType} onChange={e => setProxyType(e.target.value)}>
+                <select
+                  value={proxyType}
+                  disabled={creating}
+                  onChange={e => setProxyType(e.target.value)}
+                >
                   <option value="residential">Residential</option>
                   <option value="datacenter">Datacenter</option>
                 </select>
@@ -121,19 +138,22 @@ export function ProxiesPage() {
               <input
                 type="text"
                 value={provider}
+                disabled={creating}
                 onChange={e => setProvider(e.target.value)}
                 placeholder="manual"
               />
             </div>
             <div className="modal-actions">
-              <button onClick={() => {
+              <button disabled={creating} onClick={() => {
                 setShowCreate(false);
                 setURL('');
                 setCountry('');
                 setProvider('');
                 setProxyType('residential');
               }}>Cancel</button>
-              <button className="btn-primary" onClick={createProxy}>Add</button>
+              <button className="btn-primary" onClick={createProxy} disabled={creating}>
+                {creating ? 'Adding...' : 'Add'}
+              </button>
             </div>
           </div>
         </div>
@@ -145,16 +165,26 @@ export function ProxiesPage() {
             <h3>Delete Proxy</h3>
             <p>Stop any running instances using this proxy before deleting.</p>
             <div className="modal-actions">
-              <button onClick={() => setPendingDeleteID(null)}>Cancel</button>
+              <button onClick={() => setPendingDeleteID(null)} disabled={deletingId === pendingDeleteID}>
+                Cancel
+              </button>
               <button
                 className="btn-danger"
                 onClick={async () => {
                   const id = pendingDeleteID;
-                  setPendingDeleteID(null);
-                  await deleteProxy(id);
+                  if (!id || deletingId) {
+                    return;
+                  }
+                  setDeletingId(id);
+                  const ok = await deleteProxy(id);
+                  if (ok) {
+                    setPendingDeleteID(null);
+                  }
+                  setDeletingId(null);
                 }}
+                disabled={deletingId === pendingDeleteID}
               >
-                Delete
+                {deletingId === pendingDeleteID ? 'Deleting...' : 'Delete'}
               </button>
             </div>
           </div>
@@ -185,7 +215,7 @@ export function ProxiesPage() {
                 <button
                   className="btn-secondary"
                   onClick={() => setPendingDeleteID(proxy.id)}
-                  disabled={isProxyInUse(proxy.id)}
+                  disabled={deletingId === proxy.id || isProxyInUse(proxy.id)}
                 >
                   Delete
                 </button>
