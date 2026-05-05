@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "artifacts": [
+    {
+      "os": "darwin",
+      "arch": "arm64",
+      "path": "darwin-arm64/Chromium.app/Contents/MacOS/Chromium",
+      "description": "Packaged CloakBrowser artifact for macOS Apple Silicon."
+    },
+    {
+      "os": "darwin",
+      "arch": "amd64",
+      "path": "darwin-amd64/Chromium.app/Contents/MacOS/Chromium",
+      "description": "Packaged CloakBrowser artifact for macOS Intel."
+    },
+    {
+      "os": "linux",
+      "arch": "amd64",
+      "path": "linux-amd64/cloakbrowser",
+      "description": "Packaged CloakBrowser artifact for Linux x86_64."
+    },
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "path": "windows-amd64/cloakbrowser.exe",
+      "description": "Packaged CloakBrowser artifact for Windows x86_64."
+    }
+  ]
+}

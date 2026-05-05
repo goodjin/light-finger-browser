@@ -3,7 +3,9 @@ node_modules/
 vendor/
 
 # Build outputs
-build/
+build/bin/
+build/*.exe
+build/*.dmg
 *.exe
 *.dmg
 *.app

@@ -81,7 +81,7 @@ services:
       - postgres
       - redis
     volumes:
-      - ./cloakbrowser:/app/cloakbrowser
+      - ./resources/browser:/app/browser
       - instance_data:/data/instances
     restart: unless-stopped
     healthcheck:
