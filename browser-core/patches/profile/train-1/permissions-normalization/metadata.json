@@ -1,0 +1,10 @@
+{
+  "id": "profile/permissions-normalization",
+  "domain": "profile",
+  "description": "Normalize Permissions API responses to deterministic values, preventing permission-based fingerprinting",
+  "owner": "browser-core",
+  "status": "active",
+  "default_enabled": true,
+  "toggle_key": "patch.profile.permissions-normalization",
+  "files": ["permissions-normalization.patch"]
+}

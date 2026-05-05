@@ -1,5 +1,9 @@
 {
   "train": 1,
   "domain": "profile",
-  "patches": []
+  "patches": [
+    "profile/storage-isolation",
+    "profile/ua-brand-isolation",
+    "profile/permissions-normalization"
+  ]
 }

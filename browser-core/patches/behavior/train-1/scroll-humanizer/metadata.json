@@ -1,0 +1,12 @@
+{
+  "id": "behavior/scroll-humanizer",
+  "domain": "behavior",
+  "description": "Add natural inertia to scroll events",
+  "owner": "browser-core",
+  "status": "active",
+  "default_enabled": true,
+  "toggle_key": "patch.behavior.scroll-humanizer",
+  "files": [
+    "scroll-humanizer.patch"
+  ]
+}

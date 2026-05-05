@@ -1,0 +1,12 @@
+{
+  "id": "behavior/mouse-humanizer",
+  "domain": "behavior",
+  "description": "Add human-like jitter to mouse event timestamps and positions",
+  "owner": "browser-core",
+  "status": "active",
+  "default_enabled": true,
+  "toggle_key": "patch.behavior.mouse-humanizer",
+  "files": [
+    "mouse-humanizer.patch"
+  ]
+}

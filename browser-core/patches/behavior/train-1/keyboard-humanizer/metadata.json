@@ -1,0 +1,12 @@
+{
+  "id": "behavior/keyboard-humanizer",
+  "domain": "behavior",
+  "description": "Add human-like timing to keyboard events",
+  "owner": "browser-core",
+  "status": "active",
+  "default_enabled": true,
+  "toggle_key": "patch.behavior.keyboard-humanizer",
+  "files": [
+    "keyboard-humanizer.patch"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "automation/input-behavior",
+  "domain": "automation",
+  "description": "Humanized input event timing",
+  "owner": "browser-core",
+  "status": "active",
+  "default_enabled": true,
+  "toggle_key": "patch.automation.input-behavior",
+  "files": [
+    "input-behavior.patch"
+  ]
+}

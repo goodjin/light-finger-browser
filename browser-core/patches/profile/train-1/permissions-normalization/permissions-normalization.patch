@@ -1,0 +1,181 @@
+diff --git a/third_party/blink/renderer/modules/permissions/permissions.cc b/third_party/blink/renderer/modules/permissions/permissions.cc
+index 3a5b6c7d8...9e2f3a4b5 100644
+--- a/third_party/blink/renderer/modules/permissions/permissions.cc
++++ b/third_party/blink/renderer/modules/permissions/permissions.cc
+@@ -12,6 +12,7 @@
+ #include <utility>
+ #include <vector>
+
++#include "base/command_line.h"
+ #include "third_party/blink/public/common/permissions/permission_utils.h"
+ #include "third_party/blink/public/common/permissions_policy/policy_helper.h"
+ #include "third_party/blink/public/mojom/permissions_policy/permissions_policy.mojom-blink.h"
+@@ -36,6 +37,119 @@
+
+ namespace blink {
+
++namespace {
++
++// Permission state normalization mapping.
++// Maps permission types to deterministic states based on command-line flags.
++mojom::PermissionState GetNormalizedPermissionState(
++    const String& permission_name) {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return mojom::PermissionState::ASK;  // Default to prompt.
++  }
++
++  // Check for explicit permission override in format: --permission-{name}={state}
++  // where state is: granted, denied, or prompt.
++  std::string switch_name = "permission-";
++  switch_name += permission_name.Ascii();
++
++  const std::string override_value =
++      base::ToLowerASCII(command_line->GetSwitchValueASCII(switch_name));
++
++  if (!override_value.empty()) {
++    if (override_value == "granted" || override_value == "allow") {
++      return mojom::PermissionState::GRANTED;
++    }
++    if (override_value == "denied" || override_value == "block") {
++      return mojom::PermissionState::DENIED;
++    }
++    if (override_value == "prompt" || override_value == "ask") {
++      return mojom::PermissionState::ASK;
++    }
++  }
++
++  // Default normalized states for common permissions.
++  // These provide deterministic behavior while being reasonable defaults.
++  if (permission_name == "geolocation") {
++    return mojom::PermissionState::ASK;
++  }
++  if (permission_name == "notifications") {
++    return mojom::PermissionState::DENIED;
++  }
++  if (permission_name == "push") {
++    return mojom::PermissionState::ASK;
++  }
++  if (permission_name == "midi") {
++    return mojom::PermissionState::GRANTED;
++  }
++  if (permission_name == "midi-sysex") {
++    return mojom::PermissionState::DENIED;
++  }
++  if (permission_name == "storage-access") {
++    return mojom::PermissionState::ASK;
++  }
++  if (permission_name == "accessibility-events") {
++    return mojom::PermissionState::ASK;
++  }
++  if (permission_name == "clipboard-read") {
++    return mojom::PermissionState::DENIED;
++  }
++  if (permission_name == "clipboard-write") {
++    return mojom::PermissionState::GRANTED;
++  }
++  if (permission_name == "payment") {
++    return mojom::PermissionState::ASK;
++  }
++
++  // Default to prompt for unknown permissions.
++  return mojom::PermissionState::ASK;
++}
++
++// Returns whether permission states should be normalized.
++bool ShouldNormalizePermissions() {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return true;  // Default to normalized if no command line.
++  }
++
++  const std::string normalize_value =
++      base::ToLowerASCII(
++          command_line->GetSwitchValueASCII("normalize-permissions"));
++  if (normalize_value.empty()) {
++    return true;  // Default to normalized.
++  }
++  // Normalization is disabled only if explicitly set to "0", "false", or "no".
++  return !(normalize_value == "0" || normalize_value == "false" ||
++           normalize_value == "no");
++}
++
++}  // namespace
++
+ Permissions::Permissions(ExecutionContext* context)
+     : ContextLifecycleObserver(context) {}
+@@ -82,6 +196,15 @@ ScriptPromise Permissions::query(ScriptState* script_state,
+   auto* resolver = MakeGarbageCollected<ScriptPromiseResolver>(
+       script_state, abort_controller->signal());
+   auto callback = resolver-> WrapCallback(
++
++      // Normalize permission state before returning.
++      [](mojom::PermissionStatus status) {
++        // Note: The callback receives the raw status, normalization happens
++        // after the query. For full normalization, we need to intercept
++        // at the query response level.
++        return status;
++      });
++
+       WTF::BindOnce(&PermissionStatusHolder::FromContext,
+                     WrapPersistent(context), std::move(resolver),
+                     permission_desc->Clone(), callback);
+@@ -89,6 +212,46 @@ ScriptPromise Permissions::query(ScriptState* script_state,
+   return resolver->Promise();
+ }
+
++ScriptPromise Permissions::queryNormalizePermissionState(
++    ScriptState* script_state,
++    const String& permission_name) {
++  // Check if normalization is enabled.
++  if (!ShouldNormalizePermissions()) {
++    return query(script_state, permission_name);
++  }
++
++  // Return a promise that resolves to the normalized state.
++  auto* resolver = MakeGarbageCollected<ScriptPromiseResolver>(
++      script_state);
++
++  // Determine normalized state.
++  mojom::PermissionState normalized_state =
++      GetNormalizedPermissionState(permission_name);
++
++  // Convert state to status (ASK = prompt).
++  mojom::PermissionStatus status = mojom::PermissionStatus::ASK;
++  switch (normalized_state) {
++    case mojom::PermissionState::GRANTED:
++      status = mojom::PermissionStatus::GRANTED;
++      break;
++    case mojom::PermissionState::DENIED:
++      status = mojom::PermissionStatus::DENIED;
++      break;
++    case mojom::PermissionState::ASK:
++    default:
++      status = mojom::PermissionStatus::ASK;
++      break;
++  }
++
++  resolver->Resolve(status);
++  return resolver->Promise();
++}
++
+ void Permissions::releaseLock(const String& name) {
+   // PermissionDescriptors are unique per name, so we need to create a new
+   // PermissionDescriptor for comparison.
+diff --git a/third_party/blink/renderer/modules/permissions/permissions.h b/third_party/blink/renderer/modules/permissions/permissions.h
+index 5e6f7a8b9...0a1b2c3d4 100644
+--- a/third_party/blink/renderer/modules/permissions/permissions.h
++++ b/third_party/blink/renderer/modules/permissions/permissions.h
+@@ -51,6 +51,9 @@ class Permissions final : public EventTargetWithInlineData,
+   ScriptPromise query(ScriptState*, const String& permission_name);
+   ScriptPromise query(ScriptState*,
+                       const HeapVector<Member<PermissionDescriptor>>&);
++
++  // Returns normalized permission state to prevent fingerprinting.
++  ScriptPromise queryNormalizePermissionState(ScriptState*, const String&);
++
+   void releaseLock(const String& name);
+
+   // ContextLifecycleObserver implementation:

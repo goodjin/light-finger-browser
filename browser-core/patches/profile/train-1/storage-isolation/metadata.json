@@ -1,0 +1,10 @@
+{
+  "id": "profile/storage-isolation",
+  "domain": "profile",
+  "description": "Fingerprint-seed-based storage partitioning for localStorage, sessionStorage, IndexedDB, and cookie isolation per browser instance",
+  "owner": "browser-core",
+  "status": "active",
+  "default_enabled": true,
+  "toggle_key": "patch.profile.storage-isolation",
+  "files": ["storage-isolation.patch"]
+}

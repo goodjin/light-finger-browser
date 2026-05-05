@@ -1,0 +1,10 @@
+{
+  "id": "profile/ua-brand-isolation",
+  "domain": "profile",
+  "description": "Normalize NavigatorUAData.brands to prevent brand fingerprinting, ensuring consistent brand list regardless of actual installed software",
+  "owner": "browser-core",
+  "status": "active",
+  "default_enabled": true,
+  "toggle_key": "patch.profile.ua-brand-isolation",
+  "files": ["ua-brand-isolation.patch"]
+}

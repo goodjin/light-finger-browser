@@ -1,5 +1,9 @@
 {
   "train": 1,
   "domain": "behavior",
-  "patches": []
+  "patches": [
+    "behavior/mouse-humanizer",
+    "behavior/keyboard-humanizer",
+    "behavior/scroll-humanizer"
+  ]
 }

@@ -1,0 +1,163 @@
+diff --git a/content/browser/storage_partition_impl.cc b/content/browser/storage_partition_impl.cc
+index 5a8f7e3d2...c3b4a5f1e 100644
+--- a/content/browser/storage_partition_impl.cc
++++ b/content/browser/storage_partition_impl.cc
+@@ -15,6 +15,7 @@
+ #include <memory>
+ #include <optional>
+ #include <string>
++#include <string_view>
+
+ #include "base/command_line.h"
+ #include "base/containers/span.h"
+@@ -48,6 +49,58 @@
+ #include "ui/base/page_transition_types.h"
+ #include "url/url_constants.h"
+
++namespace {
++
++// Storage partition key component derived from fingerprint seed.
++// This ensures storage is isolated per browser instance based on
++// the fingerprint seed, preventing cross-instance storage leakage.
++std::string GetFingerprintBasedStorageKey() {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return std::string();
++  }
++
++  const std::string fingerprint_seed =
++      command_line->GetSwitchValueASCII("fingerprint");
++  if (fingerprint_seed.empty()) {
++    return std::string();
++  }
++
++  // Create a deterministic key component from the fingerprint seed.
++  // Using FNV-1a hash for deterministic derivation.
++  uint64_t hash = 1469598103934665603ULL;  // FNV offset basis
++  for (unsigned char c : fingerprint_seed) {
++    hash ^= static_cast<uint64_t>(c);
++    hash *= 1099511628211ULL;  // FNV prime
++  }
++
++  return base::StringPrintf("%llx", static_cast<unsigned long long>(hash));
++}
++
++// Generate a deterministic storage bucket name based on fingerprint seed.
++std::string GetFingerprintBasedBucketName() {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return std::string();
++  }
++
++  const std::string bucket_id =
++      command_line->GetSwitchValueASCII("storage-bucket-id");
++  if (!bucket_id.empty()) {
++    return bucket_id;
++  }
++
++  const std::string fingerprint_seed =
++      command_line->GetSwitchValueASCII("fingerprint");
++  if (fingerprint_seed.empty()) {
++    return std::string();
++  }
++
++  // Create a deterministic bucket ID from the fingerprint seed.
++  uint64_t hash = 1469598103934665603ULL;
++  for (unsigned char c : fingerprint_seed) {
++    hash ^= static_cast<uint64_t>(c);
++    hash *= 1099511628211ULL;
++  }
++
++  return base::StringPrintf("lfb-bucket-%llx",
++                           static_cast<unsigned long long>(hash));
++}
++
++}  // namespace
++
+ namespace content {
+
+ StoragePartitionImpl::StoragePartitionImpl(
+diff --git a/third_party/blink/renderer/modules/storage/blink_storage_area.cc b/third_party/blink/renderer/modules/storage/blink_storage_area.cc
+index 7d8e9f2a1...1a2b3c4d5 100644
+--- a/third_party/blink/renderer/modules/storage/blink_storage_area.cc
++++ b/third_party/blink/renderer/modules/storage/blink_storage_area.cc
+@@ -12,6 +12,7 @@
+ #include <utility>
+ #include <vector>
+
++#include "base/command_line.h"
+ #include "base/memory/scoped_refptr.h"
+ #include "base/strings/string_util.h"
+ #include "third_party/blink/renderer/bindings/core/v8/script_value.h"
+@@ -35,6 +36,43 @@
+
+ namespace blink {
+
++namespace {
++
++// Returns a deterministic namespace ID based on fingerprint seed.
++// This ensures localStorage/sessionStorage namespaces are isolated
++// per browser instance.
++std::string GetFingerprintBasedStorageNamespace() {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return std::string();
++  }
++
++  const std::string namespace_id =
++      command_line->GetSwitchValueASCII("storage-namespace");
++  if (!namespace_id.empty()) {
++    return namespace_id;
++  }
++
++  const std::string fingerprint_seed =
++      command_line->GetSwitchValueASCII("fingerprint");
++  if (fingerprint_seed.empty()) {
++    return std::string();
++  }
++
++  // Create a deterministic namespace from the fingerprint seed.
++  uint64_t hash = 1469598103934665603ULL;
++  for (unsigned char c : fingerprint_seed) {
++    hash ^= static_cast<uint64_t>(c);
++    hash *= 1099511628211ULL;
++  }
++
++  return base::StringPrintf("lfb-storage-%llx",
++                           static_cast<unsigned long long>(hash));
++}
++
++}  // namespace
++
+ StorageArea::StorageArea(StorageArea::Destination host,
+                          mojo::PendingAssociatedRemote<mojom::blink::StorageArea>
+                              storage_area,
+@@ -92,6 +130,13 @@ StorageArea::StorageArea(
+         : /* honey_bucket_feature_for_local_storage=*/std::nullopt,
+       honey_bucket_name_for_local_storage_(std::nullopt) {
+   // Implementation constructor
++  namespace_id_ = GetFingerprintBasedStorageNamespace();
++}
++
++StorageArea::StorageArea(StorageArea::Destination host,
++                         const String& origin)
++    : StorageArea(host, origin, nullptr, nullptr, base::NullCallback()) {
++  // Delegate constructor
+ }
+
+ void StorageArea::Trace(Visitor* visitor) const {
+diff --git a/third_party/blink/renderer/modules/storage/ blink_storage_area.h b/third_party/blink/renderer/modules/storage/blink_storage_area.h
+index 8e9f0a1b2...3c4d5e6f7 100644
+--- a/third_party/blink/renderer/modules/storage/blink_storage_area.h
++++ b/third_party/blink/renderer/modules/storage/blink_storage_area.h
+@@ -98,6 +98,7 @@ class StorageArea final : public blink::EventTargetWithInlineData,
+   void DidStorageAreaItemRemoved(bool was_cookie_deleted);
+   void DidEndSession();
+   void ApplyWillBeDeleted(const WillBeDeletedHint& hint);
++  String namespace_id_;
+
+  private:
+   // This is an associated interface, so it must be destroyed on the same

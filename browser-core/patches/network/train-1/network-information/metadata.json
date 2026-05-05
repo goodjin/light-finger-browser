@@ -1,0 +1,12 @@
+{
+  "id": "network/network-information",
+  "domain": "network",
+  "description": "Normalize Network Information API output",
+  "owner": "browser-core",
+  "status": "active",
+  "default_enabled": true,
+  "toggle_key": "patch.network.network-information",
+  "files": [
+    "network-information.patch"
+  ]
+}

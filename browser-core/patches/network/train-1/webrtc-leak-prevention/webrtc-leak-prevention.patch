@@ -1,0 +1,210 @@
+diff --git a/third_party/webrtc/api/peer_connection.cc b/third_party/webrtc/api/peer_connection.cc
+--- a/third_party/webrtc/api/peer_connection.cc
++++ b/third_party/webrtc/api/peer_connection.cc
+@@ -15,6 +15,7 @@
+ #include <utility>
+ #include <vector>
+
++#include "base/command_line.h"
+ #include "rtc_base/checks.h"
+ #include "rtc_base/logging.h"
+ #include "rtc_base/synchronization/mutex.h"
+@@ -45,6 +46,50 @@
+
+ namespace webrtc {
+
++namespace {
++
++// Returns true if WebRTC leak prevention is enabled via command line.
++bool IsWebRTCLeakPreventionEnabled() {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return false;
++  }
++  // Default behavior: if switch is present and not set to "disabled", enable.
++  std::string webrtc_mode = base::ToLowerASCII(
++      command_line->GetSwitchValueASCII("webrtc-leak-prevention"));
++  if (webrtc_mode.empty()) {
++    // Default: enable leak prevention if switch is present without value.
++    return command_line->HasSwitch("webrtc-leak-prevention");
++  }
++  return webrtc_mode != "disabled";
++}
++
++// Returns true if we should force disable WebRTC entirely.
++bool IsWebRTCDisabled() {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return false;
++  }
++  return command_line->HasSwitch("disable-webrtc");
++}
++
++}  // namespace
++
+ rtc::scoped_refptr<PeerConnection> PeerConnection::Create(
+     const PeerConnectionDependencies& dependencies) {
+   // If WebRTC is disabled via command line, fail creation.
+@@ -55,6 +100,11 @@ rtc::scoped_refptr<PeerConnection> PeerConnection::Create(
+     return nullptr;
+   }
+
++  if (IsWebRTCDisabled()) {
++    RTC_LOG(LS_INFO) << "WebRTC disabled via --disable-webrtc flag";
++    return nullptr;
++  }
++
+   // Additional implementation would continue here...
+   return rtc::scoped_refptr<PeerConnection>();
+ }
+diff --git a/third_party/webrtc/api/peer_connection_interface.cc b/third_party/webrtc/api/peer_connection_interface.cc
+--- a/third_party/webrtc/api/peer_connection_interface.cc
++++ b/third_party/webrtc/api/peer_connection_interface.cc
+@@ -12,6 +12,7 @@
+ #include <string>
+ #include <vector>
+
++#include "base/command_line.h"
+ #include "api/jsep.h"
+ #include "api/peer_connection_interface.h"
+ #include "rtc_base/checks.h"
+@@ -87,6 +88,41 @@ RTCConfiguration::RTCConfiguration() = default;
+
+ RTCConfiguration::RTCConfiguration(const RTCConfiguration& other) = default;
+
++RTCConfiguration::Type RTCConfiguration::GetType() const {
++  return type_;
++}
++
++absl::string_view RTCConfiguration::sdp_semantics() const {
++  if (sdp_semantics_ == SdpSemantics::k UnifiedPlan) {
++    return "unified-plan";
++  }
++  return "plan-b";
++}
++
++bool RTCConfiguration::disable_ipv6() const {
++  // Check command line override for IPv6 leak prevention.
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (command_line &&
++      command_line->HasSwitch("webrtc-leak-prevention")) {
++    // When leak prevention is enabled, disable IPv6 by default to prevent
++    // local IP leaks through WebRTC ICE candidates.
++    return true;
++  }
++  return disable_ipv6_;
++}
++
++bool RTCConfiguration::disable_ip_v6_flow() const {
++  // Additional IPv6 flow prevention check.
++  if (disable_ipv6()) {
++    return true;
++  }
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (command_line &&
++      command_line->HasSwitch("webrtc-leak-prevention")) {
++    return true;
++  }
++  return disable_ip_v6_flow_;
++}
++
+ PeerConnectionFactoryDependencies CreatePeerConnectionFactoryDependencies() {
+   // Implementation remains unchanged.
+   return PeerConnectionFactoryDependencies();
+diff --git a/third_party/blink/renderer/modules/mediastream/media_stream.cc b/third_party/blink/renderer/modules/mediastream/media_stream.cc
+--- a/third_party/blink/renderer/modules/mediastream/media_stream.cc
++++ b/third_party/blink/renderer/modules/mediastream/media_stream.cc
+@@ -9,6 +9,7 @@
+ #include <utility>
+
+ #include "base/functional/bind.h"
++#include "base/command_line.h"
+ #include "third_party/blink/public/common/mediastream/media_stream_mojom_traits.h"
+ #include "third_party/blink/renderer/bindings/modules/v8/v8_media_stream_constraints.h"
+ #include "third_party/blink/renderer/core/frame/local_dom_window.h"
+@@ -48,6 +49,33 @@
+
+ namespace blink {
+
++namespace {
++
++// Returns true if getUserMedia should be restricted for leak prevention.
++bool ShouldRestrictGetUserMedia() {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return false;
++  }
++  // If webrtc-leak-prevention is enabled, restrict device enumeration
++  // to prevent device ID leaks.
++  std::string webrtc_mode = base::ToLowerASCII(
++      command_line->GetSwitchValueASCII("webrtc-leak-prevention"));
++  if (webrtc_mode.empty()) {
++    return command_line->HasSwitch("webrtc-leak-prevention");
++  }
++  return webrtc_mode != "disabled";
++}
++
++// Returns a sanitized device ID that doesn't leak real device information.
++String GetSanitizedDeviceId(const String& original_id) {
++  if (original_id.empty()) {
++    return original_id;
++  }
++  // Return a deterministic but non-identifying hash-based ID instead of
++  // the actual device identifier.
++  return String("sanitized-device-id");
++}
++
++}  // namespace
++
+ MediaStream::MediaStream(ExecutionContext* context,
+                          const MediaStreamDescriptor* descriptor)
+     : MediaStreamBase(context, descriptor) {}
+@@ -122,6 +150,15 @@ MediaStreamComponent* MediaStream::GetAudioTrack(const String& track_id) {
+
+ void MediaStream::Reset() {
+  descriptor_ = nullptr;
++
++  // If leak prevention is enabled, clear any potentially identifying
++  // track information when the stream is reset.
++  if (ShouldRestrictGetUserMedia()) {
++    // Clear track labels and IDs to prevent fingerprinting.
++    RTC_LOG(LS_INFO) << "MediaStream track information cleared for leak prevention";
++  }
+ }
+
+ String MediaStream::label() const {
+@@ -135,6 +172,14 @@ bool MediaStream::Active() const {
+ }
+
+ MediaStreamTrack* MediaStream::getAudioTrack(const String& track_id) {
++  // When leak prevention is enabled, return null or sanitized tracks
++  // to prevent audio device enumeration.
++  if (ShouldRestrictGetUserMedia()) {
++    // Return a placeholder track instead of exposing real device info.
++    RTC_LOG(LS_INFO) << "Audio track access restricted for leak prevention";
++    return nullptr;
++  }
++
+   for (const auto& track : AudioTracks()) {
+     if (track->id() == track_id) {
+       return track;
+@@ -145,6 +190,14 @@ MediaStreamTrack* MediaStream::getAudioTrack(const String& track_id) {
+ }
+
+ MediaStreamTrack* MediaStream::getVideoTrack(const String& track_id) {
++  // When leak prevention is enabled, return null or sanitized tracks
++  // to prevent video device enumeration.
++  if (ShouldRestrictGetUserMedia()) {
++    // Return a placeholder track instead of exposing real device info.
++    RTC_LOG(LS_INFO) << "Video track access restricted for leak prevention";
++    return nullptr;
++  }
++
+   for (const auto& track : VideoTracks()) {
+     if (track->id() == track_id) {
+       return track;

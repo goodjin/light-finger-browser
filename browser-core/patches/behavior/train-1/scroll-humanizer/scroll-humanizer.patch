@@ -1,0 +1,161 @@
+diff --git a/third_party/blink/renderer/core/events/wheel_event.cc b/third_party/blink/renderer/core/events/wheel_event.cc
+--- a/third_party/blink/renderer/core/events/wheel_event.cc
++++ b/third_party/blink/renderer/core/events/wheel_event.cc
+@@ -9,6 +9,10 @@
+ #include <algorithm>
+ #include <cmath>
+ #include <limits>
++#include <cstdint>
++#include <string>
++
++#include "base/command_line.h"
++#include "base/strings/string_number_conversions.h"
++#include "base/strings/string_util.h"
++#include "third_party/blink/renderer/platform/wtf/text/wtf_string.h"
+
+ namespace blink {
+
++namespace {
++
++// Get fingerprint seed from command line
++bool GetBehaviorSeed(uint64_t* seed_out) {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return false;
++  }
++
++  // Check if behavior humanization is enabled
++  std::string noise_value = base::ToLowerASCII(
++      command_line->GetSwitchValueASCII("fingerprint-noise"));
++  if (!noise_value.empty() &&
++      (noise_value == "0" || noise_value == "false" ||
++       noise_value == "no")) {
++    return false;
++  }
++
++  std::string seed_value = command_line->GetSwitchValueASCII("fingerprint");
++  uint64_t seed = 0;
++  if (!seed_value.empty()) {
++    if (!base::StringToUint64(seed_value, &seed)) {
++      // FNV-1a hash for string seed
++      seed = 1469598103934665603ULL;
++      for (unsigned char c : seed_value) {
++        seed ^= c;
++        seed *= 1099511628211ULL;
++      }
++    }
++  }
++
++  *seed_out = seed;
++  return true;
++}
++
++// Mix seed with event-specific data for deterministic noise
++uint64_t MixBehaviorSeed(uint64_t seed, uint64_t event_data, uint64_t multiplier) {
++  uint64_t value = seed ^ event_data ^ multiplier;
++  value ^= value >> 33;
++  value *= 0xff51afd7ed558ccdULL;
++  value ^= value >> 33;
++  value *= 0xc4ceb9fe1a85ec53ULL;
++  value ^= value >> 33;
++  return value;
++}
++
++// Get delta multiplier for natural inertia effect
++// Returns a value between 0.8 and 1.2 to apply subtle variation
++double GetScrollInertiaMultiplier(uint64_t seed, uint64_t event_id) {
++  uint64_t mixed = MixBehaviorSeed(seed, event_id, 0x9e3779b97f4a7c15ULL);
++  // Map to [0.8, 1.2] range with center at 1.0
++  double ratio = static_cast<double>(mixed & 0xFFFFULL) / 65535.0;
++  return 0.8 + (ratio * 0.4);
++}
++
++// Get scroll cadence jitter in microseconds
++int64_t GetScrollCadenceJitter(uint64_t seed, uint64_t event_id, int max_jitter_us) {
++  uint64_t mixed = MixBehaviorSeed(seed, event_id, 0x6b8b4567);
++  int64_t jitter = static_cast<int64_t>(mixed & 0xFFFFFFFFULL) % (max_jitter_us * 2);
++  return jitter - max_jitter_us;
++}
++
++// Rolling event counter for scroll events
++uint64_t g_scroll_event_counter = 0;
++
++}  // namespace
+
+ WheelEvent::WheelEvent() = default;
+
+ WheelEvent::WheelEvent(const WebMouseWheelEvent& event,
+@@ -59,6 +103,39 @@ const AtomicString& WheelEvent::InterfaceName() const {
+   return event_interface_names::kWheelEvent;
+ }
+
++float WheelEvent::wheelDeltaX() const {
++  uint64_t seed = 0;
++  if (GetBehaviorSeed(&seed)) {
++    g_scroll_event_counter++;
++    double multiplier = GetScrollInertiaMultiplier(seed, g_scroll_event_counter);
++    return static_cast<float>(PlatformEvent::wheelDeltaX() * multiplier);
++  }
++  return PlatformEvent::wheelDeltaX();
++}
++
++float WheelEvent::wheelDeltaY() const {
++  uint64_t seed = 0;
++  if (GetBehaviorSeed(&seed)) {
++    double multiplier = GetScrollInertiaMultiplier(seed, g_scroll_event_counter);
++    return static_cast<float>(PlatformEvent::wheelDeltaY() * multiplier);
++  }
++  return PlatformEvent::wheelDeltaY();
++}
++
++float WheelEvent::wheelDelta() const {
++  uint64_t seed = 0;
++  if (GetBehaviorSeed(&seed)) {
++    double multiplier = GetScrollInertiaMultiplier(seed, g_scroll_event_counter);
++    return static_cast<float>(PlatformEvent::wheelDelta() * multiplier);
++  }
++  return PlatformEvent::wheelDelta();
++}
++
++int32_t WheelEvent::deltaX() const {
++  uint64_t seed = 0;
++  if (GetBehaviorSeed(&seed)) {
++    double multiplier = GetScrollInertiaMultiplier(seed, g_scroll_event_counter);
++    return static_cast<int32_t>(PlatformEvent::deltaX() * multiplier);
++  }
++  return PlatformEvent::deltaX();
++}
++
++int32_t WheelEvent::deltaY() const {
++  uint64_t seed = 0;
++  if (GetBehaviorSeed(&seed)) {
++    double multiplier = GetScrollInertiaMultiplier(seed, g_scroll_event_counter);
++    return static_cast<int32_t>(PlatformEvent::deltaY() * multiplier);
++  }
++  return PlatformEvent::deltaY();
++}
++
++int32_t WheelEvent::deltaZ() const {
++  uint64_t seed = 0;
++  if (GetBehaviorSeed(&seed)) {
++    double multiplier = GetScrollInertiaMultiplier(seed, g_scroll_event_counter);
++    return static_cast<int32_t>(PlatformEvent::deltaZ() * multiplier);
++  }
++  return PlatformEvent::deltaZ();
++}
++
++double WheelEvent::timing() const {
++  uint64_t seed = 0;
++  if (GetBehaviorSeed(&seed)) {
++    g_scroll_event_counter++;
++    int64_t jitter = GetScrollCadenceJitter(seed, g_scroll_event_counter, 5000);
++    double base_timing = PlatformEvent::timing();
++    return base_timing + (static_cast<double>(jitter) / 1000000.0);  // Convert us to ms
++  }
++  return PlatformEvent::timing();
++}
++
+ void WheelEvent::initWheelEvent(int32_t raw_delta_x,
+                                 int32_t raw_delta_y,
+                                 DOMWindow* view,

@@ -1,0 +1,12 @@
+{
+  "id": "network/webrtc-leak-prevention",
+  "domain": "network",
+  "description": "Prevent WebRTC from leaking local IP addresses",
+  "owner": "browser-core",
+  "status": "active",
+  "default_enabled": true,
+  "toggle_key": "patch.network.webrtc-leak-prevention",
+  "files": [
+    "webrtc-leak-prevention.patch"
+  ]
+}

@@ -1,5 +1,8 @@
 {
   "train": 1,
   "domain": "automation",
-  "patches": []
+  "patches": [
+    "automation/automation-signals",
+    "automation/input-behavior"
+  ]
 }

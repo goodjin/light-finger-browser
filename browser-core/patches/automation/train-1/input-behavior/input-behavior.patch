@@ -1,0 +1,229 @@
+diff --git a/third_party/blink/renderer/core/input/input_handler.cc b/third_party/blink/renderer/core/input/input_handler.cc
+--- a/third_party/blink/renderer/core/input/input_handler.cc
++++ b/third_party/blink/renderer/core/input/input_handler.cc
+@@ -9,6 +9,9 @@
+ #include <memory>
+ #include <utility>
+
++#include "base/command_line.h"
++#include "base/time/time.h"
++#include "base/rand_util.h"
+ #include "third_party/blink/renderer/core/frame/local_dom_window.h"
+ #include "third_party/blink/renderer/core/input/event_handler.h"
+ #include "third_party/blink/renderer/core/input/fling_controller.h"
+@@ -16,6 +19,48 @@
+
+ namespace blink {
+
++namespace {
++
++// Check if fingerprint noise is enabled for input behavior randomization
++bool IsInputNoiseEnabled() {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return false;
++  }
++  // Check if fingerprint-noise is explicitly disabled
++  std::string noise_value = base::ToLowerASCII(
++      command_line->GetSwitchValueASCII("fingerprint-noise"));
++  if (!noise_value.empty() &&
++      (noise_value == "0" || noise_value == "false" ||
++       noise_value == "no")) {
++    return false;
++  }
++  // Check for explicit enable flag
++  if (command_line->HasSwitch("enable-input-noise")) {
++    return true;
++  }
++  return false;
++}
++
++// Get jitter range in milliseconds for event timestamp randomization
++// Returns 0 if noise is disabled
++int GetInputJitterRangeMs() {
++  if (!IsInputNoiseEnabled()) {
++    return 0;
++  }
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return 5;  // Default jitter range: 5ms
++  }
++  std::string jitter_value =
++      command_line->GetSwitchValueASCII("input-jitter-range-ms");
++  if (jitter_value.empty()) {
++    return 5;  // Default
++  }
++  int jitter = atoi(jitter_value.c_str());
++  if (jitter < 0 || jitter > 50) {
++    return 5;  // Clamp to reasonable range
++  }
++  return jitter;
++}
++
++// Apply timestamp jitter to make input events appear more human-like
++base::TimeTicks ApplyInputTimestampJitter(base::TimeTicks timestamp) {
++  int jitter_range = GetInputJitterRangeMs();
++  if (jitter_range == 0) {
++    return timestamp;
++  }
++  // Add random jitter in range [-jitter_range, +jitter_range] ms
++  int jitter_ms = base::RandInt(-jitter_range, jitter_range);
++  return timestamp + base::Milliseconds(jitter_ms);
++}
++
++}  // namespace
++
+ InputHandler::InputHandler(LocalFrame& frame) : frame_(frame) {}
+
+ void InputHandler::UpdateInputHandler() {
+diff --git a/third_party/blink/renderer/core/input/event_handler.cc b/third_party/blink/renderer/core/input/event_handler.cc
+--- a/third_party/blink/renderer/core/input/event_handler.cc
++++ b/third_party/blink/renderer/core/input/event_handler.cc
+@@ -12,6 +12,7 @@
+ #include <utility>
+ #include <optional>
+
++#include "base/command_line.h"
+ #include "third_party/blink/public/common/input/web_mouse_event.h"
+ #include "third_party/blink/public/common/input/web_mouse_wheel_event.h"
+ #include "third_party/blink/public/common/input/web_pointer_event.h"
+@@ -35,6 +36,48 @@
+ #include "third_party/blink/renderer/platform/wtf/text/base64.h"
+ #include "third_party/blink/renderer/platform/wtf/text/wtf_string.h"
+
++namespace {
++
++// Check if fingerprint noise is enabled for input behavior randomization
++bool IsInputNoiseEnabled() {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return false;
++  }
++  std::string noise_value = base::ToLowerASCII(
++      command_line->GetSwitchValueASCII("fingerprint-noise"));
++  if (!noise_value.empty() &&
++      (noise_value == "0" || noise_value == "false" ||
++       noise_value == "no")) {
++    return false;
++  }
++  if (command_line->HasSwitch("enable-input-noise")) {
++    return true;
++  }
++  return false;
++}
++
++// Get jitter range in milliseconds
++int GetInputJitterRangeMs() {
++  if (!IsInputNoiseEnabled()) {
++    return 0;
++  }
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return 5;
++  }
++  std::string jitter_value =
++      command_line->GetSwitchValueASCII("input-jitter-range-ms");
++  if (jitter_value.empty()) {
++    return 5;
++  }
++  int jitter = atoi(jitter_value.c_str());
++  if (jitter < 0 || jitter > 50) {
++    return 5;
++  }
++  return jitter;
++}
++
++// Apply timestamp jitter to make input events appear more human-like
++base::TimeTicks ApplyInputTimestampJitter(base::TimeTicks timestamp) {
++  int jitter_range = GetInputJitterRangeMs();
++  if (jitter_range == 0) {
++    return timestamp;
++  }
++  int jitter_ms = base::RandInt(-jitter_range, jitter_range);
++  return timestamp + base::Milliseconds(jitter_ms);
++}
++
++}  // namespace
++
+ namespace blink {
+
+diff --git a/third_party/blink/renderer/core/input/fling_controller.cc b/third_party/blink/renderer/core/input/fling_controller.cc
+--- a/third_party/blink/renderer/core/input/fling_controller.cc
++++ b/third_party/blink/renderer/core/input/fling_controller.cc
+@@ -9,6 +9,9 @@
+ #include <utility>
+ #include <optional>
+
++#include "base/command_line.h"
++#include "base/time/time.h"
++#include "base/rand_util.h"
+ #include "third_party/blink/public/common/input/web_gesture_event.h"
+ #include "third_party/blink/renderer/core/frame/local_frame.h"
+ #include "third_party/blink/renderer/core/input/input_handler.h"
+@@ -17,6 +20,48 @@
+
+ namespace blink {
+
++namespace {
++
++// Check if fingerprint noise is enabled for input behavior randomization
++bool IsInputNoiseEnabled() {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return false;
++  }
++  std::string noise_value = base::ToLowerASCII(
++      command_line->GetSwitchValueASCII("fingerprint-noise"));
++  if (!noise_value.empty() &&
++      (noise_value == "0" || noise_value == "false" ||
++       noise_value == "no")) {
++    return false;
++  }
++  if (command_line->HasSwitch("enable-input-noise")) {
++    return true;
++  }
++  return false;
++}
++
++// Get jitter range in milliseconds for event timestamp randomization
++int GetInputJitterRangeMs() {
++  if (!IsInputNoiseEnabled()) {
++    return 0;
++  }
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return 5;
++  }
++  std::string jitter_value =
++      command_line->GetSwitchValueASCII("input-jitter-range-ms");
++  if (jitter_value.empty()) {
++    return 5;
++  }
++  int jitter = atoi(jitter_value.c_str());
++  if (jitter < 0 || jitter > 50) {
++    return 5;
++  }
++  return jitter;
++}
++
++// Apply timestamp jitter to fling/scroll events for humanized behavior
++base::TimeTicks ApplyInputTimestampJitter(base::TimeTicks timestamp) {
++  int jitter_range = GetInputJitterRangeMs();
++  if (jitter_range == 0) {
++    return timestamp;
++  }
++  int jitter_ms = base::RandInt(-jitter_range, jitter_range);
++  return timestamp + base::Milliseconds(jitter_ms);
++}
++
++}  // namespace
++
+ FlingController::FlingController(LocalFrame& frame)
+     : frame_(frame),
+       compositor_input_offset_tracker_(frame),

@@ -1,0 +1,111 @@
+diff --git a/third_party/blink/renderer/core/frame/navigator_ua.cc b/third_party/blink/renderer/core/frame/navigator_ua.cc
+index 8a7f6e2b1...9c3d4e5f2 100644
+--- a/third_party/blink/renderer/core/frame/navigator_ua.cc
++++ b/third_party/blink/renderer/core/frame/navigator_ua.cc
+@@ -15,9 +15,12 @@
+ #include "third_party/blink/renderer/core/frame/navigator_uai.h"
+ #include "third_party/blink/renderer/core/frame/web_frame.h"
+ #include "third_party/blink/renderer/core/frame/web_local_frame.h"
++#include "third_party/blink/renderer/core/frame/navigator_base.h"
+ #include "third_party/blink/renderer/platform/runtime_enabled_features.h"
+ #include "third_party/blink/renderer/platform/wtf/text/string_builder.h"
+
++#include "base/command_line.h"
++
+ namespace blink {
+
+@@ -27,6 +30,66 @@ constexpr unsigned kMaxBrandListLength = 256;
+
+ namespace {
+
++// Brand normalization for privacy. Returns a consistent brand list
++// regardless of actual installed software, preventing brand fingerprinting.
++Vector<UaBrandEntry> GetNormalizedBrandList() {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++
++  // Check for explicit brand override first.
++  if (command_line) {
++    const std::string brand_override =
++        command_line->GetSwitchValueASCII("ua-brand-override");
++    if (!brand_override.empty()) {
++      Vector<UaBrandEntry> result;
++      // Parse comma-separated brand entries in format "Brand/Version".
++      Vector<String> entries;
++      brand_override.Split(',', entries);
++      for (const auto& entry : entries) {
++        Vector<String> parts;
++        entry.Split('/', parts);
++        if (parts.size() >= 2) {
++          UaBrandEntry brand_entry;
++          brand_entry.brand = parts[0];
++          brand_entry.version = UaBrandEntry::Version();
++          if (parts.size() >= 2 &&
++              base::StringToUint(parts[1].Ascii(), &brand_entry.version)) {
++            // Version parsed from string.
++          }
++          result.push_back(brand_entry);
++        }
++      }
++      if (!result.empty()) {
++        return result;
++      }
++    }
++  }
++
++  // Default normalized brand list that matches common Chrome release.
++  // This provides a consistent brand signature across all instances.
++  Vector<UaBrandEntry> default_brands;
++
++  // Chrome version 136.0.0
++  UaBrandEntry chrome_brand;
++  chrome_brand.brand = "Chromium";
++  chrome_brand.version = 136;
++  default_brands.push_back(chrome_brand);
++
++  UaBrandEntry chrome_brand2;
++  chrome_brand2.brand = "Google Chrome";
++  chrome_brand2.version = 136;
++  default_brands.push_back(chrome_brand2);
++
++  UaBrandEntry not_brand;
++  not_brand.brand = "Not.A)Brand";
++  not_brand.version = 8;
++  default_brands.push_back(not_brand);
++
++  return default_brands;
++}
++
++// Returns whether brand list should be normalized.
++bool ShouldNormalizeBrands() {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return true;  // Default to normalized if no command line.
++  }
++
++  const std::string normalize_value =
++      base::ToLowerASCII(command_line->GetSwitchValueASCII("ua-normalize-brands"));
++  if (normalize_value.empty()) {
++    return true;  // Default to normalized.
++  }
++  // Normalization is disabled only if explicitly set to "0", "false", or "no".
++  return !(normalize_value == "0" || normalize_value == "false" ||
++           normalize_value == "no");
++}
++
+ }  // namespace
+
+ Vector<UaBrandEntry> NavigatorUA::brands() const {
+@@ -35,6 +98,12 @@ Vector<UaBrandEntry> NavigatorUA::brands() const {
+     return NavigatorUABrandListBoundWithConcreteSettings(nullptr);
+   }
+
++  // Return normalized brand list to prevent brand fingerprinting.
++  if (ShouldNormalizeBrands()) {
++    return GetNormalizedBrandList();
++  }
++
+   // If the renderer has brand list information from the browser process,
+   // use it.
+   if (!NavigatorUABrandListWithPropertyOverrides:: brands().empty()) {

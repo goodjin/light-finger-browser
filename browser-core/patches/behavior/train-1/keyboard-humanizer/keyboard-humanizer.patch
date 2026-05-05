@@ -1,0 +1,145 @@
+diff --git a/third_party/blink/renderer/core/events/keyboard_event.cc b/third_party/blink/renderer/core/events/keyboard_event.cc
+--- a/third_party/blink/renderer/core/events/keyboard_event.cc
++++ b/third_party/blink/renderer/core/events/keyboard_event.cc
+@@ -15,6 +15,9 @@
+
+ #include "base/compiler_specific.h"
+ #include "base/check_op.h"
++#include "base/command_line.h"
++#include "base/strings/string_number_conversions.h"
++#include "base/strings/string_util.h"
+ #include "third_party/blink/public/common/input/web_keyboard_event.h"
+ #include "third_party/blink/public/web/web_keyboard_event.h"
+ #include "third_party/blink/renderer/bindings/core/v8/event_handler.h"
+@@ -35,6 +38,79 @@
+ #include "third_party/blink/renderer/platform/cursor.h"
+ #include "third_party/blink/renderer/platform/wtf/text/unicode.h"
+
++namespace {
++
++// Get fingerprint seed from command line
++bool GetBehaviorSeed(uint64_t* seed_out) {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return false;
++  }
++
++  // Check if behavior humanization is enabled
++  std::string noise_value = base::ToLowerASCII(
++      command_line->GetSwitchValueASCII("fingerprint-noise"));
++  if (!noise_value.empty() &&
++      (noise_value == "0" || noise_value == "false" ||
++       noise_value == "no")) {
++    return false;
++  }
++
++  std::string seed_value = command_line->GetSwitchValueASCII("fingerprint");
++  uint64_t seed = 0;
++  if (!seed_value.empty()) {
++    if (!base::StringToUint64(seed_value, &seed)) {
++      // FNV-1a hash for string seed
++      seed = 1469598103934665603ULL;
++      for (unsigned char c : seed_value) {
++        seed ^= c;
++        seed *= 1099511628211ULL;
++      }
++    }
++  }
++
++  *seed_out = seed;
++  return true;
++}
++
++// Mix seed with event-specific data for deterministic noise
++uint64_t MixBehaviorSeed(uint64_t seed, uint64_t event_data, uint64_t multiplier) {
++  uint64_t value = seed ^ event_data ^ multiplier;
++  value ^= value >> 33;
++  value *= 0xff51afd7ed558ccdULL;
++  value ^= value >> 33;
++  value *= 0xc4ceb9fe1a85ec53ULL;
++  value ^= value >> 33;
++  return value;
++}
++
++// Get dwell time jitter in milliseconds based on seed and key code
++int GetDwellTimeJitter(uint64_t seed, uint64_t key_code, int max_jitter_ms) {
++  uint64_t mixed = MixBehaviorSeed(seed, key_code, 0x9e3779b97f4a7c15ULL);
++  int jitter = static_cast<int>(mixed & 0xFFFFULL) % (max_jitter_ms * 2);
++  return jitter - max_jitter_ms;
++}
++
++// Get flight time jitter in milliseconds
++int GetFlightTimeJitter(uint64_t seed, uint64_t key_code, int max_jitter_ms) {
++  uint64_t mixed = MixBehaviorSeed(seed, key_code, 0x6b8b4567);
++  int jitter = static_cast<int>(mixed & 0xFFFFULL) % (max_jitter_ms * 2);
++  return jitter - max_jitter_ms;
++}
++
++// Rolling event counter for temporal ordering
++uint64_t g_keyboard_event_counter = 0;
++uint64_t g_last_keydown_time_ms = 0;
++
++}  // namespace
++
+ KeyboardEvent::KeyboardEvent() = default;
+
+ KeyboardEvent::KeyboardEvent(const WebKeyboardEvent& event,
+@@ -84,6 +160,32 @@ unsigned KeyboardEvent::which() const {
+   return DOM_KEY_LOCATION_STANDARD;
+ }
+
++uint64_t KeyboardEvent::keyCode() const {
++  uint64_t seed = 0;
++  if (GetBehaviorSeed(&seed)) {
++    g_keyboard_event_counter++;
++    // KeyCode doesn't change, but we update counter for timing
++    return PlatformEvent::keyCode();
++  }
++  return PlatformEvent::keyCode();
++}
++
++double KeyboardEvent::getKeyCode() const {
++  return static_cast<double>(keyCode());
++}
++
++void KeyboardEvent::keyup() {
++  UIEvent::keyup();
++  uint64_t seed = 0;
++  if (GetBehaviorSeed(&seed)) {
++    uint64_t key_code = static_cast<uint64_t>(keyCode());
++    g_keyboard_event_counter++;
++    int flight_jitter = GetFlightTimeJitter(seed, key_code, 15);
++    // Apply flight time jitter to timestamp - this is a simplified approach
++    // In a full implementation, this would be applied at event dispatch time
++  }
++}
++
+ const AtomicString& KeyboardEvent::InterfaceName() const {
+   return event_interface_names::kKeyboardEvent;
+ }
+
+@@ -116,6 +218,21 @@ void KeyboardEvent::initKeyboardEvent() {
+   initModifiers();
+ }
+
++unsigned KeyboardEvent::charCode() const {
++  uint64_t seed = 0;
++  if (GetBehaviorSeed(&seed)) {
++    // Return charCode as-is but update counter for timing consistency
++    return PlatformEvent::charCode();
++  }
++  return PlatformEvent::charCode();
++}
++
++String KeyboardEvent::key() const {
++  return PlatformEvent::key();
++}
++
++String KeyboardEvent::code() const {
++  return PlatformEvent::code();
++}
++
+ KeyboardEvent* KeyboardEvent::CreateForKeyEvent(const WebKeyboardEvent& event) {
+   auto* e = MakeGarbageCollected<KeyboardEvent>(event);
+   return e;

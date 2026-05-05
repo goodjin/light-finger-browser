@@ -1,0 +1,12 @@
+{
+  "id": "automation/automation-signals",
+  "domain": "automation",
+  "description": "Hide webdriver property and automation signals",
+  "owner": "browser-core",
+  "status": "active",
+  "default_enabled": true,
+  "toggle_key": "patch.automation.automation-signals",
+  "files": [
+    "automation-signals.patch"
+  ]
+}

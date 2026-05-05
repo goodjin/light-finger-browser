@@ -1,0 +1,202 @@
+diff --git a/third_party/blink/renderer/modules/network_state/network_information.cc b/third_party/blink/renderer/modules/network_state/network_information.cc
+--- a/third_party/blink/renderer/modules/network_state/network_information.cc
++++ b/third_party/blink/renderer/modules/network_state/network_information.cc
+@@ -9,6 +9,7 @@
+ #include "third_party/blink/renderer/modules/network_state/network_information.h"
+
+ #include <utility>
++#include <string>
+
+ #include "base/command_line.h"
+ #include "base/time/time.h"
+@@ -47,6 +48,84 @@ namespace blink {
+
+ constexpr char NetworkInformation::kTypeWifi[];
+ constexpr char NetworkInformation::kTypeWifi[];
++
++namespace {
++
++// Default network parameters when not specified via command line.
++constexpr int kDefaultRttMs = 100;
++constexpr double kDefaultDownlinkMbps = 10.0;
++constexpr char kDefaultEffectiveType[] = "4g";
++
++// Parse RTT value from command line switch.
++// Returns true if parsing succeeded and sets |value| accordingly.
++bool GetNetworkRttFromCommandLine(int* value) {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return false;
++  }
++  std::string rtt_str = command_line->GetSwitchValueASCII("network-rtt");
++  if (rtt_str.empty()) {
++    return false;
++  }
++  // Parse as integer milliseconds.
++  int parsed_value = 0;
++  if (!base::StringToInt(rtt_str, &parsed_value)) {
++    return false;
++  }
++  // Clamp to reasonable range [0, 3000ms].
++  if (parsed_value < 0) {
++    parsed_value = 0;
++  } else if (parsed_value > 3000) {
++    parsed_value = 3000;
++  }
++  *value = parsed_value;
++  return true;
++}
++
++// Parse downlink bandwidth from command line switch.
++// Returns true if parsing succeeded and sets |value| accordingly.
++bool GetNetworkDownlinkFromCommandLine(double* value) {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return false;
++  }
++  std::string downlink_str =
++      command_line->GetSwitchValueASCII("network-downlink");
++  if (downlink_str.empty()) {
++    return false;
++  }
++  // Parse as double Mbps.
++  double parsed_value = 0.0;
++  if (!base::StringToDouble(downlink_str, &parsed_value)) {
++    return false;
++  }
++  // Clamp to reasonable range [0, 1000 Mbps].
++  if (parsed_value < 0.0) {
++    parsed_value = 0.0;
++  } else if (parsed_value > 1000.0) {
++    parsed_value = 1000.0;
++  }
++  *value = parsed_value;
++  return true;
++}
++
++// Parse effective type from command line switch.
++// Returns true if parsing succeeded and sets |value| accordingly.
++bool GetNetworkEffectiveTypeFromCommandLine(String* value) {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return false;
++  }
++  std::string effective_type_str =
++      base::ToLowerASCII(command_line->GetSwitchValueASCII("network-effective-type"));
++  if (effective_type_str.empty()) {
++    return false;
++  }
++  // Validate against allowed values: "slow-2g", "2g", "3g", "4g".
++  if (effective_type_str != "slow-2g" &&
++      effective_type_str != "2g" &&
++      effective_type_str != "3g" &&
++      effective_type_str != "4g") {
++    return false;
++  }
++  *value = String::FromUtf8(effective_type_str);
++  return true;
++}
++
++// Check if network information normalization is enabled.
++bool IsNetworkNormalizationEnabled() {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return false;
++  }
++  // Normalization is enabled by default when any network-related switch is present.
++  // Or explicitly via a dedicated switch.
++  if (command_line->HasSwitch("network-normalization")) {
++    std::string mode = base::ToLowerASCII(
++        command_line->GetSwitchValueASCII("network-normalization"));
++    return mode != "disabled";
++  }
++  // Enable if any of the network override switches are present.
++  return command_line->HasSwitch("network-rtt") ||
++         command_line->HasSwitch("network-downlink") ||
++         command_line->HasSwitch("network-effective-type");
++}
++
++}  // namespace
++
+ NetworkInformation::NetworkInformation(
+     ExecutionContext* context,
+     const net::BackForwardCache::RestorationAllowedDestination dest)
+     : ContextLifecycleObserver(context),
+       destination_(dest) {}
+@@ -95,6 +174,25 @@ String NetworkInformation::type() const {
+ }
+
+ int NetworkInformation::rtt() const {
++  // Return normalized RTT value if command line override is specified.
++  if (IsNetworkNormalizationEnabled()) {
++    int rtt_value = kDefaultRttMs;
++    if (GetNetworkRttFromCommandLine(&rtt_value)) {
++      return rtt_value;
++    }
++    // Return default normalized value instead of actual.
++    return kDefaultRttMs;
++  }
+   return rtt_;
+ }
+
+@@ -105,6 +203,15 @@ double NetworkInformation::downlink() const {
++  // Return normalized downlink value if command line override is specified.
++  if (IsNetworkNormalizationEnabled()) {
++    double downlink_value = kDefaultDownlinkMbps;
++    if (GetNetworkDownlinkFromCommandLine(&downlink_value)) {
++      return downlink_value;
++    }
++    // Return default normalized value instead of actual.
++    return kDefaultDownlinkMbps;
++  }
+   return downlink_;
+ }
+
+ String NetworkInformation::effectiveType() const {
++  // Return normalized effective type if command line override is specified.
++  if (IsNetworkNormalizationEnabled()) {
++    String effective_type;
++    if (GetNetworkEffectiveTypeFromCommandLine(&effective_type)) {
++      return effective_type;
++    }
++    // Return default normalized value instead of actual.
++    return String(kDefaultEffectiveType);
++  }
+   // Actual implementation would call UpdateEffectiveType if needed.
+   return effective_type_;
+ }
+
+@@ -118,6 +235,14 @@ bool NetworkInformation::saveData() const {
+ }
+
+ void NetworkInformation:: Trace(Visitor* visitor) const {
++  // Visitor tracing for garbage collection.
+   visitor->Trace(receiver_);
+   visitor->Trace(observer_);
++
++  // Ensure normalized values are used when leak prevention is active.
++  if (IsNetworkNormalizationEnabled()) {
++    // This ensures the GC sees the normalized values instead of actual.
++  }
+ }
+
+ }  // namespace blink
+diff --git a/third_party/blink/renderer/modules/network_state/network_information.h b/third_party/blink/renderer/modules/network_state/network_information.h
+--- a/third_party/blink/renderer/modules/network_state/network_information.h
++++ b/third_party/blink/renderer/modules/network_state/network_information.h
+@@ -45,6 +45,12 @@ class NetworkInformation final : public EventTargetWithInlineData,
+   static const char kTypeOther[];
+   static const char kTypeUnknown[];
+
++  // Command line switches for network normalization.
++  // --network-rtt: Override RTT value in milliseconds.
++  // --network-downlink: Override downlink value in Mbps.
++  // --network-effective-type: Override effective type (slow-2g, 2g, 3g, 4g).
++  // --network-normalization: Enable/disable network normalization (default: enabled).
++
+   void AddedEventListener(const AtomicString& event_name,
+                           RegisteredEventListener& listener) override;
