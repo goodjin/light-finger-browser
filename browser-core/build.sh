@@ -5,7 +5,7 @@ set -euo pipefail
 # Usage: build.sh [--platform PLATFORM]
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-WORKSPACE_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+WORKSPACE_ROOT="$SCRIPT_DIR"
 SRC_DIR="$WORKSPACE_ROOT/src"
 PATCH_DIR="$WORKSPACE_ROOT/patches"
 PATCH_TRAIN="$(cat "$WORKSPACE_ROOT/patch_train")"
@@ -82,7 +82,7 @@ info "Applying stealth patches (train $PATCH_TRAIN)..."
 info "Generating build configuration..."
 mkdir -p "$OUT_DIR/release"
 
-export PATH="$WORKSPACE_ROOT/depot_tools:$PATH"
+export PATH="$WORKSPACE_ROOT/scripts/depot_tools:$PATH"
 
 # GN arguments for stealth browser
 GN_ARGS="is_debug=false
