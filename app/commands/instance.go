@@ -2,7 +2,11 @@ package commands
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
+	"net/http"
+	"strings"
 	"sync"
 	"time"
 
@@ -12,9 +16,10 @@ import (
 )
 
 type InstanceService struct {
-	manager    browserRuntimeManager
-	store      *sqlite.InstanceStore
-	cdpClients sync.Map // instanceID -> CDPClient
+	manager     browserRuntimeManager
+	store       *sqlite.InstanceStore
+	cdpClients  sync.Map // instanceID -> CDPClient
+	targetURLs  sync.Map // instanceID -> string (cached webSocketDebuggerUrl)
 }
 
 func NewInstanceService(db *sqlite.DB) *InstanceService {
@@ -91,14 +96,17 @@ func (s *InstanceService) GetInstance(ctx context.Context, id string) (*instance
 }
 
 func (s *InstanceService) ListInstances(ctx context.Context, filter *instance.InstanceFilter) ([]*instance.BrowserInstance, error) {
-	return s.store.List(filter)
+	log.Println("[ListInstances] Querying instances with filter:", filter)
+	result, err := s.store.List(filter)
+	if err != nil {
+		log.Printf("[ListInstances] Error: %v", err)
+		return nil, err
+	}
+	log.Printf("[ListInstances] Found %d instances", len(result))
+	return result, nil
 }
 
 func (s *InstanceService) GetCDPClient(ctx context.Context, id string) (instance.CDPClientInterface, error) {
-	if client, ok := s.cdpClients.Load(id); ok {
-		return client.(instance.CDPClientInterface), nil
-	}
-
 	inst, err := s.store.Get(id)
 	if err != nil {
 		return nil, err
@@ -108,9 +116,67 @@ func (s *InstanceService) GetCDPClient(ctx context.Context, id string) (instance
 		return nil, instance.ErrInstanceNotRunning
 	}
 
-	conn, _, err := instance.DefaultDialer.DialContext(ctx, "tcp", inst.CDPEndpoint)
+	// Build WebSocket URL from CDP endpoint
+	wsURL := inst.CDPEndpoint
+	if !strings.HasPrefix(wsURL, "ws://") {
+		wsURL = "ws://" + wsURL
+	}
+
+	var targetWSURL string
+
+	// First, try to use cached target URL
+	if cachedURL, ok := s.targetURLs.Load(id); ok {
+		targetWSURL = cachedURL.(string)
+		conn, _, err := instance.DefaultDialer.DialContext(ctx, "tcp", targetWSURL)
+		if err == nil {
+			client := instance.NewCDPClient(conn)
+			s.cdpClients.Store(id, client)
+			return client, nil
+		}
+		// Cached URL failed, will re-query
+		log.Printf("[GetCDPClient] cached target URL failed: %v, re-querying /json", err)
+		s.targetURLs.Delete(id)
+	}
+
+	// Query /json to get available targets
+	jsonURL := strings.Replace(wsURL, "ws://", "http://", 1) + "/json"
+	resp, err := http.Get(jsonURL)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to query CDP targets: %w", err)
+	}
+	defer resp.Body.Close()
+
+	var targets []map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&targets); err != nil {
+		return nil, fmt.Errorf("failed to decode CDP targets: %w", err)
+	}
+
+	// Find target matching instance ID (first 8 chars) - this is a fallback when no cached URL
+	// After browser navigates, title/URL change so we rely on cached URL instead
+	targetID := id[:8]
+	for _, t := range targets {
+		title, _ := t["title"].(string)
+		url, _ := t["url"].(string)
+		if strings.Contains(title, targetID) || strings.Contains(url, targetID) {
+			if wsu, ok := t["webSocketDebuggerUrl"].(string); ok {
+				targetWSURL = wsu
+				break
+			}
+		}
+	}
+
+	// If still no target URL, fail - don't use random fallback
+	if targetWSURL == "" {
+		return nil, fmt.Errorf("could not find CDP target for instance %s (browser may have navigated before connection)", id)
+	}
+
+	// Cache the target URL for future use
+	s.targetURLs.Store(id, targetWSURL)
+
+	conn, _, err := instance.DefaultDialer.DialContext(ctx, "tcp", targetWSURL)
+	if err != nil {
+		s.targetURLs.Delete(id)
+		return nil, fmt.Errorf("failed to dial CDP target: %w", err)
 	}
 
 	client := instance.NewCDPClient(conn)
@@ -123,6 +189,12 @@ func (s *InstanceService) CloseCDPClient(id string) error {
 		return client.(instance.CDPClientInterface).Close()
 	}
 	return nil
+}
+
+// ClearCachedTargetURL removes the cached CDP target URL for an instance.
+// Called when the browser restarts or target is closed.
+func (s *InstanceService) ClearCachedTargetURL(id string) {
+	s.targetURLs.Delete(id)
 }
 
 type InstanceConfig = instance.InstanceConfig

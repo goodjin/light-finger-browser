@@ -8,8 +8,8 @@ import {
   ListAccounts,
   ListProxies,
   GenerateRandomFingerprint,
-  CheckFingerprint,
   BindAccountInstance,
+  NavigateInstanceBrowserNewTab,
 } from '../wailsjs/go/main/App';
 import { commands, instance } from '../wailsjs/go/models';
 
@@ -26,6 +26,8 @@ const COUNTRIES = [
   { code: 'IN', name: 'India' },
 ];
 
+const FINGERPRINT_SERVER_URL = 'http://localhost:18080/';
+
 type InstancesPageProps = {
   createRequest: number;
 };
@@ -40,12 +42,10 @@ export function InstancesPage({ createRequest }: InstancesPageProps) {
   const [creating, setCreating] = useState(false);
   const [pendingStopID, setPendingStopID] = useState<string | null>(null);
   const [pendingDeleteID, setPendingDeleteID] = useState<string | null>(null);
+  const [pendingRestartID, setPendingRestartID] = useState<string | null>(null);
   const [stoppingId, setStoppingId] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [restartingId, setRestartingId] = useState<string | null>(null);
-  const [checkingId, setCheckingId] = useState<string | null>(null);
-  const [fingerprintResult, setFingerprintResult] = useState<commands.FingerprintCheckResult | null>(null);
-  const [fingerprintError, setFingerprintError] = useState<string | null>(null);
   const [name, setName] = useState('');
   const [nameTouched, setNameTouched] = useState(false);
   const [country, setCountry] = useState('US');
@@ -87,11 +87,19 @@ export function InstancesPage({ createRequest }: InstancesPageProps) {
 
   async function loadAll() {
     try {
-      const [list, accountList, proxyList] = await Promise.all([
-        ListInstances(instance.InstanceFilter.createFrom({})),
-        ListAccounts(),
-        ListProxies(),
-      ]);
+      const timeout = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Load timeout - 8s')), 8000)
+      );
+
+      const [list, accountList, proxyList] = await Promise.race([
+        Promise.all([
+          ListInstances(instance.InstanceFilter.createFrom({})),
+          ListAccounts(),
+          ListProxies(),
+        ]),
+        timeout
+      ]) as any;
+
       setInstances(list || []);
       setAccounts(accountList || []);
       setProxies(proxyList || []);
@@ -102,6 +110,15 @@ export function InstancesPage({ createRequest }: InstancesPageProps) {
       setLoading(false);
     }
   }
+
+  // Safety timeout: if loadAll hangs for more than 10s, force loading off
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setLoading(false);
+      setError(prev => prev || 'Load timeout - please refresh');
+    }, 10000);
+    return () => clearTimeout(timeout);
+  }, []);
 
   async function createInstance() {
     try {
@@ -170,6 +187,7 @@ export function InstancesPage({ createRequest }: InstancesPageProps) {
         return;
       }
       setRestartingId(id);
+      setPendingRestartID(null);
       await RestartInstance(id);
       await loadAll();
     } catch (err) {
@@ -190,19 +208,11 @@ export function InstancesPage({ createRequest }: InstancesPageProps) {
     }
   }
 
-  async function checkFingerprint(id: string) {
+  async function testFingerprint(inst: commands.BrowserInstance) {
     try {
-      if (checkingId === id) {
-        return;
-      }
-      setCheckingId(id);
-      setFingerprintError(null);
-      const result = await CheckFingerprint(id);
-      setFingerprintResult(result || null);
+      await NavigateInstanceBrowserNewTab(inst.id, FINGERPRINT_SERVER_URL);
     } catch (err) {
-      setFingerprintError(String(err));
-    } finally {
-      setCheckingId(null);
+      setError(String(err));
     }
   }
 
@@ -420,55 +430,32 @@ export function InstancesPage({ createRequest }: InstancesPageProps) {
           </div>
         )}
 
-      {fingerprintResult && (
+      {pendingRestartID && (
         <div className="modal-overlay">
           <div className="modal">
-            <h3>Fingerprint Check</h3>
-            {fingerprintError && <div className="error-banner">{fingerprintError}</div>}
-            <div className="form-group">
-              <label>Status</label>
-              <div>{fingerprintResult.matches ? 'Match' : 'Mismatch'}</div>
-            </div>
-            {fingerprintResult.diffs?.length > 0 && (
-              <div className="form-group">
-                <label>Differences</label>
-                <div>{fingerprintResult.diffs.join(', ')}</div>
-              </div>
-            )}
-            {fingerprintResult.coverage_gaps?.length > 0 && (
-              <div className="form-group">
-                <label>Coverage Gaps</label>
-                <div>{fingerprintResult.coverage_gaps.join(', ')}</div>
-              </div>
-            )}
-            {fingerprintResult.expected && (
-              <div className="form-group">
-                <label>Expected Snapshot</label>
-                <pre className="code-block">
-                  {JSON.stringify(fingerprintResult.expected, null, 2)}
-                </pre>
-              </div>
-            )}
-            <div className="form-group">
-              <label>Snapshot</label>
-              <pre className="code-block">
-                {JSON.stringify(fingerprintResult.snapshot, null, 2)}
-              </pre>
-            </div>
-            {fingerprintResult.previous && (
-              <div className="form-group">
-                <label>Previous Snapshot</label>
-                <pre className="code-block">
-                  {JSON.stringify(fingerprintResult.previous, null, 2)}
-                </pre>
-              </div>
-            )}
+            <h3>Restart Instance</h3>
+            <p>This will stop and restart the browser instance.</p>
+            {error && <div className="error-banner">{error}</div>}
             <div className="modal-actions">
-              <button onClick={() => setFingerprintResult(null)}>Close</button>
+                <button onClick={() => {
+                  setPendingRestartID(null);
+                  setError(null);
+                }} disabled={restartingId === pendingRestartID}>
+                  Cancel
+                </button>
+                <button
+                  className="btn-primary"
+                  onClick={async () => {
+                    await restartInstance(pendingRestartID);
+                  }}
+                  disabled={restartingId === pendingRestartID}
+                >
+                  {restartingId === pendingRestartID ? 'Restarting...' : 'Restart'}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
       <div className="instances-grid">
         {instances.length === 0 ? (
@@ -488,13 +475,17 @@ export function InstancesPage({ createRequest }: InstancesPageProps) {
                 </span>
               </div>
               <div className="instance-details">
-                <div>Port: {inst.port}</div>
+                <div>Port: {inst.port} | PID: {inst.pid || '-'} | Headless: {inst.headless ? 'Yes' : 'No'}</div>
                 <div>Group: {inst.group || '-'}</div>
-                <div>Account: {inst.account_label || '-'}</div>
+                <div>Account: {inst.account_label || inst.account_id?.slice(0, 8) || '-'}</div>
                 <div>Proxy: {inst.proxy_url || '-'}</div>
-                <div>
-                  Fingerprint: {inst.fingerprint?.platform || 'N/A'}
-                </div>
+                {inst.fingerprint && (
+                  <div>
+                    FP: {inst.fingerprint.platform} | {inst.fingerprint.locale} | TZ: {inst.fingerprint.timezone}
+                  </div>
+                )}
+                <div>Started: {inst.started_at ? new Date(inst.started_at).toLocaleString() : '-'}</div>
+                <div>Last Active: {inst.last_active_at ? new Date(inst.last_active_at).toLocaleString() : '-'}</div>
               </div>
               <div className="instance-actions">
                 <button
@@ -506,8 +497,8 @@ export function InstancesPage({ createRequest }: InstancesPageProps) {
                 </button>
                 <button
                   className="btn-secondary"
-                  onClick={() => restartInstance(inst.id)}
-                  disabled={restartingId === inst.id || inst.status !== 'stopped'}
+                  onClick={() => setPendingRestartID(inst.id)}
+                  disabled={restartingId === inst.id || inst.status === 'stopping' || inst.status === 'stopped'}
                 >
                   {restartingId === inst.id ? 'Restarting...' : 'Restart'}
                 </button>
@@ -520,10 +511,11 @@ export function InstancesPage({ createRequest }: InstancesPageProps) {
                 </button>
                 <button
                   className="btn-secondary"
-                  onClick={() => checkFingerprint(inst.id)}
-                  disabled={checkingId === inst.id}
+                  onClick={() => testFingerprint(inst)}
+                  disabled={inst.status !== 'running'}
+                  title="Open fingerprint test page in this instance"
                 >
-                  {checkingId === inst.id ? 'Checking...' : 'Fingerprint'}
+                  Test Fingerprint
                 </button>
               </div>
             </div>

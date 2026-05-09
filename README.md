@@ -70,3 +70,45 @@
 - [集成测试指南](./docs/integration-test.md)
 - [E2E 测试指南](./docs/e2e-test.md)
 - [Mock 策略](./docs/testing/mock-strategies.md)
+
+## AI 行为准则
+
+### 单一职责原则
+
+**核心原则**：每个功能只在一个地方实现。
+
+- 同一接口/方法不要在多个包中重复实现
+- 如果需要在多个地方使用同一逻辑，将其提取为共享接口或工具函数
+- 禁止复制粘贴代码，即使"只是一点点"
+
+**示例**：
+
+```go
+// 错误：重复实现同一接口
+type InstanceService struct {
+    manager browserRuntimeManager
+    // ... 自己实现了 GetCDPClient
+}
+
+type instanceManager struct {
+    store      Store
+    processMgr *ProcessManager
+    // ... 又实现了一个 GetCDPClient
+}
+
+// 正确：委托模式，InstanceService 使用 InstanceManager
+type InstanceService struct {
+    mgr InstanceManager // 委托给 instance 包
+}
+
+func (s *InstanceService) GetCDPClient(ctx context.Context, id string) (CDPClientInterface, error) {
+    return s.mgr.GetCDPClient(ctx, id) // 委托
+}
+```
+
+### 代码修改原则
+
+- 修改代码前先确认该代码的实际调用路径（不要只改"看起来像"的地方）
+- 通过日志、进程检查等手段验证修改是否生效
+- 彻底杀灭旧进程后再启动新进程
+- Go 编译缓存可能需要手动清理：`go clean -cache`

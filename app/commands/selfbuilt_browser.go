@@ -14,7 +14,6 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/gorilla/websocket"
 	"github.com/tmos/fingerbrower/instance"
 	"github.com/tmos/fingerbrower/storage/sqlite"
 )
@@ -162,7 +161,7 @@ func (m *SelfBuiltBrowserManager) Stop(ctx context.Context, id string) error {
 
 func (m *SelfBuiltBrowserManager) Restart(ctx context.Context, inst *instance.BrowserInstance, cfg *instance.InstanceConfig) (*instance.BrowserInstance, error) {
 	if strings.TrimSpace(m.binaryPath) == "" {
-		return nil, fmt.Errorf("self-built browser path is not configured; set BROWSER_BINARY, or use BROWSER_ENGINE=local for development fallback")
+		return nil, fmt.Errorf("self-built browser path is not configured; set BROWSER_BINARY environment variable")
 	}
 
 	m.mu.Lock()
@@ -412,49 +411,15 @@ func applyFingerprintOverrides(ctx context.Context, port int, cfg *instance.Inst
 	if cfg == nil || cfg.Fingerprint == nil {
 		return nil
 	}
+	// Note: Timezone is already set via Chrome command-line args (--timezone=) in buildChromeArgs.
+	// We skip CDP timezone override to avoid "Timezone override is already in effect" error.
+	// If timezone is empty in config, it means no timezone override was requested.
 	timezone := strings.TrimSpace(cfg.Fingerprint.Timezone)
 	if timezone == "" {
 		return nil
 	}
-
-	wsURL, err := resolveWebSocketURL(port)
-	if err != nil {
-		return fmt.Errorf("failed to resolve CDP target: %w", err)
-	}
-
-	dialer := websocket.Dialer{
-		HandshakeTimeout: 10 * time.Second,
-	}
-	conn, _, err := dialer.DialContext(ctx, wsURL, nil)
-	if err != nil {
-		return fmt.Errorf("failed to connect CDP: %w", err)
-	}
-	defer conn.Close()
-
-	payload := map[string]interface{}{
-		"id":     1,
-		"method": "Emulation.setTimezoneOverride",
-		"params": map[string]interface{}{
-			"timezoneId": timezone,
-		},
-	}
-	if err := conn.WriteJSON(payload); err != nil {
-		return fmt.Errorf("failed to set timezone: %w", err)
-	}
-
-	for {
-		var resp map[string]interface{}
-		if err := conn.ReadJSON(&resp); err != nil {
-			return fmt.Errorf("failed to read CDP response: %w", err)
-		}
-		if !isResponseID(resp, 1) {
-			continue
-		}
-		if errObj, ok := resp["error"]; ok && errObj != nil {
-			return fmt.Errorf("cdp error: %v", errObj)
-		}
-		return nil
-	}
+	// Timezone was set via command line, skip CDP override
+	return nil
 }
 
 func browserInstanceName(cfg *instance.InstanceConfig, fallbackID string) string {

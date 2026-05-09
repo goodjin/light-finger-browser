@@ -2,7 +2,10 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
+	"os"
+	"path/filepath"
 	"sync"
 
 	"github.com/tmos/fingerbrower/app/commands"
@@ -21,30 +24,49 @@ type App struct {
 	accountSvc     *commands.AccountService
 	proxySvc       *commands.ProxyService
 	releaseSvc     *commands.ReleaseService
+	fpServerSvc   *commands.FingerprintServerService
 }
 
 func NewApp() *App {
 	return &App{}
 }
 
+func init() {
+	// Setup file logging
+	logDir := filepath.Join(os.Getenv("HOME"), "Library", "Logs", "fingerbrower")
+	os.MkdirAll(logDir, 0755)
+	logFile := filepath.Join(logDir, "fingerbrower.log")
+
+	f, err := os.OpenFile(logFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err == nil {
+		log.SetOutput(f)
+		log.SetFlags(log.LstdFlags | log.Lmicroseconds)
+	}
+}
+
 func (a *App) OnStartup(ctx context.Context) {
 	a.ctx = ctx
 	log.Println("fingerbrower starting...")
 
-	// Initialize SQLite database
-	dbPath := "fingerbrower.db"
+	// Initialize SQLite database - use absolute path in Application Support
+	appDataDir := filepath.Join(os.Getenv("HOME"), "Library", "Application Support", "fingerbrower")
+	os.MkdirAll(appDataDir, 0755)
+	dbPath := filepath.Join(appDataDir, "fingerbrower.db")
+	log.Println("[Step 1/6] Opening database:", dbPath)
 	var err error
 	a.db, err = sqlite.NewDB(dbPath)
 	if err != nil {
 		log.Printf("Failed to initialize database: %v", err)
 		return
 	}
+	log.Println("[Step 2/6] Database opened, running migrations...")
 
 	// Run migrations
 	if err := a.db.Migrate(); err != nil {
 		log.Printf("Failed to run migrations: %v", err)
 		return
 	}
+	log.Println("[Step 3/6] Migrations complete, initializing services...")
 
 	// Initialize services
 	a.instanceSvc = commands.NewInstanceService(a.db)
@@ -53,6 +75,7 @@ func (a *App) OnStartup(ctx context.Context) {
 	a.accountSvc = commands.NewAccountService(a.db, a.instanceSvc)
 	a.proxySvc = commands.NewProxyService(a.db)
 	a.releaseSvc = commands.NewReleaseService()
+	a.fpServerSvc = commands.NewFingerprintServerService()
 
 	log.Println("fingerbrower started successfully")
 }
@@ -250,4 +273,87 @@ func (a *App) CreateProxy(req *commands.ProxyCreateRequest) (*commands.ProxyDTO,
 
 func (a *App) DeleteProxy(proxyID string) error {
 	return a.proxySvc.DeleteProxy(a.appContext(), proxyID)
+}
+
+// ==================== Fingerprint Server Commands ====================
+
+// StartFingerprintServer starts the mock fingerprint server.
+func (a *App) StartFingerprintServer() error {
+	return a.fpServerSvc.StartServer(a.appContext())
+}
+
+// StopFingerprintServer stops the mock fingerprint server.
+func (a *App) StopFingerprintServer() error {
+	return a.fpServerSvc.StopServer()
+}
+
+// GetFingerprintServerStatus returns the status of the fingerprint server.
+func (a *App) GetFingerprintServerStatus() *commands.FingerprintServerStatus {
+	status := a.fpServerSvc.GetStatus()
+	return &status
+}
+
+// LaunchFingerprintBrowser launches a browser with the fingerprint test page.
+func (a *App) LaunchFingerprintBrowser(browserBinaryPath string) (int, error) {
+	return a.fpServerSvc.LaunchBrowser(a.appContext(), browserBinaryPath)
+}
+
+// CollectFingerprint collects fingerprint data from the mock server.
+func (a *App) CollectFingerprint() (*commands.FingerprintVerificationResult, error) {
+	return a.fpServerSvc.CollectFingerprint(a.appContext())
+}
+
+// RunFingerprintVerification runs a full fingerprint verification.
+func (a *App) RunFingerprintVerification() (*commands.FingerprintVerificationResult, error) {
+	// First collect the fingerprint
+	result, err := a.fpServerSvc.CollectFingerprint(a.appContext())
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
+// NavigateInstanceBrowser navigates a browser instance to the specified URL.
+func (a *App) NavigateInstanceBrowser(instanceID string, url string) error {
+	log.Printf("[NavigateInstanceBrowser] instanceID=%s, url=%s", instanceID, url)
+	cdpClient, err := a.instanceSvc.GetCDPClient(a.appContext(), instanceID)
+	if err != nil {
+		log.Printf("[NavigateInstanceBrowser] GetCDPClient error: %v", err)
+		return fmt.Errorf("failed to connect to browser: %v", err)
+	}
+	log.Printf("[NavigateInstanceBrowser] CDP client acquired, calling Navigate...")
+	err = cdpClient.Navigate(a.appContext(), url)
+	if err != nil {
+		log.Printf("[NavigateInstanceBrowser] Navigate error: %v", err)
+	} else {
+		log.Printf("[NavigateInstanceBrowser] Success")
+	}
+	a.instanceSvc.CloseCDPClient(instanceID)
+	return err
+}
+
+// NavigateInstanceBrowserNewTab opens a URL in a new tab of the browser instance.
+func (a *App) NavigateInstanceBrowserNewTab(instanceID string, url string) error {
+	log.Printf("[NavigateInstanceBrowserNewTab] instanceID=%s, url=%s", instanceID, url)
+	cdpClient, err := a.instanceSvc.GetCDPClient(a.appContext(), instanceID)
+	if err != nil {
+		log.Printf("[NavigateInstanceBrowserNewTab] GetCDPClient error: %v", err)
+		return fmt.Errorf("failed to connect to browser: %v", err)
+	}
+
+	// Use Target.createTarget to create a new tab via CDP (not JS window.open)
+	targetID, err := cdpClient.CreateTarget(a.appContext(), url)
+	if err != nil {
+		log.Printf("[NavigateInstanceBrowserNewTab] CreateTarget error: %v", err)
+		// Fallback: try window.open
+		_, evalErr := cdpClient.Evaluate(a.appContext(), fmt.Sprintf(`window.open("%s", "_blank");`, url))
+		if evalErr != nil {
+			log.Printf("[NavigateInstanceBrowserNewTab] Evaluate fallback error: %v", evalErr)
+		}
+	} else {
+		log.Printf("[NavigateInstanceBrowserNewTab] Created new target: %s", targetID)
+	}
+	log.Printf("[NavigateInstanceBrowserNewTab] Success")
+	a.instanceSvc.CloseCDPClient(instanceID)
+	return nil
 }
