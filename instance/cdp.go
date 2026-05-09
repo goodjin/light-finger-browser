@@ -17,13 +17,18 @@ type CDPClientInterface interface {
 	Evaluate(ctx context.Context, script string) (interface{}, error)
 	// CreateTarget creates a new target (tab) and returns its URL
 	CreateTarget(ctx context.Context, url string) (string, error)
+	// BrowserContext management
+	CreateBrowserContext(ctx context.Context) (string, error)
+	CloseBrowserContext(ctx context.Context, contextId string) error
+	CreateTargetWithContext(ctx context.Context, url string, contextId string) (string, error)
+	GetTargets(ctx context.Context) ([]*CDPTarget, error)
 	Close() error
 }
 
 // CDPClient provides Chrome DevTools Protocol communication.
 type CDPClient struct {
-	conn WebSocket
-	mu   sync.Mutex
+	conn  WebSocket
+	mu    sync.Mutex
 	msgID int64
 }
 
@@ -33,21 +38,31 @@ var _ CDPClientInterface = (*CDPClient)(nil)
 // CDPMessage represents a CDP protocol message.
 type CDPMessage struct {
 	ID     int64                  `json:"id"`
-	Method string                  `json:"method"`
+	Method string                 `json:"method"`
 	Params map[string]interface{} `json:"params,omitempty"`
 }
 
 // CDPResponse represents a CDP protocol response.
 type CDPResponse struct {
-	ID     int64                   `json:"id"`
-	Result json.RawMessage         `json:"result,omitempty"`
-	Error  *CDPError               `json:"error,omitempty"`
+	ID     int64           `json:"id"`
+	Result json.RawMessage `json:"result,omitempty"`
+	Error  *CDPError       `json:"error,omitempty"`
 }
 
 // CDPError represents a CDP protocol error.
 type CDPError struct {
 	Code    int    `json:"code"`
 	Message string `json:"message"`
+}
+
+// CDPTarget represents a CDP browser target.
+type CDPTarget struct {
+	Type             string `json:"type"`
+	ID               string `json:"id"`
+	Title            string `json:"title"`
+	URL              string `json:"url"`
+	Attached         bool   `json:"attached"`
+	BrowserContextID string `json:"browserContextId,omitempty"`
 }
 
 // NewCDPClient creates a new CDP client connected to the given endpoint.
@@ -133,6 +148,68 @@ func (c *CDPClient) Close() error {
 		return c.conn.Close()
 	}
 	return nil
+}
+
+// CreateBrowserContext creates a new browser context and returns its ID.
+func (c *CDPClient) CreateBrowserContext(ctx context.Context) (string, error) {
+	result, err := c.execute(ctx, "Target.createBrowserContext", nil)
+	if err != nil {
+		return "", err
+	}
+	browserContextId, ok := result["browserContextId"].(string)
+	if !ok {
+		return "", fmt.Errorf("CreateBrowserContext response missing browserContextId")
+	}
+	return browserContextId, nil
+}
+
+// CloseBrowserContext closes a browser context by its ID.
+func (c *CDPClient) CloseBrowserContext(ctx context.Context, contextId string) error {
+	_, err := c.execute(ctx, "Target.closeBrowserContext", map[string]interface{}{
+		"browserContextId": contextId,
+	})
+	return err
+}
+
+// CreateTargetWithContext creates a new target (tab) in the specified browser context.
+func (c *CDPClient) CreateTargetWithContext(ctx context.Context, url string, contextId string) (string, error) {
+	result, err := c.execute(ctx, "Target.createTarget", map[string]interface{}{
+		"url":              url,
+		"browserContextId": contextId,
+	})
+	if err != nil {
+		return "", err
+	}
+	targetID, ok := result["targetId"].(string)
+	if !ok {
+		return "", fmt.Errorf("CreateTarget response missing targetId")
+	}
+	return targetID, nil
+}
+
+// GetTargets returns a list of all browser targets.
+func (c *CDPClient) GetTargets(ctx context.Context) ([]*CDPTarget, error) {
+	result, err := c.execute(ctx, "Target.getTargets", nil)
+	if err != nil {
+		return nil, err
+	}
+
+	targetsData, ok := result["targetInfos"]
+	if !ok {
+		return nil, fmt.Errorf("GetTargets response missing targetInfos")
+	}
+
+	targetsJSON, err := json.Marshal(targetsData)
+	if err != nil {
+		return nil, err
+	}
+
+	var targets []*CDPTarget
+	if err := json.Unmarshal(targetsJSON, &targets); err != nil {
+		return nil, err
+	}
+
+	return targets, nil
 }
 
 // execute sends a CDP command and waits for the response.

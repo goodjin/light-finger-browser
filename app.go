@@ -174,6 +174,32 @@ func (a *App) ListInstances(filter *commands.InstanceFilter) ([]*commands.Browse
 	return result, nil
 }
 
+// ==================== Tab Commands ====================
+
+// CreateTab creates a new tab with the specified fingerprint in an existing instance
+func (a *App) CreateTab(instanceID string, cfg *commands.TabConfig) (*commands.TabInfo, error) {
+	tabSvc := commands.NewTabService(a.instanceSvc)
+	return tabSvc.CreateTab(a.appContext(), instanceID, cfg)
+}
+
+// CloseTab closes a specific tab
+func (a *App) CloseTab(instanceID, tabID string) error {
+	tabSvc := commands.NewTabService(a.instanceSvc)
+	return tabSvc.CloseTab(a.appContext(), instanceID, tabID)
+}
+
+// ListTabs lists all tabs in an instance
+func (a *App) ListTabs(instanceID string) ([]*commands.TabInfo, error) {
+	tabSvc := commands.NewTabService(a.instanceSvc)
+	return tabSvc.ListTabs(a.appContext(), instanceID)
+}
+
+// NavigateTab navigates a specific tab to a URL
+func (a *App) NavigateTab(instanceID, tabID, url string) error {
+	tabSvc := commands.NewTabService(a.instanceSvc)
+	return tabSvc.NavigateTab(a.appContext(), instanceID, tabID, url)
+}
+
 // ==================== Release Commands ====================
 
 func (a *App) PromoteBrowserChannel(req *commands.ReleasePromotionRequest) (*commands.ReleasePromotionResult, error) {

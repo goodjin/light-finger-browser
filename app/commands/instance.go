@@ -16,10 +16,11 @@ import (
 )
 
 type InstanceService struct {
-	manager     browserRuntimeManager
-	store       *sqlite.InstanceStore
-	cdpClients  sync.Map // instanceID -> CDPClient
-	targetURLs  sync.Map // instanceID -> string (cached webSocketDebuggerUrl)
+	manager       browserRuntimeManager
+	store         *sqlite.InstanceStore
+	cdpClients    sync.Map // instanceID -> CDPClient
+	targetURLs    sync.Map // instanceID -> string (cached webSocketDebuggerUrl)
+	contextStores sync.Map // instanceID -> *ContextStore
 }
 
 func NewInstanceService(db *sqlite.DB) *InstanceService {
@@ -40,6 +41,15 @@ func (s *InstanceService) DestroyInstance(ctx context.Context, id string) error 
 }
 
 func (s *InstanceService) StopInstance(ctx context.Context, id string) error {
+	// Cleanup all contexts and tabs before stopping
+	if store, ok := s.contextStores.LoadAndDelete(id); ok {
+		mainClient, err := s.GetCDPClient(ctx, id)
+		if err == nil {
+			defer s.CloseCDPClient(id)
+			store.(*ContextStore).CloseAll(ctx, mainClient)
+		}
+	}
+
 	return s.manager.Stop(ctx, id)
 }
 
@@ -189,6 +199,45 @@ func (s *InstanceService) CloseCDPClient(id string) error {
 		return client.(instance.CDPClientInterface).Close()
 	}
 	return nil
+}
+
+// GetCDPClientForTab gets a CDP client for a specific tab
+func (s *InstanceService) GetCDPClientForTab(ctx context.Context, instanceID, tabID string) (instance.CDPClientInterface, error) {
+	inst, err := s.store.Get(instanceID)
+	if err != nil {
+		return nil, err
+	}
+
+	wsURL := inst.CDPEndpoint
+	if !strings.HasPrefix(wsURL, "ws://") {
+		wsURL = "ws://" + wsURL
+	}
+
+	jsonURL := strings.Replace(wsURL, "ws://", "http://", 1) + "/json"
+	resp, err := http.Get(jsonURL)
+	if err != nil {
+		return nil, fmt.Errorf("failed to query CDP targets: %w", err)
+	}
+	defer resp.Body.Close()
+
+	var targets []map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&targets); err != nil {
+		return nil, fmt.Errorf("failed to decode CDP targets: %w", err)
+	}
+
+	for _, t := range targets {
+		if tid, ok := t["id"].(string); ok && tid == tabID {
+			if wsu, ok := t["webSocketDebuggerUrl"].(string); ok {
+				conn, _, err := instance.DefaultDialer.DialContext(ctx, "tcp", wsu)
+				if err != nil {
+					return nil, fmt.Errorf("failed to dial tab CDP: %w", err)
+				}
+				return instance.NewCDPClient(conn), nil
+			}
+		}
+	}
+
+	return nil, fmt.Errorf("tab not found in CDP targets")
 }
 
 // ClearCachedTargetURL removes the cached CDP target URL for an instance.
