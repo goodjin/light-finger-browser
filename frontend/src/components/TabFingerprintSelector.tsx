@@ -54,14 +54,14 @@ export function TabFingerprintSelector({
             // Generate a random fingerprint for the new tab
             const fp = await GenerateRandomFingerprint('US');
 
-            const tab = await CreateTab(instanceId, {
-                url: url || 'about:blank',
-                fingerprint: fp,
-                proxy_url: '',
-            });
+            const tab = await CreateTab(instanceId, commands.TabConfig.createFrom({
+                URL: url || 'about:blank',
+                Fingerprint: fp,
+                ProxyURL: '',
+            }));
 
             setTabs(prev => [...prev, tab]);
-            setSelectedTabId(tab.id);
+            setSelectedTabId(tab.ID);
             setShowCreate(false);
             setUrl('');
             onTabCreated?.(tab);
@@ -78,9 +78,9 @@ export function TabFingerprintSelector({
         try {
             setError(null);
             await CloseTab(instanceId, tabId);
-            setTabs(prev => prev.filter(t => t.id !== tabId));
+            setTabs(prev => prev.filter(t => t.ID !== tabId));
             if (selectedTabId === tabId) {
-                setSelectedTabId(tabs[0]?.id || null);
+                setSelectedTabId(tabs[0]?.ID || null);
             }
             onTabClosed?.(tabId);
         } catch (err) {
@@ -94,7 +94,7 @@ export function TabFingerprintSelector({
             setError(null);
             await NavigateTab(instanceId, tabId, navigateUrl);
             setTabs(prev => prev.map(t =>
-                t.id === tabId ? { ...t, url: navigateUrl } : t
+                t.ID === tabId ? commands.TabInfo.createFrom({ ...t, URL: navigateUrl }) : t
             ));
             setShowNavigate(false);
             setNavigateUrl('');
@@ -127,8 +127,8 @@ export function TabFingerprintSelector({
                 ) : (
                     tabs.map(tab => (
                         <div
-                            key={tab.id}
-                            className={`tab-item ${selectedTabId === tab.id ? 'selected' : ''}`}
+                            key={tab.ID}
+                            className={`tab-item ${selectedTabId === tab.ID ? 'selected' : ''}`}
                             style={{
                                 display: 'flex',
                                 alignItems: 'center',
@@ -137,25 +137,25 @@ export function TabFingerprintSelector({
                                 border: '1px solid #ddd',
                                 borderRadius: '4px',
                                 cursor: 'pointer',
-                                background: selectedTabId === tab.id ? '#e3f2fd' : '#fff',
+                                background: selectedTabId === tab.ID ? '#e3f2fd' : '#fff',
                             }}
-                            onClick={() => setSelectedTabId(tab.id)}
+                            onClick={() => setSelectedTabId(tab.ID)}
                         >
                             <span className="tab-fp" style={{ fontFamily: 'monospace', fontSize: '11px', color: '#888' }}>
-                                {tab.fingerprint_seed?.slice(0, 8) || 'N/A'}
+                                {tab.FingerprintSeed?.slice(0, 8) || 'N/A'}
                             </span>
                             <span className="tab-url" style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                {tab.url || 'about:blank'}
+                                {tab.URL || 'about:blank'}
                             </span>
                             <button
-                                onClick={(e) => { setShowNavigate(true); setSelectedTabId(tab.id); }}
+                                onClick={() => { setShowNavigate(true); setSelectedTabId(tab.ID); }}
                                 style={{ padding: '2px 8px', fontSize: '11px' }}
                                 title="Navigate"
                             >
                                 →
                             </button>
                             <button
-                                onClick={(e) => closeTab(tab.id, e)}
+                                onClick={(e) => closeTab(tab.ID, e)}
                                 style={{ padding: '2px 8px', fontSize: '11px', color: 'red' }}
                                 title="Close"
                             >

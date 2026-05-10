@@ -12,6 +12,7 @@ import {
   NavigateInstanceBrowserNewTab,
 } from '../wailsjs/go/main/App';
 import { commands, instance } from '../wailsjs/go/models';
+import { TabFingerprintSelector } from './TabFingerprintSelector';
 
 const COUNTRIES = [
   { code: 'US', name: 'United States' },
@@ -25,6 +26,11 @@ const COUNTRIES = [
   { code: 'BR', name: 'Brazil' },
   { code: 'IN', name: 'India' },
 ];
+
+type ExpandedInstance = {
+  id: string;
+  showTabs: boolean;
+};
 
 const FINGERPRINT_SERVER_URL = 'http://localhost:18080/';
 
@@ -55,6 +61,7 @@ export function InstancesPage({ createRequest }: InstancesPageProps) {
   const [headlessTouched, setHeadlessTouched] = useState(false);
   const [selectedAccountID, setSelectedAccountID] = useState('');
   const [selectedProxyID, setSelectedProxyID] = useState('');
+  const [expandedInstance, setExpandedInstance] = useState<ExpandedInstance | null>(null);
 
   useEffect(() => {
     loadAll();
@@ -517,7 +524,34 @@ export function InstancesPage({ createRequest }: InstancesPageProps) {
                 >
                   Test Fingerprint
                 </button>
+                <button
+                  className="btn-secondary"
+                  onClick={() => setExpandedInstance(
+                    expandedInstance?.id === inst.id && expandedInstance?.showTabs
+                      ? null
+                      : { id: inst.id, showTabs: true }
+                  )}
+                  title="Manage browser tabs with different fingerprints"
+                >
+                  {expandedInstance?.id === inst.id && expandedInstance?.showTabs ? 'Hide Tabs' : 'Manage Tabs'}
+                </button>
               </div>
+              {expandedInstance?.id === inst.id && expandedInstance?.showTabs && (
+                <div className="instance-tabs" style={{ padding: '12px', background: '#f9f9f9', borderTop: '1px solid #eee' }}>
+                  <TabFingerprintSelector
+                    instanceId={inst.id}
+                    onTabCreated={(tab) => {
+                      console.log('Tab created:', tab);
+                    }}
+                    onTabClosed={(tabId) => {
+                      console.log('Tab closed:', tabId);
+                    }}
+                    onTabNavigated={(tabId, url) => {
+                      console.log('Tab navigated:', tabId, url);
+                    }}
+                  />
+                </div>
+              )}
             </div>
           ))
         )}
