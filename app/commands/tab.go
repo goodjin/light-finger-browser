@@ -219,6 +219,7 @@ func (s *TabService) NavigateTab(ctx context.Context, instanceID, tabID, url str
 	if err != nil {
 		return fmt.Errorf("failed to connect to tab: %w", err)
 	}
+	defer tabClient.Close()
 
 	// 3. Navigate the tab
 	if err := tabClient.Navigate(ctx, url); err != nil {
