@@ -60,8 +60,7 @@ func (a *App) OnStartup(ctx context.Context) {
 	if lockErr != nil {
 		log.Printf("Failed to acquire singleton lock: %v", lockErr)
 	}
-	// Note: For now we continue even if lock not acquired (singleton enforcement is optional)
-	_ = acquired
+	// SI-004: Singleton enforcement - exit if another instance is already running
 	if !acquired {
 		lockInfo, _ := a.singletonLock.GetLockInfo()
 		if lockInfo != nil {
@@ -69,8 +68,8 @@ func (a *App) OnStartup(ctx context.Context) {
 		} else {
 			log.Println("Another instance is already running. Exiting.")
 		}
-		// In a real app, we would exit here
-		// For now, we continue and let the instance service handle it
+		os.Exit(1)
+		return
 	}
 
 	// Initialize SQLite database - use absolute path in Application Support
