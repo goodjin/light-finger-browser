@@ -31,10 +31,13 @@ export function TabsPage() {
   const [runningInstances, setRunningInstances] = useState<commands.BrowserInstance[]>([]);
 
   // Load all running instances and their tabs
-  async function loadAllTabs() {
+  // isBackgroundRefresh: if true, errors are silently ignored and user selection is preserved
+  async function loadAllTabs(isBackgroundRefresh: boolean = false) {
     try {
-      setLoading(true);
-      setError(null);
+      if (!isBackgroundRefresh) {
+        setLoading(true);
+        setError(null);
+      }
 
       // Get all instances
       const allInstances = await ListInstances(instance.InstanceFilter.createFrom({}));
@@ -44,7 +47,9 @@ export function TabsPage() {
         (inst: commands.BrowserInstance) => inst.status === 'running'
       );
 
-      setRunningInstances(running);
+      if (!isBackgroundRefresh) {
+        setRunningInstances(running);
+      }
 
       // Get tabs from each running instance
       const results: GroupedTabs[] = [];
@@ -56,23 +61,40 @@ export function TabsPage() {
             tabs: tabs || [],
           });
         } catch (err) {
-          // Instance might have stopped, skip it
+          // Instance might have stopped, skip it (silently)
           console.warn(`Failed to load tabs for instance ${inst.id}:`, err);
+        }
+      }
+
+      // Preserve user selection state during background refresh
+      if (isBackgroundRefresh && selectedTabId) {
+        // Check if selected tab still exists
+        const tabStillExists = results.some(group =>
+          group.tabs.some(tab => tab.ID === selectedTabId)
+        );
+        if (!tabStillExists) {
+          setSelectedTabId(null);
         }
       }
 
       setGroupedTabs(results);
     } catch (err) {
-      setError(String(err));
+      // Silent error handling during background refresh - don't show errors to user
+      if (!isBackgroundRefresh) {
+        setError(String(err));
+      }
+      console.warn('Background tab refresh failed:', err);
     } finally {
-      setLoading(false);
+      if (!isBackgroundRefresh) {
+        setLoading(false);
+      }
     }
   }
 
-  // Initial load and auto-refresh every 5 seconds
+  // Initial load and auto-refresh every 5 seconds (background refresh)
   useEffect(() => {
-    loadAllTabs();
-    const interval = setInterval(loadAllTabs, 5000);
+    loadAllTabs(false); // Initial load (shows loading state, may show errors)
+    const interval = setInterval(() => loadAllTabs(true), 5000); // Background refresh (silent)
     return () => clearInterval(interval);
   }, []);
 
@@ -231,7 +253,7 @@ export function TabsPage() {
           </span>
         </div>
         <div className="header-right">
-          <button className="btn-secondary" onClick={loadAllTabs} disabled={loading}>
+          <button className="btn-secondary" onClick={() => loadAllTabs(false)} disabled={loading}>
             Refresh
           </button>
           <button
