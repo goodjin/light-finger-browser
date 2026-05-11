@@ -24,6 +24,12 @@ func NewDB(path string) (*DB, error) {
 		log.Printf("Warning: failed to enable WAL mode: %v", err)
 	}
 
+	// Set busy timeout to 5 seconds to prevent indefinite waiting
+	_, err = db.Exec("PRAGMA busy_timeout=5000")
+	if err != nil {
+		log.Printf("Warning: failed to set busy_timeout: %v", err)
+	}
+
 	return &DB{db}, nil
 }
 
@@ -47,6 +53,26 @@ func (db *DB) Migrate() error {
 			started_at DATETIME,
 			last_active_at DATETIME,
 			created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+		)`,
+		`CREATE TABLE IF NOT EXISTS browser_tabs (
+			id TEXT PRIMARY KEY,
+			context_id TEXT NOT NULL,
+			instance_id TEXT,
+			fingerprint_seed TEXT,
+			url TEXT,
+			title TEXT,
+			created_at TEXT,
+			last_active_at TEXT,
+			closed_at TEXT
+		)`,
+		`CREATE TABLE IF NOT EXISTS access_logs (
+			id TEXT PRIMARY KEY,
+			tab_id TEXT NOT NULL,
+			url TEXT NOT NULL,
+			title TEXT,
+			visited_at TEXT,
+			duration_ms INTEGER,
+			FOREIGN KEY (tab_id) REFERENCES browser_tabs(id)
 		)`,
 		`CREATE TABLE IF NOT EXISTS tiktok_accounts (
 			id TEXT PRIMARY KEY,

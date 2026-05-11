@@ -19,6 +19,7 @@ type App struct {
 	mu             sync.Mutex
 	db             *sqlite.DB
 	instanceSvc    *commands.InstanceService
+	tabSvc         *commands.TabService
 	fingerprintSvc *commands.FingerprintService
 	remoteSvc      *commands.RemoteBrowserService
 	accountSvc     *commands.AccountService
@@ -94,6 +95,7 @@ func (a *App) OnStartup(ctx context.Context) {
 	// Initialize services
 	a.configSvc = commands.NewConfigService()
 	a.instanceSvc = commands.NewInstanceService(a.db)
+	a.tabSvc = commands.NewTabService(a.instanceSvc, a.db)
 	a.fingerprintSvc = commands.NewFingerprintService()
 	a.remoteSvc = commands.NewRemoteBrowserService()
 	a.accountSvc = commands.NewAccountService(a.db, a.instanceSvc)
@@ -275,26 +277,22 @@ func (a *App) UpdateHeadlessMode(headless bool) error {
 
 // CreateTab creates a new tab with the specified fingerprint in an existing instance
 func (a *App) CreateTab(instanceID string, cfg *commands.TabConfig) (*commands.TabInfo, error) {
-	tabSvc := commands.NewTabService(a.instanceSvc)
-	return tabSvc.CreateTab(a.appContext(), instanceID, cfg)
+	return a.tabSvc.CreateTab(a.appContext(), instanceID, cfg)
 }
 
 // CloseTab closes a specific tab
 func (a *App) CloseTab(instanceID, tabID string) error {
-	tabSvc := commands.NewTabService(a.instanceSvc)
-	return tabSvc.CloseTab(a.appContext(), instanceID, tabID)
+	return a.tabSvc.CloseTab(a.appContext(), instanceID, tabID)
 }
 
 // ListTabs lists all tabs in an instance
 func (a *App) ListTabs(instanceID string) ([]*commands.TabInfo, error) {
-	tabSvc := commands.NewTabService(a.instanceSvc)
-	return tabSvc.ListTabs(a.appContext(), instanceID)
+	return a.tabSvc.ListTabs(a.appContext(), instanceID)
 }
 
 // NavigateTab navigates a specific tab to a URL
 func (a *App) NavigateTab(instanceID, tabID, url string) error {
-	tabSvc := commands.NewTabService(a.instanceSvc)
-	return tabSvc.NavigateTab(a.appContext(), instanceID, tabID, url)
+	return a.tabSvc.NavigateTab(a.appContext(), instanceID, tabID, url)
 }
 
 // ==================== Release Commands ====================
