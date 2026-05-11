@@ -135,6 +135,9 @@ func (s *InstanceService) StopSingleton(ctx context.Context) error {
 		return nil
 	}
 
+	// Clean up all CDP clients before stopping
+	s.cleanupAllCDPClients()
+
 	err := s.manager.Stop(ctx, s.singleton.ID)
 	if err != nil {
 		return err
@@ -142,6 +145,23 @@ func (s *InstanceService) StopSingleton(ctx context.Context) error {
 
 	s.singleton.Status = instance.StatusStopped
 	return nil
+}
+
+// cleanupAllCDPClients closes all CDP clients in the cdpClients map.
+func (s *InstanceService) cleanupAllCDPClients() {
+	s.cdpClients.Range(func(k, v interface{}) bool {
+		if client, ok := v.(instance.CDPClientInterface); ok {
+			if err := client.Close(); err != nil {
+				log.Printf("[cleanupAllCDPClients] error closing CDP client for %v: %v", k, err)
+			} else {
+				log.Printf("[cleanupAllCDPClients] closed CDP client for %v", k)
+			}
+		}
+		return true
+	})
+	s.cdpClients.Clear()
+	// Also clear cached target URLs
+	s.targetURLs.Clear()
 }
 
 func (s *InstanceService) CreateInstance(ctx context.Context, cfg *InstanceConfig) (*instance.BrowserInstance, error) {
@@ -161,6 +181,11 @@ func (s *InstanceService) StopInstance(ctx context.Context, id string) error {
 			store.(*ContextStore).CloseAll(ctx, mainClient)
 		}
 	}
+
+	// Clean up all CDP clients for this instance (including page-level clients)
+	s.CloseCDPClient(id)
+	// Clear cached target URL for this instance
+	s.ClearCachedTargetURL(id)
 
 	return s.manager.Stop(ctx, id)
 }
@@ -300,6 +325,8 @@ func (s *InstanceService) GetPageCDPClient(ctx context.Context, id string) (inst
 		conn, _, err := instance.DefaultDialer.DialContext(ctx, "tcp", targetWSURL)
 		if err == nil {
 			client := instance.NewCDPClient(conn)
+			// Store client for cleanup - both browser-level and page-level clients need cleanup
+			s.cdpClients.Store(id, client)
 			return client, nil
 		}
 		// Cached URL failed, will re-query
@@ -349,6 +376,8 @@ func (s *InstanceService) GetPageCDPClient(ctx context.Context, id string) (inst
 	}
 
 	client := instance.NewCDPClient(conn)
+	// Store client for cleanup - both browser-level and page-level clients need cleanup
+	s.cdpClients.Store(id, client)
 	return client, nil
 }
 
