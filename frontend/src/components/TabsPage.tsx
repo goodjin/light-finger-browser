@@ -57,6 +57,22 @@ function getErrorDisplayMessage(error: unknown, type: ErrorType): string {
   }
 }
 
+// Supported countries for fingerprint configuration
+const SUPPORTED_COUNTRIES = [
+  { code: 'US', name: 'United States', flag: '🇺🇸', timezone: 'America/New_York' },
+  { code: 'GB', name: 'United Kingdom', flag: '🇬🇧', timezone: 'Europe/London' },
+  { code: 'DE', name: 'Germany', flag: '🇩🇪', timezone: 'Europe/Berlin' },
+  { code: 'FR', name: 'France', flag: '🇫🇷', timezone: 'Europe/Paris' },
+  { code: 'JP', name: 'Japan', flag: '🇯🇵', timezone: 'Asia/Tokyo' },
+  { code: 'CN', name: 'China', flag: '🇨🇳', timezone: 'Asia/Shanghai' },
+  { code: 'CA', name: 'Canada', flag: '🇨🇦', timezone: 'America/Toronto' },
+  { code: 'AU', name: 'Australia', flag: '🇦🇺', timezone: 'Australia/Sydney' },
+  { code: 'BR', name: 'Brazil', flag: '🇧🇷', timezone: 'America/Sao_Paulo' },
+  { code: 'IN', name: 'India', flag: '🇮🇳', timezone: 'Asia/Kolkata' },
+  { code: 'IT', name: 'Italy', flag: '🇮🇹', timezone: 'Europe/Rome' },
+  { code: 'ES', name: 'Spain', flag: '🇪🇸', timezone: 'Europe/Madrid' },
+];
+
 export function TabsPage() {
   const [groupedTabs, setGroupedTabs] = useState<GroupedTabs[]>([]);
   const [loading, setLoading] = useState(true);
@@ -69,6 +85,8 @@ export function TabsPage() {
   const [creatingTab, setCreatingTab] = useState(false);
   const [selectedInstanceId, setSelectedInstanceId] = useState<string>('');
   const [newTabUrl, setNewTabUrl] = useState('');
+  const [newTabCountry, setNewTabCountry] = useState<string>('US');
+  const [showAdvancedConfig, setShowAdvancedConfig] = useState(false);
   const [runningInstances, setRunningInstances] = useState<commands.BrowserInstance[]>([]);
   const [cleanedTabsCount, setCleanedTabsCount] = useState(0);
 
@@ -181,8 +199,8 @@ export function TabsPage() {
       setError(null);
       setErrorInfo(null);
 
-      // Generate a random fingerprint for the new tab
-      const fp = await GenerateRandomFingerprint('US');
+      // Generate a random fingerprint with the selected country
+      const fp = await GenerateRandomFingerprint(newTabCountry);
 
       // Create the tab (result stored for potential future use)
       await CreateTab(selectedInstanceId, commands.TabConfig.createFrom({
@@ -198,6 +216,7 @@ export function TabsPage() {
       setShowCreate(false);
       setSelectedInstanceId('');
       setNewTabUrl('');
+      // Keep the country selection for convenience
     } catch (err) {
       const errorType = classifyError(err);
       const displayMessage = getErrorDisplayMessage(err, errorType);
@@ -522,14 +541,118 @@ export function TabsPage() {
                 disabled={creatingTab}
               />
               <div className="helper-text">
-                Leave empty to open blank tab. A random fingerprint will be assigned automatically.
+                Leave empty to open blank tab.
               </div>
             </div>
+            
+            {/* Fingerprint Configuration */}
+            <div className="form-group">
+              <label style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span>Fingerprint Country</span>
+                <span style={{ 
+                  fontSize: '11px', 
+                  color: '#1976d2',
+                  background: '#e3f2fd',
+                  padding: '2px 8px',
+                  borderRadius: '4px',
+                  fontWeight: 'normal',
+                }}>
+                  Required
+                </span>
+              </label>
+              <div className="country-selector">
+                <select
+                  value={newTabCountry}
+                  onChange={e => setNewTabCountry(e.target.value)}
+                  disabled={creatingTab}
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    border: '1px solid #e5e7eb',
+                    borderRadius: '6px',
+                    fontSize: '14px',
+                    background: '#fff',
+                    cursor: 'pointer',
+                  }}
+                >
+                  {SUPPORTED_COUNTRIES.map(country => (
+                    <option key={country.code} value={country.code}>
+                      {country.flag} {country.name} ({country.code})
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="helper-text">
+                Each tab will have a unique fingerprint based on the selected country.
+              </div>
+            </div>
+
+            {/* Advanced Configuration Toggle */}
+            <div className="form-group" style={{ marginTop: '8px' }}>
+              <button
+                type="button"
+                onClick={() => setShowAdvancedConfig(!showAdvancedConfig)}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  color: '#666',
+                  fontSize: '13px',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '4px 0',
+                }}
+              >
+                <span style={{ 
+                  transform: showAdvancedConfig ? 'rotate(90deg)' : 'rotate(0deg)',
+                  transition: 'transform 0.2s',
+                  display: 'inline-block',
+                }}>
+                  ▶
+                </span>
+                Advanced Configuration
+              </button>
+              
+              {showAdvancedConfig && (
+                <div style={{
+                  marginTop: '12px',
+                  padding: '12px',
+                  background: '#f9fafb',
+                  borderRadius: '6px',
+                  border: '1px solid #e5e7eb',
+                }}>
+                  <div style={{ fontSize: '12px', color: '#666', marginBottom: '8px' }}>
+                    Selected fingerprint settings for <strong>{SUPPORTED_COUNTRIES.find(c => c.code === newTabCountry)?.name}</strong>:
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '12px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={{ color: '#888' }}>Timezone:</span>
+                      <span style={{ fontFamily: 'monospace' }}>{SUPPORTED_COUNTRIES.find(c => c.code === newTabCountry)?.timezone}</span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={{ color: '#888' }}>Platform:</span>
+                      <span style={{ fontFamily: 'monospace' }}>Windows</span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={{ color: '#888' }}>Screen:</span>
+                      <span style={{ fontFamily: 'monospace' }}>Random (1920x1080, 1366x768, etc.)</span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={{ color: '#888' }}>Locale:</span>
+                      <span style={{ fontFamily: 'monospace' }}>{newTabCountry === 'US' ? 'en-US' : SUPPORTED_COUNTRIES.find(c => c.code === newTabCountry)?.code.toLowerCase() + '-' + SUPPORTED_COUNTRIES.find(c => c.code === newTabCountry)?.code.toUpperCase()}</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
             <div className="modal-actions">
               <button onClick={() => {
                 setShowCreate(false);
                 setSelectedInstanceId('');
                 setNewTabUrl('');
+                setShowAdvancedConfig(false);
               }} disabled={creatingTab}>
                 Cancel
               </button>
