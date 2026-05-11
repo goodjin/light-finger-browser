@@ -6,6 +6,7 @@ import {
   NavigateTab,
   GenerateRandomFingerprint,
   ListInstances,
+  GetAccessLogs,
 } from '../wailsjs/go/main/App';
 import { commands, instance } from '../wailsjs/go/models';
 
@@ -81,6 +82,7 @@ export function TabsPage() {
   const [selectedTabId, setSelectedTabId] = useState<string | null>(null);
   const [showCreate, setShowCreate] = useState(false);
   const [showNavigate, setShowNavigate] = useState(false);
+  const [showAccessLogs, setShowAccessLogs] = useState(false);
   const [navigateUrl, setNavigateUrl] = useState('');
   const [creatingTab, setCreatingTab] = useState(false);
   const [selectedInstanceId, setSelectedInstanceId] = useState<string>('');
@@ -89,6 +91,9 @@ export function TabsPage() {
   const [showAdvancedConfig, setShowAdvancedConfig] = useState(false);
   const [runningInstances, setRunningInstances] = useState<commands.BrowserInstance[]>([]);
   const [cleanedTabsCount, setCleanedTabsCount] = useState(0);
+  const [accessLogs, setAccessLogs] = useState<commands.AccessLogInfo[]>([]);
+  const [accessLogsLoading, setAccessLogsLoading] = useState(false);
+  const [accessLogsFilter, setAccessLogsFilter] = useState<string>('');
 
   // Load all running instances and their tabs
   // isBackgroundRefresh: if true, errors are silently ignored and user selection is preserved
@@ -181,6 +186,24 @@ export function TabsPage() {
       if (!isBackgroundRefresh) {
         setLoading(false);
       }
+    }
+  }
+
+  // Load access logs
+  async function loadAccessLogs(tabID?: string) {
+    try {
+      setAccessLogsLoading(true);
+      const query = commands.AccessLogQuery.createFrom({
+        TabID: tabID || '',
+        StartTime: '',
+        EndTime: '',
+      });
+      const logs = await GetAccessLogs(query);
+      setAccessLogs(logs || []);
+    } catch (err) {
+      console.error('[TabsPage] Failed to load access logs:', err);
+    } finally {
+      setAccessLogsLoading(false);
     }
   }
 
@@ -408,6 +431,54 @@ export function TabsPage() {
 
   return (
     <div className="tabs-page">
+      {/* Instance Status Section */}
+      {runningInstances.length > 0 && (
+        <div className="instance-status-bar" style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '16px',
+          padding: '12px 16px',
+          marginBottom: '16px',
+          background: runningInstances[0].status === 'running' ? '#f0fdf4' : '#fef2f2',
+          border: `1px solid ${runningInstances[0].status === 'running' ? '#86efac' : '#fecaca'}`,
+          borderRadius: '8px',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{
+              width: '10px',
+              height: '10px',
+              borderRadius: '50%',
+              background: runningInstances[0].status === 'running' ? '#22c55e' : '#ef4444',
+            }} />
+            <span style={{ fontWeight: '500', color: runningInstances[0].status === 'running' ? '#166534' : '#991b1b' }}>
+              {runningInstances[0].status === 'running' ? 'Running' : 'Stopped'}
+            </span>
+          </div>
+          <div style={{ color: '#666', fontSize: '13px' }}>
+            <span style={{ marginRight: '8px' }}>Instance:</span>
+            <span style={{ fontFamily: 'monospace' }}>
+              {runningInstances[0].name || `${runningInstances[0].id.slice(0, 8)}...`}
+            </span>
+          </div>
+          {runningInstances[0].pid > 0 && (
+            <div style={{ color: '#666', fontSize: '13px' }}>
+              <span style={{ marginRight: '8px' }}>PID:</span>
+              <span style={{ fontFamily: 'monospace' }}>{runningInstances[0].pid}</span>
+            </div>
+          )}
+          {runningInstances[0].port > 0 && (
+            <div style={{ color: '#666', fontSize: '13px' }}>
+              <span style={{ marginRight: '8px' }}>CDP Port:</span>
+              <span style={{ fontFamily: 'monospace' }}>{runningInstances[0].port}</span>
+            </div>
+          )}
+          <div style={{ color: '#666', fontSize: '13px' }}>
+            <span style={{ marginRight: '8px' }}>Tabs:</span>
+            <span style={{ fontWeight: '500' }}>{totalTabs}</span>
+          </div>
+        </div>
+      )}
+
       <div className="page-header">
         <div className="header-left">
           <h2>Browser Tabs</h2>
@@ -416,6 +487,16 @@ export function TabsPage() {
           </span>
         </div>
         <div className="header-right">
+          <button 
+            className="btn-secondary" 
+            onClick={() => {
+              setShowAccessLogs(true);
+              loadAccessLogs();
+            }}
+            style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+          >
+            📋 Access Logs
+          </button>
           <button className="btn-secondary" onClick={() => loadAllTabs(false)} disabled={loading}>
             Refresh
           </button>
@@ -709,6 +790,105 @@ export function TabsPage() {
               >
                 Navigate
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Access Log Panel */}
+      {showAccessLogs && (
+        <div className="modal-overlay" onClick={() => setShowAccessLogs(false)}>
+          <div className="modal" onClick={e => e.stopPropagation()} style={{ maxWidth: '800px', width: '90%', maxHeight: '80vh', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+              <h3>📋 Access Logs</h3>
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                <input
+                  type="text"
+                  placeholder="Filter by tab ID..."
+                  value={accessLogsFilter}
+                  onChange={e => setAccessLogsFilter(e.target.value)}
+                  style={{
+                    padding: '6px 12px',
+                    border: '1px solid #e5e7eb',
+                    borderRadius: '4px',
+                    fontSize: '13px',
+                    width: '200px',
+                  }}
+                />
+                <button 
+                  className="btn-secondary" 
+                  onClick={() => loadAccessLogs()}
+                  style={{ fontSize: '12px' }}
+                >
+                  Refresh
+                </button>
+                <button 
+                  onClick={() => setShowAccessLogs(false)}
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    fontSize: '20px',
+                    cursor: 'pointer',
+                    color: '#666',
+                  }}
+                >
+                  ×
+                </button>
+              </div>
+            </div>
+            
+            {accessLogsLoading ? (
+              <div style={{ textAlign: 'center', padding: '32px', color: '#666' }}>
+                Loading access logs...
+              </div>
+            ) : accessLogs.length === 0 ? (
+              <div style={{ textAlign: 'center', padding: '32px', color: '#666' }}>
+                <div style={{ fontSize: '48px', marginBottom: '16px' }}>📋</div>
+                <p>No access logs found.</p>
+                <p style={{ fontSize: '13px', marginTop: '8px' }}>
+                  Access logs are recorded when you navigate to a URL in a tab.
+                </p>
+              </div>
+            ) : (
+              <div style={{ flex: 1, overflowY: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+                  <thead>
+                    <tr style={{ background: '#f9fafb', borderBottom: '2px solid #e5e7eb' }}>
+                      <th style={{ padding: '10px 12px', textAlign: 'left', fontWeight: '600' }}>Time</th>
+                      <th style={{ padding: '10px 12px', textAlign: 'left', fontWeight: '600' }}>Tab ID</th>
+                      <th style={{ padding: '10px 12px', textAlign: 'left', fontWeight: '600' }}>URL</th>
+                      <th style={{ padding: '10px 12px', textAlign: 'left', fontWeight: '600' }}>Title</th>
+                      <th style={{ padding: '10px 12px', textAlign: 'right', fontWeight: '600' }}>Duration</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {accessLogs
+                      .filter(log => !accessLogsFilter || log.TabID.includes(accessLogsFilter))
+                      .map(log => (
+                        <tr key={log.ID} style={{ borderBottom: '1px solid #f3f4f6' }}>
+                          <td style={{ padding: '10px 12px', color: '#666', fontFamily: 'monospace', fontSize: '12px' }}>
+                            {formatDate(log.VisitedAt)}
+                          </td>
+                          <td style={{ padding: '10px 12px', fontFamily: 'monospace', fontSize: '12px' }}>
+                            {log.TabID.slice(0, 8)}...
+                          </td>
+                          <td style={{ padding: '10px 12px', fontFamily: 'monospace', fontSize: '12px', maxWidth: '250px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            {log.URL ? truncateUrl(log.URL, 40) : '-'}
+                          </td>
+                          <td style={{ padding: '10px 12px', maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            {log.Title || '-'}
+                          </td>
+                          <td style={{ padding: '10px 12px', textAlign: 'right', color: '#666', fontSize: '12px' }}>
+                            {log.DurationMs > 0 ? `${(log.DurationMs / 1000).toFixed(1)}s` : '-'}
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+            <div style={{ marginTop: '16px', paddingTop: '12px', borderTop: '1px solid #e5e7eb', color: '#666', fontSize: '12px' }}>
+              Total: {accessLogs.length} log entries
             </div>
           </div>
         </div>
