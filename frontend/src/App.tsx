@@ -1,22 +1,16 @@
 import { useEffect, useState } from 'react';
-import { InstancesPage } from './components/InstancesPage';
-import { AccountsPage } from './components/AccountsPage';
-import { ProxiesPage } from './components/ProxiesPage';
 import { SettingsPage } from './components/SettingsPage';
 import { TabsPage } from './components/TabsPage';
-import { ListInstances, ListAccounts, ListProxies } from './wailsjs/go/main/App';
+import { ListInstances } from './wailsjs/go/main/App';
 import { instance } from './wailsjs/go/models';
 
 type DashboardProps = {
-  onNewInstance: () => void;
-  onAddAccount: () => void;
-  onImportProxies: () => void;
+  onGoToTabs: () => void;
 };
 
-function Dashboard({ onNewInstance, onAddAccount, onImportProxies }: DashboardProps) {
+function Dashboard({ onGoToTabs }: DashboardProps) {
   const [runningCount, setRunningCount] = useState(0);
-  const [accountCount, setAccountCount] = useState(0);
-  const [proxyCount, setProxyCount] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
   const [instanceStats, setInstanceStats] = useState<{ name: string; count: number }[]>([]);
   const [statsError, setStatsError] = useState<string | null>(null);
 
@@ -25,16 +19,11 @@ function Dashboard({ onNewInstance, onAddAccount, onImportProxies }: DashboardPr
 
     const loadStats = async () => {
       try {
-        const [list, accountList, proxyList] = await Promise.all([
-          ListInstances(instance.InstanceFilter.createFrom({})),
-          ListAccounts(),
-          ListProxies(),
-        ]);
+        const list = await ListInstances(instance.InstanceFilter.createFrom({}));
         if (!mounted) return;
         const total = list || [];
         setRunningCount(total.filter(inst => inst.status === 'running').length);
-        setAccountCount((accountList || []).length);
-        setProxyCount((proxyList || []).length);
+        setTotalCount(total.length);
         const counts = new Map<string, number>();
         total.forEach(inst => {
           const name = inst.name || `${inst.id.slice(0, 8)}...`;
@@ -65,24 +54,18 @@ function Dashboard({ onNewInstance, onAddAccount, onImportProxies }: DashboardPr
           <div className="stat-label">Running Instances</div>
         </div>
         <div className="stat-card">
-          <div className="stat-value">{accountCount}</div>
-          <div className="stat-label">Total Accounts</div>
+          <div className="stat-value">{totalCount}</div>
+          <div className="stat-label">Total Instances</div>
         </div>
         <div className="stat-card">
-          <div className="stat-value">{proxyCount}</div>
-          <div className="stat-label">Total Proxies</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-value">v1.0.0</div>
+          <div className="stat-value">v2.0.0</div>
           <div className="stat-label">Version</div>
         </div>
       </div>
       <div className="dashboard-section">
         <h3>Quick Actions</h3>
         <div className="quick-actions">
-          <button className="action-btn" onClick={onNewInstance}>New Instance</button>
-          <button className="action-btn" onClick={onAddAccount}>Add Account</button>
-          <button className="action-btn" onClick={onImportProxies}>Import Proxies</button>
+          <button className="action-btn" onClick={onGoToTabs}>Go to Tabs</button>
         </div>
       </div>
       <div className="dashboard-section">
@@ -105,25 +88,13 @@ function Dashboard({ onNewInstance, onAddAccount, onImportProxies }: DashboardPr
   );
 }
 
-type Tab = 'dashboard' | 'instances' | 'accounts' | 'proxies' | 'settings' | 'tabs';
+type Tab = 'dashboard' | 'settings' | 'tabs';
 
 function App() {
-  const [activeTab, setActiveTab] = useState<Tab>('dashboard');
-  const [instanceCreateRequest, setInstanceCreateRequest] = useState(0);
-  const [accountCreateRequest, setAccountCreateRequest] = useState(0);
+  const [activeTab, setActiveTab] = useState<Tab>('tabs'); // Default to tabs per FE-003
 
-  const handleNewInstance = () => {
-    setActiveTab('instances');
-    setInstanceCreateRequest(prev => prev + 1);
-  };
-
-  const handleAddAccount = () => {
-    setActiveTab('accounts');
-    setAccountCreateRequest(prev => prev + 1);
-  };
-
-  const handleImportProxies = () => {
-    setActiveTab('proxies');
+  const handleGoToTabs = () => {
+    setActiveTab('tabs');
   };
 
   return (
@@ -139,27 +110,6 @@ function App() {
           >
             <span className="nav-icon">◈</span>
             Dashboard
-          </li>
-          <li
-            className={activeTab === 'instances' ? 'active' : ''}
-            onClick={() => setActiveTab('instances')}
-          >
-            <span className="nav-icon">◎</span>
-            Instances
-          </li>
-          <li
-            className={activeTab === 'accounts' ? 'active' : ''}
-            onClick={() => setActiveTab('accounts')}
-          >
-            <span className="nav-icon">◉</span>
-            Accounts
-          </li>
-          <li
-            className={activeTab === 'proxies' ? 'active' : ''}
-            onClick={() => setActiveTab('proxies')}
-          >
-            <span className="nav-icon">⬢</span>
-            Proxies
           </li>
           <li
             className={activeTab === 'tabs' ? 'active' : ''}
@@ -179,19 +129,8 @@ function App() {
       </nav>
       <main className="content">
         {activeTab === 'dashboard' && (
-          <Dashboard
-            onNewInstance={handleNewInstance}
-            onAddAccount={handleAddAccount}
-            onImportProxies={handleImportProxies}
-          />
+          <Dashboard onGoToTabs={handleGoToTabs} />
         )}
-        {activeTab === 'instances' && (
-          <InstancesPage createRequest={instanceCreateRequest} />
-        )}
-        {activeTab === 'accounts' && (
-          <AccountsPage createRequest={accountCreateRequest} />
-        )}
-        {activeTab === 'proxies' && <ProxiesPage />}
         {activeTab === 'tabs' && <TabsPage />}
         {activeTab === 'settings' && <SettingsPage />}
       </main>
