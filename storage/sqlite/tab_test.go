@@ -31,14 +31,15 @@ func TestTabStore_SaveAndGet(t *testing.T) {
 	// Test Save and Get
 	now := time.Now().Format(time.RFC3339)
 	tab := &TabRecord{
-		ID:              "test-tab-1",
-		ContextID:       "test-context-1",
-		InstanceID:      "test-instance-1",
-		FingerprintSeed: "test-seed-123",
-		URL:             "https://example.com",
-		Title:           "Example",
-		CreatedAt:       now,
-		LastActiveAt:    now,
+		ID:                 "test-tab-1",
+		ContextID:          "test-context-1",
+		InstanceID:         "test-instance-1",
+		FingerprintSeed:    "test-seed-123",
+		FingerprintCountry: "US",
+		URL:                "https://example.com",
+		Title:              "Example",
+		CreatedAt:          now,
+		LastActiveAt:       now,
 	}
 
 	if err := store.Save(tab); err != nil {
@@ -61,6 +62,9 @@ func TestTabStore_SaveAndGet(t *testing.T) {
 	}
 	if saved.FingerprintSeed != tab.FingerprintSeed {
 		t.Errorf("Expected FingerprintSeed %s, got %s", tab.FingerprintSeed, saved.FingerprintSeed)
+	}
+	if saved.FingerprintCountry != tab.FingerprintCountry {
+		t.Errorf("Expected FingerprintCountry %s, got %s", tab.FingerprintCountry, saved.FingerprintCountry)
 	}
 	if saved.URL != tab.URL {
 		t.Errorf("Expected URL %s, got %s", tab.URL, saved.URL)
@@ -92,45 +96,49 @@ func TestTabStore_ListOpenByInstance(t *testing.T) {
 
 	// Create tabs for instance 1
 	tab1 := &TabRecord{
-		ID:              "tab-1",
-		ContextID:       "ctx-1",
-		InstanceID:      "instance-1",
-		FingerprintSeed: "seed-1",
-		URL:             "https://example1.com",
-		CreatedAt:       now,
-		LastActiveAt:    now,
+		ID:                 "tab-1",
+		ContextID:          "ctx-1",
+		InstanceID:         "instance-1",
+		FingerprintSeed:    "seed-1",
+		FingerprintCountry: "US",
+		URL:                "https://example1.com",
+		CreatedAt:          now,
+		LastActiveAt:       now,
 	}
 	tab2 := &TabRecord{
-		ID:              "tab-2",
-		ContextID:       "ctx-2",
-		InstanceID:      "instance-1",
-		FingerprintSeed: "seed-2",
-		URL:             "https://example2.com",
-		CreatedAt:       now,
-		LastActiveAt:    now,
+		ID:                 "tab-2",
+		ContextID:          "ctx-2",
+		InstanceID:         "instance-1",
+		FingerprintSeed:    "seed-2",
+		FingerprintCountry: "UK",
+		URL:                "https://example2.com",
+		CreatedAt:          now,
+		LastActiveAt:       now,
 	}
 
 	// Create tab for instance 2
 	tab3 := &TabRecord{
-		ID:              "tab-3",
-		ContextID:       "ctx-3",
-		InstanceID:      "instance-2",
-		FingerprintSeed: "seed-3",
-		URL:             "https://example3.com",
-		CreatedAt:       now,
-		LastActiveAt:    now,
+		ID:                 "tab-3",
+		ContextID:          "ctx-3",
+		InstanceID:         "instance-2",
+		FingerprintSeed:    "seed-3",
+		FingerprintCountry: "DE",
+		URL:                "https://example3.com",
+		CreatedAt:          now,
+		LastActiveAt:       now,
 	}
 
 	// Create closed tab for instance 1
 	tab4 := &TabRecord{
-		ID:              "tab-4",
-		ContextID:       "ctx-4",
-		InstanceID:      "instance-1",
-		FingerprintSeed: "seed-4",
-		URL:             "https://example4.com",
-		CreatedAt:       now,
-		LastActiveAt:    now,
-		ClosedAt:        nullTime(time.Now()),
+		ID:                 "tab-4",
+		ContextID:          "ctx-4",
+		InstanceID:         "instance-1",
+		FingerprintSeed:    "seed-4",
+		FingerprintCountry: "JP",
+		URL:                "https://example4.com",
+		CreatedAt:          now,
+		LastActiveAt:       now,
+		ClosedAt:           nullTime(time.Now()),
 	}
 
 	if err := store.Save(tab1); err != nil {
@@ -197,13 +205,14 @@ func TestTabStore_UpdateClosedAt(t *testing.T) {
 
 	now := time.Now().Format(time.RFC3339)
 	tab := &TabRecord{
-		ID:              "tab-to-close",
-		ContextID:       "ctx-1",
-		InstanceID:      "instance-1",
-		FingerprintSeed: "seed-1",
-		URL:             "https://example.com",
-		CreatedAt:       now,
-		LastActiveAt:    now,
+		ID:                 "tab-to-close",
+		ContextID:          "ctx-1",
+		InstanceID:         "instance-1",
+		FingerprintSeed:    "seed-1",
+		FingerprintCountry: "US",
+		URL:                "https://example.com",
+		CreatedAt:          now,
+		LastActiveAt:       now,
 	}
 
 	if err := store.Save(tab); err != nil {
@@ -271,13 +280,14 @@ func TestTabStore_UpdateURL(t *testing.T) {
 
 	now := time.Now().Format(time.RFC3339)
 	tab := &TabRecord{
-		ID:              "tab-url-test",
-		ContextID:       "ctx-1",
-		InstanceID:      "instance-1",
-		FingerprintSeed: "seed-1",
-		URL:             "https://example.com",
-		CreatedAt:       now,
-		LastActiveAt:    now,
+		ID:                 "tab-url-test",
+		ContextID:          "ctx-1",
+		InstanceID:         "instance-1",
+		FingerprintSeed:    "seed-1",
+		FingerprintCountry: "US",
+		URL:                "https://example.com",
+		CreatedAt:          now,
+		LastActiveAt:       now,
 	}
 
 	if err := store.Save(tab); err != nil {

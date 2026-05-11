@@ -7,15 +7,16 @@ import (
 
 // TabRecord represents a tab record in the database
 type TabRecord struct {
-	ID              string
-	ContextID       string
-	InstanceID      string
-	FingerprintSeed string
-	URL             string
-	Title           string
-	CreatedAt       string // stored as TEXT in format RFC3339
-	LastActiveAt    string // stored as TEXT in format RFC3339
-	ClosedAt        sql.NullTime
+	ID                 string
+	ContextID          string
+	InstanceID         string
+	FingerprintSeed    string
+	FingerprintCountry string
+	URL                string
+	Title              string
+	CreatedAt          string // stored as TEXT in format RFC3339
+	LastActiveAt       string // stored as TEXT in format RFC3339
+	ClosedAt           sql.NullTime
 }
 
 // TabStore handles tab persistence to database
@@ -31,12 +32,13 @@ func NewTabStore(db *DB) *TabStore {
 // Save creates or updates a tab record
 func (s *TabStore) Save(tab *TabRecord) error {
 	query := `INSERT INTO browser_tabs 
-		(id, context_id, instance_id, fingerprint_seed, url, title, created_at, last_active_at, closed_at)
-		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+		(id, context_id, instance_id, fingerprint_seed, fingerprint_country, url, title, created_at, last_active_at, closed_at)
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 		ON CONFLICT(id) DO UPDATE SET
 			context_id = excluded.context_id,
 			instance_id = excluded.instance_id,
 			fingerprint_seed = excluded.fingerprint_seed,
+			fingerprint_country = excluded.fingerprint_country,
 			url = excluded.url,
 			title = excluded.title,
 			last_active_at = excluded.last_active_at,
@@ -53,7 +55,7 @@ func (s *TabStore) Save(tab *TabRecord) error {
 	}
 
 	_, err := s.db.Exec(query,
-		tab.ID, tab.ContextID, tab.InstanceID, tab.FingerprintSeed,
+		tab.ID, tab.ContextID, tab.InstanceID, tab.FingerprintSeed, tab.FingerprintCountry,
 		tab.URL, tab.Title, createdAt, lastActiveAt, tab.ClosedAt,
 	)
 	return err
@@ -61,7 +63,7 @@ func (s *TabStore) Save(tab *TabRecord) error {
 
 // Get retrieves a tab by ID
 func (s *TabStore) Get(id string) (*TabRecord, error) {
-	query := `SELECT id, context_id, instance_id, fingerprint_seed, url, title, created_at, last_active_at, closed_at
+	query := `SELECT id, context_id, instance_id, fingerprint_seed, fingerprint_country, url, title, created_at, last_active_at, closed_at
 		FROM browser_tabs WHERE id = ?`
 
 	row := s.db.QueryRow(query, id)
@@ -70,7 +72,7 @@ func (s *TabStore) Get(id string) (*TabRecord, error) {
 
 // List returns all tabs, optionally filtering by instance or closed status
 func (s *TabStore) List(instanceID string, includeClosed bool) ([]*TabRecord, error) {
-	query := `SELECT id, context_id, instance_id, fingerprint_seed, url, title, created_at, last_active_at, closed_at
+	query := `SELECT id, context_id, instance_id, fingerprint_seed, fingerprint_country, url, title, created_at, last_active_at, closed_at
 		FROM browser_tabs WHERE 1=1`
 	args := []interface{}{}
 
@@ -143,11 +145,11 @@ func (s *TabStore) Delete(id string) error {
 
 func (s *TabStore) scanTab(row *sql.Row) (*TabRecord, error) {
 	var tab TabRecord
-	var contextID, instanceID, fingerprintSeed, url, title sql.NullString
+	var contextID, instanceID, fingerprintSeed, fingerprintCountry, url, title sql.NullString
 	var createdAt, lastActiveAt, closedAt sql.NullString
 
 	err := row.Scan(
-		&tab.ID, &contextID, &instanceID, &fingerprintSeed,
+		&tab.ID, &contextID, &instanceID, &fingerprintSeed, &fingerprintCountry,
 		&url, &title, &createdAt, &lastActiveAt, &closedAt,
 	)
 	if err != nil {
@@ -162,6 +164,9 @@ func (s *TabStore) scanTab(row *sql.Row) (*TabRecord, error) {
 	}
 	if fingerprintSeed.Valid {
 		tab.FingerprintSeed = fingerprintSeed.String
+	}
+	if fingerprintCountry.Valid {
+		tab.FingerprintCountry = fingerprintCountry.String
 	}
 	if url.Valid {
 		tab.URL = url.String
@@ -187,11 +192,11 @@ func (s *TabStore) scanTab(row *sql.Row) (*TabRecord, error) {
 
 func (s *TabStore) scanTabFromRows(rows *sql.Rows) (*TabRecord, error) {
 	var tab TabRecord
-	var contextID, instanceID, fingerprintSeed, url, title sql.NullString
+	var contextID, instanceID, fingerprintSeed, fingerprintCountry, url, title sql.NullString
 	var createdAt, lastActiveAt, closedAt sql.NullString
 
 	err := rows.Scan(
-		&tab.ID, &contextID, &instanceID, &fingerprintSeed,
+		&tab.ID, &contextID, &instanceID, &fingerprintSeed, &fingerprintCountry,
 		&url, &title, &createdAt, &lastActiveAt, &closedAt,
 	)
 	if err != nil {
@@ -206,6 +211,9 @@ func (s *TabStore) scanTabFromRows(rows *sql.Rows) (*TabRecord, error) {
 	}
 	if fingerprintSeed.Valid {
 		tab.FingerprintSeed = fingerprintSeed.String
+	}
+	if fingerprintCountry.Valid {
+		tab.FingerprintCountry = fingerprintCountry.String
 	}
 	if url.Valid {
 		tab.URL = url.String

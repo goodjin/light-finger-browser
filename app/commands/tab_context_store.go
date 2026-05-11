@@ -23,14 +23,15 @@ type BrowserContext struct {
 
 // TabInfo represents a browser tab
 type TabInfo struct {
-	ID              string
-	ContextID       string
-	InstanceID      string
-	URL             string
-	Title           string
-	FingerprintSeed string
-	CreatedAt       time.Time
-	LastActiveAt    time.Time
+	ID                 string
+	ContextID          string
+	InstanceID         string
+	URL                string
+	Title              string
+	FingerprintSeed    string
+	FingerprintCountry string
+	CreatedAt          time.Time
+	LastActiveAt       time.Time
 }
 
 // ContextStore holds all contexts for an instance

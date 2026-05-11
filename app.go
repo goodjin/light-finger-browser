@@ -295,6 +295,11 @@ func (a *App) NavigateTab(instanceID, tabID, url string) error {
 	return a.tabSvc.NavigateTab(a.appContext(), instanceID, tabID, url)
 }
 
+// ReopenTab reopens a closed tab with the same fingerprint configuration
+func (a *App) ReopenTab(tabID string) (*commands.TabInfo, error) {
+	return a.tabSvc.ReopenTab(a.appContext(), tabID)
+}
+
 // ==================== Release Commands ====================
 
 func (a *App) PromoteBrowserChannel(req *commands.ReleasePromotionRequest) (*commands.ReleasePromotionResult, error) {

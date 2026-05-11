@@ -16,20 +16,23 @@ type TabConfig struct {
 	URL        string
 	Fingerprint *fingerprint.Fingerprint
 	ProxyURL   string
+	Country    string // Country code for fingerprint (e.g., "US", "UK", "DE")
 }
 
 // TabService manages browser tabs within instances
 type TabService struct {
-	instanceSvc   *InstanceService
-	tabStore      *sqlite.TabStore
-	contextStores sync.Map // instanceID -> *ContextStore
+	instanceSvc    *InstanceService
+	tabStore       *sqlite.TabStore
+	contextStores  sync.Map // instanceID -> *ContextStore
+	fingerprintSvc *FingerprintService
 }
 
 // NewTabService creates a new TabService with database persistence
 func NewTabService(instanceSvc *InstanceService, db *sqlite.DB) *TabService {
 	return &TabService{
-		instanceSvc: instanceSvc,
-		tabStore:    sqlite.NewTabStore(db),
+		instanceSvc:    instanceSvc,
+		tabStore:       sqlite.NewTabStore(db),
+		fingerprintSvc: NewFingerprintService(),
 	}
 }
 
@@ -97,13 +100,14 @@ func (s *TabService) CreateTab(ctx context.Context, instanceID string, cfg *TabC
 
 	// 6. Persist to database
 	tabRecord := &sqlite.TabRecord{
-		ID:              tabInfo.ID,
-		ContextID:       tabInfo.ContextID,
-		InstanceID:      tabInfo.InstanceID,
-		FingerprintSeed: tabInfo.FingerprintSeed,
-		URL:             tabInfo.URL,
-		CreatedAt:       tabInfo.CreatedAt.Format(time.RFC3339),
-		LastActiveAt:    tabInfo.LastActiveAt.Format(time.RFC3339),
+		ID:                 tabInfo.ID,
+		ContextID:          tabInfo.ContextID,
+		InstanceID:         tabInfo.InstanceID,
+		FingerprintSeed:    tabInfo.FingerprintSeed,
+		FingerprintCountry: cfg.Country,
+		URL:                tabInfo.URL,
+		CreatedAt:          tabInfo.CreatedAt.Format(time.RFC3339),
+		LastActiveAt:       tabInfo.LastActiveAt.Format(time.RFC3339),
 	}
 	if err := s.tabStore.Save(tabRecord); err != nil {
 		// Log but don't fail - tab is created in browser
@@ -184,14 +188,15 @@ func (s *TabService) ListTabs(ctx context.Context, instanceID string) ([]*TabInf
 			createdAt, _ := time.Parse(time.RFC3339, dbTab.CreatedAt)
 			lastActiveAt, _ := time.Parse(time.RFC3339, dbTab.LastActiveAt)
 			tabMap[dbTab.ID] = &TabInfo{
-				ID:              dbTab.ID,
-				ContextID:       dbTab.ContextID,
-				InstanceID:      dbTab.InstanceID,
-				URL:             dbTab.URL,
-				Title:           dbTab.Title,
-				FingerprintSeed: dbTab.FingerprintSeed,
-				CreatedAt:       createdAt,
-				LastActiveAt:    lastActiveAt,
+				ID:                 dbTab.ID,
+				ContextID:          dbTab.ContextID,
+				InstanceID:         dbTab.InstanceID,
+				URL:               dbTab.URL,
+				Title:             dbTab.Title,
+				FingerprintSeed:    dbTab.FingerprintSeed,
+				FingerprintCountry: dbTab.FingerprintCountry,
+				CreatedAt:         createdAt,
+				LastActiveAt:      lastActiveAt,
 			}
 		}
 	}
@@ -240,4 +245,125 @@ func (s *TabService) NavigateTab(ctx context.Context, instanceID, tabID, url str
 	}
 
 	return nil
+}
+
+// ReopenTab reopens a closed tab with the same fingerprint configuration
+// TM-005: ReopenTab API accepts tabID, gets fingerprint_seed and url from database,
+// creates new BrowserContext with saved fingerprint config, creates new tab and updates database
+func (s *TabService) ReopenTab(ctx context.Context, tabID string) (*TabInfo, error) {
+	// 1. Get the closed tab record from database
+	closedTab, err := s.tabStore.Get(tabID)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get tab record: %w", err)
+	}
+
+	// Verify this is a closed tab
+	if !closedTab.ClosedAt.Valid {
+		return nil, fmt.Errorf("tab %s is not closed", tabID)
+	}
+
+	// 2. Get instance ID from the tab record
+	instanceID := closedTab.InstanceID
+	if instanceID == "" {
+		// Try to get singleton instance ID if not set
+		instanceID = s.instanceSvc.GetSingletonInstanceID()
+		if instanceID == "" {
+			return nil, fmt.Errorf("instance ID not found for tab and no singleton instance available")
+		}
+	}
+
+	// 3. Verify instance is running
+	inst, err := s.instanceSvc.GetInstance(ctx, instanceID)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get instance: %w", err)
+	}
+	if inst.Status != instance.StatusRunning {
+		return nil, fmt.Errorf("instance is not running: %s", inst.Status)
+	}
+
+	// 4. Get main CDP client
+	mainClient, err := s.instanceSvc.GetCDPClient(ctx, instanceID)
+	if err != nil {
+		return nil, fmt.Errorf("failed to connect to instance: %w", err)
+	}
+	defer s.instanceSvc.CloseCDPClient(instanceID)
+
+	// 5. Create new isolated browser context
+	contextId, err := mainClient.CreateBrowserContext(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create browser context: %w", err)
+	}
+
+	// 6. Regenerate fingerprint from saved seed and country
+	var fp *fingerprint.Fingerprint
+	country := closedTab.FingerprintCountry
+	if country == "" {
+		country = "US" // Default country if not set
+	}
+
+	if closedTab.FingerprintSeed != "" {
+		fp, err = s.fingerprintSvc.GenerateFingerprint(ctx, closedTab.FingerprintSeed, country)
+		if err != nil {
+			// Fallback: generate random fingerprint
+			fmt.Printf("warning: failed to regenerate fingerprint from seed: %v, generating random\n", err)
+			fp, err = s.fingerprintSvc.GenerateRandomFingerprint(ctx, country)
+			if err != nil {
+				_ = mainClient.CloseBrowserContext(ctx, contextId)
+				return nil, fmt.Errorf("failed to generate fingerprint: %w", err)
+			}
+		}
+	} else {
+		// No seed, generate random fingerprint
+		fp, err = s.fingerprintSvc.GenerateRandomFingerprint(ctx, country)
+		if err != nil {
+			_ = mainClient.CloseBrowserContext(ctx, contextId)
+			return nil, fmt.Errorf("failed to generate fingerprint: %w", err)
+		}
+	}
+
+	// 7. Create new tab within that context (use about:blank or original URL)
+	url := closedTab.URL
+	if url == "" {
+		url = "about:blank"
+	}
+
+	newTabID, err := mainClient.CreateTargetWithContext(ctx, url, contextId)
+	if err != nil {
+		_ = mainClient.CloseBrowserContext(ctx, contextId)
+		return nil, fmt.Errorf("failed to create tab: %w", err)
+	}
+
+	// 8. Store context and tab info in memory
+	store := s.getOrCreateContextStore(instanceID)
+	store.AddContext(contextId, instanceID, fp, "")
+	store.AddTab(newTabID, contextId, instanceID, url)
+
+	now := time.Now()
+	tabInfo := &TabInfo{
+		ID:              newTabID,
+		ContextID:       contextId,
+		InstanceID:      instanceID,
+		URL:             url,
+		CreatedAt:       now,
+		LastActiveAt:    now,
+		FingerprintSeed: fp.Seed,
+	}
+
+	// 9. Persist new tab to database
+	newTabRecord := &sqlite.TabRecord{
+		ID:                 tabInfo.ID,
+		ContextID:          tabInfo.ContextID,
+		InstanceID:         tabInfo.InstanceID,
+		FingerprintSeed:    tabInfo.FingerprintSeed,
+		FingerprintCountry: country,
+		URL:                tabInfo.URL,
+		CreatedAt:          tabInfo.CreatedAt.Format(time.RFC3339),
+		LastActiveAt:       tabInfo.LastActiveAt.Format(time.RFC3339),
+	}
+	if err := s.tabStore.Save(newTabRecord); err != nil {
+		// Log but don't fail - tab is created in browser
+		fmt.Printf("warning: failed to persist reopened tab to database: %v\n", err)
+	}
+
+	return tabInfo, nil
 }

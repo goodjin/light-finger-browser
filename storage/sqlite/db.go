@@ -59,6 +59,7 @@ func (db *DB) Migrate() error {
 			context_id TEXT NOT NULL,
 			instance_id TEXT,
 			fingerprint_seed TEXT,
+			fingerprint_country TEXT,
 			url TEXT,
 			title TEXT,
 			created_at TEXT,
@@ -144,6 +145,15 @@ func (db *DB) Migrate() error {
 	}
 	for name, definition := range instanceColumns {
 		if err := ensureColumn(db.DB, "browser_instances", name, definition); err != nil {
+			return err
+		}
+	}
+
+	tabColumns := map[string]string{
+		"fingerprint_country": "fingerprint_country TEXT",
+	}
+	for name, definition := range tabColumns {
+		if err := ensureColumn(db.DB, "browser_tabs", name, definition); err != nil {
 			return err
 		}
 	}
