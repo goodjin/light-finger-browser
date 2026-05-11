@@ -11,16 +11,57 @@ import { commands, instance } from '../wailsjs/go/models';
 
 const FINGERPRINT_SERVER_URL = 'http://localhost:18080/';
 
+// Error type classification for better user feedback
+type ErrorType = 'network' | 'timeout' | 'not_found' | 'unknown';
+
+interface ErrorInfo {
+  message: string;
+  type: ErrorType;
+  timestamp: Date;
+}
+
 // Group tabs by instance
 interface GroupedTabs {
   instance: commands.BrowserInstance;
   tabs: commands.TabInfo[];
 }
 
+// Classify error type from error message
+function classifyError(error: unknown): ErrorType {
+  const msg = String(error).toLowerCase();
+  if (msg.includes('timeout') || msg.includes('timed out') || msg.includes('8s')) {
+    return 'timeout';
+  }
+  if (msg.includes('network') || msg.includes('connection') || msg.includes('refused') || msg.includes('econnreset')) {
+    return 'network';
+  }
+  if (msg.includes('not found') || msg.includes('404') || msg.includes('enoent')) {
+    return 'not_found';
+  }
+  return 'unknown';
+}
+
+// Get user-friendly error message based on error type
+function getErrorDisplayMessage(error: unknown, type: ErrorType): string {
+  const originalMsg = String(error);
+  
+  switch (type) {
+    case 'network':
+      return `网络连接失败: ${originalMsg}`;
+    case 'timeout':
+      return `请求超时: ${originalMsg}`;
+    case 'not_found':
+      return `资源未找到: ${originalMsg}`;
+    default:
+      return originalMsg;
+  }
+}
+
 export function TabsPage() {
   const [groupedTabs, setGroupedTabs] = useState<GroupedTabs[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [errorInfo, setErrorInfo] = useState<ErrorInfo | null>(null);
   const [selectedTabId, setSelectedTabId] = useState<string | null>(null);
   const [showCreate, setShowCreate] = useState(false);
   const [showNavigate, setShowNavigate] = useState(false);
@@ -29,6 +70,7 @@ export function TabsPage() {
   const [selectedInstanceId, setSelectedInstanceId] = useState<string>('');
   const [newTabUrl, setNewTabUrl] = useState('');
   const [runningInstances, setRunningInstances] = useState<commands.BrowserInstance[]>([]);
+  const [cleanedTabsCount, setCleanedTabsCount] = useState(0);
 
   // Load all running instances and their tabs
   // isBackgroundRefresh: if true, errors are silently ignored and user selection is preserved
@@ -37,6 +79,7 @@ export function TabsPage() {
       if (!isBackgroundRefresh) {
         setLoading(true);
         setError(null);
+        setErrorInfo(null);
       }
 
       // Get all instances
@@ -51,6 +94,13 @@ export function TabsPage() {
         setRunningInstances(running);
       }
 
+      // Track how many tabs were cleaned up (instances that stopped)
+      let tabsCleanedCount = 0;
+      const previousTabIds = new Set<string>();
+      groupedTabs.forEach(group => {
+        group.tabs.forEach(tab => previousTabIds.add(tab.ID));
+      });
+
       // Get tabs from each running instance
       const results: GroupedTabs[] = [];
       for (const inst of running) {
@@ -61,9 +111,18 @@ export function TabsPage() {
             tabs: tabs || [],
           });
         } catch (err) {
-          // Instance might have stopped, skip it (silently)
+          // Instance might have stopped during refresh, skip it (silently)
           console.warn(`Failed to load tabs for instance ${inst.id}:`, err);
         }
+      }
+
+      // Count tabs that were cleaned up (instances that stopped or tabs that no longer exist)
+      results.forEach(group => {
+        group.tabs.forEach(tab => previousTabIds.delete(tab.ID));
+      });
+      tabsCleanedCount = previousTabIds.size;
+      if (tabsCleanedCount > 0) {
+        setCleanedTabsCount(prev => prev + tabsCleanedCount);
       }
 
       // Preserve user selection state during background refresh
@@ -79,11 +138,27 @@ export function TabsPage() {
 
       setGroupedTabs(results);
     } catch (err) {
+      // Classify error and provide user-friendly message
+      const errorType = classifyError(err);
+      const displayMessage = getErrorDisplayMessage(err, errorType);
+      
+      // Log error for debugging
+      console.error('[TabsPage] Failed to load tabs:', {
+        error: err,
+        type: errorType,
+        timestamp: new Date().toISOString(),
+        isBackgroundRefresh,
+      });
+      
       // Silent error handling during background refresh - don't show errors to user
       if (!isBackgroundRefresh) {
-        setError(String(err));
+        setError(displayMessage);
+        setErrorInfo({
+          message: displayMessage,
+          type: errorType,
+          timestamp: new Date(),
+        });
       }
-      console.warn('Background tab refresh failed:', err);
     } finally {
       if (!isBackgroundRefresh) {
         setLoading(false);
@@ -104,6 +179,7 @@ export function TabsPage() {
     try {
       setCreatingTab(true);
       setError(null);
+      setErrorInfo(null);
 
       // Generate a random fingerprint for the new tab
       const fp = await GenerateRandomFingerprint('US');
@@ -123,7 +199,23 @@ export function TabsPage() {
       setSelectedInstanceId('');
       setNewTabUrl('');
     } catch (err) {
-      setError(String(err));
+      const errorType = classifyError(err);
+      const displayMessage = getErrorDisplayMessage(err, errorType);
+      
+      console.error('[TabsPage] Failed to create tab:', {
+        instanceId: selectedInstanceId,
+        url: newTabUrl,
+        error: err,
+        type: errorType,
+        timestamp: new Date().toISOString(),
+      });
+      
+      setError(displayMessage);
+      setErrorInfo({
+        message: displayMessage,
+        type: errorType,
+        timestamp: new Date(),
+      });
     } finally {
       setCreatingTab(false);
     }
@@ -134,6 +226,7 @@ export function TabsPage() {
     e.stopPropagation();
     try {
       setError(null);
+      setErrorInfo(null);
       await CloseTab(instanceId, tabId);
 
       // Update local state
@@ -153,7 +246,23 @@ export function TabsPage() {
         setSelectedTabId(null);
       }
     } catch (err) {
-      setError(String(err));
+      const errorType = classifyError(err);
+      const displayMessage = getErrorDisplayMessage(err, errorType);
+      
+      console.error('[TabsPage] Failed to close tab:', {
+        instanceId,
+        tabId,
+        error: err,
+        type: errorType,
+        timestamp: new Date().toISOString(),
+      });
+      
+      setError(displayMessage);
+      setErrorInfo({
+        message: displayMessage,
+        type: errorType,
+        timestamp: new Date(),
+      });
     }
   }
 
@@ -162,6 +271,7 @@ export function TabsPage() {
     if (!navigateUrl) return;
     try {
       setError(null);
+      setErrorInfo(null);
       await NavigateTab(instanceId, tabId, navigateUrl);
 
       // Update local state
@@ -182,7 +292,24 @@ export function TabsPage() {
       setShowNavigate(false);
       setNavigateUrl('');
     } catch (err) {
-      setError(String(err));
+      const errorType = classifyError(err);
+      const displayMessage = getErrorDisplayMessage(err, errorType);
+      
+      console.error('[TabsPage] Failed to navigate tab:', {
+        instanceId,
+        tabId,
+        url: navigateUrl,
+        error: err,
+        type: errorType,
+        timestamp: new Date().toISOString(),
+      });
+      
+      setError(displayMessage);
+      setErrorInfo({
+        message: displayMessage,
+        type: errorType,
+        timestamp: new Date(),
+      });
     }
   }
 
@@ -190,6 +317,7 @@ export function TabsPage() {
   async function handleTestFingerprint(instanceId: string, tabId: string) {
     try {
       setError(null);
+      setErrorInfo(null);
       await NavigateTab(instanceId, tabId, FINGERPRINT_SERVER_URL);
 
       // Update local state
@@ -207,7 +335,23 @@ export function TabsPage() {
         })
       );
     } catch (err) {
-      setError(String(err));
+      const errorType = classifyError(err);
+      const displayMessage = getErrorDisplayMessage(err, errorType);
+      
+      console.error('[TabsPage] Failed to test fingerprint:', {
+        instanceId,
+        tabId,
+        error: err,
+        type: errorType,
+        timestamp: new Date().toISOString(),
+      });
+      
+      setError(displayMessage);
+      setErrorInfo({
+        message: displayMessage,
+        type: errorType,
+        timestamp: new Date(),
+      });
     }
   }
 
@@ -266,9 +410,79 @@ export function TabsPage() {
         </div>
       </div>
 
-      {error && (
-        <div className="error-banner" style={{ color: 'red', padding: '8px', marginBottom: '8px' }}>
-          {error}
+      {error && errorInfo && (
+        <div 
+          className="error-banner" 
+          style={{ 
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '12px 16px', 
+            marginBottom: '8px',
+            background: '#fef2f2',
+            border: '1px solid #fecaca',
+            borderRadius: '6px',
+            color: '#dc2626',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <span style={{ fontSize: '18px' }}>⚠️</span>
+            <div>
+              <div style={{ fontWeight: '500' }}>操作失败</div>
+              <div style={{ fontSize: '13px', color: '#991b1b', marginTop: '2px' }}>{error}</div>
+            </div>
+          </div>
+          <button 
+            className="btn-secondary"
+            onClick={() => {
+              setError(null);
+              setErrorInfo(null);
+              loadAllTabs(false);
+            }}
+            style={{ 
+              fontSize: '12px', 
+              padding: '6px 12px',
+              background: '#fff',
+              border: '1px solid #fecaca',
+            }}
+          >
+            重试
+          </button>
+        </div>
+      )}
+
+      {/* Auto-cleanup notification */}
+      {cleanedTabsCount > 0 && (
+        <div 
+          style={{ 
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '10px 16px',
+            marginBottom: '8px',
+            background: '#fff7ed',
+            border: '1px solid #fed7aa',
+            borderRadius: '6px',
+            color: '#c2410c',
+            fontSize: '13px',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span>🔄</span>
+            <span>已自动清理 <strong>{cleanedTabsCount}</strong> 个标签页（实例已停止）</span>
+          </div>
+          <button 
+            onClick={() => setCleanedTabsCount(0)}
+            style={{ 
+              background: 'transparent', 
+              border: 'none', 
+              cursor: 'pointer',
+              color: '#c2410c',
+              fontSize: '16px',
+            }}
+          >
+            ×
+          </button>
         </div>
       )}
 
