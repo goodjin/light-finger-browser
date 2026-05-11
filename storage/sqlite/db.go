@@ -75,6 +75,7 @@ func (db *DB) Migrate() error {
 			duration_ms INTEGER,
 			FOREIGN KEY (tab_id) REFERENCES browser_tabs(id)
 		)`,
+		`CREATE INDEX IF NOT EXISTS idx_access_logs_tab_id ON access_logs(tab_id)`,
 		`CREATE TABLE IF NOT EXISTS tiktok_accounts (
 			id TEXT PRIMARY KEY,
 			username TEXT,
