@@ -50,15 +50,37 @@ func (s *AccessLogStore) Get(id string) (*AccessLogRecord, error) {
 	return s.scanAccessLog(row)
 }
 
+// AccessLogFilter contains filter options for querying access logs
+type AccessLogFilter struct {
+	TabID     string // Filter by tab ID (empty means all tabs)
+	StartTime string // Filter logs after this time (RFC3339 format, empty means no start limit)
+	EndTime   string // Filter logs before this time (RFC3339 format, empty means no end limit)
+}
+
 // List returns all access logs, optionally filtering by tabID
 func (s *AccessLogStore) List(tabID string) ([]*AccessLogRecord, error) {
+	return s.ListWithFilter(&AccessLogFilter{TabID: tabID})
+}
+
+// ListWithFilter returns access logs with advanced filtering options
+func (s *AccessLogStore) ListWithFilter(filter *AccessLogFilter) ([]*AccessLogRecord, error) {
 	query := `SELECT id, tab_id, url, title, visited_at, duration_ms
 		FROM access_logs WHERE 1=1`
 	args := []interface{}{}
 
-	if tabID != "" {
-		query += " AND tab_id = ?"
-		args = append(args, tabID)
+	if filter != nil {
+		if filter.TabID != "" {
+			query += " AND tab_id = ?"
+			args = append(args, filter.TabID)
+		}
+		if filter.StartTime != "" {
+			query += " AND visited_at >= ?"
+			args = append(args, filter.StartTime)
+		}
+		if filter.EndTime != "" {
+			query += " AND visited_at <= ?"
+			args = append(args, filter.EndTime)
+		}
 	}
 
 	query += " ORDER BY visited_at DESC"

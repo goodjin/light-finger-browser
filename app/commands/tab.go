@@ -278,6 +278,57 @@ func (s *TabService) LogAccess(tabID, url, title string) error {
 	return s.accessLogStore.Save(log)
 }
 
+// AccessLogInfo represents an access log entry for the API
+type AccessLogInfo struct {
+	ID         string
+	TabID      string
+	URL        string
+	Title      string
+	VisitedAt  time.Time
+	DurationMs int64
+}
+
+// AccessLogQuery contains query parameters for GetAccessLogs
+type AccessLogQuery struct {
+	TabID     string // Filter by tab ID (empty means all tabs)
+	StartTime string // Filter logs after this time (RFC3339 format, empty means no start limit)
+	EndTime   string // Filter logs before this time (RFC3339 format, empty means no end limit)
+}
+
+// GetAccessLogs returns access logs matching the query criteria
+// AL-002: GetAccessLogs() returns all logs, GetAccessLogs(tabID) returns specific tab logs
+// AL-003: Supports time range filtering, logs ordered by time descending
+func (s *TabService) GetAccessLogs(query *AccessLogQuery) ([]*AccessLogInfo, error) {
+	var filter *sqlite.AccessLogFilter
+	if query != nil {
+		filter = &sqlite.AccessLogFilter{
+			TabID:     query.TabID,
+			StartTime: query.StartTime,
+			EndTime:   query.EndTime,
+		}
+	}
+
+	records, err := s.accessLogStore.ListWithFilter(filter)
+	if err != nil {
+		return nil, err
+	}
+
+	logs := make([]*AccessLogInfo, 0, len(records))
+	for _, record := range records {
+		visitedAt, _ := time.Parse(time.RFC3339, record.VisitedAt)
+		logs = append(logs, &AccessLogInfo{
+			ID:         record.ID,
+			TabID:      record.TabID,
+			URL:        record.URL,
+			Title:      record.Title,
+			VisitedAt:  visitedAt,
+			DurationMs: record.DurationMs,
+		})
+	}
+
+	return logs, nil
+}
+
 // ReopenTab reopens a closed tab with the same fingerprint configuration
 // TM-005: ReopenTab API accepts tabID, gets fingerprint_seed and url from database,
 // creates new BrowserContext with saved fingerprint config, creates new tab and updates database

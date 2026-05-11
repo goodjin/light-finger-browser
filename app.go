@@ -300,6 +300,13 @@ func (a *App) ReopenTab(tabID string) (*commands.TabInfo, error) {
 	return a.tabSvc.ReopenTab(a.appContext(), tabID)
 }
 
+// GetAccessLogs returns access logs matching the query criteria
+// AL-002: GetAccessLogs() returns all logs, GetAccessLogs(tabID) returns specific tab logs
+// AL-003: Supports time range filtering, logs ordered by time descending
+func (a *App) GetAccessLogs(query *commands.AccessLogQuery) ([]*commands.AccessLogInfo, error) {
+	return a.tabSvc.GetAccessLogs(query)
+}
+
 // ==================== Release Commands ====================
 
 func (a *App) PromoteBrowserChannel(req *commands.ReleasePromotionRequest) (*commands.ReleasePromotionResult, error) {
