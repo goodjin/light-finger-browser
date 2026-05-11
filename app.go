@@ -124,13 +124,25 @@ func (a *App) OnDomReady(ctx context.Context) {
 
 func (a *App) OnBeforeClose(ctx context.Context) bool {
 	runtime.LogInfof(a.ctx, "Application is closing...")
+
+	// Stop singleton browser instance to avoid zombie processes
+	if a.instanceSvc != nil {
+		if err := a.instanceSvc.StopSingleton(ctx); err != nil {
+			log.Printf("Failed to stop singleton instance: %v", err)
+		} else {
+			log.Println("Singleton instance stopped successfully")
+		}
+	}
+
 	if a.db != nil {
 		a.db.Close()
 	}
+
 	// Release singleton lock
 	if a.singletonLock != nil {
 		a.singletonLock.Release()
 	}
+
 	return false
 }
 
