@@ -6,6 +6,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/google/uuid"
 	"github.com/tmos/fingerbrower/fingerprint"
 	"github.com/tmos/fingerbrower/instance"
 	"github.com/tmos/fingerbrower/storage/sqlite"
@@ -23,6 +24,7 @@ type TabConfig struct {
 type TabService struct {
 	instanceSvc    *InstanceService
 	tabStore       *sqlite.TabStore
+	accessLogStore *sqlite.AccessLogStore
 	contextStores  sync.Map // instanceID -> *ContextStore
 	fingerprintSvc *FingerprintService
 }
@@ -32,6 +34,7 @@ func NewTabService(instanceSvc *InstanceService, db *sqlite.DB) *TabService {
 	return &TabService{
 		instanceSvc:    instanceSvc,
 		tabStore:       sqlite.NewTabStore(db),
+		accessLogStore: sqlite.NewAccessLogStore(db),
 		fingerprintSvc: NewFingerprintService(),
 	}
 }
@@ -112,6 +115,14 @@ func (s *TabService) CreateTab(ctx context.Context, instanceID string, cfg *TabC
 	if err := s.tabStore.Save(tabRecord); err != nil {
 		// Log but don't fail - tab is created in browser
 		fmt.Printf("warning: failed to persist tab to database: %v\n", err)
+	}
+
+	// 7. Record access log for tab creation (AL-001)
+	// Only record if URL is not about:blank (meaning user specified a URL)
+	if url != "about:blank" {
+		if err := s.LogAccess(tabInfo.ID, url, ""); err != nil {
+			fmt.Printf("warning: failed to record access log: %v\n", err)
+		}
 	}
 
 	return tabInfo, nil
@@ -244,7 +255,27 @@ func (s *TabService) NavigateTab(ctx context.Context, instanceID, tabID, url str
 		fmt.Printf("warning: failed to update tab URL in database: %v\n", err)
 	}
 
+	// 6. Record access log (AL-001: NavigateTab calls LogAccess to insert access_logs)
+	// AL-004: LogAccess records tab_id, url, title, visited_at, duration_ms
+	if err := s.LogAccess(tabID, url, ""); err != nil {
+		fmt.Printf("warning: failed to record access log: %v\n", err)
+	}
+
 	return nil
+}
+
+// LogAccess records a navigation event in the access logs
+// AL-001: Called by NavigateTab to insert access log
+// AL-004: Records tab_id, url, title, visited_at, duration_ms
+func (s *TabService) LogAccess(tabID, url, title string) error {
+	log := &sqlite.AccessLogRecord{
+		ID:        uuid.New().String(),
+		TabID:     tabID,
+		URL:       url,
+		Title:     title,
+		VisitedAt: time.Now().Format(time.RFC3339),
+	}
+	return s.accessLogStore.Save(log)
 }
 
 // ReopenTab reopens a closed tab with the same fingerprint configuration
