@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ConnectRemote, DisconnectRemote, GetFingerprintCoverageReport } from '../wailsjs/go/main/App';
+import { ConnectRemote, DisconnectRemote, GetConfig, GetFingerprintCoverageReport, UpdateInstancePort } from '../wailsjs/go/main/App';
 import { commands } from '../wailsjs/go/models';
 
 interface RemoteConfig {
@@ -24,9 +24,46 @@ export function SettingsPage() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
+  // Instance port configuration state
+  const [instancePort, setInstancePort] = useState<number>(9222);
+  const [portInputValue, setPortInputValue] = useState<string>('9222');
+  const [savingPort, setSavingPort] = useState(false);
+
   useEffect(() => {
     loadCoverage();
+    loadConfig();
   }, []);
+
+  async function loadConfig() {
+    try {
+      const config = await GetConfig();
+      if (config) {
+        setInstancePort(config.instance_port);
+        setPortInputValue(String(config.instance_port));
+      }
+    } catch (err) {
+      console.error('Failed to load config:', err);
+    }
+  }
+
+  async function handleSavePort() {
+    const port = parseInt(portInputValue, 10);
+    if (isNaN(port) || port < 1 || port > 65535) {
+      setError('Port must be between 1 and 65535');
+      return;
+    }
+    try {
+      setSavingPort(true);
+      setError(null);
+      await UpdateInstancePort(port);
+      setInstancePort(port);
+      setSuccess(`Instance port updated to ${port}. Restart the application for changes to take effect.`);
+    } catch (err) {
+      setError(String(err));
+    } finally {
+      setSavingPort(false);
+    }
+  }
 
   async function loadCoverage() {
     try {
@@ -107,6 +144,38 @@ export function SettingsPage() {
               </div>
             </div>
           </section>
+
+      <section className="settings-section">
+        <h3>Instance Configuration</h3>
+        <p className="section-desc">
+          Configure the browser instance settings. Changes require a restart to take effect.
+        </p>
+        <div className="form-group">
+          <label htmlFor="instance-port">Instance Port (CDP)</label>
+          <div className="input-with-button">
+            <input
+              id="instance-port"
+              type="number"
+              min="1"
+              max="65535"
+              value={portInputValue}
+              disabled={savingPort}
+              onChange={e => setPortInputValue(e.target.value)}
+              placeholder="9222"
+            />
+            <button
+              className="btn-primary"
+              onClick={handleSavePort}
+              disabled={savingPort || portInputValue === String(instancePort)}
+            >
+              {savingPort ? 'Saving...' : 'Save'}
+            </button>
+          </div>
+          <p className="helper-text">
+            Current port: {instancePort}. The CDP port for browser instances (default: 9222).
+          </p>
+        </div>
+      </section>
 
       <section className="settings-section">
         <h3>Remote Browser</h3>
