@@ -17,6 +17,8 @@ type CDPClientInterface interface {
 	Evaluate(ctx context.Context, script string) (interface{}, error)
 	// CreateTarget creates a new target (tab) and returns its URL
 	CreateTarget(ctx context.Context, url string) (string, error)
+	// CloseTarget closes a browser target (tab) by its targetId
+	CloseTarget(ctx context.Context, targetId string) error
 	// BrowserContext management
 	CreateBrowserContext(ctx context.Context) (string, error)
 	CloseBrowserContext(ctx context.Context, contextId string) error
@@ -140,6 +142,14 @@ func (c *CDPClient) CreateTarget(ctx context.Context, url string) (string, error
 		return "", fmt.Errorf("CreateTarget response missing targetId")
 	}
 	return targetID, nil
+}
+
+// CloseTarget closes a browser target (tab) by its targetId.
+func (c *CDPClient) CloseTarget(ctx context.Context, targetId string) error {
+	_, err := c.execute(ctx, "Target.closeTarget", map[string]interface{}{
+		"targetId": targetId,
+	})
+	return err
 }
 
 // Close closes the WebSocket connection.

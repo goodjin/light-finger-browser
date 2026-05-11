@@ -131,14 +131,11 @@ func (s *TabService) CloseTab(ctx context.Context, instanceID, tabID string) err
 
 	contextId := tab.ContextID
 
-	// 3. Close the tab via CDP (close target)
-	// Note: In CDP, closing a target (tab) will also close its context if it's the last tab
-	// We'll close the target, then try to close the context
-	// The actual close of tab target is handled by the browser when we navigate away or close
-
-	// For now, we just remove from our store. The actual tab closing happens when
-	// the browser process terminates or we explicitly close the context.
-	// TODO: Add CloseTarget method to CDPClient if needed
+	// 3. Close the tab via CDP Target.closeTarget
+	if err := mainClient.CloseTarget(ctx, tabID); err != nil {
+		// Log but don't fail - the tab might already be closed or unavailable
+		fmt.Printf("warning: failed to close tab target %s via CDP: %v\n", tabID, err)
+	}
 
 	// 4. Remove tab from store
 	store.RemoveTab(tabID)
