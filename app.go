@@ -258,6 +258,20 @@ func (a *App) GetSingletonInstanceID() string {
 	return a.instanceSvc.GetSingletonInstanceID()
 }
 
+// RestartSingleton restarts the singleton instance (SI-005)
+func (a *App) RestartSingleton() (*commands.BrowserInstance, error) {
+	inst, err := a.instanceSvc.RestartSingleton(a.appContext())
+	if err != nil {
+		return nil, err
+	}
+	return commands.ToBrowserInstance(inst), nil
+}
+
+// GetRestartCount returns the number of times the singleton instance was restarted (SI-005)
+func (a *App) GetRestartCount() int {
+	return a.instanceSvc.GetRestartCount()
+}
+
 // ==================== Configuration Commands ====================
 
 // GetConfig returns the application configuration (SI-002)

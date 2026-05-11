@@ -5,9 +5,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"net"
 	"net/http"
+	"os"
 	"strings"
 	"sync"
+	"syscall"
 	"time"
 
 	"github.com/tmos/fingerbrower/fingerprint"
@@ -24,6 +27,13 @@ type InstanceService struct {
 	configSvc    *ConfigService // config service for singleton mode
 	singleton    *instance.BrowserInstance // singleton instance
 	singletonMu  sync.RWMutex
+
+	// SI-005: Auto-recovery monitoring
+	monitorStopCh chan struct{}     // Channel to signal monitor to stop
+	monitorDoneCh chan struct{}     // Channel to signal monitor has stopped
+	monitorMu     sync.RWMutex      // Protects monitor state
+	monitoring    bool              // Whether monitoring is active
+	restartCount  int              // Number of times instance was restarted
 }
 
 func NewInstanceService(db *sqlite.DB) *InstanceService {
@@ -34,6 +44,171 @@ func NewInstanceService(db *sqlite.DB) *InstanceService {
 		store:      store,
 		configSvc:  NewConfigService(),
 	}
+}
+
+// StartAutoRecoveryMonitor starts the monitoring goroutine for SI-005.
+// This goroutine periodically checks the browser process health and restarts if crashed.
+func (s *InstanceService) StartAutoRecoveryMonitor(ctx context.Context) {
+	s.monitorMu.Lock()
+	if s.monitoring {
+		s.monitorMu.Unlock()
+		return
+	}
+	s.monitorStopCh = make(chan struct{})
+	s.monitorDoneCh = make(chan struct{})
+	s.monitoring = true
+	s.monitorMu.Unlock()
+
+	go s.monitorLoop(ctx)
+	log.Println("[StartAutoRecoveryMonitor] Auto-recovery monitor started")
+}
+
+// StopAutoRecoveryMonitor stops the monitoring goroutine.
+func (s *InstanceService) StopAutoRecoveryMonitor() {
+	s.monitorMu.Lock()
+	if !s.monitoring {
+		s.monitorMu.Unlock()
+		return
+	}
+	s.monitoring = false
+	s.monitorMu.Unlock()
+
+	close(s.monitorStopCh)
+	<-s.monitorDoneCh
+	log.Println("[StopAutoRecoveryMonitor] Auto-recovery monitor stopped")
+}
+
+// monitorLoop is the main loop for the monitoring goroutine.
+// It implements SI-005: periodically checks browser process health and restarts on crash.
+func (s *InstanceService) monitorLoop(ctx context.Context) {
+	defer close(s.monitorDoneCh)
+
+	// Check interval: every 10 seconds
+	ticker := time.NewTicker(10 * time.Second)
+	defer ticker.Stop()
+
+	for {
+		select {
+		case <-s.monitorStopCh:
+			log.Println("[monitorLoop] Received stop signal, exiting")
+			return
+		case <-ctx.Done():
+			log.Println("[monitorLoop] Context cancelled, exiting")
+			return
+		case <-ticker.C:
+			s.checkAndRecoverSingleton(ctx)
+		}
+	}
+}
+
+// checkAndRecoverSingleton checks if the singleton instance is still running and recovers if crashed.
+// This implements SI-005: Detect crash and restart.
+func (s *InstanceService) checkAndRecoverSingleton(ctx context.Context) {
+	s.singletonMu.RLock()
+	inst := s.singleton
+	needRestart := inst != nil && inst.Status == instance.StatusRunning
+	s.singletonMu.RUnlock()
+
+	if !needRestart {
+		return
+	}
+
+	// Check if the process is still running
+	if !s.isProcessRunning(inst.PID) {
+		log.Printf("[checkAndRecoverSingleton] Browser process (PID %d) is not running, initiating recovery", inst.PID)
+		s.recoverSingleton(ctx)
+		return
+	}
+
+	// Also check if the CDP port is still accessible
+	if !s.isPortAccessible(inst.Port) {
+		log.Printf("[checkAndRecoverSingleton] Browser port %d is not accessible, initiating recovery", inst.Port)
+		s.recoverSingleton(ctx)
+		return
+	}
+}
+
+// isProcessRunning checks if the process with the given PID is still running.
+func (s *InstanceService) isProcessRunning(pid int) bool {
+	process, err := os.FindProcess(pid)
+	if err != nil {
+		log.Printf("[isProcessRunning] FindProcess error: %v", err)
+		return false
+	}
+
+	// Signal 0 check - see if process exists
+	err = process.Signal(syscall.Signal(0))
+	if err == nil {
+		return true
+	}
+
+	// ESRCH means process doesn't exist
+	errStr := err.Error()
+	if errStr == "os: process already finished" || strings.Contains(errStr, "no such process") {
+		return false
+	}
+
+	// EPERM or other errors mean the process exists
+	return true
+}
+
+// isPortAccessible checks if the CDP port is still accepting connections.
+func (s *InstanceService) isPortAccessible(port int) bool {
+	conn, err := net.DialTimeout("tcp", fmt.Sprintf("localhost:%d", port), 2*time.Second)
+	if err != nil {
+		return false
+	}
+	conn.Close()
+	return true
+}
+
+// recoverSingleton attempts to restart the singleton instance after a crash.
+// This implements SI-005: Call Restart() to recover.
+func (s *InstanceService) recoverSingleton(ctx context.Context) {
+	s.singletonMu.Lock()
+	defer s.singletonMu.Unlock()
+
+	// Double-check singleton state
+	if s.singleton == nil {
+		return
+	}
+
+	// Don't restart if already in a restart sequence or stopped intentionally
+	if s.singleton.Status == instance.StatusStopped {
+		return
+	}
+
+	log.Printf("[recoverSingleton] Attempting to restart singleton instance: %s", s.singleton.ID)
+	s.singleton.Status = instance.StatusError
+
+	// Get config for restart
+	cfg := &instance.InstanceConfig{
+		Name:      s.singleton.Name,
+		Headless:  s.singleton.Headless,
+		Fingerprint: s.singleton.Fingerprint,
+	}
+
+	// Clean up CDP clients before restart
+	s.cleanupAllCDPClients()
+
+	// Try to restart
+	inst, err := s.manager.Restart(ctx, s.singleton, cfg)
+	if err != nil {
+		log.Printf("[recoverSingleton] Failed to restart singleton instance: %v", err)
+		s.singleton.Status = instance.StatusError
+		return
+	}
+
+	s.singleton = inst
+	s.restartCount++
+	log.Printf("[recoverSingleton] Successfully recovered singleton instance: %s on port %d (restart count: %d)", inst.ID, inst.Port, s.restartCount)
+}
+
+// GetRestartCount returns the number of times the singleton instance was restarted.
+func (s *InstanceService) GetRestartCount() int {
+	s.monitorMu.RLock()
+	defer s.monitorMu.RUnlock()
+	return s.restartCount
 }
 
 // GetOrCreateSingletonInstance gets the singleton instance, creating one if it doesn't exist.
@@ -87,6 +262,10 @@ func (s *InstanceService) GetOrCreateSingletonInstance(ctx context.Context) (*in
 
 	s.singleton = inst
 	log.Printf("[GetOrCreateSingletonInstance] Created singleton instance: %s on port %d", inst.ID, inst.Port)
+
+	// SI-005: Start auto-recovery monitor after singleton is created
+	s.StartAutoRecoveryMonitor(ctx)
+
 	return inst, nil
 }
 
@@ -126,8 +305,11 @@ func (s *InstanceService) GetSingletonInstanceID() string {
 	return ""
 }
 
-// StopSingleton stops the singleton instance.
+// StopSingleton stops the singleton instance and its auto-recovery monitor.
 func (s *InstanceService) StopSingleton(ctx context.Context) error {
+	// SI-005: Stop auto-recovery monitor first
+	s.StopAutoRecoveryMonitor()
+
 	s.singletonMu.Lock()
 	defer s.singletonMu.Unlock()
 
@@ -145,6 +327,46 @@ func (s *InstanceService) StopSingleton(ctx context.Context) error {
 
 	s.singleton.Status = instance.StatusStopped
 	return nil
+}
+
+// RestartSingleton restarts the singleton instance.
+// This can be used for manual restart or by the auto-recovery monitor.
+func (s *InstanceService) RestartSingleton(ctx context.Context) (*instance.BrowserInstance, error) {
+	s.singletonMu.Lock()
+	defer s.singletonMu.Unlock()
+
+	if s.singleton == nil {
+		return nil, fmt.Errorf("no singleton instance to restart")
+	}
+
+	log.Printf("[RestartSingleton] Restarting singleton instance: %s", s.singleton.ID)
+
+	// Get config for restart
+	cfg := &instance.InstanceConfig{
+		Name:        s.singleton.Name,
+		Headless:    s.singleton.Headless,
+		Fingerprint: s.singleton.Fingerprint,
+	}
+
+	// Clean up CDP clients before restart
+	s.cleanupAllCDPClients()
+
+	// Try to restart using manager.Restart
+	inst, err := s.manager.Restart(ctx, s.singleton, cfg)
+	if err != nil {
+		log.Printf("[RestartSingleton] Failed to restart singleton instance: %v", err)
+		s.singleton.Status = instance.StatusError
+		return nil, fmt.Errorf("failed to restart singleton instance: %w", err)
+	}
+
+	s.singleton = inst
+	s.restartCount++
+	log.Printf("[RestartSingleton] Successfully restarted singleton instance: %s on port %d (restart count: %d)", inst.ID, inst.Port, s.restartCount)
+
+	// Restart monitoring
+	s.StartAutoRecoveryMonitor(ctx)
+
+	return inst, nil
 }
 
 // cleanupAllCDPClients closes all CDP clients in the cdpClients map.
