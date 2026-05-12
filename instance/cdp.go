@@ -182,10 +182,12 @@ func (c *CDPClient) CloseBrowserContext(ctx context.Context, contextId string) e
 }
 
 // CreateTargetWithContext creates a new target (tab) in the specified browser context.
+// The newWindow parameter is set to false to ensure the target opens as a tab, not a new window.
 func (c *CDPClient) CreateTargetWithContext(ctx context.Context, url string, contextId string) (string, error) {
 	result, err := c.execute(ctx, "Target.createTarget", map[string]interface{}{
 		"url":              url,
 		"browserContextId": contextId,
+		"newWindow":        false, // Ensure tab opens in same window, not as new window
 	})
 	if err != nil {
 		return "", err
