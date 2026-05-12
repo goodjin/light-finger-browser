@@ -21,9 +21,11 @@ interface ErrorInfo {
   timestamp: Date;
 }
 
-// Group tabs by instance
-interface GroupedTabs {
-  instance: commands.BrowserInstance;
+// Group tabs by fingerprint country
+interface FingerprintCountryGroup {
+  country: string;  // Country code (e.g., "US", "GB", "DE")
+  countryName: string;
+  flag: string;
   tabs: commands.TabInfo[];
 }
 
@@ -75,7 +77,7 @@ const SUPPORTED_COUNTRIES = [
 ];
 
 export function TabsPage() {
-  const [groupedTabs, setGroupedTabs] = useState<GroupedTabs[]>([]);
+  const [groupedTabs, setGroupedTabs] = useState<FingerprintCountryGroup[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [errorInfo, setErrorInfo] = useState<ErrorInfo | null>(null);
@@ -85,7 +87,6 @@ export function TabsPage() {
   const [showAccessLogs, setShowAccessLogs] = useState(false);
   const [navigateUrl, setNavigateUrl] = useState('');
   const [creatingTab, setCreatingTab] = useState(false);
-  const [selectedInstanceId, setSelectedInstanceId] = useState<string>('');
   const [newTabUrl, setNewTabUrl] = useState('');
   const [newTabCountry, setNewTabCountry] = useState<string>('US');
   const [showAdvancedConfig, setShowAdvancedConfig] = useState(false);
@@ -95,7 +96,13 @@ export function TabsPage() {
   const [accessLogsLoading, setAccessLogsLoading] = useState(false);
   const [accessLogsFilter, setAccessLogsFilter] = useState<string>('');
 
-  // Load all running instances and their tabs
+  // Helper function to get country info from country code
+  function getCountryInfo(code: string): { name: string; flag: string } {
+    const country = SUPPORTED_COUNTRIES.find(c => c.code === code);
+    return country ? { name: country.name, flag: country.flag } : { name: code, flag: '🏳️' };
+  }
+
+  // Load all running instances and their tabs, grouped by fingerprint country
   // isBackgroundRefresh: if true, errors are silently ignored and user selection is preserved
   async function loadAllTabs(isBackgroundRefresh: boolean = false) {
     try {
@@ -124,20 +131,40 @@ export function TabsPage() {
         group.tabs.forEach(tab => previousTabIds.add(tab.ID));
       });
 
-      // Get tabs from each running instance
-      const results: GroupedTabs[] = [];
+      // Get tabs from each running instance and group by fingerprint country
+      const countryMap = new Map<string, commands.TabInfo[]>();
+      
       for (const inst of running) {
         try {
           const tabs = await ListTabs(inst.id);
-          results.push({
-            instance: inst,
-            tabs: tabs || [],
-          });
+          // Group tabs by fingerprint country
+          for (const tab of tabs || []) {
+            const country = tab.FingerprintCountry || 'US'; // Default to US if not set
+            if (!countryMap.has(country)) {
+              countryMap.set(country, []);
+            }
+            countryMap.get(country)!.push(tab);
+          }
         } catch (err) {
           // Instance might have stopped during refresh, skip it (silently)
           console.warn(`Failed to load tabs for instance ${inst.id}:`, err);
         }
       }
+
+      // Convert map to FingerprintCountryGroup array
+      const results: FingerprintCountryGroup[] = [];
+      for (const [country, tabs] of countryMap) {
+        const countryInfo = getCountryInfo(country);
+        results.push({
+          country,
+          countryName: countryInfo.name,
+          flag: countryInfo.flag,
+          tabs,
+        });
+      }
+
+      // Sort groups by country name
+      results.sort((a, b) => a.countryName.localeCompare(b.countryName));
 
       // Count tabs that were cleaned up (instances that stopped or tabs that no longer exist)
       results.forEach(group => {
@@ -216,7 +243,18 @@ export function TabsPage() {
 
   // Handle tab creation
   async function createNewTab() {
-    if (!selectedInstanceId) return;
+    // In single instance mode, use the first running instance
+    if (runningInstances.length === 0) {
+      setError('No running instances. Please start an instance first.');
+      setErrorInfo({
+        message: 'No running instances available.',
+        type: 'not_found',
+        timestamp: new Date(),
+      });
+      return;
+    }
+
+    const instanceId = runningInstances[0].id;
     try {
       setCreatingTab(true);
       setError(null);
@@ -226,10 +264,11 @@ export function TabsPage() {
       const fp = await GenerateRandomFingerprint(newTabCountry);
 
       // Create the tab (result stored for potential future use)
-      await CreateTab(selectedInstanceId, commands.TabConfig.createFrom({
+      await CreateTab(instanceId, commands.TabConfig.createFrom({
         URL: newTabUrl || 'about:blank',
         Fingerprint: fp,
         ProxyURL: '',
+        Country: newTabCountry,
       }));
 
       // Refresh to show new tab
@@ -237,7 +276,6 @@ export function TabsPage() {
 
       // Close dialogs
       setShowCreate(false);
-      setSelectedInstanceId('');
       setNewTabUrl('');
       // Keep the country selection for convenience
     } catch (err) {
@@ -245,7 +283,7 @@ export function TabsPage() {
       const displayMessage = getErrorDisplayMessage(err, errorType);
       
       console.error('[TabsPage] Failed to create tab:', {
-        instanceId: selectedInstanceId,
+        instanceId,
         url: newTabUrl,
         error: err,
         type: errorType,
@@ -271,17 +309,12 @@ export function TabsPage() {
       setErrorInfo(null);
       await CloseTab(instanceId, tabId);
 
-      // Update local state
+      // Update local state - remove tab from its country group
       setGroupedTabs(prev =>
-        prev.map(group => {
-          if (group.instance.id === instanceId) {
-            return {
-              ...group,
-              tabs: group.tabs.filter(t => t.ID !== tabId),
-            };
-          }
-          return group;
-        }).filter(group => group.tabs.length > 0)
+        prev.map(group => ({
+          ...group,
+          tabs: group.tabs.filter(t => t.ID !== tabId),
+        })).filter(group => group.tabs.length > 0)
       );
 
       if (selectedTabId === tabId) {
@@ -316,19 +349,14 @@ export function TabsPage() {
       setErrorInfo(null);
       await NavigateTab(instanceId, tabId, navigateUrl);
 
-      // Update local state
+      // Update local state - update tab URL in its country group
       setGroupedTabs(prev =>
-        prev.map(group => {
-          if (group.instance.id === instanceId) {
-            return {
-              ...group,
-              tabs: group.tabs.map(t =>
-                t.ID === tabId ? commands.TabInfo.createFrom({ ...t, URL: navigateUrl }) : t
-              ),
-            };
-          }
-          return group;
-        })
+        prev.map(group => ({
+          ...group,
+          tabs: group.tabs.map(t =>
+            t.ID === tabId ? commands.TabInfo.createFrom({ ...t, URL: navigateUrl }) : t
+          ),
+        }))
       );
 
       setShowNavigate(false);
@@ -362,19 +390,14 @@ export function TabsPage() {
       setErrorInfo(null);
       await NavigateTab(instanceId, tabId, FINGERPRINT_SERVER_URL);
 
-      // Update local state
+      // Update local state - update tab URL in its country group
       setGroupedTabs(prev =>
-        prev.map(group => {
-          if (group.instance.id === instanceId) {
-            return {
-              ...group,
-              tabs: group.tabs.map(t =>
-                t.ID === tabId ? commands.TabInfo.createFrom({ ...t, URL: FINGERPRINT_SERVER_URL }) : t
-              ),
-            };
-          }
-          return group;
-        })
+        prev.map(group => ({
+          ...group,
+          tabs: group.tabs.map(t =>
+            t.ID === tabId ? commands.TabInfo.createFrom({ ...t, URL: FINGERPRINT_SERVER_URL }) : t
+          ),
+        }))
       );
     } catch (err) {
       const errorType = classifyError(err);
@@ -483,7 +506,7 @@ export function TabsPage() {
         <div className="header-left">
           <h2>Browser Tabs</h2>
           <span className="tab-count">
-            {totalTabs} tab{totalTabs !== 1 ? 's' : ''} across {groupedTabs.length} instance{groupedTabs.length !== 1 ? 's' : ''}
+            {totalTabs} tab{totalTabs !== 1 ? 's' : ''} across {groupedTabs.length} fingerprint group{groupedTabs.length !== 1 ? 's' : ''}
           </span>
         </div>
         <div className="header-right">
@@ -592,55 +615,7 @@ export function TabsPage() {
           <div className="modal" onClick={e => e.stopPropagation()}>
             <h3>Create New Tab</h3>
             <div className="form-group">
-              <label>Instance</label>
-              <select
-                value={selectedInstanceId}
-                onChange={e => setSelectedInstanceId(e.target.value)}
-                disabled={creatingTab}
-              >
-                <option value="">Select an instance...</option>
-                {runningInstances.map(inst => (
-                  <option key={inst.id} value={inst.id}>
-                    {inst.name || `${inst.id.slice(0, 8)}...`} ({inst.status})
-                  </option>
-                ))}
-              </select>
-              {runningInstances.length === 0 && (
-                <div className="helper-text" style={{ color: '#f97316' }}>
-                  No running instances available. Start an instance first.
-                </div>
-              )}
-            </div>
-            <div className="form-group">
-              <label>URL (optional)</label>
-              <input
-                type="text"
-                placeholder="https://example.com"
-                value={newTabUrl}
-                onChange={e => setNewTabUrl(e.target.value)}
-                onKeyDown={e => e.key === 'Enter' && selectedInstanceId && createNewTab()}
-                disabled={creatingTab}
-              />
-              <div className="helper-text">
-                Leave empty to open blank tab.
-              </div>
-            </div>
-            
-            {/* Fingerprint Configuration */}
-            <div className="form-group">
-              <label style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span>Fingerprint Country</span>
-                <span style={{ 
-                  fontSize: '11px', 
-                  color: '#1976d2',
-                  background: '#e3f2fd',
-                  padding: '2px 8px',
-                  borderRadius: '4px',
-                  fontWeight: 'normal',
-                }}>
-                  Required
-                </span>
-              </label>
+              <label>Fingerprint Country</label>
               <div className="country-selector">
                 <select
                   value={newTabCountry}
@@ -665,6 +640,21 @@ export function TabsPage() {
               </div>
               <div className="helper-text">
                 Each tab will have a unique fingerprint based on the selected country.
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label>URL (optional)</label>
+              <input
+                type="text"
+                placeholder="https://example.com"
+                value={newTabUrl}
+                onChange={e => setNewTabUrl(e.target.value)}
+                onKeyDown={e => e.key === 'Enter' && createNewTab()}
+                disabled={creatingTab}
+              />
+              <div className="helper-text">
+                Leave empty to open blank tab.
               </div>
             </div>
 
@@ -731,7 +721,6 @@ export function TabsPage() {
             <div className="modal-actions">
               <button onClick={() => {
                 setShowCreate(false);
-                setSelectedInstanceId('');
                 setNewTabUrl('');
                 setShowAdvancedConfig(false);
               }} disabled={creatingTab}>
@@ -740,7 +729,7 @@ export function TabsPage() {
               <button
                 className="btn-primary"
                 onClick={createNewTab}
-                disabled={!selectedInstanceId || creatingTab}
+                disabled={creatingTab}
               >
                 {creatingTab ? 'Creating...' : 'Create'}
               </button>
@@ -763,9 +752,9 @@ export function TabsPage() {
                 onChange={e => setNavigateUrl(e.target.value)}
                 onKeyDown={e => {
                   if (e.key === 'Enter' && navigateUrl) {
-                    const group = groupedTabs.find(g => g.tabs.some(t => t.ID === selectedTabId));
-                    if (group) {
-                      handleNavigate(group.instance.id, selectedTabId);
+                    const tab = groupedTabs.flatMap(g => g.tabs).find(t => t.ID === selectedTabId);
+                    if (tab) {
+                      handleNavigate(tab.InstanceID, selectedTabId);
                     }
                   }
                 }}
@@ -781,9 +770,9 @@ export function TabsPage() {
               <button
                 className="btn-primary"
                 onClick={() => {
-                  const group = groupedTabs.find(g => g.tabs.some(t => t.ID === selectedTabId));
-                  if (group) {
-                    handleNavigate(group.instance.id, selectedTabId);
+                  const tab = groupedTabs.flatMap(g => g.tabs).find(t => t.ID === selectedTabId);
+                  if (tab) {
+                    handleNavigate(tab.InstanceID, selectedTabId);
                   }
                 }}
                 disabled={!navigateUrl}
@@ -923,16 +912,16 @@ export function TabsPage() {
         </div>
       )}
 
-      {/* Tabs List Grouped by Instance */}
+      {/* Tabs List Grouped by Fingerprint Country */}
       <div className="tabs-groups">
         {groupedTabs.map(group => (
-          <div key={group.instance.id} className="instance-group" style={{
+          <div key={group.country} className="fingerprint-country-group" style={{
             marginBottom: '24px',
             border: '1px solid #e5e7eb',
             borderRadius: '8px',
             overflow: 'hidden',
           }}>
-            {/* Instance Header */}
+            {/* Fingerprint Country Header */}
             <div className="group-header" style={{
               background: '#f9fafb',
               padding: '12px 16px',
@@ -942,20 +931,12 @@ export function TabsPage() {
               justifyContent: 'space-between',
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <span style={{ fontSize: '24px' }}>{group.flag}</span>
                 <span style={{
                   fontWeight: '600',
                   color: '#1976d2',
                 }}>
-                  {group.instance.name || `${group.instance.id.slice(0, 8)}...`}
-                </span>
-                <span style={{
-                  background: '#22c55e',
-                  color: 'white',
-                  padding: '2px 8px',
-                  borderRadius: '4px',
-                  fontSize: '11px',
-                }}>
-                  {group.instance.status}
+                  {group.countryName} ({group.country})
                 </span>
                 <span style={{ color: '#888', fontSize: '12px' }}>
                   {group.tabs.length} tab{group.tabs.length !== 1 ? 's' : ''}
@@ -966,7 +947,7 @@ export function TabsPage() {
                   className="btn-secondary"
                   style={{ fontSize: '11px', padding: '4px 8px' }}
                   onClick={() => {
-                    setSelectedInstanceId(group.instance.id);
+                    setNewTabCountry(group.country);
                     setShowCreate(true);
                   }}
                 >
@@ -983,7 +964,7 @@ export function TabsPage() {
                   textAlign: 'center',
                   color: '#888',
                 }}>
-                  No tabs in this instance
+                  No tabs in this country group
                 </div>
               ) : (
                 group.tabs.map(tab => (
@@ -1082,7 +1063,7 @@ export function TabsPage() {
                       <button
                         className="btn-secondary"
                         style={{ fontSize: '11px', padding: '4px 8px' }}
-                        onClick={() => handleTestFingerprint(group.instance.id, tab.ID)}
+                        onClick={() => handleTestFingerprint(tab.InstanceID, tab.ID)}
                         title="Test Fingerprint"
                       >
                         FP
@@ -1097,7 +1078,7 @@ export function TabsPage() {
                           borderRadius: '4px',
                           cursor: 'pointer',
                         }}
-                        onClick={(e) => handleCloseTab(group.instance.id, tab.ID, e)}
+                        onClick={(e) => handleCloseTab(tab.InstanceID, tab.ID, e)}
                         title="Close"
                       >
                         ×
