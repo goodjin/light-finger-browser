@@ -26,6 +26,7 @@ type App struct {
 	proxySvc       *commands.ProxyService
 	releaseSvc     *commands.ReleaseService
 	fpServerSvc   *commands.FingerprintServerService
+	fpWindowSvc   *commands.FingerprintWindowService
 	configSvc      *commands.ConfigService
 	singletonLock  *commands.SingletonLock
 }
@@ -101,6 +102,7 @@ func (a *App) OnStartup(ctx context.Context) {
 	a.proxySvc = commands.NewProxyService(a.db)
 	a.releaseSvc = commands.NewReleaseService()
 	a.fpServerSvc = commands.NewFingerprintServerService()
+	a.fpWindowSvc = commands.NewFingerprintWindowService(a.instanceSvc, a.db)
 
 	log.Println("[Step 4/7] Services initialized, auto-creating singleton instance...")
 
@@ -474,9 +476,9 @@ func (a *App) RunFingerprintVerification() (*commands.FingerprintVerificationRes
 // NavigateInstanceBrowser navigates a browser instance to the specified URL.
 func (a *App) NavigateInstanceBrowser(instanceID string, url string) error {
 	log.Printf("[NavigateInstanceBrowser] instanceID=%s, url=%s", instanceID, url)
-	cdpClient, err := a.instanceSvc.GetCDPClient(a.appContext(), instanceID)
+	cdpClient, err := a.instanceSvc.GetPageCDPClient(a.appContext(), instanceID)
 	if err != nil {
-		log.Printf("[NavigateInstanceBrowser] GetCDPClient error: %v", err)
+		log.Printf("[NavigateInstanceBrowser] GetPageCDPClient error: %v", err)
 		return fmt.Errorf("failed to connect to browser: %v", err)
 	}
 	log.Printf("[NavigateInstanceBrowser] CDP client acquired, calling Navigate...")
@@ -486,32 +488,85 @@ func (a *App) NavigateInstanceBrowser(instanceID string, url string) error {
 	} else {
 		log.Printf("[NavigateInstanceBrowser] Success")
 	}
-	a.instanceSvc.CloseCDPClient(instanceID)
+	// Note: GetPageCDPClient stores the client with a page-level key, CloseCDPClient will close it
 	return err
 }
 
 // NavigateInstanceBrowserNewTab opens a URL in a new tab of the browser instance.
 func (a *App) NavigateInstanceBrowserNewTab(instanceID string, url string) error {
 	log.Printf("[NavigateInstanceBrowserNewTab] instanceID=%s, url=%s", instanceID, url)
-	cdpClient, err := a.instanceSvc.GetCDPClient(a.appContext(), instanceID)
+
+	// Use browser-level CDP client for Target.createTarget
+	browserClient, err := a.instanceSvc.GetBrowserCDPClient(a.appContext(), instanceID)
 	if err != nil {
-		log.Printf("[NavigateInstanceBrowserNewTab] GetCDPClient error: %v", err)
+		log.Printf("[NavigateInstanceBrowserNewTab] GetBrowserCDPClient error: %v", err)
 		return fmt.Errorf("failed to connect to browser: %v", err)
 	}
 
 	// Use Target.createTarget to create a new tab via CDP (not JS window.open)
-	targetID, err := cdpClient.CreateTarget(a.appContext(), url)
+	targetID, err := browserClient.CreateTarget(a.appContext(), url)
 	if err != nil {
 		log.Printf("[NavigateInstanceBrowserNewTab] CreateTarget error: %v", err)
-		// Fallback: try window.open
-		_, evalErr := cdpClient.Evaluate(a.appContext(), fmt.Sprintf(`window.open("%s", "_blank");`, url))
-		if evalErr != nil {
-			log.Printf("[NavigateInstanceBrowserNewTab] Evaluate fallback error: %v", evalErr)
+		// Fallback: try page-level Evaluate with window.open
+		pageClient, pageErr := a.instanceSvc.GetPageCDPClient(a.appContext(), instanceID)
+		if pageErr == nil {
+			_, evalErr := pageClient.Evaluate(a.appContext(), fmt.Sprintf(`window.open("%s", "_blank");`, url))
+			if evalErr != nil {
+				log.Printf("[NavigateInstanceBrowserNewTab] Evaluate fallback error: %v", evalErr)
+			}
+		} else {
+			log.Printf("[NavigateInstanceBrowserNewTab] GetPageCDPClient fallback error: %v", pageErr)
 		}
 	} else {
 		log.Printf("[NavigateInstanceBrowserNewTab] Created new target: %s", targetID)
 	}
 	log.Printf("[NavigateInstanceBrowserNewTab] Success")
-	a.instanceSvc.CloseCDPClient(instanceID)
 	return nil
+}
+
+// ==================== Fingerprint Window Commands ====================
+
+// CreateFingerprintWindow creates a new fingerprint window with BrowserContext
+func (a *App) CreateFingerprintWindow(instanceID, country, parentWindowID string) (*commands.FingerprintWindow, error) {
+	return a.fpWindowSvc.CreateWindow(a.appContext(), instanceID, country, parentWindowID)
+}
+
+// DeleteFingerprintWindow closes and deletes a fingerprint window
+func (a *App) DeleteFingerprintWindow(windowID string) error {
+	return a.fpWindowSvc.DeleteWindow(a.appContext(), windowID)
+}
+
+// GetFingerprintWindow retrieves a fingerprint window by ID
+func (a *App) GetFingerprintWindow(windowID string) (*commands.FingerprintWindow, error) {
+	return a.fpWindowSvc.GetWindow(a.appContext(), windowID)
+}
+
+// ListFingerprintWindows returns all fingerprint windows
+func (a *App) ListFingerprintWindows(instanceID string, includeClosed bool) ([]*commands.FingerprintWindow, error) {
+	return a.fpWindowSvc.ListWindows(a.appContext(), instanceID, includeClosed)
+}
+
+// CreateTabInFingerprintWindow creates a new tab in an existing fingerprint window
+func (a *App) CreateTabInFingerprintWindow(windowID, url string) (*commands.FingerprintWindow, error) {
+	return a.fpWindowSvc.CreateTabInWindow(a.appContext(), windowID, url)
+}
+
+// UpdateFingerprintWindowURL updates the URL of a fingerprint window
+func (a *App) UpdateFingerprintWindowURL(windowID, url string) error {
+	return a.fpWindowSvc.UpdateWindowURL(a.appContext(), windowID, url)
+}
+
+// UpdateFingerprintWindowTitle updates the title of a fingerprint window
+func (a *App) UpdateFingerprintWindowTitle(windowID, title string) error {
+	return a.fpWindowSvc.UpdateWindowTitle(a.appContext(), windowID, title)
+}
+
+// CloseAllFingerprintWindows closes all windows for an instance
+func (a *App) CloseAllFingerprintWindows(instanceID string) error {
+	return a.fpWindowSvc.CloseAllWindowsForInstance(a.appContext(), instanceID)
+}
+
+// GetFingerprintWindowByContextID retrieves a window by its browser context ID
+func (a *App) GetFingerprintWindowByContextID(contextID string) (*commands.FingerprintWindow, error) {
+	return a.fpWindowSvc.GetWindowByContextID(a.appContext(), contextID)
 }

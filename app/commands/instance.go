@@ -639,6 +639,24 @@ func (s *InstanceService) CloseCDPClient(id string) error {
 	return lastErr
 }
 
+// GetBrowserCDPClient returns a browser-level CDP client for the instance.
+// Use this for browser-level operations like createBrowserContext, createTarget, closeBrowserContext.
+func (s *InstanceService) GetBrowserCDPClient(ctx context.Context, id string) (instance.CDPClientInterface, error) {
+	return s.GetCDPClient(ctx, id)
+}
+
+// CloseBrowserCDPClient closes only the browser-level CDP client for the instance.
+func (s *InstanceService) CloseBrowserCDPClient(id string) error {
+	var lastErr error
+	if client, ok := s.cdpClients.LoadAndDelete(id + ":browser"); ok {
+		if err := client.(instance.CDPClientInterface).Close(); err != nil {
+			lastErr = err
+			log.Printf("[CloseBrowserCDPClient] error closing browser-level CDP client: %v", err)
+		}
+	}
+	return lastErr
+}
+
 // GetCDPClientForTab gets a CDP client for a specific tab
 func (s *InstanceService) GetCDPClientForTab(ctx context.Context, instanceID, tabID string) (instance.CDPClientInterface, error) {
 	inst, err := s.store.Get(instanceID)

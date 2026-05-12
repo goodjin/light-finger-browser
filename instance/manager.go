@@ -2,7 +2,10 @@ package instance
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"net/http"
+	"strings"
 	"sync"
 	"time"
 )
@@ -14,6 +17,7 @@ type InstanceManager interface {
 	Get(ctx context.Context, id string) (*BrowserInstance, error)
 	List(ctx context.Context, filter *InstanceFilter) ([]*BrowserInstance, error)
 	GetCDPClient(ctx context.Context, id string) (CDPClientInterface, error)
+	GetBrowserCDPClient(ctx context.Context, id string) (CDPClientInterface, error)
 	CloseCDPClient(id string) error
 }
 
@@ -22,6 +26,7 @@ type instanceManager struct {
 	store      Store
 	processMgr *ProcessManager
 	cdpClients sync.Map // map[string]CDPClientInterface
+	browserClients sync.Map // map[string]CDPClientInterface - for browser-level commands
 }
 
 // NewInstanceManager creates a new instance manager.
@@ -130,10 +135,49 @@ func (m *instanceManager) GetCDPClient(ctx context.Context, id string) (CDPClien
 		return nil, ErrInstanceNotRunning
 	}
 
-	// Establish new connection
-	conn, _, err := DefaultDialer.DialContext(ctx, "tcp", instance.CDPEndpoint)
+	// Parse the CDP endpoint to get host:port
+	wsURL := instance.CDPEndpoint
+	if !strings.HasPrefix(wsURL, "ws://") {
+		wsURL = "ws://" + wsURL
+	}
+
+	// Query /json to get the correct WebSocket URL for this target
+	jsonURL := strings.Replace(wsURL, "ws://", "http://", 1) + "/json"
+
+	resp, err := http.Get(jsonURL)
 	if err != nil {
-		return nil, fmt.Errorf("failed to dial CDP endpoint: %w", err)
+		return nil, fmt.Errorf("failed to query CDP targets: %w", err)
+	}
+	defer resp.Body.Close()
+
+	// Decode JSON response - it's an array of targets
+	var targets []map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&targets); err != nil {
+		return nil, fmt.Errorf("failed to decode CDP targets: %w", err)
+	}
+
+	// Find the target that matches our instance ID
+	targetID := id[:8] // first 8 chars of instance ID
+	var targetWSURL string
+	for _, t := range targets {
+		title, _ := t["title"].(string)
+		url, _ := t["url"].(string)
+		if strings.Contains(title, targetID) || strings.Contains(url, targetID) {
+			if wsu, ok := t["webSocketDebuggerUrl"].(string); ok {
+				targetWSURL = wsu
+				break
+			}
+		}
+	}
+
+	if targetWSURL == "" {
+		return nil, fmt.Errorf("could not find CDP target for instance %s", id)
+	}
+
+	// Connect to the target's WebSocket endpoint
+	conn, _, err := DefaultDialer.DialContext(ctx, "tcp", targetWSURL)
+	if err != nil {
+		return nil, fmt.Errorf("failed to dial CDP target endpoint: %w", err)
 	}
 
 	client := NewCDPClient(conn)
@@ -145,6 +189,52 @@ func (m *instanceManager) GetCDPClient(ctx context.Context, id string) (CDPClien
 // CloseCDPClient closes and removes a CDP client from cache.
 func (m *instanceManager) CloseCDPClient(id string) error {
 	if client, ok := m.cdpClients.LoadAndDelete(id); ok {
+		return client.(CDPClientInterface).Close()
+	}
+	return nil
+}
+
+// GetBrowserCDPClient returns a CDP client connected to the browser-level endpoint.
+// This is needed for commands like CreateBrowserContext, CreateTargetWithContext,
+// and CloseBrowserContext which must be sent to the browser-level endpoint.
+func (m *instanceManager) GetBrowserCDPClient(ctx context.Context, id string) (CDPClientInterface, error) {
+	// Check cache first
+	if client, ok := m.browserClients.Load(id); ok {
+		return client.(CDPClientInterface), nil
+	}
+
+	// Get instance
+	instance, err := m.store.Get(id)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get instance: %w", err)
+	}
+
+	if instance.Status != StatusRunning {
+		return nil, ErrInstanceNotRunning
+	}
+
+	// Parse the CDP endpoint to get host:port
+	wsURL := instance.CDPEndpoint
+	if !strings.HasPrefix(wsURL, "ws://") {
+		wsURL = "ws://" + wsURL
+	}
+
+	// Connect to the browser-level WebSocket endpoint
+	browserWSURL := wsURL + "/devtools/browser"
+	conn, _, err := DefaultDialer.DialContext(ctx, "tcp", browserWSURL)
+	if err != nil {
+		return nil, fmt.Errorf("failed to dial CDP browser endpoint: %w", err)
+	}
+
+	client := NewCDPClient(conn)
+	m.browserClients.Store(id, client)
+
+	return client, nil
+}
+
+// CloseBrowserCDPClient closes and removes a browser-level CDP client from cache.
+func (m *instanceManager) CloseBrowserCDPClient(id string) error {
+	if client, ok := m.browserClients.LoadAndDelete(id); ok {
 		return client.(CDPClientInterface).Close()
 	}
 	return nil
