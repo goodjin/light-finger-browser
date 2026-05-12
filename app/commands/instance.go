@@ -517,7 +517,16 @@ func (s *InstanceService) GetCDPClient(ctx context.Context, id string) (instance
 	}
 
 	client := instance.NewCDPClient(conn)
-	s.cdpClients.Store(id, client)
+
+	// Validate the connection is still alive by sending a simple command
+	// This catches cases where the browser process crashed but the WebSocket is still connected
+	if !client.IsConnected(ctx) {
+		client.Close()
+		return nil, fmt.Errorf("CDP connection is not alive: browser process may have crashed")
+	}
+
+	// Use separate key for browser-level CDP client to avoid overwriting page-level clients
+	s.cdpClients.Store(id+":browser", client)
 	return client, nil
 }
 
@@ -547,8 +556,8 @@ func (s *InstanceService) GetPageCDPClient(ctx context.Context, id string) (inst
 		conn, _, err := instance.DefaultDialer.DialContext(ctx, "tcp", targetWSURL)
 		if err == nil {
 			client := instance.NewCDPClient(conn)
-			// Store client for cleanup - both browser-level and page-level clients need cleanup
-			s.cdpClients.Store(id, client)
+			// Store client for cleanup - use page-level key
+			s.cdpClients.Store(id+":page", client)
 			return client, nil
 		}
 		// Cached URL failed, will re-query
@@ -598,16 +607,36 @@ func (s *InstanceService) GetPageCDPClient(ctx context.Context, id string) (inst
 	}
 
 	client := instance.NewCDPClient(conn)
-	// Store client for cleanup - both browser-level and page-level clients need cleanup
-	s.cdpClients.Store(id, client)
+
+	// Validate the connection is still alive by sending a simple command
+	// This catches cases where the browser process crashed but the WebSocket is still connected
+	if !client.IsConnected(ctx) {
+		client.Close()
+		s.targetURLs.Delete(id)
+		return nil, fmt.Errorf("CDP connection is not alive: browser process may have crashed")
+	}
+
+	// Store client for cleanup - use page-level key
+	s.cdpClients.Store(id+":page", client)
 	return client, nil
 }
 
 func (s *InstanceService) CloseCDPClient(id string) error {
-	if client, ok := s.cdpClients.LoadAndDelete(id); ok {
-		return client.(instance.CDPClientInterface).Close()
+	// Close both browser-level and page-level CDP clients for this instance
+	var lastErr error
+	if client, ok := s.cdpClients.LoadAndDelete(id + ":browser"); ok {
+		if err := client.(instance.CDPClientInterface).Close(); err != nil {
+			lastErr = err
+			log.Printf("[CloseCDPClient] error closing browser-level CDP client: %v", err)
+		}
 	}
-	return nil
+	if client, ok := s.cdpClients.LoadAndDelete(id + ":page"); ok {
+		if err := client.(instance.CDPClientInterface).Close(); err != nil {
+			lastErr = err
+			log.Printf("[CloseCDPClient] error closing page-level CDP client: %v", err)
+		}
+	}
+	return lastErr
 }
 
 // GetCDPClientForTab gets a CDP client for a specific tab

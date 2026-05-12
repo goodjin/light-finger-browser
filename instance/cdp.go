@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"sync"
+	"time"
 )
 
 // CDPClientInterface defines the interface for CDP client operations.
@@ -24,6 +25,8 @@ type CDPClientInterface interface {
 	CloseBrowserContext(ctx context.Context, contextId string) error
 	CreateTargetWithContext(ctx context.Context, url string, contextId string) (string, error)
 	GetTargets(ctx context.Context) ([]*CDPTarget, error)
+	// IsConnected checks if the CDP connection is still alive by sending a simple command
+	IsConnected(ctx context.Context) bool
 	Close() error
 }
 
@@ -222,6 +225,18 @@ func (c *CDPClient) GetTargets(ctx context.Context) ([]*CDPTarget, error) {
 	}
 
 	return targets, nil
+}
+
+// IsConnected checks if the CDP connection is still alive by sending a simple command.
+// Returns true if the connection is valid, false otherwise.
+func (c *CDPClient) IsConnected(ctx context.Context) bool {
+	// Create a context with a short timeout to avoid hanging
+	ctx, cancel := context.WithTimeout(ctx, 2*time.Second)
+	defer cancel()
+
+	// Try to execute a simple command to verify the connection
+	_, err := c.execute(ctx, "Target.getTargets", nil)
+	return err == nil
 }
 
 // execute sends a CDP command and waits for the response.
