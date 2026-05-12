@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { SettingsPage } from './components/SettingsPage';
 import { TabsPage } from './components/TabsPage';
+import { AccountsPage } from './components/AccountsPage';
+import { ProxiesPage } from './components/ProxiesPage';
 import { ListInstances } from './wailsjs/go/main/App';
 import { instance } from './wailsjs/go/models';
 
@@ -88,7 +90,7 @@ function Dashboard({ onGoToTabs }: DashboardProps) {
   );
 }
 
-type Tab = 'dashboard' | 'settings' | 'tabs';
+type Tab = 'dashboard' | 'settings' | 'tabs' | 'accounts' | 'proxies';
 
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>('tabs'); // Default to tabs per FE-003
@@ -125,6 +127,20 @@ function App() {
             <span className="nav-icon">⚙</span>
             Settings
           </li>
+          <li
+            className={activeTab === 'accounts' ? 'active' : ''}
+            onClick={() => setActiveTab('accounts')}
+          >
+            <span className="nav-icon">👤</span>
+            Accounts
+          </li>
+          <li
+            className={activeTab === 'proxies' ? 'active' : ''}
+            onClick={() => setActiveTab('proxies')}
+          >
+            <span className="nav-icon">🌐</span>
+            Proxies
+          </li>
         </ul>
       </nav>
       <main className="content">
@@ -133,6 +149,8 @@ function App() {
         )}
         {activeTab === 'tabs' && <TabsPage />}
         {activeTab === 'settings' && <SettingsPage />}
+        {activeTab === 'accounts' && <AccountsPage createRequest={0} />}
+        {activeTab === 'proxies' && <ProxiesPage />}
       </main>
     </div>
   );
