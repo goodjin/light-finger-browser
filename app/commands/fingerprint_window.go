@@ -44,6 +44,7 @@ type FingerprintWindow struct {
 	ParentWindowID string       `json:"parent_window_id,omitempty"`
 	Title          string       `json:"title,omitempty"`
 	URL            string       `json:"url,omitempty"`
+	TargetID       string       `json:"target_id,omitempty"` // CDP target ID for tab-specific operations
 }
 
 // FingerprintWindowService manages fingerprint windows
@@ -262,17 +263,18 @@ func (s *FingerprintWindowService) CreateTabInWindow(ctx context.Context, window
 	now := time.Now()
 
 	tabWindow := &FingerprintWindow{
-		ID:           tabWindowID,
-		Country:      country,
-		Seed:         seed,
-		ContextID:    contextID,
-		InstanceID:   instanceID,
-		Status:       WindowStatusActive,
-		CreatedAt:    now,
-		LastActiveAt: now,
-		WindowType:   WindowTypeTab,
+		ID:             tabWindowID,
+		Country:        country,
+		Seed:           seed,
+		ContextID:      contextID,
+		InstanceID:     instanceID,
+		Status:         WindowStatusActive,
+		CreatedAt:      now,
+		LastActiveAt:   now,
+		WindowType:     WindowTypeTab,
 		ParentWindowID: windowID,
-		URL:          url,
+		URL:            url,
+		TargetID:       targetID, // Store CDP target ID for tab-specific operations
 	}
 
 	// 6. Store in memory
@@ -470,6 +472,84 @@ func (s *FingerprintWindowService) UpdateWindowTitle(ctx context.Context, window
 		return fmt.Errorf("failed to update window title: %w", err)
 	}
 
+	return nil
+}
+
+// NavigateWindow navigates a fingerprint window to a URL using the correct target-specific CDP endpoint.
+// This fixes the issue where Page.navigate was being sent to the wrong endpoint.
+func (s *FingerprintWindowService) NavigateWindow(ctx context.Context, windowID string, url string) error {
+	// 1. Get window from memory store
+	var instanceID, targetID string
+	var found bool
+
+	s.contextStores.Range(func(key, value interface{}) bool {
+		cs := value.(*FingerprintContextStore)
+		cs.mu.Lock()
+		defer cs.mu.Unlock()
+
+		if w, ok := cs.windows[windowID]; ok {
+			instanceID = w.InstanceID
+			targetID = w.TargetID
+			found = true
+			return false
+		}
+		return true
+	})
+
+	if !found {
+		// Try to load from database
+		record, err := s.windowStore.Get(windowID)
+		if err != nil {
+			return fmt.Errorf("window not found: %s", windowID)
+		}
+		instanceID = record.InstanceID
+		// TargetID is not persisted to database, so we need to re-query CDP targets
+	}
+
+	if instanceID == "" {
+		return fmt.Errorf("instance ID not found for window: %s", windowID)
+	}
+
+	// If no targetID in memory, we need to find it from CDP targets
+	if targetID == "" {
+		targetID = windowID // Fallback: use window ID to search targets
+		log.Printf("[NavigateWindow] No TargetID stored, searching for target by window ID: %s", windowID)
+	}
+
+	// 2. Get CDP client for the specific tab using the target ID
+	tabClient, err := s.instanceSvc.GetCDPClientForTab(ctx, instanceID, targetID)
+	if err != nil {
+		log.Printf("[NavigateWindow] GetCDPClientForTab error for target %s: %v", targetID, err)
+		return fmt.Errorf("failed to connect to tab: %w", err)
+	}
+	defer tabClient.Close()
+
+	// 3. Navigate the tab using Page.navigate at target-specific endpoint
+	log.Printf("[NavigateWindow] Navigating window %s (target %s) to %s", windowID, targetID, url)
+	if err := tabClient.Navigate(ctx, url); err != nil {
+		return fmt.Errorf("failed to navigate window: %w", err)
+	}
+
+	// 4. Update window URL in memory
+	s.contextStores.Range(func(key, value interface{}) bool {
+		cs := value.(*FingerprintContextStore)
+		cs.mu.Lock()
+		defer cs.mu.Unlock()
+
+		if w, ok := cs.windows[windowID]; ok {
+			w.URL = url
+			w.LastActiveAt = time.Now()
+			return false
+		}
+		return true
+	})
+
+	// 5. Persist URL update to database
+	if err := s.windowStore.UpdateURL(windowID, url); err != nil {
+		log.Printf("warning: failed to update window URL in database: %v", err)
+	}
+
+	log.Printf("[NavigateWindow] Successfully navigated window %s to %s", windowID, url)
 	return nil
 }
 

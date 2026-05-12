@@ -551,6 +551,19 @@ func (a *App) CreateTabInFingerprintWindow(windowID, url string) (*commands.Fing
 	return a.fpWindowSvc.CreateTabInWindow(a.appContext(), windowID, url)
 }
 
+// NavigateFingerprintWindow navigates a fingerprint window to a URL using the correct target-specific CDP endpoint.
+// This fixes the issue where Page.navigate was being sent to the browser-level endpoint instead of the target endpoint.
+func (a *App) NavigateFingerprintWindow(windowID, url string) error {
+	log.Printf("[NavigateFingerprintWindow] windowID=%s, url=%s", windowID, url)
+	err := a.fpWindowSvc.NavigateWindow(a.appContext(), windowID, url)
+	if err != nil {
+		log.Printf("[NavigateFingerprintWindow] error: %v", err)
+		return err
+	}
+	log.Printf("[NavigateFingerprintWindow] Success")
+	return nil
+}
+
 // UpdateFingerprintWindowURL updates the URL of a fingerprint window
 func (a *App) UpdateFingerprintWindowURL(windowID, url string) error {
 	return a.fpWindowSvc.UpdateWindowURL(a.appContext(), windowID, url)
