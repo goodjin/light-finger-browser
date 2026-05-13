@@ -1,0 +1,6 @@
+../../src/services/network/public/mojom/cookie_access_observer.mojom
+../../src/services/network/public/mojom/cookie_manager.mojom
+../../src/services/network/public/mojom/cookie_partition_key.mojom
+../../src/services/network/public/mojom/cookie_setting_overrides.mojom
+../../src/services/network/public/mojom/restricted_cookie_manager.mojom
+../../src/services/network/public/mojom/site_for_cookies.mojom

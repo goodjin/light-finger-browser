@@ -1,0 +1,115 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DFLATBUFFERS_LOCALE_INDEPENDENT=0
+framework_dirs =
+include_dirs = -I../../src/third_party/flatbuffers/src/grpc -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/flatbuffers/src/include -I../../src/third_party/flatbuffers/src/src -I../../src/third_party/flatbuffers/src -I../../src/third_party/flatbuffers/generated
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wno-constant-conversion -Wno-shorten-64-to-32
+cflags_cc = -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness
+label_name = compiler_files
+root_out_dir = .
+target_out_dir = obj/third_party/flatbuffers
+target_output_name = compiler_files
+
+build phony/third_party/flatbuffers/compiler_files.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/flatbuffers/compiler_files/cpp_generator.o: cxx ../../src/third_party/flatbuffers/src/grpc/src/compiler/cpp_generator.cc | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = cpp_generator.cc
+  source_name_part = cpp_generator
+build obj/third_party/flatbuffers/compiler_files/go_generator.o: cxx ../../src/third_party/flatbuffers/src/grpc/src/compiler/go_generator.cc | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = go_generator.cc
+  source_name_part = go_generator
+build obj/third_party/flatbuffers/compiler_files/java_generator.o: cxx ../../src/third_party/flatbuffers/src/grpc/src/compiler/java_generator.cc | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = java_generator.cc
+  source_name_part = java_generator
+build obj/third_party/flatbuffers/compiler_files/python_generator.o: cxx ../../src/third_party/flatbuffers/src/grpc/src/compiler/python_generator.cc | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = python_generator.cc
+  source_name_part = python_generator
+build obj/third_party/flatbuffers/compiler_files/swift_generator.o: cxx ../../src/third_party/flatbuffers/src/grpc/src/compiler/swift_generator.cc | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = swift_generator.cc
+  source_name_part = swift_generator
+build obj/third_party/flatbuffers/compiler_files/ts_generator.o: cxx ../../src/third_party/flatbuffers/src/grpc/src/compiler/ts_generator.cc | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = ts_generator.cc
+  source_name_part = ts_generator
+build obj/third_party/flatbuffers/compiler_files/python.o: cxx ../../src/third_party/flatbuffers/src/include/codegen/python.cc | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = python.cc
+  source_name_part = python
+build obj/third_party/flatbuffers/compiler_files/annotated_binary_text_gen.o: cxx ../../src/third_party/flatbuffers/src/src/annotated_binary_text_gen.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = annotated_binary_text_gen.cpp
+  source_name_part = annotated_binary_text_gen
+build obj/third_party/flatbuffers/compiler_files/bfbs_gen_lua.o: cxx ../../src/third_party/flatbuffers/src/src/bfbs_gen_lua.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = bfbs_gen_lua.cpp
+  source_name_part = bfbs_gen_lua
+build obj/third_party/flatbuffers/compiler_files/bfbs_gen_nim.o: cxx ../../src/third_party/flatbuffers/src/src/bfbs_gen_nim.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = bfbs_gen_nim.cpp
+  source_name_part = bfbs_gen_nim
+build obj/third_party/flatbuffers/compiler_files/binary_annotator.o: cxx ../../src/third_party/flatbuffers/src/src/binary_annotator.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = binary_annotator.cpp
+  source_name_part = binary_annotator
+build obj/third_party/flatbuffers/compiler_files/code_generators.o: cxx ../../src/third_party/flatbuffers/src/src/code_generators.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = code_generators.cpp
+  source_name_part = code_generators
+build obj/third_party/flatbuffers/compiler_files/flatc.o: cxx ../../src/third_party/flatbuffers/src/src/flatc.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = flatc.cpp
+  source_name_part = flatc
+build obj/third_party/flatbuffers/compiler_files/idl_gen_binary.o: cxx ../../src/third_party/flatbuffers/src/src/idl_gen_binary.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = idl_gen_binary.cpp
+  source_name_part = idl_gen_binary
+build obj/third_party/flatbuffers/compiler_files/idl_gen_cpp.o: cxx ../../src/third_party/flatbuffers/src/src/idl_gen_cpp.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = idl_gen_cpp.cpp
+  source_name_part = idl_gen_cpp
+build obj/third_party/flatbuffers/compiler_files/idl_gen_csharp.o: cxx ../../src/third_party/flatbuffers/src/src/idl_gen_csharp.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = idl_gen_csharp.cpp
+  source_name_part = idl_gen_csharp
+build obj/third_party/flatbuffers/compiler_files/idl_gen_dart.o: cxx ../../src/third_party/flatbuffers/src/src/idl_gen_dart.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = idl_gen_dart.cpp
+  source_name_part = idl_gen_dart
+build obj/third_party/flatbuffers/compiler_files/idl_gen_fbs.o: cxx ../../src/third_party/flatbuffers/src/src/idl_gen_fbs.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = idl_gen_fbs.cpp
+  source_name_part = idl_gen_fbs
+build obj/third_party/flatbuffers/compiler_files/idl_gen_go.o: cxx ../../src/third_party/flatbuffers/src/src/idl_gen_go.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = idl_gen_go.cpp
+  source_name_part = idl_gen_go
+build obj/third_party/flatbuffers/compiler_files/idl_gen_grpc.o: cxx ../../src/third_party/flatbuffers/src/src/idl_gen_grpc.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = idl_gen_grpc.cpp
+  source_name_part = idl_gen_grpc
+build obj/third_party/flatbuffers/compiler_files/idl_gen_java.o: cxx ../../src/third_party/flatbuffers/src/src/idl_gen_java.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = idl_gen_java.cpp
+  source_name_part = idl_gen_java
+build obj/third_party/flatbuffers/compiler_files/idl_gen_json_schema.o: cxx ../../src/third_party/flatbuffers/src/src/idl_gen_json_schema.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = idl_gen_json_schema.cpp
+  source_name_part = idl_gen_json_schema
+build obj/third_party/flatbuffers/compiler_files/idl_gen_kotlin.o: cxx ../../src/third_party/flatbuffers/src/src/idl_gen_kotlin.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = idl_gen_kotlin.cpp
+  source_name_part = idl_gen_kotlin
+build obj/third_party/flatbuffers/compiler_files/idl_gen_kotlin_kmp.o: cxx ../../src/third_party/flatbuffers/src/src/idl_gen_kotlin_kmp.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = idl_gen_kotlin_kmp.cpp
+  source_name_part = idl_gen_kotlin_kmp
+build obj/third_party/flatbuffers/compiler_files/idl_gen_lobster.o: cxx ../../src/third_party/flatbuffers/src/src/idl_gen_lobster.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = idl_gen_lobster.cpp
+  source_name_part = idl_gen_lobster
+build obj/third_party/flatbuffers/compiler_files/idl_gen_php.o: cxx ../../src/third_party/flatbuffers/src/src/idl_gen_php.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = idl_gen_php.cpp
+  source_name_part = idl_gen_php
+build obj/third_party/flatbuffers/compiler_files/idl_gen_python.o: cxx ../../src/third_party/flatbuffers/src/src/idl_gen_python.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = idl_gen_python.cpp
+  source_name_part = idl_gen_python
+build obj/third_party/flatbuffers/compiler_files/idl_gen_rust.o: cxx ../../src/third_party/flatbuffers/src/src/idl_gen_rust.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = idl_gen_rust.cpp
+  source_name_part = idl_gen_rust
+build obj/third_party/flatbuffers/compiler_files/idl_gen_swift.o: cxx ../../src/third_party/flatbuffers/src/src/idl_gen_swift.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = idl_gen_swift.cpp
+  source_name_part = idl_gen_swift
+build obj/third_party/flatbuffers/compiler_files/idl_gen_text.o: cxx ../../src/third_party/flatbuffers/src/src/idl_gen_text.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = idl_gen_text.cpp
+  source_name_part = idl_gen_text
+build obj/third_party/flatbuffers/compiler_files/idl_gen_ts.o: cxx ../../src/third_party/flatbuffers/src/src/idl_gen_ts.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = idl_gen_ts.cpp
+  source_name_part = idl_gen_ts
+build obj/third_party/flatbuffers/compiler_files/idl_parser.o: cxx ../../src/third_party/flatbuffers/src/src/idl_parser.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = idl_parser.cpp
+  source_name_part = idl_parser
+build obj/third_party/flatbuffers/compiler_files/reflection.o: cxx ../../src/third_party/flatbuffers/src/src/reflection.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = reflection.cpp
+  source_name_part = reflection
+build obj/third_party/flatbuffers/compiler_files/util.o: cxx ../../src/third_party/flatbuffers/src/src/util.cpp | phony/third_party/flatbuffers/compiler_files.inputs
+  source_file_part = util.cpp
+  source_name_part = util
+
+build phony/third_party/flatbuffers/compiler_files: phony obj/third_party/flatbuffers/compiler_files/cpp_generator.o obj/third_party/flatbuffers/compiler_files/go_generator.o obj/third_party/flatbuffers/compiler_files/java_generator.o obj/third_party/flatbuffers/compiler_files/python_generator.o obj/third_party/flatbuffers/compiler_files/swift_generator.o obj/third_party/flatbuffers/compiler_files/ts_generator.o obj/third_party/flatbuffers/compiler_files/python.o obj/third_party/flatbuffers/compiler_files/annotated_binary_text_gen.o obj/third_party/flatbuffers/compiler_files/bfbs_gen_lua.o obj/third_party/flatbuffers/compiler_files/bfbs_gen_nim.o obj/third_party/flatbuffers/compiler_files/binary_annotator.o obj/third_party/flatbuffers/compiler_files/code_generators.o obj/third_party/flatbuffers/compiler_files/flatc.o obj/third_party/flatbuffers/compiler_files/idl_gen_binary.o obj/third_party/flatbuffers/compiler_files/idl_gen_cpp.o obj/third_party/flatbuffers/compiler_files/idl_gen_csharp.o obj/third_party/flatbuffers/compiler_files/idl_gen_dart.o obj/third_party/flatbuffers/compiler_files/idl_gen_fbs.o obj/third_party/flatbuffers/compiler_files/idl_gen_go.o obj/third_party/flatbuffers/compiler_files/idl_gen_grpc.o obj/third_party/flatbuffers/compiler_files/idl_gen_java.o obj/third_party/flatbuffers/compiler_files/idl_gen_json_schema.o obj/third_party/flatbuffers/compiler_files/idl_gen_kotlin.o obj/third_party/flatbuffers/compiler_files/idl_gen_kotlin_kmp.o obj/third_party/flatbuffers/compiler_files/idl_gen_lobster.o obj/third_party/flatbuffers/compiler_files/idl_gen_php.o obj/third_party/flatbuffers/compiler_files/idl_gen_python.o obj/third_party/flatbuffers/compiler_files/idl_gen_rust.o obj/third_party/flatbuffers/compiler_files/idl_gen_swift.o obj/third_party/flatbuffers/compiler_files/idl_gen_text.o obj/third_party/flatbuffers/compiler_files/idl_gen_ts.o obj/third_party/flatbuffers/compiler_files/idl_parser.o obj/third_party/flatbuffers/compiler_files/reflection.o obj/third_party/flatbuffers/compiler_files/util.o

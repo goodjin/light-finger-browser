@@ -1,0 +1,4 @@
+../../src/ui/base/ime/mojom/ime_types.mojom
+../../src/ui/base/ime/mojom/text_edit_commands.mojom
+../../src/ui/base/ime/mojom/text_input_state.mojom
+../../src/ui/base/ime/mojom/virtual_keyboard_types.mojom

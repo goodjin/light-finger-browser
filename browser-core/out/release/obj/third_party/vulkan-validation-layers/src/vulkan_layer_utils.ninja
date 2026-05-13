@@ -1,0 +1,10 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DVK_ENABLE_BETA_EXTENSIONS -DVK_USE_PLATFORM_METAL_EXT -DVK_USE_PLATFORM_MACOS_MVK
+framework_dirs =
+include_dirs = -I../../src/third_party/vulkan-validation-layers/src/layers -I../../src/third_party/vulkan-validation-layers/src/layers/external -I../../src/third_party/vulkan-validation-layers/src/layers/vulkan -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/vulkan-headers/src/include -I../../src/third_party/vulkan-utility-libraries/src/include
+label_name = vulkan_layer_utils
+root_out_dir = .
+target_out_dir = obj/third_party/vulkan-validation-layers/src
+target_output_name = vulkan_layer_utils
+
+
+build phony/third_party/vulkan-validation-layers/src/vulkan_layer_utils: phony || obj/third_party/vulkan-utility-libraries/src/libvulkan_layer_settings.a

@@ -1,0 +1,20 @@
+[
+  {
+    "traits_headers": [
+      "components/policy/core/common/policy_types.h",
+      "chrome/enterprise_companion/mojom/policy_fetch_reason_traits.h"
+    ],
+    "traits_public_deps": [
+      "//components/policy/core/common:common_constants"
+    ],
+    "traits_sources": [
+      "policy_fetch_reason_traits.cc"
+    ],
+    "types": [
+      {
+        "cpp": "::policy::PolicyFetchReason",
+        "mojom": "enterprise_companion.mojom.PolicyFetchReason"
+      }
+    ]
+  }
+]

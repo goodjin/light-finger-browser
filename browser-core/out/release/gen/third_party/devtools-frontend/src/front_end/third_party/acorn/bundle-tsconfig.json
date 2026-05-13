@@ -1,0 +1,1 @@
+{"compilerOptions":{"composite":true,"outDir":".","baseUrl":".","rootDir":"../../../../../../../../../src/third_party/devtools-frontend/src/front_end/third_party/acorn"},"files":["../../../../../../../../../src/third_party/devtools-frontend/src/front_end/third_party/acorn/acorn.ts"],"references":[{"path":"./acorn-tsconfig.json"},{"path":"./estree-tsconfig.json"}]}

@@ -1,0 +1,4 @@
+gen/content/grit/indexed_db_resources.h
+gen/content/grit/indexed_db_resources_map.cc
+gen/content/grit/indexed_db_resources_map.h
+gen/content/indexed_db_resources.pak

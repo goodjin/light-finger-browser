@@ -1,0 +1,12 @@
+{
+  "deps": [
+    "mojom_integrity_algorithm.build_metadata",
+    "mojom_source_location.build_metadata",
+    "mojom_web_sandbox_flags.build_metadata",
+    "../../../../url/mojom/url_mojom_gurl.build_metadata",
+    "../../../../url/mojom/url_mojom_origin.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../src/services/network/public/mojom/content_security_policy.mojom"
+  ]
+}

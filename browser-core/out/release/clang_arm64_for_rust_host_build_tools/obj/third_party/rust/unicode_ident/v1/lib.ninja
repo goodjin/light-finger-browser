@@ -1,0 +1,18 @@
+crate_name = unicode_ident
+crate_type = rlib
+output_extension = .rlib
+output_dir = clang_arm64_for_rust_host_build_tools/obj/third_party/rust/unicode_ident/v1/lib
+rustflags = --cap-lints=allow -Cmetadata=unicode_ident-1 --edition=2018 -Cdebug-assertions -Csplit-debuginfo=unpacked -Cdefault-linker-libraries -Zdep-info-omit-d-target -Zmacro-backtrace -Zremap-cwd-prefix=. -Zexternal-clangrt --color=always --target=aarch64-apple-darwin -Cembed-bitcode=no -Clto=no --cfg cr_rustc_revision=\"f7b43542838f0a4a6cfdb17fbeadf45002042a77-1-llvmorg-21-init-5118-g52cd27e6\" -Copt-level=3 -Zdwarf-version=4 -g -Zallow-features= -Zdefault-visibility=hidden -Dunsafe_op_in_unsafe_fn
+rustenv = OUT_DIR=../../../../../../../out/release/clang_arm64_for_rust_host_build_tools/gen/third_party/rust/unicode_ident/v1/lib CARGO_PKG_AUTHORS=David\$ Tolnay\$ \<dtolnay@gmail.com\> CARGO_PKG_VERSION=1.0.18 CARGO_PKG_NAME=unicode-ident CARGO_PKG_DESCRIPTION=Determine\$ whether\$ characters\$ have\$ the\$ XID_Start\$ or\$ XID_Continue\$ properties\$ according\$ to\$ Unicode\$ Standard\$ Annex\$ \#31 CARGO_MANIFEST_DIR=../../src/third_party/rust/unicode_ident/v1/lib/crate
+label_name = lib
+root_out_dir = clang_arm64_for_rust_host_build_tools
+target_out_dir = clang_arm64_for_rust_host_build_tools/obj/third_party/rust/unicode_ident/v1
+target_output_name = unicode_ident_lib
+
+build clang_arm64_for_rust_host_build_tools/obj/third_party/rust/unicode_ident/v1/lib/libunicode_ident_lib.rlib: clang_arm64_for_rust_host_build_tools_rust_rlib ../../src/third_party/rust/chromium_crates_io/vendor/unicode-ident-1.0.18/src/lib.rs | ../../src/third_party/rust/chromium_crates_io/vendor/unicode-ident-1.0.18/src/lib.rs ../../src/third_party/rust/chromium_crates_io/vendor/unicode-ident-1.0.18/src/tables.rs || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/prebuilt_rustc_copy_to_sysroot ../../src/build/config/warning_suppression.txt clang_arm64_for_rust_host_build_tools/phony/build/rust/std/std
+  source_file_part = lib.rs
+  source_name_part = lib
+  externs =
+  rustdeps = -Clink-arg=../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a
+  ldflags =
+  sources = ../../src/third_party/rust/chromium_crates_io/vendor/unicode-ident-1.0.18/src/lib.rs ../../src/third_party/rust/chromium_crates_io/vendor/unicode-ident-1.0.18/src/tables.rs

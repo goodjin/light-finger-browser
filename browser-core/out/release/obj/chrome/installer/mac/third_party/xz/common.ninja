@@ -1,0 +1,70 @@
+defines = -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=2 -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DHAVE_CONFIG_H -DHAVE_SMALL=1 -DHAVE_CHECK_CRC32=1 -DHAVE_ENCODERS=1 -DHAVE_ENCODER_LZMA2=1 -DHAVE_ENCODER_X86=1 -DHAVE_DECODERS=1 -DHAVE_DECODER_LZMA2=1 -DHAVE_DECODER_X86=1
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/chrome/installer/mac/third_party/xz/config/mac -I../../src/chrome/installer/mac/third_party/xz/xz/src/common -I../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/api -I../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/check -I../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common -I../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/delta -I../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/lz -I../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/lzma -I../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/rangecoder -I../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/simple
+cflags = -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wthread-safety -Wgnu -Wno-gnu-anonymous-struct -Wno-gnu-conditional-omitted-operand -Wno-gnu-include-next -Wno-gnu-label-as-value -Wno-gnu-redeclared-enum -Wno-gnu-statement-expression -Wno-gnu-zero-variadic-macro-arguments -Wno-zero-length-array -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wshadow -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wno-implicit-fallthrough
+cflags_c = -std=c11
+label_name = common
+root_out_dir = .
+target_out_dir = obj/chrome/installer/mac/third_party/xz
+target_output_name = common
+
+build phony/chrome/installer/mac/third_party/xz/common.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/chrome/installer/mac/third_party/xz/common/tuklib_cpucores.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/common/tuklib_cpucores.c | phony/chrome/installer/mac/third_party/xz/common.inputs
+  source_file_part = tuklib_cpucores.c
+  source_name_part = tuklib_cpucores
+build obj/chrome/installer/mac/third_party/xz/common/tuklib_physmem.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/common/tuklib_physmem.c | phony/chrome/installer/mac/third_party/xz/common.inputs
+  source_file_part = tuklib_physmem.c
+  source_name_part = tuklib_physmem
+build obj/chrome/installer/mac/third_party/xz/common/check.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/check/check.c | phony/chrome/installer/mac/third_party/xz/common.inputs
+  source_file_part = check.c
+  source_name_part = check
+build obj/chrome/installer/mac/third_party/xz/common/block_util.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/block_util.c | phony/chrome/installer/mac/third_party/xz/common.inputs
+  source_file_part = block_util.c
+  source_name_part = block_util
+build obj/chrome/installer/mac/third_party/xz/common/common.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/common.c | phony/chrome/installer/mac/third_party/xz/common.inputs
+  source_file_part = common.c
+  source_name_part = common
+build obj/chrome/installer/mac/third_party/xz/common/easy_preset.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/easy_preset.c | phony/chrome/installer/mac/third_party/xz/common.inputs
+  source_file_part = easy_preset.c
+  source_name_part = easy_preset
+build obj/chrome/installer/mac/third_party/xz/common/filter_common.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/filter_common.c | phony/chrome/installer/mac/third_party/xz/common.inputs
+  source_file_part = filter_common.c
+  source_name_part = filter_common
+build obj/chrome/installer/mac/third_party/xz/common/hardware_cputhreads.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/hardware_cputhreads.c | phony/chrome/installer/mac/third_party/xz/common.inputs
+  source_file_part = hardware_cputhreads.c
+  source_name_part = hardware_cputhreads
+build obj/chrome/installer/mac/third_party/xz/common/hardware_physmem.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/hardware_physmem.c | phony/chrome/installer/mac/third_party/xz/common.inputs
+  source_file_part = hardware_physmem.c
+  source_name_part = hardware_physmem
+build obj/chrome/installer/mac/third_party/xz/common/index.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/index.c | phony/chrome/installer/mac/third_party/xz/common.inputs
+  source_file_part = index.c
+  source_name_part = index
+build obj/chrome/installer/mac/third_party/xz/common/outqueue.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/outqueue.c | phony/chrome/installer/mac/third_party/xz/common.inputs
+  source_file_part = outqueue.c
+  source_name_part = outqueue
+build obj/chrome/installer/mac/third_party/xz/common/stream_flags_common.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/stream_flags_common.c | phony/chrome/installer/mac/third_party/xz/common.inputs
+  source_file_part = stream_flags_common.c
+  source_name_part = stream_flags_common
+build obj/chrome/installer/mac/third_party/xz/common/string_conversion.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/string_conversion.c | phony/chrome/installer/mac/third_party/xz/common.inputs
+  source_file_part = string_conversion.c
+  source_name_part = string_conversion
+build obj/chrome/installer/mac/third_party/xz/common/vli_size.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/vli_size.c | phony/chrome/installer/mac/third_party/xz/common.inputs
+  source_file_part = vli_size.c
+  source_name_part = vli_size
+build obj/chrome/installer/mac/third_party/xz/common/lzma_encoder_presets.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/lzma/lzma_encoder_presets.c | phony/chrome/installer/mac/third_party/xz/common.inputs
+  source_file_part = lzma_encoder_presets.c
+  source_name_part = lzma_encoder_presets
+build obj/chrome/installer/mac/third_party/xz/common/price_table.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/rangecoder/price_table.c | phony/chrome/installer/mac/third_party/xz/common.inputs
+  source_file_part = price_table.c
+  source_name_part = price_table
+build obj/chrome/installer/mac/third_party/xz/common/crc32_small.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/check/crc32_small.c | phony/chrome/installer/mac/third_party/xz/common.inputs
+  source_file_part = crc32_small.c
+  source_name_part = crc32_small
+build obj/chrome/installer/mac/third_party/xz/common/x86.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/simple/x86.c | phony/chrome/installer/mac/third_party/xz/common.inputs
+  source_file_part = x86.c
+  source_name_part = x86
+build obj/chrome/installer/mac/third_party/xz/common/simple_coder.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/simple/simple_coder.c | phony/chrome/installer/mac/third_party/xz/common.inputs
+  source_file_part = simple_coder.c
+  source_name_part = simple_coder
+
+build phony/chrome/installer/mac/third_party/xz/common: phony obj/chrome/installer/mac/third_party/xz/common/tuklib_cpucores.o obj/chrome/installer/mac/third_party/xz/common/tuklib_physmem.o obj/chrome/installer/mac/third_party/xz/common/check.o obj/chrome/installer/mac/third_party/xz/common/block_util.o obj/chrome/installer/mac/third_party/xz/common/common.o obj/chrome/installer/mac/third_party/xz/common/easy_preset.o obj/chrome/installer/mac/third_party/xz/common/filter_common.o obj/chrome/installer/mac/third_party/xz/common/hardware_cputhreads.o obj/chrome/installer/mac/third_party/xz/common/hardware_physmem.o obj/chrome/installer/mac/third_party/xz/common/index.o obj/chrome/installer/mac/third_party/xz/common/outqueue.o obj/chrome/installer/mac/third_party/xz/common/stream_flags_common.o obj/chrome/installer/mac/third_party/xz/common/string_conversion.o obj/chrome/installer/mac/third_party/xz/common/vli_size.o obj/chrome/installer/mac/third_party/xz/common/lzma_encoder_presets.o obj/chrome/installer/mac/third_party/xz/common/price_table.o obj/chrome/installer/mac/third_party/xz/common/crc32_small.o obj/chrome/installer/mac/third_party/xz/common/x86.o obj/chrome/installer/mac/third_party/xz/common/simple_coder.o

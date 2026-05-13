@@ -1,0 +1,9 @@
+{
+  "deps": [
+    "../../../../url/mojom/url_mojom_origin.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../src/services/network/public/mojom/permissions_policy/permissions_policy.mojom",
+    "../../../../../../../src/services/network/public/mojom/permissions_policy/permissions_policy_feature.mojom"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "deps": [
+    "../../mojo/public/mojom/base/base.build_metadata",
+    "../../services/viz/public/mojom/mojom.build_metadata",
+    "../../skia/public/mojom/mojom.build_metadata",
+    "../../ui/gfx/geometry/mojom/mojom.build_metadata"
+  ],
+  "sources": [
+    "../../../../../src/cc/mojom/browser_controls_offset_tag_modifications.mojom",
+    "../../../../../src/cc/mojom/browser_controls_params.mojom",
+    "../../../../../src/cc/mojom/browser_controls_state.mojom",
+    "../../../../../src/cc/mojom/overscroll_behavior.mojom",
+    "../../../../../src/cc/mojom/render_frame_metadata.mojom",
+    "../../../../../src/cc/mojom/touch_action.mojom"
+  ]
+}

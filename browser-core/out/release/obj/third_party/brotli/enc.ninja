@@ -1,0 +1,79 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/brotli/include
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -O2 -fno-math-errno
+cflags_c = -std=c11
+label_name = enc
+root_out_dir = .
+target_out_dir = obj/third_party/brotli
+target_output_name = libenc
+
+build phony/third_party/brotli/enc.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/brotli/enc/backward_references_hq.o: cc ../../src/third_party/brotli/enc/backward_references_hq.c | phony/third_party/brotli/enc.inputs
+  source_file_part = backward_references_hq.c
+  source_name_part = backward_references_hq
+build obj/third_party/brotli/enc/backward_references.o: cc ../../src/third_party/brotli/enc/backward_references.c | phony/third_party/brotli/enc.inputs
+  source_file_part = backward_references.c
+  source_name_part = backward_references
+build obj/third_party/brotli/enc/bit_cost.o: cc ../../src/third_party/brotli/enc/bit_cost.c | phony/third_party/brotli/enc.inputs
+  source_file_part = bit_cost.c
+  source_name_part = bit_cost
+build obj/third_party/brotli/enc/block_splitter.o: cc ../../src/third_party/brotli/enc/block_splitter.c | phony/third_party/brotli/enc.inputs
+  source_file_part = block_splitter.c
+  source_name_part = block_splitter
+build obj/third_party/brotli/enc/brotli_bit_stream.o: cc ../../src/third_party/brotli/enc/brotli_bit_stream.c | phony/third_party/brotli/enc.inputs
+  source_file_part = brotli_bit_stream.c
+  source_name_part = brotli_bit_stream
+build obj/third_party/brotli/enc/cluster.o: cc ../../src/third_party/brotli/enc/cluster.c | phony/third_party/brotli/enc.inputs
+  source_file_part = cluster.c
+  source_name_part = cluster
+build obj/third_party/brotli/enc/command.o: cc ../../src/third_party/brotli/enc/command.c | phony/third_party/brotli/enc.inputs
+  source_file_part = command.c
+  source_name_part = command
+build obj/third_party/brotli/enc/compound_dictionary.o: cc ../../src/third_party/brotli/enc/compound_dictionary.c | phony/third_party/brotli/enc.inputs
+  source_file_part = compound_dictionary.c
+  source_name_part = compound_dictionary
+build obj/third_party/brotli/enc/compress_fragment_two_pass.o: cc ../../src/third_party/brotli/enc/compress_fragment_two_pass.c | phony/third_party/brotli/enc.inputs
+  source_file_part = compress_fragment_two_pass.c
+  source_name_part = compress_fragment_two_pass
+build obj/third_party/brotli/enc/compress_fragment.o: cc ../../src/third_party/brotli/enc/compress_fragment.c | phony/third_party/brotli/enc.inputs
+  source_file_part = compress_fragment.c
+  source_name_part = compress_fragment
+build obj/third_party/brotli/enc/dictionary_hash.o: cc ../../src/third_party/brotli/enc/dictionary_hash.c | phony/third_party/brotli/enc.inputs
+  source_file_part = dictionary_hash.c
+  source_name_part = dictionary_hash
+build obj/third_party/brotli/enc/encode.o: cc ../../src/third_party/brotli/enc/encode.c | phony/third_party/brotli/enc.inputs
+  source_file_part = encode.c
+  source_name_part = encode
+build obj/third_party/brotli/enc/encoder_dict.o: cc ../../src/third_party/brotli/enc/encoder_dict.c | phony/third_party/brotli/enc.inputs
+  source_file_part = encoder_dict.c
+  source_name_part = encoder_dict
+build obj/third_party/brotli/enc/entropy_encode.o: cc ../../src/third_party/brotli/enc/entropy_encode.c | phony/third_party/brotli/enc.inputs
+  source_file_part = entropy_encode.c
+  source_name_part = entropy_encode
+build obj/third_party/brotli/enc/fast_log.o: cc ../../src/third_party/brotli/enc/fast_log.c | phony/third_party/brotli/enc.inputs
+  source_file_part = fast_log.c
+  source_name_part = fast_log
+build obj/third_party/brotli/enc/histogram.o: cc ../../src/third_party/brotli/enc/histogram.c | phony/third_party/brotli/enc.inputs
+  source_file_part = histogram.c
+  source_name_part = histogram
+build obj/third_party/brotli/enc/literal_cost.o: cc ../../src/third_party/brotli/enc/literal_cost.c | phony/third_party/brotli/enc.inputs
+  source_file_part = literal_cost.c
+  source_name_part = literal_cost
+build obj/third_party/brotli/enc/memory.o: cc ../../src/third_party/brotli/enc/memory.c | phony/third_party/brotli/enc.inputs
+  source_file_part = memory.c
+  source_name_part = memory
+build obj/third_party/brotli/enc/metablock.o: cc ../../src/third_party/brotli/enc/metablock.c | phony/third_party/brotli/enc.inputs
+  source_file_part = metablock.c
+  source_name_part = metablock
+build obj/third_party/brotli/enc/static_dict.o: cc ../../src/third_party/brotli/enc/static_dict.c | phony/third_party/brotli/enc.inputs
+  source_file_part = static_dict.c
+  source_name_part = static_dict
+build obj/third_party/brotli/enc/utf8_util.o: cc ../../src/third_party/brotli/enc/utf8_util.c | phony/third_party/brotli/enc.inputs
+  source_file_part = utf8_util.c
+  source_name_part = utf8_util
+
+build obj/third_party/brotli/libenc.a: alink obj/third_party/brotli/enc/backward_references_hq.o obj/third_party/brotli/enc/backward_references.o obj/third_party/brotli/enc/bit_cost.o obj/third_party/brotli/enc/block_splitter.o obj/third_party/brotli/enc/brotli_bit_stream.o obj/third_party/brotli/enc/cluster.o obj/third_party/brotli/enc/command.o obj/third_party/brotli/enc/compound_dictionary.o obj/third_party/brotli/enc/compress_fragment_two_pass.o obj/third_party/brotli/enc/compress_fragment.o obj/third_party/brotli/enc/dictionary_hash.o obj/third_party/brotli/enc/encode.o obj/third_party/brotli/enc/encoder_dict.o obj/third_party/brotli/enc/entropy_encode.o obj/third_party/brotli/enc/fast_log.o obj/third_party/brotli/enc/histogram.o obj/third_party/brotli/enc/literal_cost.o obj/third_party/brotli/enc/memory.o obj/third_party/brotli/enc/metablock.o obj/third_party/brotli/enc/static_dict.o obj/third_party/brotli/enc/utf8_util.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a phony/third_party/brotli/enc.inputs || obj/third_party/brotli/libcommon.a
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/third_party/brotli

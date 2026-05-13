@@ -1,0 +1,61 @@
+defines = -DMANGLE_JPEG_NAMES -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=2 -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DNEON_INTRINSICS -DWITH_SIMD
+framework_dirs =
+include_dirs = -I../../src/third_party/libjpeg_turbo -I../../src/third_party/libjpeg_turbo/simd/arm -I../../src -Igen -I../../src/buildtools/third_party/libc++
+cflags = -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wthread-safety -Wgnu -Wno-gnu-anonymous-struct -Wno-gnu-conditional-omitted-operand -Wno-gnu-include-next -Wno-gnu-label-as-value -Wno-gnu-redeclared-enum -Wno-gnu-statement-expression -Wno-gnu-zero-variadic-macro-arguments -Wno-zero-length-array -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wshadow -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -O3 -fno-math-errno
+cflags_c = -std=c11
+label_name = simd
+root_out_dir = .
+target_out_dir = obj/third_party/libjpeg_turbo
+target_output_name = libsimd
+
+build phony/third_party/libjpeg_turbo/simd.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/libjpeg_turbo/simd/jccolor-neon.o: cc ../../src/third_party/libjpeg_turbo/simd/arm/jccolor-neon.c | phony/third_party/libjpeg_turbo/simd.inputs
+  source_file_part = jccolor-neon.c
+  source_name_part = jccolor-neon
+build obj/third_party/libjpeg_turbo/simd/jcgray-neon.o: cc ../../src/third_party/libjpeg_turbo/simd/arm/jcgray-neon.c | phony/third_party/libjpeg_turbo/simd.inputs
+  source_file_part = jcgray-neon.c
+  source_name_part = jcgray-neon
+build obj/third_party/libjpeg_turbo/simd/jcphuff-neon.o: cc ../../src/third_party/libjpeg_turbo/simd/arm/jcphuff-neon.c | phony/third_party/libjpeg_turbo/simd.inputs
+  source_file_part = jcphuff-neon.c
+  source_name_part = jcphuff-neon
+build obj/third_party/libjpeg_turbo/simd/jcsample-neon.o: cc ../../src/third_party/libjpeg_turbo/simd/arm/jcsample-neon.c | phony/third_party/libjpeg_turbo/simd.inputs
+  source_file_part = jcsample-neon.c
+  source_name_part = jcsample-neon
+build obj/third_party/libjpeg_turbo/simd/jdcolor-neon.o: cc ../../src/third_party/libjpeg_turbo/simd/arm/jdcolor-neon.c | phony/third_party/libjpeg_turbo/simd.inputs
+  source_file_part = jdcolor-neon.c
+  source_name_part = jdcolor-neon
+build obj/third_party/libjpeg_turbo/simd/jdmerge-neon.o: cc ../../src/third_party/libjpeg_turbo/simd/arm/jdmerge-neon.c | phony/third_party/libjpeg_turbo/simd.inputs
+  source_file_part = jdmerge-neon.c
+  source_name_part = jdmerge-neon
+build obj/third_party/libjpeg_turbo/simd/jdsample-neon.o: cc ../../src/third_party/libjpeg_turbo/simd/arm/jdsample-neon.c | phony/third_party/libjpeg_turbo/simd.inputs
+  source_file_part = jdsample-neon.c
+  source_name_part = jdsample-neon
+build obj/third_party/libjpeg_turbo/simd/jfdctfst-neon.o: cc ../../src/third_party/libjpeg_turbo/simd/arm/jfdctfst-neon.c | phony/third_party/libjpeg_turbo/simd.inputs
+  source_file_part = jfdctfst-neon.c
+  source_name_part = jfdctfst-neon
+build obj/third_party/libjpeg_turbo/simd/jfdctint-neon.o: cc ../../src/third_party/libjpeg_turbo/simd/arm/jfdctint-neon.c | phony/third_party/libjpeg_turbo/simd.inputs
+  source_file_part = jfdctint-neon.c
+  source_name_part = jfdctint-neon
+build obj/third_party/libjpeg_turbo/simd/jidctfst-neon.o: cc ../../src/third_party/libjpeg_turbo/simd/arm/jidctfst-neon.c | phony/third_party/libjpeg_turbo/simd.inputs
+  source_file_part = jidctfst-neon.c
+  source_name_part = jidctfst-neon
+build obj/third_party/libjpeg_turbo/simd/jidctint-neon.o: cc ../../src/third_party/libjpeg_turbo/simd/arm/jidctint-neon.c | phony/third_party/libjpeg_turbo/simd.inputs
+  source_file_part = jidctint-neon.c
+  source_name_part = jidctint-neon
+build obj/third_party/libjpeg_turbo/simd/jidctred-neon.o: cc ../../src/third_party/libjpeg_turbo/simd/arm/jidctred-neon.c | phony/third_party/libjpeg_turbo/simd.inputs
+  source_file_part = jidctred-neon.c
+  source_name_part = jidctred-neon
+build obj/third_party/libjpeg_turbo/simd/jquanti-neon.o: cc ../../src/third_party/libjpeg_turbo/simd/arm/jquanti-neon.c | phony/third_party/libjpeg_turbo/simd.inputs
+  source_file_part = jquanti-neon.c
+  source_name_part = jquanti-neon
+build obj/third_party/libjpeg_turbo/simd/jchuff-neon.o: cc ../../src/third_party/libjpeg_turbo/simd/arm/aarch64/jchuff-neon.c | phony/third_party/libjpeg_turbo/simd.inputs
+  source_file_part = jchuff-neon.c
+  source_name_part = jchuff-neon
+build obj/third_party/libjpeg_turbo/simd/jsimd.o: cc ../../src/third_party/libjpeg_turbo/simd/arm/aarch64/jsimd.c | phony/third_party/libjpeg_turbo/simd.inputs
+  source_file_part = jsimd.c
+  source_name_part = jsimd
+
+build obj/third_party/libjpeg_turbo/libsimd.a: alink obj/third_party/libjpeg_turbo/simd/jccolor-neon.o obj/third_party/libjpeg_turbo/simd/jcgray-neon.o obj/third_party/libjpeg_turbo/simd/jcphuff-neon.o obj/third_party/libjpeg_turbo/simd/jcsample-neon.o obj/third_party/libjpeg_turbo/simd/jdcolor-neon.o obj/third_party/libjpeg_turbo/simd/jdmerge-neon.o obj/third_party/libjpeg_turbo/simd/jdsample-neon.o obj/third_party/libjpeg_turbo/simd/jfdctfst-neon.o obj/third_party/libjpeg_turbo/simd/jfdctint-neon.o obj/third_party/libjpeg_turbo/simd/jidctfst-neon.o obj/third_party/libjpeg_turbo/simd/jidctint-neon.o obj/third_party/libjpeg_turbo/simd/jidctred-neon.o obj/third_party/libjpeg_turbo/simd/jquanti-neon.o obj/third_party/libjpeg_turbo/simd/jchuff-neon.o obj/third_party/libjpeg_turbo/simd/jsimd.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a phony/third_party/libjpeg_turbo/simd.inputs ||
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/third_party/libjpeg_turbo

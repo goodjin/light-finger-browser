@@ -1,0 +1,4 @@
+gen/chrome/grit/management_resources.h
+gen/chrome/grit/management_resources_map.cc
+gen/chrome/grit/management_resources_map.h
+gen/chrome/management_resources.pak

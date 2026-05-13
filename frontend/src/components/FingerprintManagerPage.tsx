@@ -7,6 +7,8 @@ import {
   GetSingletonInstance,
   NavigateInstanceBrowser,
   ListTabs,
+  UpdateFingerprintWindowTitle,
+  UpdateFingerprintWindowURL,
 } from '../wailsjs/go/main/App';
 import { commands } from '../wailsjs/go/models';
 
@@ -47,6 +49,20 @@ export function FingerprintManagerPage({ onGoToTabs: _onGoToTabs }: FingerprintM
   const [navigateUrl, setNavigateUrl] = useState('');
   const [showNavigate, setShowNavigate] = useState(false);
   const [selectedWindowId, setSelectedWindowId] = useState<string | null>(null);
+  
+  // Edit fingerprint state
+  const [editingWindow, setEditingWindow] = useState<commands.FingerprintWindow | null>(null);
+  const [editTitle, setEditTitle] = useState('');
+  const [editUrl, setEditUrl] = useState('');
+  const [saving, setSaving] = useState(false);
+  
+  // Copy fingerprint state
+  const [showCopy, setShowCopy] = useState(false);
+  const [copyingWindow, setCopyingWindow] = useState<commands.FingerprintWindow | null>(null);
+  const [copyCountry, setCopyCountry] = useState('');
+  const [copyTitle, setCopyTitle] = useState('');
+  const [copyUrl, setCopyUrl] = useState('');
+  const [copying, setCopying] = useState(false);
 
   useEffect(() => {
     loadAll();
@@ -215,6 +231,89 @@ export function FingerprintManagerPage({ onGoToTabs: _onGoToTabs }: FingerprintM
       setError(String(err));
     }
   }
+  
+  // Edit fingerprint functions
+  function openEditModal(windowId: string) {
+    const fp = fingerprints.find(f => f.window.id === windowId);
+    if (fp) {
+      setEditingWindow(fp.window);
+      setEditTitle(fp.window.title || '');
+      setEditUrl(fp.window.url || '');
+    }
+  }
+  
+  async function saveEdit() {
+    if (!editingWindow || saving) return;
+    try {
+      setSaving(true);
+      setError(null);
+      
+      // Update title if changed
+      if (editTitle !== editingWindow.title) {
+        await UpdateFingerprintWindowTitle(editingWindow.id, editTitle);
+      }
+      
+      // Update URL if changed
+      if (editUrl !== editingWindow.url) {
+        await UpdateFingerprintWindowURL(editingWindow.id, editUrl);
+      }
+      
+      setEditingWindow(null);
+      await loadAll();
+    } catch (err) {
+      setError(String(err));
+    } finally {
+      setSaving(false);
+    }
+  }
+  
+  // Copy fingerprint functions
+  function openCopyModal(windowId: string) {
+    const fp = fingerprints.find(f => f.window.id === windowId);
+    if (fp) {
+      setCopyingWindow(fp.window);
+      setCopyCountry(fp.window.country || 'US');
+      setCopyTitle(fp.window.title ? `${fp.window.title} (copy)` : '');
+      setCopyUrl(fp.window.url || '');
+      setShowCopy(true);
+    }
+  }
+  
+  async function handleCopyFingerprint() {
+    if (!copyingWindow || !runningInstance || copying) return;
+    try {
+      setCopying(true);
+      setError(null);
+      
+      // Create a new fingerprint window with the same country
+      const newWindow = await CreateFingerprintWindow(runningInstance.id, copyCountry, '');
+      
+      // Update title if specified
+      if (copyTitle.trim()) {
+        await UpdateFingerprintWindowTitle(newWindow.id, copyTitle);
+      }
+      
+      // Navigate to URL if specified
+      const targetUrl = copyUrl.trim() || 'about:blank';
+      if (targetUrl !== 'about:blank') {
+        await CreateTabInFingerprintWindow(newWindow.id, targetUrl);
+      }
+      
+      // Navigate the browser to open the window
+      await NavigateInstanceBrowser(runningInstance.id, targetUrl);
+      
+      setShowCopy(false);
+      setCopyingWindow(null);
+      await loadAll();
+      
+      // Expand the newly created window
+      setExpandedWindowId(newWindow.id);
+    } catch (err) {
+      setError(String(err));
+    } finally {
+      setCopying(false);
+    }
+  }
 
   function getCountryInfo(code: string): { name: string; flag: string } {
     const country = SUPPORTED_COUNTRIES.find(c => c.code === code);
@@ -341,6 +440,100 @@ export function FingerprintManagerPage({ onGoToTabs: _onGoToTabs }: FingerprintM
           </div>
         </div>
       )}
+      
+      {/* Edit Fingerprint Modal */}
+      {editingWindow && (
+        <div className="modal-overlay" onClick={() => setEditingWindow(null)}>
+          <div className="modal" onClick={e => e.stopPropagation()}>
+            <h3>编辑指纹配置</h3>
+            <div className="form-group">
+              <label>窗口标题</label>
+              <input
+                type="text"
+                value={editTitle}
+                disabled={saving}
+                onChange={e => setEditTitle(e.target.value)}
+                placeholder="输入窗口标题"
+              />
+            </div>
+            <div className="form-group">
+              <label>URL</label>
+              <input
+                type="text"
+                value={editUrl}
+                disabled={saving}
+                onChange={e => setEditUrl(e.target.value)}
+                placeholder="https://example.com"
+              />
+            </div>
+            <div className="form-group readonly">
+              <label>国家/地区</label>
+              <div className="readonly-value">
+                {getCountryInfo(editingWindow.country || 'US').flag} {getCountryInfo(editingWindow.country || 'US').name}
+              </div>
+            </div>
+            <div className="form-group readonly">
+              <label>Seed</label>
+              <div className="readonly-value seed-value">{editingWindow.seed || '-'}</div>
+            </div>
+            <div className="modal-actions">
+              <button disabled={saving} onClick={() => setEditingWindow(null)}>取消</button>
+              <button className="btn-primary" onClick={saveEdit} disabled={saving}>
+                {saving ? '保存中...' : '保存'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {/* Copy Fingerprint Modal */}
+      {showCopy && copyingWindow && (
+        <div className="modal-overlay" onClick={() => setShowCopy(false)}>
+          <div className="modal" onClick={e => e.stopPropagation()}>
+            <h3>复制指纹窗口</h3>
+            <div className="form-group">
+              <label>国家/地区</label>
+              <select
+                value={copyCountry}
+                disabled={copying}
+                onChange={e => setCopyCountry(e.target.value)}
+              >
+                {SUPPORTED_COUNTRIES.map(c => (
+                  <option key={c.code} value={c.code}>
+                    {c.flag} {c.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group">
+              <label>窗口标题 (可选)</label>
+              <input
+                type="text"
+                value={copyTitle}
+                disabled={copying}
+                onChange={e => setCopyTitle(e.target.value)}
+                placeholder="留空则使用默认标题"
+              />
+            </div>
+            <div className="form-group">
+              <label>起始 URL (可选)</label>
+              <input
+                type="text"
+                value={copyUrl}
+                disabled={copying}
+                onChange={e => setCopyUrl(e.target.value)}
+                placeholder="about:blank"
+              />
+            </div>
+            <div className="modal-actions">
+              <button disabled={copying} onClick={() => setShowCopy(false)}>取消</button>
+              <button className="btn-primary" onClick={handleCopyFingerprint} disabled={copying || !runningInstance}>
+                {copying ? '复制中...' : '复制并创建'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Fingerprint List */}
       {fingerprints.length === 0 ? (
@@ -410,7 +603,8 @@ export function FingerprintManagerPage({ onGoToTabs: _onGoToTabs }: FingerprintM
                       ➡
                     </button>
                     <button
-                      className="btn-icon"
+                      type="button"
+                      className="btn-icon btn-new-tab"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleNewTab(fp.id);
@@ -418,6 +612,26 @@ export function FingerprintManagerPage({ onGoToTabs: _onGoToTabs }: FingerprintM
                       title="新建标签页"
                     >
                       +
+                    </button>
+                    <button
+                      className="btn-icon btn-copy"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openCopyModal(fp.id);
+                      }}
+                      title="复制"
+                    >
+                      ⧉
+                    </button>
+                    <button
+                      className="btn-icon btn-edit"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openEditModal(fp.id);
+                      }}
+                      title="编辑"
+                    >
+                      ✎
                     </button>
                     <button
                       className="btn-icon btn-danger"
@@ -452,12 +666,6 @@ export function FingerprintManagerPage({ onGoToTabs: _onGoToTabs }: FingerprintM
                     {tabs.length === 0 ? (
                       <div className="no-tabs">
                         <p>暂无标签页</p>
-                        <button
-                          className="btn-primary btn-small"
-                          onClick={() => handleNewTab(fp.id)}
-                        >
-                          + 新建标签页
-                        </button>
                       </div>
                     ) : (
                       <div className="tabs-list">
@@ -582,6 +790,20 @@ export function FingerprintManagerPage({ onGoToTabs: _onGoToTabs }: FingerprintM
           margin-bottom: 4px;
           font-weight: 500;
           color: #374151;
+        }
+        
+        .form-group.readonly .readonly-value {
+          padding: 10px 12px;
+          background: #f3f4f6;
+          border: 1px solid #e5e7eb;
+          border-radius: 6px;
+          color: #666;
+        }
+        
+        .form-group.readonly .seed-value {
+          font-family: monospace;
+          font-size: 12px;
+          word-break: break-all;
         }
         
         .form-group select,
@@ -790,6 +1012,35 @@ export function FingerprintManagerPage({ onGoToTabs: _onGoToTabs }: FingerprintM
         
         .btn-icon.btn-danger:hover {
           background: #fef2f2;
+        }
+        
+        .btn-icon.btn-copy {
+          color: #3b82f6;
+          border-color: #bfdbfe;
+        }
+        
+        .btn-icon.btn-copy:hover {
+          background: #eff6ff;
+        }
+        
+        .btn-icon.btn-edit {
+          color: #22c55e;
+          border-color: #bbf7d0;
+        }
+        
+        .btn-icon.btn-edit:hover {
+          background: #f0fdf4;
+        }
+        
+        .btn-icon.btn-new-tab {
+          color: #3b82f6;
+          border-color: #93c5fd;
+          font-weight: bold;
+          font-size: 18px;
+        }
+        
+        .btn-icon.btn-new-tab:hover {
+          background: #eff6ff;
         }
         
         .btn-icon:disabled {

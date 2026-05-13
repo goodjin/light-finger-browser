@@ -1,0 +1,8 @@
+../../src/components/remote_cocoa/common/alert.mojom
+../../src/components/remote_cocoa/common/application.mojom
+../../src/components/remote_cocoa/common/font.mojom
+../../src/components/remote_cocoa/common/menu.mojom
+../../src/components/remote_cocoa/common/native_widget_ns_window.mojom
+../../src/components/remote_cocoa/common/native_widget_ns_window_host.mojom
+../../src/components/remote_cocoa/common/select_file_dialog.mojom
+../../src/components/remote_cocoa/common/text_input_host.mojom

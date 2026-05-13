@@ -1,0 +1,11 @@
+{
+  "deps": [
+    "mojom_network_isolation_partition.build_metadata",
+    "mojom_schemeful_site.build_metadata",
+    "../../../../mojo/public/mojom/base/base.build_metadata",
+    "../../../../url/mojom/url_mojom_origin.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../src/services/network/public/mojom/network_anonymization_key.mojom"
+  ]
+}

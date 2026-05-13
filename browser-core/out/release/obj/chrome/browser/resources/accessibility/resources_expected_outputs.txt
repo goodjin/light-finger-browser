@@ -1,0 +1,4 @@
+gen/chrome/grit/accessibility_resources.h
+gen/chrome/grit/accessibility_resources_map.cc
+gen/chrome/grit/accessibility_resources_map.h
+gen/chrome/accessibility_resources.pak

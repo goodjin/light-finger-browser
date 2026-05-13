@@ -1,0 +1,4 @@
+gen/chrome/grit/intro_resources.h
+gen/chrome/grit/intro_resources_map.cc
+gen/chrome/grit/intro_resources_map.h
+gen/chrome/intro_resources.pak

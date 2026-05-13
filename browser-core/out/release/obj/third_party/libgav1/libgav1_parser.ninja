@@ -1,0 +1,61 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DLIBGAV1_MAX_BITDEPTH=10 -DLIBGAV1_THREADPOOL_USE_STD_MUTEX -DLIBGAV1_ENABLE_LOGGING=0 -DLIBGAV1_PUBLIC= -DCHROMIUM
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/libgav1/src -I../../src/third_party/libgav1/src/src
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -O2 -fno-math-errno
+cflags_cc = -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness
+label_name = libgav1_parser
+root_out_dir = .
+target_out_dir = obj/third_party/libgav1
+target_output_name = libgav1_parser
+
+build phony/third_party/libgav1/libgav1_parser.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/libgav1/libgav1_parser/buffer_pool.o: cxx ../../src/third_party/libgav1/src/src/buffer_pool.cc | phony/third_party/libgav1/libgav1_parser.inputs
+  source_file_part = buffer_pool.cc
+  source_name_part = buffer_pool
+build obj/third_party/libgav1/libgav1_parser/frame_buffer.o: cxx ../../src/third_party/libgav1/src/src/frame_buffer.cc | phony/third_party/libgav1/libgav1_parser.inputs
+  source_file_part = frame_buffer.cc
+  source_name_part = frame_buffer
+build obj/third_party/libgav1/libgav1_parser/internal_frame_buffer_list.o: cxx ../../src/third_party/libgav1/src/src/internal_frame_buffer_list.cc | phony/third_party/libgav1/libgav1_parser.inputs
+  source_file_part = internal_frame_buffer_list.cc
+  source_name_part = internal_frame_buffer_list
+build obj/third_party/libgav1/libgav1_parser/obu_parser.o: cxx ../../src/third_party/libgav1/src/src/obu_parser.cc | phony/third_party/libgav1/libgav1_parser.inputs
+  source_file_part = obu_parser.cc
+  source_name_part = obu_parser
+build obj/third_party/libgav1/libgav1_parser/quantizer.o: cxx ../../src/third_party/libgav1/src/src/quantizer.cc | phony/third_party/libgav1/libgav1_parser.inputs
+  source_file_part = quantizer.cc
+  source_name_part = quantizer
+build obj/third_party/libgav1/libgav1_parser/status_code.o: cxx ../../src/third_party/libgav1/src/src/status_code.cc | phony/third_party/libgav1/libgav1_parser.inputs
+  source_file_part = status_code.cc
+  source_name_part = status_code
+build obj/third_party/libgav1/libgav1_parser/symbol_decoder_context.o: cxx ../../src/third_party/libgav1/src/src/symbol_decoder_context.cc | phony/third_party/libgav1/libgav1_parser.inputs
+  source_file_part = symbol_decoder_context.cc
+  source_name_part = symbol_decoder_context
+build obj/third_party/libgav1/libgav1_parser/bit_reader.o: cxx ../../src/third_party/libgav1/src/src/utils/bit_reader.cc | phony/third_party/libgav1/libgav1_parser.inputs
+  source_file_part = bit_reader.cc
+  source_name_part = bit_reader
+build obj/third_party/libgav1/libgav1_parser/constants.o: cxx ../../src/third_party/libgav1/src/src/utils/constants.cc | phony/third_party/libgav1/libgav1_parser.inputs
+  source_file_part = constants.cc
+  source_name_part = constants
+build obj/third_party/libgav1/libgav1_parser/logging.o: cxx ../../src/third_party/libgav1/src/src/utils/logging.cc | phony/third_party/libgav1/libgav1_parser.inputs
+  source_file_part = logging.cc
+  source_name_part = logging
+build obj/third_party/libgav1/libgav1_parser/raw_bit_reader.o: cxx ../../src/third_party/libgav1/src/src/utils/raw_bit_reader.cc | phony/third_party/libgav1/libgav1_parser.inputs
+  source_file_part = raw_bit_reader.cc
+  source_name_part = raw_bit_reader
+build obj/third_party/libgav1/libgav1_parser/segmentation.o: cxx ../../src/third_party/libgav1/src/src/utils/segmentation.cc | phony/third_party/libgav1/libgav1_parser.inputs
+  source_file_part = segmentation.cc
+  source_name_part = segmentation
+build obj/third_party/libgav1/libgav1_parser/segmentation_map.o: cxx ../../src/third_party/libgav1/src/src/utils/segmentation_map.cc | phony/third_party/libgav1/libgav1_parser.inputs
+  source_file_part = segmentation_map.cc
+  source_name_part = segmentation_map
+build obj/third_party/libgav1/libgav1_parser/warp_prediction.o: cxx ../../src/third_party/libgav1/src/src/warp_prediction.cc | phony/third_party/libgav1/libgav1_parser.inputs
+  source_file_part = warp_prediction.cc
+  source_name_part = warp_prediction
+build obj/third_party/libgav1/libgav1_parser/yuv_buffer.o: cxx ../../src/third_party/libgav1/src/src/yuv_buffer.cc | phony/third_party/libgav1/libgav1_parser.inputs
+  source_file_part = yuv_buffer.cc
+  source_name_part = yuv_buffer
+
+build obj/third_party/libgav1/libgav1_parser.a: alink obj/third_party/libgav1/libgav1_parser/buffer_pool.o obj/third_party/libgav1/libgav1_parser/frame_buffer.o obj/third_party/libgav1/libgav1_parser/internal_frame_buffer_list.o obj/third_party/libgav1/libgav1_parser/obu_parser.o obj/third_party/libgav1/libgav1_parser/quantizer.o obj/third_party/libgav1/libgav1_parser/status_code.o obj/third_party/libgav1/libgav1_parser/symbol_decoder_context.o obj/third_party/libgav1/libgav1_parser/bit_reader.o obj/third_party/libgav1/libgav1_parser/constants.o obj/third_party/libgav1/libgav1_parser/logging.o obj/third_party/libgav1/libgav1_parser/raw_bit_reader.o obj/third_party/libgav1/libgav1_parser/segmentation.o obj/third_party/libgav1/libgav1_parser/segmentation_map.o obj/third_party/libgav1/libgav1_parser/warp_prediction.o obj/third_party/libgav1/libgav1_parser/yuv_buffer.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a phony/third_party/libgav1/libgav1_parser.inputs
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/third_party/libgav1

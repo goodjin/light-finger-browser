@@ -1,0 +1,204 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS
+framework_dirs =
+include_dirs = -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/include -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64 -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/ARM -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/Mips -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/RISCV -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86 -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/include -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/IR -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/AArch64 -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/ARM -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/Mips -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/PowerPC -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/RISCV -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/X86 -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Transforms/InstCombine -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/darwin/include -I../../src -Igen -I../../src/buildtools/third_party/libc++
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wno-shadow -Os -Wno-attributes -Wno-bitwise-instead-of-logical -Wno-deprecated-declarations -Wno-enum-compare -Wno-header-hygiene -Wno-unused-function -Wno-unused-local-typedef -Wno-unused-private-field -Wno-unused-result -Wno-unused-variable
+cflags_cc = -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness
+label_name = swiftshader_llvm_x86
+root_out_dir = .
+target_out_dir = obj/third_party/swiftshader/third_party/llvm-10.0
+target_output_name = swiftshader_llvm_x86
+
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86AsmParser.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/AsmParser/X86AsmParser.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86AsmParser.cpp
+  source_name_part = X86AsmParser
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86Disassembler.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/Disassembler/X86Disassembler.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86Disassembler.cpp
+  source_name_part = X86Disassembler
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86ATTInstPrinter.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/MCTargetDesc/X86ATTInstPrinter.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86ATTInstPrinter.cpp
+  source_name_part = X86ATTInstPrinter
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86AsmBackend.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/MCTargetDesc/X86AsmBackend.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86AsmBackend.cpp
+  source_name_part = X86AsmBackend
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86ELFObjectWriter.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/MCTargetDesc/X86ELFObjectWriter.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86ELFObjectWriter.cpp
+  source_name_part = X86ELFObjectWriter
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86InstComments.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/MCTargetDesc/X86InstComments.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86InstComments.cpp
+  source_name_part = X86InstComments
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86InstPrinterCommon.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/MCTargetDesc/X86InstPrinterCommon.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86InstPrinterCommon.cpp
+  source_name_part = X86InstPrinterCommon
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86IntelInstPrinter.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/MCTargetDesc/X86IntelInstPrinter.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86IntelInstPrinter.cpp
+  source_name_part = X86IntelInstPrinter
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86MCAsmInfo.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/MCTargetDesc/X86MCAsmInfo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86MCAsmInfo.cpp
+  source_name_part = X86MCAsmInfo
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86MCCodeEmitter.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/MCTargetDesc/X86MCCodeEmitter.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86MCCodeEmitter.cpp
+  source_name_part = X86MCCodeEmitter
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86MCTargetDesc.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/MCTargetDesc/X86MCTargetDesc.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86MCTargetDesc.cpp
+  source_name_part = X86MCTargetDesc
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86MachObjectWriter.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/MCTargetDesc/X86MachObjectWriter.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86MachObjectWriter.cpp
+  source_name_part = X86MachObjectWriter
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86WinCOFFObjectWriter.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/MCTargetDesc/X86WinCOFFObjectWriter.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86WinCOFFObjectWriter.cpp
+  source_name_part = X86WinCOFFObjectWriter
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86WinCOFFStreamer.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/MCTargetDesc/X86WinCOFFStreamer.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86WinCOFFStreamer.cpp
+  source_name_part = X86WinCOFFStreamer
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86WinCOFFTargetStreamer.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/MCTargetDesc/X86WinCOFFTargetStreamer.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86WinCOFFTargetStreamer.cpp
+  source_name_part = X86WinCOFFTargetStreamer
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86TargetInfo.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/TargetInfo/X86TargetInfo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86TargetInfo.cpp
+  source_name_part = X86TargetInfo
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86ShuffleDecode.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/Utils/X86ShuffleDecode.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86ShuffleDecode.cpp
+  source_name_part = X86ShuffleDecode
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86AsmPrinter.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86AsmPrinter.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86AsmPrinter.cpp
+  source_name_part = X86AsmPrinter
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86AvoidStoreForwardingBlocks.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86AvoidStoreForwardingBlocks.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86AvoidStoreForwardingBlocks.cpp
+  source_name_part = X86AvoidStoreForwardingBlocks
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86AvoidTrailingCall.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86AvoidTrailingCall.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86AvoidTrailingCall.cpp
+  source_name_part = X86AvoidTrailingCall
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86CallFrameOptimization.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86CallFrameOptimization.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86CallFrameOptimization.cpp
+  source_name_part = X86CallFrameOptimization
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86CallLowering.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86CallLowering.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86CallLowering.cpp
+  source_name_part = X86CallLowering
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86CallingConv.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86CallingConv.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86CallingConv.cpp
+  source_name_part = X86CallingConv
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86CmovConversion.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86CmovConversion.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86CmovConversion.cpp
+  source_name_part = X86CmovConversion
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86CondBrFolding.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86CondBrFolding.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86CondBrFolding.cpp
+  source_name_part = X86CondBrFolding
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86DiscriminateMemOps.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86DiscriminateMemOps.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86DiscriminateMemOps.cpp
+  source_name_part = X86DiscriminateMemOps
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86DomainReassignment.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86DomainReassignment.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86DomainReassignment.cpp
+  source_name_part = X86DomainReassignment
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86EvexToVex.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86EvexToVex.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86EvexToVex.cpp
+  source_name_part = X86EvexToVex
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86ExpandPseudo.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86ExpandPseudo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86ExpandPseudo.cpp
+  source_name_part = X86ExpandPseudo
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86FastISel.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86FastISel.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86FastISel.cpp
+  source_name_part = X86FastISel
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86FixupBWInsts.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86FixupBWInsts.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86FixupBWInsts.cpp
+  source_name_part = X86FixupBWInsts
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86FixupLEAs.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86FixupLEAs.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86FixupLEAs.cpp
+  source_name_part = X86FixupLEAs
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86FixupSetCC.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86FixupSetCC.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86FixupSetCC.cpp
+  source_name_part = X86FixupSetCC
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86FlagsCopyLowering.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86FlagsCopyLowering.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86FlagsCopyLowering.cpp
+  source_name_part = X86FlagsCopyLowering
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86FloatingPoint.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86FloatingPoint.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86FloatingPoint.cpp
+  source_name_part = X86FloatingPoint
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86FrameLowering.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86FrameLowering.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86FrameLowering.cpp
+  source_name_part = X86FrameLowering
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86ISelDAGToDAG.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86ISelDAGToDAG.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86ISelDAGToDAG.cpp
+  source_name_part = X86ISelDAGToDAG
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86ISelLowering.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86ISelLowering.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86ISelLowering.cpp
+  source_name_part = X86ISelLowering
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86IndirectBranchTracking.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86IndirectBranchTracking.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86IndirectBranchTracking.cpp
+  source_name_part = X86IndirectBranchTracking
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86InsertPrefetch.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86InsertPrefetch.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86InsertPrefetch.cpp
+  source_name_part = X86InsertPrefetch
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86InstrFMA3Info.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86InstrFMA3Info.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86InstrFMA3Info.cpp
+  source_name_part = X86InstrFMA3Info
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86InstrFoldTables.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86InstrFoldTables.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86InstrFoldTables.cpp
+  source_name_part = X86InstrFoldTables
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86InstrInfo.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86InstrInfo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86InstrInfo.cpp
+  source_name_part = X86InstrInfo
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86InstructionSelector.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86InstructionSelector.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86InstructionSelector.cpp
+  source_name_part = X86InstructionSelector
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86InterleavedAccess.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86InterleavedAccess.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86InterleavedAccess.cpp
+  source_name_part = X86InterleavedAccess
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86LegalizerInfo.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86LegalizerInfo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86LegalizerInfo.cpp
+  source_name_part = X86LegalizerInfo
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86MCInstLower.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86MCInstLower.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86MCInstLower.cpp
+  source_name_part = X86MCInstLower
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86MachineFunctionInfo.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86MachineFunctionInfo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86MachineFunctionInfo.cpp
+  source_name_part = X86MachineFunctionInfo
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86MacroFusion.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86MacroFusion.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86MacroFusion.cpp
+  source_name_part = X86MacroFusion
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86OptimizeLEAs.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86OptimizeLEAs.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86OptimizeLEAs.cpp
+  source_name_part = X86OptimizeLEAs
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86PadShortFunction.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86PadShortFunction.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86PadShortFunction.cpp
+  source_name_part = X86PadShortFunction
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86RegisterBankInfo.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86RegisterBankInfo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86RegisterBankInfo.cpp
+  source_name_part = X86RegisterBankInfo
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86RegisterInfo.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86RegisterInfo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86RegisterInfo.cpp
+  source_name_part = X86RegisterInfo
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86RetpolineThunks.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86RetpolineThunks.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86RetpolineThunks.cpp
+  source_name_part = X86RetpolineThunks
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86SelectionDAGInfo.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86SelectionDAGInfo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86SelectionDAGInfo.cpp
+  source_name_part = X86SelectionDAGInfo
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86ShuffleDecodeConstantPool.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86ShuffleDecodeConstantPool.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86ShuffleDecodeConstantPool.cpp
+  source_name_part = X86ShuffleDecodeConstantPool
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86SpeculativeLoadHardening.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86SpeculativeLoadHardening.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86SpeculativeLoadHardening.cpp
+  source_name_part = X86SpeculativeLoadHardening
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86Subtarget.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86Subtarget.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86Subtarget.cpp
+  source_name_part = X86Subtarget
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86TargetMachine.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86TargetMachine.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86TargetMachine.cpp
+  source_name_part = X86TargetMachine
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86TargetObjectFile.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86TargetObjectFile.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86TargetObjectFile.cpp
+  source_name_part = X86TargetObjectFile
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86TargetTransformInfo.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86TargetTransformInfo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86TargetTransformInfo.cpp
+  source_name_part = X86TargetTransformInfo
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86VZeroUpper.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86VZeroUpper.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86VZeroUpper.cpp
+  source_name_part = X86VZeroUpper
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86WinAllocaExpander.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86WinAllocaExpander.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86WinAllocaExpander.cpp
+  source_name_part = X86WinAllocaExpander
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86WinEHState.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86/X86WinEHState.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = X86WinEHState.cpp
+  source_name_part = X86WinEHState
+
+build phony/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86: phony obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86AsmParser.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86Disassembler.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86ATTInstPrinter.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86AsmBackend.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86ELFObjectWriter.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86InstComments.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86InstPrinterCommon.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86IntelInstPrinter.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86MCAsmInfo.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86MCCodeEmitter.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86MCTargetDesc.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86MachObjectWriter.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86WinCOFFObjectWriter.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86WinCOFFStreamer.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86WinCOFFTargetStreamer.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86TargetInfo.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86ShuffleDecode.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86AsmPrinter.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86AvoidStoreForwardingBlocks.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86AvoidTrailingCall.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86CallFrameOptimization.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86CallLowering.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86CallingConv.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86CmovConversion.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86CondBrFolding.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86DiscriminateMemOps.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86DomainReassignment.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86EvexToVex.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86ExpandPseudo.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86FastISel.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86FixupBWInsts.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86FixupLEAs.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86FixupSetCC.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86FlagsCopyLowering.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86FloatingPoint.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86FrameLowering.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86ISelDAGToDAG.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86ISelLowering.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86IndirectBranchTracking.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86InsertPrefetch.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86InstrFMA3Info.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86InstrFoldTables.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86InstrInfo.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86InstructionSelector.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86InterleavedAccess.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86LegalizerInfo.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86MCInstLower.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86MachineFunctionInfo.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86MacroFusion.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86OptimizeLEAs.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86PadShortFunction.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86RegisterBankInfo.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86RegisterInfo.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86RetpolineThunks.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86SelectionDAGInfo.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86ShuffleDecodeConstantPool.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86SpeculativeLoadHardening.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86Subtarget.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86TargetMachine.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86TargetObjectFile.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86TargetTransformInfo.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86VZeroUpper.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86WinAllocaExpander.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_x86/X86WinEHState.o

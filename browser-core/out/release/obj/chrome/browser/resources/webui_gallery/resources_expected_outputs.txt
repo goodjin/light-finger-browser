@@ -1,0 +1,4 @@
+gen/chrome/grit/webui_gallery_resources.h
+gen/chrome/grit/webui_gallery_resources_map.cc
+gen/chrome/grit/webui_gallery_resources_map.h
+gen/chrome/webui_gallery_resources.pak

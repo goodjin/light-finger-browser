@@ -1,0 +1,4 @@
+gen/chrome/grit/device_log_resources.h
+gen/chrome/grit/device_log_resources_map.cc
+gen/chrome/grit/device_log_resources_map.h
+gen/chrome/device_log_resources.pak

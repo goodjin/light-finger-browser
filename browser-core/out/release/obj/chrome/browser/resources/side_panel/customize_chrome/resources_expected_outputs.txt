@@ -1,0 +1,4 @@
+gen/chrome/grit/side_panel_customize_chrome_resources.h
+gen/chrome/grit/side_panel_customize_chrome_resources_map.cc
+gen/chrome/grit/side_panel_customize_chrome_resources_map.h
+gen/chrome/side_panel_customize_chrome_resources.pak

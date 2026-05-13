@@ -1,74 +1,36 @@
-diff --git a/chrome/browser/chrome_content_browser_client.cc b/chrome/browser/chrome_content_browser_client.cc
-index 91ec3849b5aee..c87b1230a9b4 100644
---- a/chrome/browser/chrome_content_browser_client.cc
-+++ b/chrome/browser/chrome_content_browser_client.cc
-@@ -2843,5 +2843,20 @@ void ChromeContentBrowserClient::AppendExtraCommandLineSwitches(
-   static const char* const kStealthIdentitySwitches[] = {
-       "platform",
-       "locale",
-       "timezone",
-   };
-+
-+  static const char* const kStealthRenderingSwitches[] = {
-+      "webgl-vendor",
-+      "webgl-renderer",
-+      "webgl-extensions",
-+      "webgl-parameters",
-+      "webgl-precision",
-+      "webgl-context-attributes",
-+      "audio-fingerprint-offset",
-+      "audio-fingerprint-scale",
-+      "audio-fingerprint-seed",
-+      "font-allowlist",
-+      "fingerprint",
-+      "fingerprint-noise",
-+  };
-@@ -2851,7 +2859,9 @@ void ChromeContentBrowserClient::AppendExtraCommandLineSwitches(
- 
-   if (process_type == switches::kRendererProcess) {
-     command_line->CopySwitchesFrom(browser_command_line,
-                                    kStealthIdentitySwitches);
-+    command_line->CopySwitchesFrom(browser_command_line,
-+                                   kStealthRenderingSwitches);
-     content::RenderProcessHost* process =
-         content::RenderProcessHost::FromID(child_process_id);
-     if (process) {
 diff --git a/third_party/blink/renderer/modules/webgl/webgl_rendering_context_base.cc b/third_party/blink/renderer/modules/webgl/webgl_rendering_context_base.cc
-index 5f5449fd151f1..a48ab62c78b3e 100644
+index c4051c85db12b..a197ff10e6e61 100644
 --- a/third_party/blink/renderer/modules/webgl/webgl_rendering_context_base.cc
 +++ b/third_party/blink/renderer/modules/webgl/webgl_rendering_context_base.cc
-@@ -27,13 +27,18 @@
+@@ -34,11 +34,16 @@
+ #include <utility>
  
  #include "base/bit_cast.h"
- #include "base/byte_size.h"
 +#include "base/command_line.h"
- #include "base/compiler_specific.h"
+ #include "base/containers/contains.h"
  #include "base/feature_list.h"
- #include "base/memory/scoped_refptr.h"
- #include "base/metrics/histogram_functions.h"
  #include "base/metrics/histogram_macros.h"
 +#include "base/no_destructor.h"
- #include "base/notimplemented.h"
+ #include "base/not_fatal_until.h"
  #include "base/numerics/checked_math.h"
 +#include "base/strings/string_number_conversions.h"
 +#include "base/strings/string_split.h"
 +#include "base/strings/string_util.h"
  #include "base/synchronization/lock.h"
  #include "base/task/single_thread_task_runner.h"
- #include "base/trace_event/trace_event.h"
-@@ -94,6 +99,7 @@
+ #include "build/build_config.h"
+@@ -78,6 +83,7 @@
+ #include "third_party/blink/renderer/core/inspector/console_message.h"
  #include "third_party/blink/renderer/core/layout/layout_box.h"
  #include "third_party/blink/renderer/core/offscreencanvas/offscreen_canvas.h"
- #include "third_party/blink/renderer/core/paint/cull_rect_updater.h"
 +#include "third_party/blink/renderer/platform/wtf/hash_map.h"
- #include "third_party/blink/renderer/core/paint/paint_layer_painter.h"
  #include "third_party/blink/renderer/core/probe/core_probes.h"
- #include "third_party/blink/renderer/core/svg/svg_graphics_element.h"
-@@ -206,6 +212,224 @@ unsigned WebGLRenderingContextBase::max_active_webgl_contexts_ = 0;
- unsigned WebGLRenderingContextBase::max_active_webgl_contexts_on_worker_ = 0;
+ #include "third_party/blink/renderer/core/svg/graphics/svg_image.h"
+ #include "third_party/blink/renderer/core/typed_arrays/array_buffer/array_buffer_contents.h"
+@@ -185,6 +191,223 @@ unsigned WebGLRenderingContextBase::max_active_webgl_contexts_on_worker_ = 0;
  
  namespace {
-+
+ 
 +struct WebGLContextAttributeOverrides {
 +  std::optional<bool> alpha;
 +  std::optional<bool> depth;
@@ -289,10 +251,11 @@ index 5f5449fd151f1..a48ab62c78b3e 100644
  enum class WebGLANGLEImplementation {
    // These values are persisted to logs. Entries should not be renumbered and
    // numeric values should never be reused.
-@@ -3683,6 +3833,30 @@ WebGLContextAttributes* WebGLRenderingContextBase::getContextAttributes()
-   WebGLContextAttributes* result =
-       ToWebGLContextAttributes(CreationAttributes());
- 
+@@ -3351,6 +3574,31 @@ WebGLContextAttributes* WebGLRenderingContextBase::getContextAttributes()
+   result->setAntialias(GetDrawingBuffer()->Multisample());
+   result->setXrCompatible(xr_compatible_);
+   result->setDesynchronized(Host()->LowLatencyEnabled());
++
 +  const WebGLOverrideConfig& overrides = WebGLOverridesFromCommandLine();
 +  const WebGLContextAttributeOverrides& attribute_overrides =
 +      overrides.context_attributes;
@@ -317,12 +280,12 @@ index 5f5449fd151f1..a48ab62c78b3e 100644
 +  if (attribute_overrides.xr_compatible.has_value())
 +    result->setXrCompatible(*attribute_overrides.xr_compatible);
 +
-   // Some requested attributes may not be honored, so we need to query the
-   // underlying context/drawing buffer and adjust accordingly.
-   if (CreationAttributes().depth && !GetDrawingBuffer()->HasDepthBuffer())
-@@ -3776,6 +3940,12 @@ ScriptObject WebGLRenderingContextBase::getExtension(ScriptState* script_state,
-                                                      const String& name) {
-   ExecutionContext* context = ExecutionContext::From(script_state);
+   return result;
+ }
+ 
+@@ -3433,6 +3681,12 @@ ScriptObject WebGLRenderingContextBase::getExtension(ScriptState* script_state,
+     UseCounter::Count(context, WebFeature::kWebGLDebugRendererInfo);
+   }
  
 +  const WebGLOverrideConfig& overrides = WebGLOverridesFromCommandLine();
 +  if (!WebGLExtensionAllowedByOverride(overrides, name)) {
@@ -330,10 +293,10 @@ index 5f5449fd151f1..a48ab62c78b3e 100644
 +                        v8::Null(script_state->GetIsolate()));
 +  }
 +
-   if (name == WebGLDebugRendererInfo::ExtensionName()) {
-     UseCounter::Count(context, WebFeature::kWebGLDebugRendererInfo);
-   }
-@@ -3891,6 +4068,21 @@ ScriptValue WebGLRenderingContextBase::getParameter(ScriptState* script_state,
+   WebGLExtension* extension = EnableExtensionIfSupported(name);
+   return ScriptObject(
+       script_state->GetIsolate(),
+@@ -3631,6 +3885,21 @@ ScriptValue WebGLRenderingContextBase::getParameter(ScriptState* script_state,
                                                      GLenum pname) {
    if (isContextLost())
      return ScriptValue::CreateNull(script_state->GetIsolate());
@@ -355,30 +318,29 @@ index 5f5449fd151f1..a48ab62c78b3e 100644
    const int kIntZero = 0;
    switch (pname) {
      case GL_ACTIVE_TEXTURE:
-@@ -4388,8 +4580,15 @@ WebGLShaderPrecisionFormat* WebGLRenderingContextBase::getShaderPrecisionFormat(
-     default:
-       SynthesizeGLError(GL_INVALID_ENUM, "getShaderPrecisionFormat",
-                         "invalid precision type");
+@@ -4173,6 +4442,13 @@ WebGLShaderPrecisionFormat* WebGLRenderingContextBase::getShaderPrecisionFormat(
        return nullptr;
    }
-+
+ 
 +  const WebGLOverrideConfig& overrides = WebGLOverridesFromCommandLine();
 +  if (overrides.has_precision_override) {
 +    return MakeGarbageCollected<WebGLShaderPrecisionFormat>(
 +        overrides.precision_range_min, overrides.precision_range_max,
 +        overrides.precision);
 +  }
- 
++
    GLint range[2] = {0, 0};
    GLint precision = 0;
-@@ -4413,5 +4611,10 @@ std::optional<Vector<String>>
- WebGLRenderingContextBase::getSupportedExtensions() {
+   ContextGL()->GetShaderPrecisionFormat(shader_type, precision_type, range,
+@@ -4197,6 +4473,11 @@ WebGLRenderingContextBase::getSupportedExtensions() {
    if (isContextLost())
      return std::nullopt;
-+
+ 
 +  const WebGLOverrideConfig& overrides = WebGLOverridesFromCommandLine();
 +  if (!overrides.extensions.empty()) {
 +    return overrides.extensions;
 +  }
- 
++
    Vector<String> result;
+ 
+   for (ExtensionTracker* tracker : extensions_) {

@@ -1,0 +1,192 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS
+framework_dirs =
+include_dirs = -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/include -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64 -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/ARM -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/Mips -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/RISCV -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86 -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/include -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/IR -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/AArch64 -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/ARM -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/Mips -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/PowerPC -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/RISCV -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/X86 -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Transforms/InstCombine -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/darwin/include -I../../src -Igen -I../../src/buildtools/third_party/libc++
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wno-shadow -Os -Wno-attributes -Wno-bitwise-instead-of-logical -Wno-deprecated-declarations -Wno-enum-compare -Wno-header-hygiene -Wno-unused-function -Wno-unused-local-typedef -Wno-unused-private-field -Wno-unused-result -Wno-unused-variable
+cflags_cc = -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness
+label_name = swiftshader_llvm_aarch64
+root_out_dir = .
+target_out_dir = obj/third_party/swiftshader/third_party/llvm-10.0
+target_output_name = swiftshader_llvm_aarch64
+
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64A53Fix835769.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64A53Fix835769.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64A53Fix835769.cpp
+  source_name_part = AArch64A53Fix835769
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64A57FPLoadBalancing.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64A57FPLoadBalancing.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64A57FPLoadBalancing.cpp
+  source_name_part = AArch64A57FPLoadBalancing
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64AdvSIMDScalarPass.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64AdvSIMDScalarPass.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64AdvSIMDScalarPass.cpp
+  source_name_part = AArch64AdvSIMDScalarPass
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64AsmPrinter.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64AsmPrinter.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64AsmPrinter.cpp
+  source_name_part = AArch64AsmPrinter
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64BranchTargets.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64BranchTargets.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64BranchTargets.cpp
+  source_name_part = AArch64BranchTargets
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64CallLowering.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64CallLowering.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64CallLowering.cpp
+  source_name_part = AArch64CallLowering
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64CallingConvention.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64CallingConvention.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64CallingConvention.cpp
+  source_name_part = AArch64CallingConvention
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64CleanupLocalDynamicTLSPass.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64CleanupLocalDynamicTLSPass.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64CleanupLocalDynamicTLSPass.cpp
+  source_name_part = AArch64CleanupLocalDynamicTLSPass
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64CollectLOH.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64CollectLOH.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64CollectLOH.cpp
+  source_name_part = AArch64CollectLOH
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64CompressJumpTables.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64CompressJumpTables.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64CompressJumpTables.cpp
+  source_name_part = AArch64CompressJumpTables
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64CondBrTuning.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64CondBrTuning.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64CondBrTuning.cpp
+  source_name_part = AArch64CondBrTuning
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64ConditionOptimizer.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64ConditionOptimizer.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64ConditionOptimizer.cpp
+  source_name_part = AArch64ConditionOptimizer
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64ConditionalCompares.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64ConditionalCompares.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64ConditionalCompares.cpp
+  source_name_part = AArch64ConditionalCompares
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64DeadRegisterDefinitionsPass.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64DeadRegisterDefinitionsPass.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64DeadRegisterDefinitionsPass.cpp
+  source_name_part = AArch64DeadRegisterDefinitionsPass
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64ExpandImm.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64ExpandImm.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64ExpandImm.cpp
+  source_name_part = AArch64ExpandImm
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64ExpandPseudoInsts.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64ExpandPseudoInsts.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64ExpandPseudoInsts.cpp
+  source_name_part = AArch64ExpandPseudoInsts
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64FalkorHWPFFix.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64FalkorHWPFFix.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64FalkorHWPFFix.cpp
+  source_name_part = AArch64FalkorHWPFFix
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64FastISel.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64FastISel.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64FastISel.cpp
+  source_name_part = AArch64FastISel
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64FrameLowering.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64FrameLowering.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64FrameLowering.cpp
+  source_name_part = AArch64FrameLowering
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64ISelDAGToDAG.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64ISelDAGToDAG.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64ISelDAGToDAG.cpp
+  source_name_part = AArch64ISelDAGToDAG
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64ISelLowering.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64ISelLowering.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64ISelLowering.cpp
+  source_name_part = AArch64ISelLowering
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64InstrInfo.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64InstrInfo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64InstrInfo.cpp
+  source_name_part = AArch64InstrInfo
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64InstructionSelector.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64InstructionSelector.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64InstructionSelector.cpp
+  source_name_part = AArch64InstructionSelector
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64LegalizerInfo.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64LegalizerInfo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64LegalizerInfo.cpp
+  source_name_part = AArch64LegalizerInfo
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64LoadStoreOptimizer.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64LoadStoreOptimizer.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64LoadStoreOptimizer.cpp
+  source_name_part = AArch64LoadStoreOptimizer
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64MCInstLower.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64MCInstLower.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64MCInstLower.cpp
+  source_name_part = AArch64MCInstLower
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64MacroFusion.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64MacroFusion.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64MacroFusion.cpp
+  source_name_part = AArch64MacroFusion
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64PBQPRegAlloc.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64PBQPRegAlloc.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64PBQPRegAlloc.cpp
+  source_name_part = AArch64PBQPRegAlloc
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64PreLegalizerCombiner.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64PreLegalizerCombiner.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64PreLegalizerCombiner.cpp
+  source_name_part = AArch64PreLegalizerCombiner
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64PromoteConstant.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64PromoteConstant.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64PromoteConstant.cpp
+  source_name_part = AArch64PromoteConstant
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64RedundantCopyElimination.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64RedundantCopyElimination.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64RedundantCopyElimination.cpp
+  source_name_part = AArch64RedundantCopyElimination
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64RegisterBankInfo.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64RegisterBankInfo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64RegisterBankInfo.cpp
+  source_name_part = AArch64RegisterBankInfo
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64RegisterInfo.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64RegisterInfo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64RegisterInfo.cpp
+  source_name_part = AArch64RegisterInfo
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64SIMDInstrOpt.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64SIMDInstrOpt.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64SIMDInstrOpt.cpp
+  source_name_part = AArch64SIMDInstrOpt
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64SelectionDAGInfo.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64SelectionDAGInfo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64SelectionDAGInfo.cpp
+  source_name_part = AArch64SelectionDAGInfo
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64SpeculationHardening.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64SpeculationHardening.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64SpeculationHardening.cpp
+  source_name_part = AArch64SpeculationHardening
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64StackTagging.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64StackTagging.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64StackTagging.cpp
+  source_name_part = AArch64StackTagging
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64StackTaggingPreRA.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64StackTaggingPreRA.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64StackTaggingPreRA.cpp
+  source_name_part = AArch64StackTaggingPreRA
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64StorePairSuppress.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64StorePairSuppress.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64StorePairSuppress.cpp
+  source_name_part = AArch64StorePairSuppress
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64Subtarget.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64Subtarget.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64Subtarget.cpp
+  source_name_part = AArch64Subtarget
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64TargetMachine.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64TargetMachine.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64TargetMachine.cpp
+  source_name_part = AArch64TargetMachine
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64TargetObjectFile.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64TargetObjectFile.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64TargetObjectFile.cpp
+  source_name_part = AArch64TargetObjectFile
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64TargetTransformInfo.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AArch64TargetTransformInfo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64TargetTransformInfo.cpp
+  source_name_part = AArch64TargetTransformInfo
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64AsmParser.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/AsmParser/AArch64AsmParser.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64AsmParser.cpp
+  source_name_part = AArch64AsmParser
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64Disassembler.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/Disassembler/AArch64Disassembler.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64Disassembler.cpp
+  source_name_part = AArch64Disassembler
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64ExternalSymbolizer.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/Disassembler/AArch64ExternalSymbolizer.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64ExternalSymbolizer.cpp
+  source_name_part = AArch64ExternalSymbolizer
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64AsmBackend.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/MCTargetDesc/AArch64AsmBackend.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64AsmBackend.cpp
+  source_name_part = AArch64AsmBackend
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64ELFObjectWriter.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/MCTargetDesc/AArch64ELFObjectWriter.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64ELFObjectWriter.cpp
+  source_name_part = AArch64ELFObjectWriter
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64ELFStreamer.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/MCTargetDesc/AArch64ELFStreamer.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64ELFStreamer.cpp
+  source_name_part = AArch64ELFStreamer
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64InstPrinter.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/MCTargetDesc/AArch64InstPrinter.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64InstPrinter.cpp
+  source_name_part = AArch64InstPrinter
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64MCAsmInfo.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/MCTargetDesc/AArch64MCAsmInfo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64MCAsmInfo.cpp
+  source_name_part = AArch64MCAsmInfo
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64MCCodeEmitter.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/MCTargetDesc/AArch64MCCodeEmitter.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64MCCodeEmitter.cpp
+  source_name_part = AArch64MCCodeEmitter
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64MCExpr.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/MCTargetDesc/AArch64MCExpr.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64MCExpr.cpp
+  source_name_part = AArch64MCExpr
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64MCTargetDesc.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/MCTargetDesc/AArch64MCTargetDesc.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64MCTargetDesc.cpp
+  source_name_part = AArch64MCTargetDesc
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64MachObjectWriter.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/MCTargetDesc/AArch64MachObjectWriter.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64MachObjectWriter.cpp
+  source_name_part = AArch64MachObjectWriter
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64TargetStreamer.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/MCTargetDesc/AArch64TargetStreamer.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64TargetStreamer.cpp
+  source_name_part = AArch64TargetStreamer
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64WinCOFFObjectWriter.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/MCTargetDesc/AArch64WinCOFFObjectWriter.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64WinCOFFObjectWriter.cpp
+  source_name_part = AArch64WinCOFFObjectWriter
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64WinCOFFStreamer.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/MCTargetDesc/AArch64WinCOFFStreamer.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64WinCOFFStreamer.cpp
+  source_name_part = AArch64WinCOFFStreamer
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64TargetInfo.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/TargetInfo/AArch64TargetInfo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64TargetInfo.cpp
+  source_name_part = AArch64TargetInfo
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64BaseInfo.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64/Utils/AArch64BaseInfo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = AArch64BaseInfo.cpp
+  source_name_part = AArch64BaseInfo
+
+build phony/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64: phony obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64A53Fix835769.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64A57FPLoadBalancing.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64AdvSIMDScalarPass.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64AsmPrinter.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64BranchTargets.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64CallLowering.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64CallingConvention.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64CleanupLocalDynamicTLSPass.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64CollectLOH.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64CompressJumpTables.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64CondBrTuning.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64ConditionOptimizer.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64ConditionalCompares.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64DeadRegisterDefinitionsPass.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64ExpandImm.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64ExpandPseudoInsts.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64FalkorHWPFFix.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64FastISel.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64FrameLowering.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64ISelDAGToDAG.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64ISelLowering.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64InstrInfo.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64InstructionSelector.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64LegalizerInfo.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64LoadStoreOptimizer.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64MCInstLower.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64MacroFusion.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64PBQPRegAlloc.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64PreLegalizerCombiner.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64PromoteConstant.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64RedundantCopyElimination.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64RegisterBankInfo.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64RegisterInfo.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64SIMDInstrOpt.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64SelectionDAGInfo.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64SpeculationHardening.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64StackTagging.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64StackTaggingPreRA.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64StorePairSuppress.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64Subtarget.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64TargetMachine.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64TargetObjectFile.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64TargetTransformInfo.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64AsmParser.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64Disassembler.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64ExternalSymbolizer.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64AsmBackend.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64ELFObjectWriter.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64ELFStreamer.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64InstPrinter.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64MCAsmInfo.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64MCCodeEmitter.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64MCExpr.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64MCTargetDesc.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64MachObjectWriter.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64TargetStreamer.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64WinCOFFObjectWriter.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64WinCOFFStreamer.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64TargetInfo.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_aarch64/AArch64BaseInfo.o

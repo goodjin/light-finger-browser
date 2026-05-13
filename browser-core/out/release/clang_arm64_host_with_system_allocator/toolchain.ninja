@@ -1,0 +1,252 @@
+rule clang_arm64_host_with_system_allocator_copy
+  command = ln -f ${in} ${out} 2>/dev/null || (rm -rf ${out} && cp -af ${in} ${out})
+  description = COPY ${in} ${out}
+rule clang_arm64_host_with_system_allocator_cxx_module
+  command = ../../src/third_party/llvm-build/Release+Asserts/bin/clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} ${module_deps_no_self} -fmodule-name=${label_name} -c -x c++ -Xclang -emit-module ${in} -o ${out}
+  description = CXX_MODULE ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule clang_arm64_host_with_system_allocator_objc
+  command = ../../src/third_party/llvm-build/Release+Asserts/bin/clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${framework_dirs} ${cflags} ${cflags_objc} -c ${in} -o ${out}
+  description = OBJC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule clang_arm64_host_with_system_allocator_objcxx
+  command = ../../src/third_party/llvm-build/Release+Asserts/bin/clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${framework_dirs} ${cflags} ${cflags_objcc} -c ${in} -o ${out}
+  description = OBJCXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule clang_arm64_host_with_system_allocator_asm
+  command = ../../src/third_party/llvm-build/Release+Asserts/bin/clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  description = ASM ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule clang_arm64_host_with_system_allocator_alink
+  command = rm -f ${out} && "../../src/third_party/llvm-build/Release+Asserts/bin/llvm-ar" ${arflags} -r -c -s -D ${out} @${out}.rsp
+  description = AR ${out}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in}
+rule clang_arm64_host_with_system_allocator_solink
+  command = TOOL_VERSION=1777987628 ../../src/build/toolchain/apple/linker_driver.py -Wcrl,otoolpath,/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/otool -Wcrl,nmpath,/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/nm -Wcrl,tocname,"${output_dir}/${target_output_name}${output_extension}.TOC" -Wcrl,driver,../../src/third_party/llvm-build/Release+Asserts/bin/clang++ -Wcrl,strippath,/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -Wcrl,installnametoolpath,../../src/third_party/llvm-build/Release+Asserts/bin/llvm-install-name-tool -shared  -Wcrl,dsym,${root_out_dir} -Wcrl,dsymutilpath,../../src/tools/clang/dsymutil/bin/dsymutil ${ldflags} -o "${output_dir}/${target_output_name}${output_extension}" "@${output_dir}/${target_output_name}${output_extension}.rsp" ${rlibs}
+  description = SOLINK ${out}
+  rspfile = ${output_dir}/${target_output_name}${output_extension}.rsp
+  rspfile_content = ${in} ${frameworks} ${swiftmodules} ${solibs} ${libs}
+  pool = build_toolchain_link_pool
+  restat = 1
+rule clang_arm64_host_with_system_allocator_solink_module
+  command = TOOL_VERSION=1777987628 ../../src/build/toolchain/apple/linker_driver.py -Wcrl,driver,../../src/third_party/llvm-build/Release+Asserts/bin/clang++ -Wcrl,strippath,/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -Wcrl,installnametoolpath,../../src/third_party/llvm-build/Release+Asserts/bin/llvm-install-name-tool -bundle ${ldflags} -o "${output_dir}/${target_output_name}${output_extension}" "@${output_dir}/${target_output_name}${output_extension}.rsp" ${rlibs} -Wcrl,dsym,${root_out_dir} -Wcrl,dsymutilpath,../../src/tools/clang/dsymutil/bin/dsymutil 
+  description = SOLINK_MODULE ${out}
+  rspfile = ${output_dir}/${target_output_name}${output_extension}.rsp
+  rspfile_content = ${in} ${frameworks} ${swiftmodules} ${solibs} ${libs}
+  pool = build_toolchain_link_pool
+rule clang_arm64_host_with_system_allocator_link
+  command = TOOL_VERSION=1777987628 ../../src/build/toolchain/apple/linker_driver.py -Wcrl,driver,../../src/third_party/llvm-build/Release+Asserts/bin/clang++ -Wcrl,strippath,/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -Wcrl,installnametoolpath,../../src/third_party/llvm-build/Release+Asserts/bin/llvm-install-name-tool  -Wcrl,dsym,${root_out_dir} -Wcrl,dsymutilpath,../../src/tools/clang/dsymutil/bin/dsymutil  ${ldflags} -o "${output_dir}/${target_output_name}${output_extension}" "@${output_dir}/${target_output_name}${output_extension}.rsp" ${rlibs}
+  description = LINK ${output_dir}/${target_output_name}${output_extension}
+  rspfile = ${output_dir}/${target_output_name}${output_extension}.rsp
+  rspfile_content = ${in} ${frameworks} ${swiftmodules} ${solibs} ${libs}
+  pool = build_toolchain_link_pool
+rule clang_arm64_host_with_system_allocator_stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule clang_arm64_host_with_system_allocator_copy_bundle_data
+  command = rm -rf ${out} && /bin/cp -Rc ${in} ${out}
+  description = COPY_BUNDLE_DATA ${in} ${out}
+  pool = build_toolchain_apple_bundle_pool
+rule clang_arm64_host_with_system_allocator_rust_bin
+  command = TOOL_VERSION=1777987628 "python3" "../../src/build/rust/rustc_wrapper.py" --rustc=../../src/third_party/rust-toolchain/bin/rustc --depfile=${output_dir}/${target_output_name}${output_extension}.d --rsp=${output_dir}/${target_output_name}${output_extension}.rsp -- -Clinker="../../src/build/toolchain/apple/linker_driver.py" --crate-name ${crate_name} ${in} --crate-type ${crate_type} ${rustflags} --emit=dep-info=${output_dir}/${target_output_name}${output_extension}.d,link -o ${output_dir}/${target_output_name}${output_extension} LDFLAGS -Wcrl,driver,../../src/third_party/llvm-build/Release+Asserts/bin/clang++ -Wcrl,strippath,/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -Wcrl,installnametoolpath,../../src/third_party/llvm-build/Release+Asserts/bin/llvm-install-name-tool ${ldflags} RUSTENV ${rustenv}
+  description = RUST(BIN) ${out}
+  rspfile = ${output_dir}/${target_output_name}${output_extension}.rsp
+  rspfile_content = ${rustdeps} ${externs} SOURCES ${sources}
+  depfile = ${output_dir}/${target_output_name}${output_extension}.d
+  deps = gcc
+  pool = build_toolchain_link_pool
+rule clang_arm64_host_with_system_allocator_rust_cdylib
+  command = TOOL_VERSION=1777987628 "python3" "../../src/build/rust/rustc_wrapper.py" --rustc=../../src/third_party/rust-toolchain/bin/rustc --depfile=${output_dir}/${target_output_name}${output_extension}.d --rsp=${output_dir}/${target_output_name}${output_extension}.rsp -- -Clinker="../../src/build/toolchain/apple/linker_driver.py" --crate-name ${crate_name} ${in} --crate-type ${crate_type} ${rustflags} --emit=dep-info=${output_dir}/${target_output_name}${output_extension}.d,link -o ${output_dir}/${target_output_name}${output_extension} LDFLAGS -Wcrl,driver,../../src/third_party/llvm-build/Release+Asserts/bin/clang++ -Wcrl,strippath,/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -Wcrl,installnametoolpath,../../src/third_party/llvm-build/Release+Asserts/bin/llvm-install-name-tool ${ldflags} RUSTENV ${rustenv}
+  description = RUST(CDYLIB) ${out}
+  rspfile = ${output_dir}/${target_output_name}${output_extension}.rsp
+  rspfile_content = ${rustdeps} ${externs} SOURCES ${sources}
+  depfile = ${output_dir}/${target_output_name}${output_extension}.d
+  deps = gcc
+  pool = build_toolchain_link_pool
+rule clang_arm64_host_with_system_allocator_rust_macro
+  command = "python3" "../../src/build/rust/rustc_wrapper.py" --rustc=../../src/third_party/rust-toolchain/bin/rustc --depfile=${output_dir}/${target_output_name}${output_extension}.d --rsp=${output_dir}/${target_output_name}${output_extension}.rsp -- -Clinker="../../src/third_party/llvm-build/Release+Asserts/bin/clang++" --crate-name ${crate_name} ${in} --crate-type ${crate_type} ${rustflags} --emit=dep-info=${output_dir}/${target_output_name}${output_extension}.d,link -o ${output_dir}/${target_output_name}${output_extension} LDFLAGS ${ldflags} RUSTENV ${rustenv}
+  description = RUST(MACRO) ${out}
+  rspfile = ${output_dir}/${target_output_name}${output_extension}.rsp
+  rspfile_content = ${rustdeps} ${externs} SOURCES ${sources}
+  depfile = ${output_dir}/${target_output_name}${output_extension}.d
+  deps = gcc
+  pool = build_toolchain_link_pool
+rule clang_arm64_host_with_system_allocator_rust_rlib
+  command = "python3" "../../src/build/rust/rustc_wrapper.py" --rustc=../../src/third_party/rust-toolchain/bin/rustc --depfile=${output_dir}/lib${target_output_name}${output_extension}.d --rsp=${output_dir}/lib${target_output_name}${output_extension}.rsp -- -Clinker="../../src/third_party/llvm-build/Release+Asserts/bin/clang++" --crate-name ${crate_name} ${in} --crate-type ${crate_type} ${rustflags} ${rustdeps} ${externs} --emit=dep-info=${output_dir}/lib${target_output_name}${output_extension}.d,link -o ${output_dir}/lib${target_output_name}${output_extension} LDFLAGS RUSTENV ${rustenv}
+  description = RUST ${out}
+  rspfile = ${output_dir}/lib${target_output_name}${output_extension}.rsp
+  rspfile_content = ${rustdeps} ${externs} SOURCES ${sources}
+  depfile = ${output_dir}/lib${target_output_name}${output_extension}.d
+  deps = gcc
+rule clang_arm64_host_with_system_allocator_rust_staticlib
+  command = "python3" "../../src/build/rust/rustc_wrapper.py" --rustc=../../src/third_party/rust-toolchain/bin/rustc --depfile=${output_dir}/${target_output_name}${output_extension}.d --rsp=${output_dir}/${target_output_name}${output_extension}.rsp -- -Clinker="../../src/third_party/llvm-build/Release+Asserts/bin/clang++" --crate-name ${crate_name} ${in} --crate-type ${crate_type} ${rustflags} --emit=dep-info=${output_dir}/${target_output_name}${output_extension}.d,link -o ${output_dir}/${target_output_name}${output_extension} LDFLAGS RUSTENV ${rustenv}
+  description = RUST(STATICLIB) ${out}
+  rspfile = ${output_dir}/${target_output_name}${output_extension}.rsp
+  rspfile_content = ${rustdeps} ${externs} SOURCES ${sources}
+  depfile = ${output_dir}/${target_output_name}${output_extension}.d
+  deps = gcc
+rule clang_arm64_host_with_system_allocator_cc
+  command = ../../src/third_party/llvm-build/Release+Asserts/bin/clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule clang_arm64_host_with_system_allocator_cxx
+  command = ../../src/third_party/llvm-build/Release+Asserts/bin/clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} ${module_deps_no_self} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+
+subninja clang_arm64_host_with_system_allocator/obj/build/buildflag_header_h.ninja
+build clang_arm64_host_with_system_allocator/phony/build/config/common_deps: phony clang_arm64_host_with_system_allocator/phony/buildtools/third_party/libc++/libc++
+build clang_arm64_host_with_system_allocator/phony/build/config/executable_deps: phony clang_arm64_host_with_system_allocator/phony/build/config/common_deps
+rule __build_rust_std_buildflags___build_toolchain_mac_clang_arm64_host_with_system_allocator__rule
+  rspfile = __build_rust_std_buildflags___build_toolchain_mac_clang_arm64_host_with_system_allocator__rule.rsp
+  rspfile_content = --flags RUST_ALLOCATOR_USES_PARTITION_ALLOC=false
+  command = python3 ../../src/build/write_buildflag_header.py --output build/rust/std/buildflags.h --rulename //build/rust/std$:buildflags --gen-dir clang_arm64_host_with_system_allocator/gen --definitions ${rspfile}
+  description = ACTION //build/rust/std:buildflags(//build/toolchain/mac:clang_arm64_host_with_system_allocator)
+  restat = 1
+  pool = build_toolchain_action_pool
+
+build clang_arm64_host_with_system_allocator/gen/build/rust/std/buildflags.h: __build_rust_std_buildflags___build_toolchain_mac_clang_arm64_host_with_system_allocator__rule | ../../src/build/write_buildflag_header.py
+
+build clang_arm64_host_with_system_allocator/phony/build/rust/std/buildflags: phony clang_arm64_host_with_system_allocator/gen/build/rust/std/buildflags.h
+build clang_arm64_host_with_system_allocator/phony/build/rust/std/empty_sysroot_for_std_build: phony clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/.empty
+build clang_arm64_host_with_system_allocator/phony/build/rust/std/profiler_builtins_group: phony clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libcore_core.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libcompiler_builtins_compiler_builtins.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libprofiler_builtins_profiler_builtins.rlib
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/remap_alloc.ninja
+build clang_arm64_host_with_system_allocator/phony/build/rust/std/std: phony clang_arm64_host_with_system_allocator/phony/build/rust/std/remap_alloc clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libstd_std.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/liballoc_alloc.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libcfg_if_cfg_if.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libcompiler_builtins_compiler_builtins.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libcore_core.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libgetopts_getopts.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libhashbrown_hashbrown.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libpanic_abort_panic_abort.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libpanic_unwind_panic_unwind.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/librustc_demangle_rustc_demangle.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libstd_detect_std_detect.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libtest_test.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libunicode_width_unicode_width.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libunwind_unwind.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libaddr2line_addr2line.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libadler2_adler2.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libgimli_gimli.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/liblibc_libc.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libmemchr_memchr.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libminiz_oxide_miniz_oxide.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libobject_object.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libprofiler_builtins_profiler_builtins.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/librustc_std_workspace_alloc_rustc_std_workspace_alloc.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/librustc_std_workspace_core_rustc_std_workspace_core.rlib clang_arm64_host_with_system_allocator/local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/librustc_std_workspace_std_rustc_std_workspace_std.rlib
+build clang_arm64_host_with_system_allocator/phony/build/rust/std/std_build_deps: phony clang_arm64_host_with_system_allocator/phony/build/rust/std/empty_sysroot_for_std_build
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/rules/addr2line.ninja
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/rules/adler2.ninja
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/rules/alloc.ninja
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/rules/cfg_if.ninja
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/rules/compiler_builtins.ninja
+rule __build_rust_std_rules_compiler_builtins_compiler_builtins_vunknown_build_script_output___build_toolchain_mac_clang_arm64_host_with_system_allocator__rule
+  command = python3 ../../src/build/rust/run_build_script.py --build-script clang_arm64_for_rust_host_build_tools/compiler_builtins_compiler_builtins_vunknown_build_script --output clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/compiler_builtins/cargo_flags.rs --rust-prefix ../../src/third_party/rust-toolchain/bin --out-dir clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/compiler_builtins --src-dir ../../src/third_party/rust-toolchain/lib/rustlib/src/rust/library/vendor/compiler_builtins-0.1.151 --target aarch64-apple-darwin --rustflags clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/compiler_builtins/rustflags.txt --features compiler-builtins core rustc-dep-of-std --generated-files outlined_atomics.rs --env CFG_DISABLE_UNSTABLE_FEATURES=0 STD_ENV_ARCH=aarch64 CARGO_PKG_AUTHORS=Jorge\$ Aparicio\$ \<japaricious@gmail.com\> CARGO_PKG_VERSION=0.1.151 CARGO_PKG_NAME=compiler_builtins CARGO_PKG_DESCRIPTION=Compiler\$ intrinsics\$ used\$ by\$ the\$ Rust\$ compiler.\$ Also\$ available\$ for\$ other\$ targets\$ if\$ necessary\! CARGO_MANIFEST_DIR=.
+  description = ACTION //build/rust/std/rules:compiler_builtins_compiler_builtins_vunknown_build_script_output(//build/toolchain/mac:clang_arm64_host_with_system_allocator)
+  restat = 1
+  pool = build_toolchain_action_pool
+
+build clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/compiler_builtins/cargo_flags.rs clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/compiler_builtins/outlined_atomics.rs: __build_rust_std_rules_compiler_builtins_compiler_builtins_vunknown_build_script_output___build_toolchain_mac_clang_arm64_host_with_system_allocator__rule | ../../src/build/rust/run_build_script.py ../../src/build/action_helpers.py ../../src/build/gn_helpers.py clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/compiler_builtins/rustflags.txt clang_arm64_for_rust_host_build_tools/compiler_builtins_compiler_builtins_vunknown_build_script ../../src/third_party/rust-toolchain/lib/rustlib/src/rust/library/vendor/compiler_builtins-0.1.151/configure.rs clang_arm64_for_rust_host_build_tools/compiler_builtins_compiler_builtins_vunknown_build_script clang_arm64_host_with_system_allocator/phony/build/rust/std/rules/compiler_builtins_compiler_builtins_vunknown_build_script_write_rustflags
+
+build clang_arm64_host_with_system_allocator/phony/build/rust/std/rules/compiler_builtins_compiler_builtins_vunknown_build_script_output: phony clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/compiler_builtins/cargo_flags.rs clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/compiler_builtins/outlined_atomics.rs
+rule __build_rust_std_rules_compiler_builtins_compiler_builtins_vunknown_build_script_write_rustflags___build_toolchain_mac_clang_arm64_host_with_system_allocator__rule
+  command = python3 ../../src/build/rust/write_rustflags.py --output clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/compiler_builtins/rustflags.txt -- ${rustflags}
+  description = ACTION //build/rust/std/rules:compiler_builtins_compiler_builtins_vunknown_build_script_write_rustflags(//build/toolchain/mac:clang_arm64_host_with_system_allocator)
+  restat = 1
+  pool = build_toolchain_action_pool
+
+build clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/compiler_builtins/rustflags.txt: __build_rust_std_rules_compiler_builtins_compiler_builtins_vunknown_build_script_write_rustflags___build_toolchain_mac_clang_arm64_host_with_system_allocator__rule | ../../src/build/rust/write_rustflags.py ../../src/build/config/warning_suppression.txt
+  rustflags = -Csplit-debuginfo=unpacked -Cdefault-linker-libraries -Zdep-info-omit-d-target -Zmacro-backtrace -Zremap-cwd-prefix=. -Zexternal-clangrt --color=always --target=aarch64-apple-darwin -Cembed-bitcode=no -Clto=no -Ccodegen-units=1 -Cpanic=abort -Zpanic_abort_tests --cfg cr_rustc_revision=\"f7b43542838f0a4a6cfdb17fbeadf45002042a77-1-llvmorg-21-init-5118-g52cd27e6\" -Copt-level=3 -Zdwarf-version=4 -g -Zdefault-visibility=hidden -Dunsafe_op_in_unsafe_fn
+
+build clang_arm64_host_with_system_allocator/phony/build/rust/std/rules/compiler_builtins_compiler_builtins_vunknown_build_script_write_rustflags: phony clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/compiler_builtins/rustflags.txt
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/rules/core.ninja
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/rules/getopts.ninja
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/rules/gimli.ninja
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/rules/hashbrown.ninja
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/rules/libc.ninja
+rule __build_rust_std_rules_libc_libc_vunknown_build_script_output___build_toolchain_mac_clang_arm64_host_with_system_allocator__rule
+  command = python3 ../../src/build/rust/run_build_script.py --build-script clang_arm64_for_rust_host_build_tools/libc_libc_vunknown_build_script --output clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/libc/cargo_flags.rs --rust-prefix ../../src/third_party/rust-toolchain/bin --out-dir clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/libc --src-dir ../../src/third_party/rust-toolchain/lib/rustlib/src/rust/library/vendor/libc-0.2.171 --target aarch64-apple-darwin --rustflags clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/libc/rustflags.txt --features align rustc-dep-of-std rustc-std-workspace-core --env CFG_DISABLE_UNSTABLE_FEATURES=0 STD_ENV_ARCH=aarch64 CARGO_PKG_AUTHORS=The\$ Rust\$ Project\$ Developers CARGO_PKG_VERSION=0.2.171 CARGO_PKG_NAME=libc CARGO_PKG_DESCRIPTION=Raw\$ FFI\$ bindings\$ to\$ platform\$ libraries\$ like\$ libc. CARGO_MANIFEST_DIR=.
+  description = ACTION //build/rust/std/rules:libc_libc_vunknown_build_script_output(//build/toolchain/mac:clang_arm64_host_with_system_allocator)
+  restat = 1
+  pool = build_toolchain_action_pool
+
+build clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/libc/cargo_flags.rs: __build_rust_std_rules_libc_libc_vunknown_build_script_output___build_toolchain_mac_clang_arm64_host_with_system_allocator__rule | ../../src/build/rust/run_build_script.py ../../src/build/action_helpers.py ../../src/build/gn_helpers.py clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/libc/rustflags.txt clang_arm64_for_rust_host_build_tools/libc_libc_vunknown_build_script clang_arm64_for_rust_host_build_tools/libc_libc_vunknown_build_script clang_arm64_host_with_system_allocator/phony/build/rust/std/rules/libc_libc_vunknown_build_script_write_rustflags
+
+build clang_arm64_host_with_system_allocator/phony/build/rust/std/rules/libc_libc_vunknown_build_script_output: phony clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/libc/cargo_flags.rs
+rule __build_rust_std_rules_libc_libc_vunknown_build_script_write_rustflags___build_toolchain_mac_clang_arm64_host_with_system_allocator__rule
+  command = python3 ../../src/build/rust/write_rustflags.py --output clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/libc/rustflags.txt -- ${rustflags}
+  description = ACTION //build/rust/std/rules:libc_libc_vunknown_build_script_write_rustflags(//build/toolchain/mac:clang_arm64_host_with_system_allocator)
+  restat = 1
+  pool = build_toolchain_action_pool
+
+build clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/libc/rustflags.txt: __build_rust_std_rules_libc_libc_vunknown_build_script_write_rustflags___build_toolchain_mac_clang_arm64_host_with_system_allocator__rule | ../../src/build/rust/write_rustflags.py ../../src/build/config/warning_suppression.txt
+  rustflags = -Csplit-debuginfo=unpacked -Cdefault-linker-libraries -Zdep-info-omit-d-target -Zmacro-backtrace -Zremap-cwd-prefix=. -Zexternal-clangrt --color=always --target=aarch64-apple-darwin -Cembed-bitcode=no -Clto=no -Ccodegen-units=1 -Cpanic=abort -Zpanic_abort_tests --cfg cr_rustc_revision=\"f7b43542838f0a4a6cfdb17fbeadf45002042a77-1-llvmorg-21-init-5118-g52cd27e6\" -Copt-level=3 -Zdwarf-version=4 -g -Zdefault-visibility=hidden -Dunsafe_op_in_unsafe_fn
+
+build clang_arm64_host_with_system_allocator/phony/build/rust/std/rules/libc_libc_vunknown_build_script_write_rustflags: phony clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/libc/rustflags.txt
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/rules/memchr.ninja
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/rules/miniz_oxide.ninja
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/rules/object.ninja
+rule __build_rust_std_rules_object_object_vunknown_build_script_output___build_toolchain_mac_clang_arm64_host_with_system_allocator__rule
+  command = python3 ../../src/build/rust/run_build_script.py --build-script clang_arm64_for_rust_host_build_tools/object_object_vunknown_build_script --output clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/object/cargo_flags.rs --rust-prefix ../../src/third_party/rust-toolchain/bin --out-dir clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/object --src-dir ../../src/third_party/rust-toolchain/lib/rustlib/src/rust/library/vendor/object-0.36.7 --target aarch64-apple-darwin --rustflags clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/object/rustflags.txt --features alloc archive coff compiler_builtins core elf macho pe read_core rustc-dep-of-std unaligned xcoff --env CFG_DISABLE_UNSTABLE_FEATURES=0 STD_ENV_ARCH=aarch64 CARGO_PKG_VERSION=0.36.7 CARGO_PKG_NAME=object CARGO_PKG_DESCRIPTION=A\$ unified\$ interface\$ for\$ reading\$ and\$ writing\$ object\$ file\$ formats. CARGO_MANIFEST_DIR=.
+  description = ACTION //build/rust/std/rules:object_object_vunknown_build_script_output(//build/toolchain/mac:clang_arm64_host_with_system_allocator)
+  restat = 1
+  pool = build_toolchain_action_pool
+
+build clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/object/cargo_flags.rs: __build_rust_std_rules_object_object_vunknown_build_script_output___build_toolchain_mac_clang_arm64_host_with_system_allocator__rule | ../../src/build/rust/run_build_script.py ../../src/build/action_helpers.py ../../src/build/gn_helpers.py clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/object/rustflags.txt clang_arm64_for_rust_host_build_tools/object_object_vunknown_build_script clang_arm64_for_rust_host_build_tools/object_object_vunknown_build_script clang_arm64_host_with_system_allocator/phony/build/rust/std/rules/object_object_vunknown_build_script_write_rustflags
+
+build clang_arm64_host_with_system_allocator/phony/build/rust/std/rules/object_object_vunknown_build_script_output: phony clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/object/cargo_flags.rs
+rule __build_rust_std_rules_object_object_vunknown_build_script_write_rustflags___build_toolchain_mac_clang_arm64_host_with_system_allocator__rule
+  command = python3 ../../src/build/rust/write_rustflags.py --output clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/object/rustflags.txt -- ${rustflags}
+  description = ACTION //build/rust/std/rules:object_object_vunknown_build_script_write_rustflags(//build/toolchain/mac:clang_arm64_host_with_system_allocator)
+  restat = 1
+  pool = build_toolchain_action_pool
+
+build clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/object/rustflags.txt: __build_rust_std_rules_object_object_vunknown_build_script_write_rustflags___build_toolchain_mac_clang_arm64_host_with_system_allocator__rule | ../../src/build/rust/write_rustflags.py ../../src/build/config/warning_suppression.txt
+  rustflags = -Csplit-debuginfo=unpacked -Cdefault-linker-libraries -Zdep-info-omit-d-target -Zmacro-backtrace -Zremap-cwd-prefix=. -Zexternal-clangrt --color=always --target=aarch64-apple-darwin -Cembed-bitcode=no -Clto=no -Ccodegen-units=1 -Cpanic=abort -Zpanic_abort_tests --cfg cr_rustc_revision=\"f7b43542838f0a4a6cfdb17fbeadf45002042a77-1-llvmorg-21-init-5118-g52cd27e6\" -Copt-level=3 -Zdwarf-version=4 -g -Zdefault-visibility=hidden -Dunsafe_op_in_unsafe_fn
+
+build clang_arm64_host_with_system_allocator/phony/build/rust/std/rules/object_object_vunknown_build_script_write_rustflags: phony clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/object/rustflags.txt
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/rules/panic_abort.ninja
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/rules/panic_unwind.ninja
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/rules/profiler_builtins.ninja
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/rules/rustc_demangle.ninja
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/rules/rustc_std_workspace_alloc.ninja
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/rules/rustc_std_workspace_core.ninja
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/rules/rustc_std_workspace_std.ninja
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/rules/std.ninja
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/rules/std_detect.ninja
+rule __build_rust_std_rules_std_std_vunknown_build_script_output___build_toolchain_mac_clang_arm64_host_with_system_allocator__rule
+  command = python3 ../../src/build/rust/run_build_script.py --build-script clang_arm64_for_rust_host_build_tools/std_std_vunknown_build_script --output clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/std/cargo_flags.rs --rust-prefix ../../src/third_party/rust-toolchain/bin --out-dir clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/std --src-dir ../../src/third_party/rust-toolchain/lib/rustlib/src/rust/library/std --target aarch64-apple-darwin --rustflags clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/std/rustflags.txt --features addr2line backtrace miniz_oxide object panic_unwind std_detect_dlsym_getauxval std_detect_file_io --env CFG_DISABLE_UNSTABLE_FEATURES=0 STD_ENV_ARCH=aarch64 CARGO_PKG_VERSION=0.0.0 CARGO_PKG_NAME=std CARGO_PKG_DESCRIPTION=The\$ Rust\$ Standard\$ Library CARGO_MANIFEST_DIR=.
+  description = ACTION //build/rust/std/rules:std_std_vunknown_build_script_output(//build/toolchain/mac:clang_arm64_host_with_system_allocator)
+  restat = 1
+  pool = build_toolchain_action_pool
+
+build clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/std/cargo_flags.rs: __build_rust_std_rules_std_std_vunknown_build_script_output___build_toolchain_mac_clang_arm64_host_with_system_allocator__rule | ../../src/build/rust/run_build_script.py ../../src/build/action_helpers.py ../../src/build/gn_helpers.py clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/std/rustflags.txt clang_arm64_for_rust_host_build_tools/std_std_vunknown_build_script clang_arm64_for_rust_host_build_tools/std_std_vunknown_build_script clang_arm64_host_with_system_allocator/phony/build/rust/std/rules/std_std_vunknown_build_script_write_rustflags
+
+build clang_arm64_host_with_system_allocator/phony/build/rust/std/rules/std_std_vunknown_build_script_output: phony clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/std/cargo_flags.rs
+rule __build_rust_std_rules_std_std_vunknown_build_script_write_rustflags___build_toolchain_mac_clang_arm64_host_with_system_allocator__rule
+  command = python3 ../../src/build/rust/write_rustflags.py --output clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/std/rustflags.txt -- ${rustflags}
+  description = ACTION //build/rust/std/rules:std_std_vunknown_build_script_write_rustflags(//build/toolchain/mac:clang_arm64_host_with_system_allocator)
+  restat = 1
+  pool = build_toolchain_action_pool
+
+build clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/std/rustflags.txt: __build_rust_std_rules_std_std_vunknown_build_script_write_rustflags___build_toolchain_mac_clang_arm64_host_with_system_allocator__rule | ../../src/build/rust/write_rustflags.py ../../src/build/config/warning_suppression.txt
+  rustflags = -Csplit-debuginfo=unpacked -Cdefault-linker-libraries -Zdep-info-omit-d-target -Zmacro-backtrace -Zremap-cwd-prefix=. -Zexternal-clangrt --color=always --target=aarch64-apple-darwin -Cembed-bitcode=no -Clto=no -Ccodegen-units=1 -Cpanic=abort -Zpanic_abort_tests --cfg cr_rustc_revision=\"f7b43542838f0a4a6cfdb17fbeadf45002042a77-1-llvmorg-21-init-5118-g52cd27e6\" -Copt-level=3 -Zdwarf-version=4 -g -Zdefault-visibility=hidden -Dunsafe_op_in_unsafe_fn
+
+build clang_arm64_host_with_system_allocator/phony/build/rust/std/rules/std_std_vunknown_build_script_write_rustflags: phony clang_arm64_host_with_system_allocator/gen/build/rust/std/rules/std/rustflags.txt
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/rules/test.ninja
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/rules/unicode_width.ninja
+subninja clang_arm64_host_with_system_allocator/obj/build/rust/std/rules/unwind.ninja
+subninja clang_arm64_host_with_system_allocator/obj/buildtools/third_party/libc++/_Builtin_float.ninja
+subninja clang_arm64_host_with_system_allocator/obj/buildtools/third_party/libc++/_Builtin_inttypes.ninja
+subninja clang_arm64_host_with_system_allocator/obj/buildtools/third_party/libc++/_Builtin_limits.ninja
+subninja clang_arm64_host_with_system_allocator/obj/buildtools/third_party/libc++/_Builtin_stdalign.ninja
+subninja clang_arm64_host_with_system_allocator/obj/buildtools/third_party/libc++/_Builtin_stdarg.ninja
+subninja clang_arm64_host_with_system_allocator/obj/buildtools/third_party/libc++/_Builtin_stddef.ninja
+subninja clang_arm64_host_with_system_allocator/obj/buildtools/third_party/libc++/_Builtin_stdint.ninja
+subninja clang_arm64_host_with_system_allocator/obj/buildtools/third_party/libc++/libc++.ninja
+subninja clang_arm64_host_with_system_allocator/obj/buildtools/third_party/libc++/std.ninja
+subninja clang_arm64_host_with_system_allocator/obj/buildtools/third_party/libc++/std_config.ninja
+subninja clang_arm64_host_with_system_allocator/obj/buildtools/third_party/libc++/std_core.ninja
+subninja clang_arm64_host_with_system_allocator/obj/buildtools/third_party/libc++/std_ctype_h.ninja
+subninja clang_arm64_host_with_system_allocator/obj/buildtools/third_party/libc++/std_errno_h.ninja
+subninja clang_arm64_host_with_system_allocator/obj/buildtools/third_party/libc++/std_fenv_h.ninja
+subninja clang_arm64_host_with_system_allocator/obj/buildtools/third_party/libc++/std_float_h.ninja
+subninja clang_arm64_host_with_system_allocator/obj/buildtools/third_party/libc++/std_inttypes_h.ninja
+subninja clang_arm64_host_with_system_allocator/obj/buildtools/third_party/libc++/std_math_h.ninja
+subninja clang_arm64_host_with_system_allocator/obj/buildtools/third_party/libc++/std_private_mbstate_t.ninja
+subninja clang_arm64_host_with_system_allocator/obj/buildtools/third_party/libc++/std_string_h.ninja
+subninja clang_arm64_host_with_system_allocator/obj/buildtools/third_party/libc++/std_uchar_h.ninja
+subninja clang_arm64_host_with_system_allocator/obj/buildtools/third_party/libc++/std_wctype_h.ninja
+subninja clang_arm64_host_with_system_allocator/obj/buildtools/third_party/libc++abi/libc++abi.ninja
+subninja clang_arm64_host_with_system_allocator/obj/third_party/breakpad/common.ninja
+subninja clang_arm64_host_with_system_allocator/obj/third_party/breakpad/dump_syms.ninja
+subninja clang_arm64_host_with_system_allocator/obj/third_party/breakpad/minidump_stackwalk.ninja
+subninja clang_arm64_host_with_system_allocator/obj/third_party/breakpad/stackwalk_common.ninja
+subninja clang_arm64_host_with_system_allocator/obj/third_party/breakpad/symupload.ninja
+subninja clang_arm64_host_with_system_allocator/obj/third_party/rust/rustc_demangle/v0_1/lib.ninja
+subninja clang_arm64_host_with_system_allocator/obj/third_party/rust/rustc_demangle_capi/v0_1/lib.ninja

@@ -1,8 +1,8 @@
 diff --git a/third_party/blink/renderer/core/frame/navigator_concurrent_hardware.cc b/third_party/blink/renderer/core/frame/navigator_concurrent_hardware.cc
-index fd1c20fd1c3ad..d9ae4a01f93c9 100644
+index f5c0db2d1b58d..3ba1c31528cfa 100644
 --- a/third_party/blink/renderer/core/frame/navigator_concurrent_hardware.cc
 +++ b/third_party/blink/renderer/core/frame/navigator_concurrent_hardware.cc
-@@ -5,12 +5,36 @@
+@@ -4,11 +4,35 @@
  
  #include "third_party/blink/renderer/core/frame/navigator_concurrent_hardware.h"
  
@@ -38,13 +38,11 @@ index fd1c20fd1c3ad..d9ae4a01f93c9 100644
    return static_cast<unsigned>(base::SysInfo::NumberOfProcessors());
  }
  
- }  // namespace blink
 diff --git a/third_party/blink/renderer/core/frame/navigator_device_memory.cc b/third_party/blink/renderer/core/frame/navigator_device_memory.cc
-index 7d2f4d41b2730..c600e41747ec6 100644
+index 2876aad29853b..f271a48689070 100644
 --- a/third_party/blink/renderer/core/frame/navigator_device_memory.cc
 +++ b/third_party/blink/renderer/core/frame/navigator_device_memory.cc
-@@ -3,16 +3,52 @@
- // found in the LICENSE file.
+@@ -4,6 +4,10 @@
  
  #include "third_party/blink/renderer/core/frame/navigator_device_memory.h"
  
@@ -53,9 +51,9 @@ index 7d2f4d41b2730..c600e41747ec6 100644
 +#include "base/command_line.h"
 +#include "base/strings/string_number_conversions.h"
  #include "third_party/blink/public/common/device_memory/approximated_device_memory.h"
- #include "third_party/blink/public/mojom/use_counter/metrics/web_feature.mojom-shared.h"
- #include "third_party/blink/renderer/core/dom/document.h"
- #include "third_party/blink/renderer/core/frame/local_dom_window.h"
+ #include "third_party/blink/public/common/privacy_budget/identifiability_metric_builder.h"
+ #include "third_party/blink/public/common/privacy_budget/identifiability_metrics.h"
+@@ -13,7 +17,39 @@
  
  namespace blink {
  
@@ -95,4 +93,3 @@ index 7d2f4d41b2730..c600e41747ec6 100644
    return ApproximatedDeviceMemory::GetApproximatedDeviceMemory();
  }
  
- }  // namespace blink

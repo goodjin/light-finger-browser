@@ -1,0 +1,12 @@
+{
+  "deps": [
+    "../../mojo/public/mojom/base/base.build_metadata",
+    "../../sandbox/policy/mojom/mojom.build_metadata",
+    "../../third_party/blink/public/mojom/tokens/tokens.build_metadata"
+  ],
+  "sources": [
+    "../../../../../src/content/shell/common/main_frame_counter_test.mojom",
+    "../../../../../src/content/shell/common/power_monitor_test.mojom",
+    "../../../../../src/content/shell/common/render_frame_test_helper.mojom"
+  ]
+}

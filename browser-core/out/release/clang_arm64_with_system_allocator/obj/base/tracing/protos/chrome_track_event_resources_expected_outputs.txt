@@ -1,0 +1,2 @@
+clang_arm64_with_system_allocator/gen/base/tracing/protos/grit/tracing_proto_resources.h
+clang_arm64_with_system_allocator/gen/base/tracing/protos/tracing_proto_resources.pak

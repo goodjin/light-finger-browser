@@ -1,0 +1,150 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "composite": true,
+    "declaration": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": true,
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable"
+    ],
+    "module": "esnext",
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "outDir": ".",
+    "rootDir": "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "esnext",
+    "tsBuildInfoFile": "sdk-tsconfig.json.tsbuildinfo",
+    "typeRoots": [],
+    "useUnknownInCatchVariables": false
+  },
+  "files": [
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/AccessibilityModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/AnimationModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/AutofillModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/CPUProfilerModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/CPUThrottlingManager.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/CSSContainerQuery.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/CSSFontFace.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/CSSLayer.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/CSSMatchedStyles.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/CSSMedia.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/CSSMetadata.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/CSSModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/CSSProperty.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/CSSPropertyParser.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/CSSPropertyParserMatchers.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/CSSQuery.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/CSSRule.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/CSSScope.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/CSSStyleDeclaration.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/CSSStyleSheetHeader.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/CSSSupports.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/CategorizedBreakpoint.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/ChildTargetManager.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/CompilerSourceMappingContentProvider.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/Connections.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/ConsoleModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/ConsoleModelTypes.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/Cookie.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/CookieModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/CookieParser.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/DOMDebuggerModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/DOMModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/DebuggerModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/EmulationModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/EnhancedTracesParser.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/EventBreakpointsModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/FrameAssociated.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/FrameManager.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/HeapProfilerModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/HttpReasonPhraseStrings.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/IOModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/IsolateManager.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/IssuesModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/LayerTreeBase.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/LogModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/NetworkManager.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/NetworkRequest.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/OverlayColorGenerator.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/OverlayModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/OverlayPersistentHighlighter.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/PageLoad.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/PageResourceLoader.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/PaintProfiler.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/PerformanceMetricsModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/PreloadingModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/RehydratingConnection.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/RehydratingObject.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/RemoteObject.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/Resource.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/ResourceTreeModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/RuntimeModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/SDKModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/ScreenCaptureModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/Script.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/SecurityOriginManager.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/ServerSentEvents.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/ServerSentEventsProtocol.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/ServerTiming.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/ServiceWorkerCacheModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/ServiceWorkerManager.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/SourceMap.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/SourceMapFunctionRanges.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/SourceMapManager.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/SourceMapScopeChainEntry.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/SourceMapScopes.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/SourceMapScopesInfo.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/StorageBucketsModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/StorageKeyManager.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/Target.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/TargetManager.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/TraceObject.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/sdk/WebAuthnModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/legacy/legacy-defs.d.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/global_typings/global_defs.d.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/node_modules/@types/filesystem/index.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../common/bundle-tsconfig.json"
+    },
+    {
+      "path": "../host/bundle-tsconfig.json"
+    },
+    {
+      "path": "../i18n/bundle-tsconfig.json"
+    },
+    {
+      "path": "../platform/bundle-tsconfig.json"
+    },
+    {
+      "path": "../protocol_client/bundle-tsconfig.json"
+    },
+    {
+      "path": "../root/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../generated/generated-tsconfig.json"
+    },
+    {
+      "path": "../../generated/protocol-tsconfig.json"
+    },
+    {
+      "path": "../../models/cpu_profile/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../models/text_utils/bundle-tsconfig.json"
+    }
+  ]
+}

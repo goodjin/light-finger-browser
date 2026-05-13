@@ -1,0 +1,4 @@
+gen/chrome/grit/browser_switch_resources.h
+gen/chrome/grit/browser_switch_resources_map.cc
+gen/chrome/grit/browser_switch_resources_map.h
+gen/chrome/browser_switch_resources.pak

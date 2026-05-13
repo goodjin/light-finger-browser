@@ -1,0 +1,424 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DOPUS_BUILD -DOPUS_EXPORT= -DENABLE_HARDENING -DUSE_ALLOCA -DHAVE_ALLOCA_H -DHAVE_LRINT -DHAVE_LRINTF -DCHROMIUM_NO_LOGGING
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/opus/src -I../../src/third_party/opus/src/celt -I../../src/third_party/opus/src/silk -I../../src/third_party/opus/src/silk/fixed -I../../src/third_party/opus/src/silk/float -I../../src/third_party/opus/src/include
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -O3 -fno-math-errno
+cflags_c = -std=c11
+label_name = opus
+root_out_dir = .
+target_out_dir = obj/third_party/opus
+target_output_name = libopus
+
+build phony/third_party/opus/opus.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/opus/opus/bands.o: cc ../../src/third_party/opus/src/celt/bands.c | phony/third_party/opus/opus.inputs
+  source_file_part = bands.c
+  source_name_part = bands
+build obj/third_party/opus/opus/celt.o: cc ../../src/third_party/opus/src/celt/celt.c | phony/third_party/opus/opus.inputs
+  source_file_part = celt.c
+  source_name_part = celt
+build obj/third_party/opus/opus/celt_decoder.o: cc ../../src/third_party/opus/src/celt/celt_decoder.c | phony/third_party/opus/opus.inputs
+  source_file_part = celt_decoder.c
+  source_name_part = celt_decoder
+build obj/third_party/opus/opus/celt_encoder.o: cc ../../src/third_party/opus/src/celt/celt_encoder.c | phony/third_party/opus/opus.inputs
+  source_file_part = celt_encoder.c
+  source_name_part = celt_encoder
+build obj/third_party/opus/opus/celt_lpc.o: cc ../../src/third_party/opus/src/celt/celt_lpc.c | phony/third_party/opus/opus.inputs
+  source_file_part = celt_lpc.c
+  source_name_part = celt_lpc
+build obj/third_party/opus/opus/cwrs.o: cc ../../src/third_party/opus/src/celt/cwrs.c | phony/third_party/opus/opus.inputs
+  source_file_part = cwrs.c
+  source_name_part = cwrs
+build obj/third_party/opus/opus/entcode.o: cc ../../src/third_party/opus/src/celt/entcode.c | phony/third_party/opus/opus.inputs
+  source_file_part = entcode.c
+  source_name_part = entcode
+build obj/third_party/opus/opus/entdec.o: cc ../../src/third_party/opus/src/celt/entdec.c | phony/third_party/opus/opus.inputs
+  source_file_part = entdec.c
+  source_name_part = entdec
+build obj/third_party/opus/opus/entenc.o: cc ../../src/third_party/opus/src/celt/entenc.c | phony/third_party/opus/opus.inputs
+  source_file_part = entenc.c
+  source_name_part = entenc
+build obj/third_party/opus/opus/kiss_fft.o: cc ../../src/third_party/opus/src/celt/kiss_fft.c | phony/third_party/opus/opus.inputs
+  source_file_part = kiss_fft.c
+  source_name_part = kiss_fft
+build obj/third_party/opus/opus/laplace.o: cc ../../src/third_party/opus/src/celt/laplace.c | phony/third_party/opus/opus.inputs
+  source_file_part = laplace.c
+  source_name_part = laplace
+build obj/third_party/opus/opus/mathops.o: cc ../../src/third_party/opus/src/celt/mathops.c | phony/third_party/opus/opus.inputs
+  source_file_part = mathops.c
+  source_name_part = mathops
+build obj/third_party/opus/opus/mdct.o: cc ../../src/third_party/opus/src/celt/mdct.c | phony/third_party/opus/opus.inputs
+  source_file_part = mdct.c
+  source_name_part = mdct
+build obj/third_party/opus/opus/modes.o: cc ../../src/third_party/opus/src/celt/modes.c | phony/third_party/opus/opus.inputs
+  source_file_part = modes.c
+  source_name_part = modes
+build obj/third_party/opus/opus/pitch.o: cc ../../src/third_party/opus/src/celt/pitch.c | phony/third_party/opus/opus.inputs
+  source_file_part = pitch.c
+  source_name_part = pitch
+build obj/third_party/opus/opus/quant_bands.o: cc ../../src/third_party/opus/src/celt/quant_bands.c | phony/third_party/opus/opus.inputs
+  source_file_part = quant_bands.c
+  source_name_part = quant_bands
+build obj/third_party/opus/opus/rate.o: cc ../../src/third_party/opus/src/celt/rate.c | phony/third_party/opus/opus.inputs
+  source_file_part = rate.c
+  source_name_part = rate
+build obj/third_party/opus/opus/vq.o: cc ../../src/third_party/opus/src/celt/vq.c | phony/third_party/opus/opus.inputs
+  source_file_part = vq.c
+  source_name_part = vq
+build obj/third_party/opus/opus/A2NLSF.o: cc ../../src/third_party/opus/src/silk/A2NLSF.c | phony/third_party/opus/opus.inputs
+  source_file_part = A2NLSF.c
+  source_name_part = A2NLSF
+build obj/third_party/opus/opus/CNG.o: cc ../../src/third_party/opus/src/silk/CNG.c | phony/third_party/opus/opus.inputs
+  source_file_part = CNG.c
+  source_name_part = CNG
+build obj/third_party/opus/opus/HP_variable_cutoff.o: cc ../../src/third_party/opus/src/silk/HP_variable_cutoff.c | phony/third_party/opus/opus.inputs
+  source_file_part = HP_variable_cutoff.c
+  source_name_part = HP_variable_cutoff
+build obj/third_party/opus/opus/LPC_analysis_filter.o: cc ../../src/third_party/opus/src/silk/LPC_analysis_filter.c | phony/third_party/opus/opus.inputs
+  source_file_part = LPC_analysis_filter.c
+  source_name_part = LPC_analysis_filter
+build obj/third_party/opus/opus/LPC_fit.o: cc ../../src/third_party/opus/src/silk/LPC_fit.c | phony/third_party/opus/opus.inputs
+  source_file_part = LPC_fit.c
+  source_name_part = LPC_fit
+build obj/third_party/opus/opus/LPC_inv_pred_gain.o: cc ../../src/third_party/opus/src/silk/LPC_inv_pred_gain.c | phony/third_party/opus/opus.inputs
+  source_file_part = LPC_inv_pred_gain.c
+  source_name_part = LPC_inv_pred_gain
+build obj/third_party/opus/opus/LP_variable_cutoff.o: cc ../../src/third_party/opus/src/silk/LP_variable_cutoff.c | phony/third_party/opus/opus.inputs
+  source_file_part = LP_variable_cutoff.c
+  source_name_part = LP_variable_cutoff
+build obj/third_party/opus/opus/NLSF2A.o: cc ../../src/third_party/opus/src/silk/NLSF2A.c | phony/third_party/opus/opus.inputs
+  source_file_part = NLSF2A.c
+  source_name_part = NLSF2A
+build obj/third_party/opus/opus/NLSF_VQ.o: cc ../../src/third_party/opus/src/silk/NLSF_VQ.c | phony/third_party/opus/opus.inputs
+  source_file_part = NLSF_VQ.c
+  source_name_part = NLSF_VQ
+build obj/third_party/opus/opus/NLSF_VQ_weights_laroia.o: cc ../../src/third_party/opus/src/silk/NLSF_VQ_weights_laroia.c | phony/third_party/opus/opus.inputs
+  source_file_part = NLSF_VQ_weights_laroia.c
+  source_name_part = NLSF_VQ_weights_laroia
+build obj/third_party/opus/opus/NLSF_decode.o: cc ../../src/third_party/opus/src/silk/NLSF_decode.c | phony/third_party/opus/opus.inputs
+  source_file_part = NLSF_decode.c
+  source_name_part = NLSF_decode
+build obj/third_party/opus/opus/NLSF_del_dec_quant.o: cc ../../src/third_party/opus/src/silk/NLSF_del_dec_quant.c | phony/third_party/opus/opus.inputs
+  source_file_part = NLSF_del_dec_quant.c
+  source_name_part = NLSF_del_dec_quant
+build obj/third_party/opus/opus/NLSF_encode.o: cc ../../src/third_party/opus/src/silk/NLSF_encode.c | phony/third_party/opus/opus.inputs
+  source_file_part = NLSF_encode.c
+  source_name_part = NLSF_encode
+build obj/third_party/opus/opus/NLSF_stabilize.o: cc ../../src/third_party/opus/src/silk/NLSF_stabilize.c | phony/third_party/opus/opus.inputs
+  source_file_part = NLSF_stabilize.c
+  source_name_part = NLSF_stabilize
+build obj/third_party/opus/opus/NLSF_unpack.o: cc ../../src/third_party/opus/src/silk/NLSF_unpack.c | phony/third_party/opus/opus.inputs
+  source_file_part = NLSF_unpack.c
+  source_name_part = NLSF_unpack
+build obj/third_party/opus/opus/NSQ.o: cc ../../src/third_party/opus/src/silk/NSQ.c | phony/third_party/opus/opus.inputs
+  source_file_part = NSQ.c
+  source_name_part = NSQ
+build obj/third_party/opus/opus/NSQ_del_dec.o: cc ../../src/third_party/opus/src/silk/NSQ_del_dec.c | phony/third_party/opus/opus.inputs
+  source_file_part = NSQ_del_dec.c
+  source_name_part = NSQ_del_dec
+build obj/third_party/opus/opus/PLC.o: cc ../../src/third_party/opus/src/silk/PLC.c | phony/third_party/opus/opus.inputs
+  source_file_part = PLC.c
+  source_name_part = PLC
+build obj/third_party/opus/opus/VAD.o: cc ../../src/third_party/opus/src/silk/VAD.c | phony/third_party/opus/opus.inputs
+  source_file_part = VAD.c
+  source_name_part = VAD
+build obj/third_party/opus/opus/VQ_WMat_EC.o: cc ../../src/third_party/opus/src/silk/VQ_WMat_EC.c | phony/third_party/opus/opus.inputs
+  source_file_part = VQ_WMat_EC.c
+  source_name_part = VQ_WMat_EC
+build obj/third_party/opus/opus/ana_filt_bank_1.o: cc ../../src/third_party/opus/src/silk/ana_filt_bank_1.c | phony/third_party/opus/opus.inputs
+  source_file_part = ana_filt_bank_1.c
+  source_name_part = ana_filt_bank_1
+build obj/third_party/opus/opus/biquad_alt.o: cc ../../src/third_party/opus/src/silk/biquad_alt.c | phony/third_party/opus/opus.inputs
+  source_file_part = biquad_alt.c
+  source_name_part = biquad_alt
+build obj/third_party/opus/opus/bwexpander.o: cc ../../src/third_party/opus/src/silk/bwexpander.c | phony/third_party/opus/opus.inputs
+  source_file_part = bwexpander.c
+  source_name_part = bwexpander
+build obj/third_party/opus/opus/bwexpander_32.o: cc ../../src/third_party/opus/src/silk/bwexpander_32.c | phony/third_party/opus/opus.inputs
+  source_file_part = bwexpander_32.c
+  source_name_part = bwexpander_32
+build obj/third_party/opus/opus/check_control_input.o: cc ../../src/third_party/opus/src/silk/check_control_input.c | phony/third_party/opus/opus.inputs
+  source_file_part = check_control_input.c
+  source_name_part = check_control_input
+build obj/third_party/opus/opus/code_signs.o: cc ../../src/third_party/opus/src/silk/code_signs.c | phony/third_party/opus/opus.inputs
+  source_file_part = code_signs.c
+  source_name_part = code_signs
+build obj/third_party/opus/opus/control_SNR.o: cc ../../src/third_party/opus/src/silk/control_SNR.c | phony/third_party/opus/opus.inputs
+  source_file_part = control_SNR.c
+  source_name_part = control_SNR
+build obj/third_party/opus/opus/control_audio_bandwidth.o: cc ../../src/third_party/opus/src/silk/control_audio_bandwidth.c | phony/third_party/opus/opus.inputs
+  source_file_part = control_audio_bandwidth.c
+  source_name_part = control_audio_bandwidth
+build obj/third_party/opus/opus/control_codec.o: cc ../../src/third_party/opus/src/silk/control_codec.c | phony/third_party/opus/opus.inputs
+  source_file_part = control_codec.c
+  source_name_part = control_codec
+build obj/third_party/opus/opus/debug.o: cc ../../src/third_party/opus/src/silk/debug.c | phony/third_party/opus/opus.inputs
+  source_file_part = debug.c
+  source_name_part = debug
+build obj/third_party/opus/opus/dec_API.o: cc ../../src/third_party/opus/src/silk/dec_API.c | phony/third_party/opus/opus.inputs
+  source_file_part = dec_API.c
+  source_name_part = dec_API
+build obj/third_party/opus/opus/decode_core.o: cc ../../src/third_party/opus/src/silk/decode_core.c | phony/third_party/opus/opus.inputs
+  source_file_part = decode_core.c
+  source_name_part = decode_core
+build obj/third_party/opus/opus/decode_frame.o: cc ../../src/third_party/opus/src/silk/decode_frame.c | phony/third_party/opus/opus.inputs
+  source_file_part = decode_frame.c
+  source_name_part = decode_frame
+build obj/third_party/opus/opus/decode_indices.o: cc ../../src/third_party/opus/src/silk/decode_indices.c | phony/third_party/opus/opus.inputs
+  source_file_part = decode_indices.c
+  source_name_part = decode_indices
+build obj/third_party/opus/opus/decode_parameters.o: cc ../../src/third_party/opus/src/silk/decode_parameters.c | phony/third_party/opus/opus.inputs
+  source_file_part = decode_parameters.c
+  source_name_part = decode_parameters
+build obj/third_party/opus/opus/decode_pitch.o: cc ../../src/third_party/opus/src/silk/decode_pitch.c | phony/third_party/opus/opus.inputs
+  source_file_part = decode_pitch.c
+  source_name_part = decode_pitch
+build obj/third_party/opus/opus/decode_pulses.o: cc ../../src/third_party/opus/src/silk/decode_pulses.c | phony/third_party/opus/opus.inputs
+  source_file_part = decode_pulses.c
+  source_name_part = decode_pulses
+build obj/third_party/opus/opus/decoder_set_fs.o: cc ../../src/third_party/opus/src/silk/decoder_set_fs.c | phony/third_party/opus/opus.inputs
+  source_file_part = decoder_set_fs.c
+  source_name_part = decoder_set_fs
+build obj/third_party/opus/opus/enc_API.o: cc ../../src/third_party/opus/src/silk/enc_API.c | phony/third_party/opus/opus.inputs
+  source_file_part = enc_API.c
+  source_name_part = enc_API
+build obj/third_party/opus/opus/encode_indices.o: cc ../../src/third_party/opus/src/silk/encode_indices.c | phony/third_party/opus/opus.inputs
+  source_file_part = encode_indices.c
+  source_name_part = encode_indices
+build obj/third_party/opus/opus/encode_pulses.o: cc ../../src/third_party/opus/src/silk/encode_pulses.c | phony/third_party/opus/opus.inputs
+  source_file_part = encode_pulses.c
+  source_name_part = encode_pulses
+build obj/third_party/opus/opus/gain_quant.o: cc ../../src/third_party/opus/src/silk/gain_quant.c | phony/third_party/opus/opus.inputs
+  source_file_part = gain_quant.c
+  source_name_part = gain_quant
+build obj/third_party/opus/opus/init_decoder.o: cc ../../src/third_party/opus/src/silk/init_decoder.c | phony/third_party/opus/opus.inputs
+  source_file_part = init_decoder.c
+  source_name_part = init_decoder
+build obj/third_party/opus/opus/init_encoder.o: cc ../../src/third_party/opus/src/silk/init_encoder.c | phony/third_party/opus/opus.inputs
+  source_file_part = init_encoder.c
+  source_name_part = init_encoder
+build obj/third_party/opus/opus/inner_prod_aligned.o: cc ../../src/third_party/opus/src/silk/inner_prod_aligned.c | phony/third_party/opus/opus.inputs
+  source_file_part = inner_prod_aligned.c
+  source_name_part = inner_prod_aligned
+build obj/third_party/opus/opus/interpolate.o: cc ../../src/third_party/opus/src/silk/interpolate.c | phony/third_party/opus/opus.inputs
+  source_file_part = interpolate.c
+  source_name_part = interpolate
+build obj/third_party/opus/opus/lin2log.o: cc ../../src/third_party/opus/src/silk/lin2log.c | phony/third_party/opus/opus.inputs
+  source_file_part = lin2log.c
+  source_name_part = lin2log
+build obj/third_party/opus/opus/log2lin.o: cc ../../src/third_party/opus/src/silk/log2lin.c | phony/third_party/opus/opus.inputs
+  source_file_part = log2lin.c
+  source_name_part = log2lin
+build obj/third_party/opus/opus/pitch_est_tables.o: cc ../../src/third_party/opus/src/silk/pitch_est_tables.c | phony/third_party/opus/opus.inputs
+  source_file_part = pitch_est_tables.c
+  source_name_part = pitch_est_tables
+build obj/third_party/opus/opus/process_NLSFs.o: cc ../../src/third_party/opus/src/silk/process_NLSFs.c | phony/third_party/opus/opus.inputs
+  source_file_part = process_NLSFs.c
+  source_name_part = process_NLSFs
+build obj/third_party/opus/opus/quant_LTP_gains.o: cc ../../src/third_party/opus/src/silk/quant_LTP_gains.c | phony/third_party/opus/opus.inputs
+  source_file_part = quant_LTP_gains.c
+  source_name_part = quant_LTP_gains
+build obj/third_party/opus/opus/resampler.o: cc ../../src/third_party/opus/src/silk/resampler.c | phony/third_party/opus/opus.inputs
+  source_file_part = resampler.c
+  source_name_part = resampler
+build obj/third_party/opus/opus/resampler_down2.o: cc ../../src/third_party/opus/src/silk/resampler_down2.c | phony/third_party/opus/opus.inputs
+  source_file_part = resampler_down2.c
+  source_name_part = resampler_down2
+build obj/third_party/opus/opus/resampler_down2_3.o: cc ../../src/third_party/opus/src/silk/resampler_down2_3.c | phony/third_party/opus/opus.inputs
+  source_file_part = resampler_down2_3.c
+  source_name_part = resampler_down2_3
+build obj/third_party/opus/opus/resampler_private_AR2.o: cc ../../src/third_party/opus/src/silk/resampler_private_AR2.c | phony/third_party/opus/opus.inputs
+  source_file_part = resampler_private_AR2.c
+  source_name_part = resampler_private_AR2
+build obj/third_party/opus/opus/resampler_private_IIR_FIR.o: cc ../../src/third_party/opus/src/silk/resampler_private_IIR_FIR.c | phony/third_party/opus/opus.inputs
+  source_file_part = resampler_private_IIR_FIR.c
+  source_name_part = resampler_private_IIR_FIR
+build obj/third_party/opus/opus/resampler_private_down_FIR.o: cc ../../src/third_party/opus/src/silk/resampler_private_down_FIR.c | phony/third_party/opus/opus.inputs
+  source_file_part = resampler_private_down_FIR.c
+  source_name_part = resampler_private_down_FIR
+build obj/third_party/opus/opus/resampler_private_up2_HQ.o: cc ../../src/third_party/opus/src/silk/resampler_private_up2_HQ.c | phony/third_party/opus/opus.inputs
+  source_file_part = resampler_private_up2_HQ.c
+  source_name_part = resampler_private_up2_HQ
+build obj/third_party/opus/opus/resampler_rom.o: cc ../../src/third_party/opus/src/silk/resampler_rom.c | phony/third_party/opus/opus.inputs
+  source_file_part = resampler_rom.c
+  source_name_part = resampler_rom
+build obj/third_party/opus/opus/shell_coder.o: cc ../../src/third_party/opus/src/silk/shell_coder.c | phony/third_party/opus/opus.inputs
+  source_file_part = shell_coder.c
+  source_name_part = shell_coder
+build obj/third_party/opus/opus/sigm_Q15.o: cc ../../src/third_party/opus/src/silk/sigm_Q15.c | phony/third_party/opus/opus.inputs
+  source_file_part = sigm_Q15.c
+  source_name_part = sigm_Q15
+build obj/third_party/opus/opus/sort.o: cc ../../src/third_party/opus/src/silk/sort.c | phony/third_party/opus/opus.inputs
+  source_file_part = sort.c
+  source_name_part = sort
+build obj/third_party/opus/opus/stereo_LR_to_MS.o: cc ../../src/third_party/opus/src/silk/stereo_LR_to_MS.c | phony/third_party/opus/opus.inputs
+  source_file_part = stereo_LR_to_MS.c
+  source_name_part = stereo_LR_to_MS
+build obj/third_party/opus/opus/stereo_MS_to_LR.o: cc ../../src/third_party/opus/src/silk/stereo_MS_to_LR.c | phony/third_party/opus/opus.inputs
+  source_file_part = stereo_MS_to_LR.c
+  source_name_part = stereo_MS_to_LR
+build obj/third_party/opus/opus/stereo_decode_pred.o: cc ../../src/third_party/opus/src/silk/stereo_decode_pred.c | phony/third_party/opus/opus.inputs
+  source_file_part = stereo_decode_pred.c
+  source_name_part = stereo_decode_pred
+build obj/third_party/opus/opus/stereo_encode_pred.o: cc ../../src/third_party/opus/src/silk/stereo_encode_pred.c | phony/third_party/opus/opus.inputs
+  source_file_part = stereo_encode_pred.c
+  source_name_part = stereo_encode_pred
+build obj/third_party/opus/opus/stereo_find_predictor.o: cc ../../src/third_party/opus/src/silk/stereo_find_predictor.c | phony/third_party/opus/opus.inputs
+  source_file_part = stereo_find_predictor.c
+  source_name_part = stereo_find_predictor
+build obj/third_party/opus/opus/stereo_quant_pred.o: cc ../../src/third_party/opus/src/silk/stereo_quant_pred.c | phony/third_party/opus/opus.inputs
+  source_file_part = stereo_quant_pred.c
+  source_name_part = stereo_quant_pred
+build obj/third_party/opus/opus/sum_sqr_shift.o: cc ../../src/third_party/opus/src/silk/sum_sqr_shift.c | phony/third_party/opus/opus.inputs
+  source_file_part = sum_sqr_shift.c
+  source_name_part = sum_sqr_shift
+build obj/third_party/opus/opus/table_LSF_cos.o: cc ../../src/third_party/opus/src/silk/table_LSF_cos.c | phony/third_party/opus/opus.inputs
+  source_file_part = table_LSF_cos.c
+  source_name_part = table_LSF_cos
+build obj/third_party/opus/opus/tables_LTP.o: cc ../../src/third_party/opus/src/silk/tables_LTP.c | phony/third_party/opus/opus.inputs
+  source_file_part = tables_LTP.c
+  source_name_part = tables_LTP
+build obj/third_party/opus/opus/tables_NLSF_CB_NB_MB.o: cc ../../src/third_party/opus/src/silk/tables_NLSF_CB_NB_MB.c | phony/third_party/opus/opus.inputs
+  source_file_part = tables_NLSF_CB_NB_MB.c
+  source_name_part = tables_NLSF_CB_NB_MB
+build obj/third_party/opus/opus/tables_NLSF_CB_WB.o: cc ../../src/third_party/opus/src/silk/tables_NLSF_CB_WB.c | phony/third_party/opus/opus.inputs
+  source_file_part = tables_NLSF_CB_WB.c
+  source_name_part = tables_NLSF_CB_WB
+build obj/third_party/opus/opus/tables_gain.o: cc ../../src/third_party/opus/src/silk/tables_gain.c | phony/third_party/opus/opus.inputs
+  source_file_part = tables_gain.c
+  source_name_part = tables_gain
+build obj/third_party/opus/opus/tables_other.o: cc ../../src/third_party/opus/src/silk/tables_other.c | phony/third_party/opus/opus.inputs
+  source_file_part = tables_other.c
+  source_name_part = tables_other
+build obj/third_party/opus/opus/tables_pitch_lag.o: cc ../../src/third_party/opus/src/silk/tables_pitch_lag.c | phony/third_party/opus/opus.inputs
+  source_file_part = tables_pitch_lag.c
+  source_name_part = tables_pitch_lag
+build obj/third_party/opus/opus/tables_pulses_per_block.o: cc ../../src/third_party/opus/src/silk/tables_pulses_per_block.c | phony/third_party/opus/opus.inputs
+  source_file_part = tables_pulses_per_block.c
+  source_name_part = tables_pulses_per_block
+build obj/third_party/opus/opus/analysis.o: cc ../../src/third_party/opus/src/src/analysis.c | phony/third_party/opus/opus.inputs
+  source_file_part = analysis.c
+  source_name_part = analysis
+build obj/third_party/opus/opus/mapping_matrix.o: cc ../../src/third_party/opus/src/src/mapping_matrix.c | phony/third_party/opus/opus.inputs
+  source_file_part = mapping_matrix.c
+  source_name_part = mapping_matrix
+build obj/third_party/opus/opus/mlp.o: cc ../../src/third_party/opus/src/src/mlp.c | phony/third_party/opus/opus.inputs
+  source_file_part = mlp.c
+  source_name_part = mlp
+build obj/third_party/opus/opus/mlp_data.o: cc ../../src/third_party/opus/src/src/mlp_data.c | phony/third_party/opus/opus.inputs
+  source_file_part = mlp_data.c
+  source_name_part = mlp_data
+build obj/third_party/opus/opus/opus.o: cc ../../src/third_party/opus/src/src/opus.c | phony/third_party/opus/opus.inputs
+  source_file_part = opus.c
+  source_name_part = opus
+build obj/third_party/opus/opus/opus_decoder.o: cc ../../src/third_party/opus/src/src/opus_decoder.c | phony/third_party/opus/opus.inputs
+  source_file_part = opus_decoder.c
+  source_name_part = opus_decoder
+build obj/third_party/opus/opus/opus_encoder.o: cc ../../src/third_party/opus/src/src/opus_encoder.c | phony/third_party/opus/opus.inputs
+  source_file_part = opus_encoder.c
+  source_name_part = opus_encoder
+build obj/third_party/opus/opus/opus_multistream.o: cc ../../src/third_party/opus/src/src/opus_multistream.c | phony/third_party/opus/opus.inputs
+  source_file_part = opus_multistream.c
+  source_name_part = opus_multistream
+build obj/third_party/opus/opus/opus_multistream_decoder.o: cc ../../src/third_party/opus/src/src/opus_multistream_decoder.c | phony/third_party/opus/opus.inputs
+  source_file_part = opus_multistream_decoder.c
+  source_name_part = opus_multistream_decoder
+build obj/third_party/opus/opus/opus_multistream_encoder.o: cc ../../src/third_party/opus/src/src/opus_multistream_encoder.c | phony/third_party/opus/opus.inputs
+  source_file_part = opus_multistream_encoder.c
+  source_name_part = opus_multistream_encoder
+build obj/third_party/opus/opus/opus_projection_decoder.o: cc ../../src/third_party/opus/src/src/opus_projection_decoder.c | phony/third_party/opus/opus.inputs
+  source_file_part = opus_projection_decoder.c
+  source_name_part = opus_projection_decoder
+build obj/third_party/opus/opus/opus_projection_encoder.o: cc ../../src/third_party/opus/src/src/opus_projection_encoder.c | phony/third_party/opus/opus.inputs
+  source_file_part = opus_projection_encoder.c
+  source_name_part = opus_projection_encoder
+build obj/third_party/opus/opus/repacketizer.o: cc ../../src/third_party/opus/src/src/repacketizer.c | phony/third_party/opus/opus.inputs
+  source_file_part = repacketizer.c
+  source_name_part = repacketizer
+build obj/third_party/opus/opus/LPC_analysis_filter_FLP.o: cc ../../src/third_party/opus/src/silk/float/LPC_analysis_filter_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = LPC_analysis_filter_FLP.c
+  source_name_part = LPC_analysis_filter_FLP
+build obj/third_party/opus/opus/LPC_inv_pred_gain_FLP.o: cc ../../src/third_party/opus/src/silk/float/LPC_inv_pred_gain_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = LPC_inv_pred_gain_FLP.c
+  source_name_part = LPC_inv_pred_gain_FLP
+build obj/third_party/opus/opus/LTP_analysis_filter_FLP.o: cc ../../src/third_party/opus/src/silk/float/LTP_analysis_filter_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = LTP_analysis_filter_FLP.c
+  source_name_part = LTP_analysis_filter_FLP
+build obj/third_party/opus/opus/LTP_scale_ctrl_FLP.o: cc ../../src/third_party/opus/src/silk/float/LTP_scale_ctrl_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = LTP_scale_ctrl_FLP.c
+  source_name_part = LTP_scale_ctrl_FLP
+build obj/third_party/opus/opus/apply_sine_window_FLP.o: cc ../../src/third_party/opus/src/silk/float/apply_sine_window_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = apply_sine_window_FLP.c
+  source_name_part = apply_sine_window_FLP
+build obj/third_party/opus/opus/autocorrelation_FLP.o: cc ../../src/third_party/opus/src/silk/float/autocorrelation_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = autocorrelation_FLP.c
+  source_name_part = autocorrelation_FLP
+build obj/third_party/opus/opus/burg_modified_FLP.o: cc ../../src/third_party/opus/src/silk/float/burg_modified_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = burg_modified_FLP.c
+  source_name_part = burg_modified_FLP
+build obj/third_party/opus/opus/bwexpander_FLP.o: cc ../../src/third_party/opus/src/silk/float/bwexpander_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = bwexpander_FLP.c
+  source_name_part = bwexpander_FLP
+build obj/third_party/opus/opus/corrMatrix_FLP.o: cc ../../src/third_party/opus/src/silk/float/corrMatrix_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = corrMatrix_FLP.c
+  source_name_part = corrMatrix_FLP
+build obj/third_party/opus/opus/encode_frame_FLP.o: cc ../../src/third_party/opus/src/silk/float/encode_frame_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = encode_frame_FLP.c
+  source_name_part = encode_frame_FLP
+build obj/third_party/opus/opus/energy_FLP.o: cc ../../src/third_party/opus/src/silk/float/energy_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = energy_FLP.c
+  source_name_part = energy_FLP
+build obj/third_party/opus/opus/find_LPC_FLP.o: cc ../../src/third_party/opus/src/silk/float/find_LPC_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = find_LPC_FLP.c
+  source_name_part = find_LPC_FLP
+build obj/third_party/opus/opus/find_LTP_FLP.o: cc ../../src/third_party/opus/src/silk/float/find_LTP_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = find_LTP_FLP.c
+  source_name_part = find_LTP_FLP
+build obj/third_party/opus/opus/find_pitch_lags_FLP.o: cc ../../src/third_party/opus/src/silk/float/find_pitch_lags_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = find_pitch_lags_FLP.c
+  source_name_part = find_pitch_lags_FLP
+build obj/third_party/opus/opus/find_pred_coefs_FLP.o: cc ../../src/third_party/opus/src/silk/float/find_pred_coefs_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = find_pred_coefs_FLP.c
+  source_name_part = find_pred_coefs_FLP
+build obj/third_party/opus/opus/inner_product_FLP.o: cc ../../src/third_party/opus/src/silk/float/inner_product_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = inner_product_FLP.c
+  source_name_part = inner_product_FLP
+build obj/third_party/opus/opus/k2a_FLP.o: cc ../../src/third_party/opus/src/silk/float/k2a_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = k2a_FLP.c
+  source_name_part = k2a_FLP
+build obj/third_party/opus/opus/noise_shape_analysis_FLP.o: cc ../../src/third_party/opus/src/silk/float/noise_shape_analysis_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = noise_shape_analysis_FLP.c
+  source_name_part = noise_shape_analysis_FLP
+build obj/third_party/opus/opus/pitch_analysis_core_FLP.o: cc ../../src/third_party/opus/src/silk/float/pitch_analysis_core_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = pitch_analysis_core_FLP.c
+  source_name_part = pitch_analysis_core_FLP
+build obj/third_party/opus/opus/process_gains_FLP.o: cc ../../src/third_party/opus/src/silk/float/process_gains_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = process_gains_FLP.c
+  source_name_part = process_gains_FLP
+build obj/third_party/opus/opus/regularize_correlations_FLP.o: cc ../../src/third_party/opus/src/silk/float/regularize_correlations_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = regularize_correlations_FLP.c
+  source_name_part = regularize_correlations_FLP
+build obj/third_party/opus/opus/residual_energy_FLP.o: cc ../../src/third_party/opus/src/silk/float/residual_energy_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = residual_energy_FLP.c
+  source_name_part = residual_energy_FLP
+build obj/third_party/opus/opus/scale_copy_vector_FLP.o: cc ../../src/third_party/opus/src/silk/float/scale_copy_vector_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = scale_copy_vector_FLP.c
+  source_name_part = scale_copy_vector_FLP
+build obj/third_party/opus/opus/scale_vector_FLP.o: cc ../../src/third_party/opus/src/silk/float/scale_vector_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = scale_vector_FLP.c
+  source_name_part = scale_vector_FLP
+build obj/third_party/opus/opus/schur_FLP.o: cc ../../src/third_party/opus/src/silk/float/schur_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = schur_FLP.c
+  source_name_part = schur_FLP
+build obj/third_party/opus/opus/sort_FLP.o: cc ../../src/third_party/opus/src/silk/float/sort_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = sort_FLP.c
+  source_name_part = sort_FLP
+build obj/third_party/opus/opus/warped_autocorrelation_FLP.o: cc ../../src/third_party/opus/src/silk/float/warped_autocorrelation_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = warped_autocorrelation_FLP.c
+  source_name_part = warped_autocorrelation_FLP
+build obj/third_party/opus/opus/wrappers_FLP.o: cc ../../src/third_party/opus/src/silk/float/wrappers_FLP.c | phony/third_party/opus/opus.inputs
+  source_file_part = wrappers_FLP.c
+  source_name_part = wrappers_FLP
+
+build obj/third_party/opus/libopus.a: alink obj/third_party/opus/opus/bands.o obj/third_party/opus/opus/celt.o obj/third_party/opus/opus/celt_decoder.o obj/third_party/opus/opus/celt_encoder.o obj/third_party/opus/opus/celt_lpc.o obj/third_party/opus/opus/cwrs.o obj/third_party/opus/opus/entcode.o obj/third_party/opus/opus/entdec.o obj/third_party/opus/opus/entenc.o obj/third_party/opus/opus/kiss_fft.o obj/third_party/opus/opus/laplace.o obj/third_party/opus/opus/mathops.o obj/third_party/opus/opus/mdct.o obj/third_party/opus/opus/modes.o obj/third_party/opus/opus/pitch.o obj/third_party/opus/opus/quant_bands.o obj/third_party/opus/opus/rate.o obj/third_party/opus/opus/vq.o obj/third_party/opus/opus/A2NLSF.o obj/third_party/opus/opus/CNG.o obj/third_party/opus/opus/HP_variable_cutoff.o obj/third_party/opus/opus/LPC_analysis_filter.o obj/third_party/opus/opus/LPC_fit.o obj/third_party/opus/opus/LPC_inv_pred_gain.o obj/third_party/opus/opus/LP_variable_cutoff.o obj/third_party/opus/opus/NLSF2A.o obj/third_party/opus/opus/NLSF_VQ.o obj/third_party/opus/opus/NLSF_VQ_weights_laroia.o obj/third_party/opus/opus/NLSF_decode.o obj/third_party/opus/opus/NLSF_del_dec_quant.o obj/third_party/opus/opus/NLSF_encode.o obj/third_party/opus/opus/NLSF_stabilize.o obj/third_party/opus/opus/NLSF_unpack.o obj/third_party/opus/opus/NSQ.o obj/third_party/opus/opus/NSQ_del_dec.o obj/third_party/opus/opus/PLC.o obj/third_party/opus/opus/VAD.o obj/third_party/opus/opus/VQ_WMat_EC.o obj/third_party/opus/opus/ana_filt_bank_1.o obj/third_party/opus/opus/biquad_alt.o obj/third_party/opus/opus/bwexpander.o obj/third_party/opus/opus/bwexpander_32.o obj/third_party/opus/opus/check_control_input.o obj/third_party/opus/opus/code_signs.o obj/third_party/opus/opus/control_SNR.o obj/third_party/opus/opus/control_audio_bandwidth.o obj/third_party/opus/opus/control_codec.o obj/third_party/opus/opus/debug.o obj/third_party/opus/opus/dec_API.o obj/third_party/opus/opus/decode_core.o obj/third_party/opus/opus/decode_frame.o obj/third_party/opus/opus/decode_indices.o obj/third_party/opus/opus/decode_parameters.o obj/third_party/opus/opus/decode_pitch.o obj/third_party/opus/opus/decode_pulses.o obj/third_party/opus/opus/decoder_set_fs.o obj/third_party/opus/opus/enc_API.o obj/third_party/opus/opus/encode_indices.o obj/third_party/opus/opus/encode_pulses.o obj/third_party/opus/opus/gain_quant.o obj/third_party/opus/opus/init_decoder.o obj/third_party/opus/opus/init_encoder.o obj/third_party/opus/opus/inner_prod_aligned.o obj/third_party/opus/opus/interpolate.o obj/third_party/opus/opus/lin2log.o obj/third_party/opus/opus/log2lin.o obj/third_party/opus/opus/pitch_est_tables.o obj/third_party/opus/opus/process_NLSFs.o obj/third_party/opus/opus/quant_LTP_gains.o obj/third_party/opus/opus/resampler.o obj/third_party/opus/opus/resampler_down2.o obj/third_party/opus/opus/resampler_down2_3.o obj/third_party/opus/opus/resampler_private_AR2.o obj/third_party/opus/opus/resampler_private_IIR_FIR.o obj/third_party/opus/opus/resampler_private_down_FIR.o obj/third_party/opus/opus/resampler_private_up2_HQ.o obj/third_party/opus/opus/resampler_rom.o obj/third_party/opus/opus/shell_coder.o obj/third_party/opus/opus/sigm_Q15.o obj/third_party/opus/opus/sort.o obj/third_party/opus/opus/stereo_LR_to_MS.o obj/third_party/opus/opus/stereo_MS_to_LR.o obj/third_party/opus/opus/stereo_decode_pred.o obj/third_party/opus/opus/stereo_encode_pred.o obj/third_party/opus/opus/stereo_find_predictor.o obj/third_party/opus/opus/stereo_quant_pred.o obj/third_party/opus/opus/sum_sqr_shift.o obj/third_party/opus/opus/table_LSF_cos.o obj/third_party/opus/opus/tables_LTP.o obj/third_party/opus/opus/tables_NLSF_CB_NB_MB.o obj/third_party/opus/opus/tables_NLSF_CB_WB.o obj/third_party/opus/opus/tables_gain.o obj/third_party/opus/opus/tables_other.o obj/third_party/opus/opus/tables_pitch_lag.o obj/third_party/opus/opus/tables_pulses_per_block.o obj/third_party/opus/opus/analysis.o obj/third_party/opus/opus/mapping_matrix.o obj/third_party/opus/opus/mlp.o obj/third_party/opus/opus/mlp_data.o obj/third_party/opus/opus/opus.o obj/third_party/opus/opus/opus_decoder.o obj/third_party/opus/opus/opus_encoder.o obj/third_party/opus/opus/opus_multistream.o obj/third_party/opus/opus/opus_multistream_decoder.o obj/third_party/opus/opus/opus_multistream_encoder.o obj/third_party/opus/opus/opus_projection_decoder.o obj/third_party/opus/opus/opus_projection_encoder.o obj/third_party/opus/opus/repacketizer.o obj/third_party/opus/opus/LPC_analysis_filter_FLP.o obj/third_party/opus/opus/LPC_inv_pred_gain_FLP.o obj/third_party/opus/opus/LTP_analysis_filter_FLP.o obj/third_party/opus/opus/LTP_scale_ctrl_FLP.o obj/third_party/opus/opus/apply_sine_window_FLP.o obj/third_party/opus/opus/autocorrelation_FLP.o obj/third_party/opus/opus/burg_modified_FLP.o obj/third_party/opus/opus/bwexpander_FLP.o obj/third_party/opus/opus/corrMatrix_FLP.o obj/third_party/opus/opus/encode_frame_FLP.o obj/third_party/opus/opus/energy_FLP.o obj/third_party/opus/opus/find_LPC_FLP.o obj/third_party/opus/opus/find_LTP_FLP.o obj/third_party/opus/opus/find_pitch_lags_FLP.o obj/third_party/opus/opus/find_pred_coefs_FLP.o obj/third_party/opus/opus/inner_product_FLP.o obj/third_party/opus/opus/k2a_FLP.o obj/third_party/opus/opus/noise_shape_analysis_FLP.o obj/third_party/opus/opus/pitch_analysis_core_FLP.o obj/third_party/opus/opus/process_gains_FLP.o obj/third_party/opus/opus/regularize_correlations_FLP.o obj/third_party/opus/opus/residual_energy_FLP.o obj/third_party/opus/opus/scale_copy_vector_FLP.o obj/third_party/opus/opus/scale_vector_FLP.o obj/third_party/opus/opus/schur_FLP.o obj/third_party/opus/opus/sort_FLP.o obj/third_party/opus/opus/warped_autocorrelation_FLP.o obj/third_party/opus/opus/wrappers_FLP.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a phony/third_party/opus/opus.inputs
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/third_party/opus

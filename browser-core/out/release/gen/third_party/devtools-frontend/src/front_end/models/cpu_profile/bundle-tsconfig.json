@@ -1,0 +1,1 @@
+{"compilerOptions":{"composite":true,"outDir":".","baseUrl":".","rootDir":"../../../../../../../../../src/third_party/devtools-frontend/src/front_end/models/cpu_profile"},"files":["../../../../../../../../../src/third_party/devtools-frontend/src/front_end/models/cpu_profile/cpu_profile.ts"],"references":[{"path":"./cpu_profile-tsconfig.json"}]}

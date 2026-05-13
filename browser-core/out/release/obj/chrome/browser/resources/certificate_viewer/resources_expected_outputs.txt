@@ -1,0 +1,4 @@
+gen/chrome/grit/certificate_viewer_resources.h
+gen/chrome/grit/certificate_viewer_resources_map.cc
+gen/chrome/grit/certificate_viewer_resources_map.h
+gen/chrome/certificate_viewer_resources.pak

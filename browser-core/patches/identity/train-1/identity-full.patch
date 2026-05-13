@@ -1,0 +1,465 @@
+diff --git a/chrome/browser/chrome_content_browser_client.cc b/chrome/browser/chrome_content_browser_client.cc
+index a7d66215ad0b7..bff2929e0a453 100644
+--- a/chrome/browser/chrome_content_browser_client.cc
++++ b/chrome/browser/chrome_content_browser_client.cc
+@@ -2755,6 +2755,22 @@ void ChromeContentBrowserClient::AppendExtraCommandLineSwitches(
+   command_line->CopySwitchesFrom(browser_command_line,
+                                  kDinosaurEasterEggSwitches);
+ 
++  static const char* const kStealthIdentitySwitches[] = {
++      "platform",
++      "locale",
++      "timezone",
++      "screen-width",
++      "screen-height",
++      "screen-avail-width",
++      "screen-avail-height",
++      "screen-avail-left",
++      "screen-avail-top",
++      "screen-color-depth",
++      "device-pixel-ratio",
++      "hardware-concurrency",
++      "device-memory",
++  };
++
+ #if BUILDFLAG(IS_CHROMEOS)
+   // On Chrome OS need to pass primary user homedir (in multi-profiles session).
+   base::FilePath homedir;
+@@ -2763,6 +2779,8 @@ void ChromeContentBrowserClient::AppendExtraCommandLineSwitches(
+ #endif
+ 
+   if (process_type == switches::kRendererProcess) {
++    command_line->CopySwitchesFrom(browser_command_line,
++                                   kStealthIdentitySwitches);
+     content::RenderProcessHost* process =
+         content::RenderProcessHost::FromID(child_process_id);
+     if (process) {
+diff --git a/third_party/blink/renderer/core/frame/local_dom_window.cc b/third_party/blink/renderer/core/frame/local_dom_window.cc
+index f4a1ed78679c5..a54f5d9dec15c 100644
+--- a/third_party/blink/renderer/core/frame/local_dom_window.cc
++++ b/third_party/blink/renderer/core/frame/local_dom_window.cc
+@@ -31,6 +31,7 @@
+ #include <utility>
+ 
+ #include "base/command_line.h"
++#include "base/strings/string_number_conversions.h"
+ #include "base/containers/contains.h"
+ #include "base/metrics/histogram_macros.h"
+ #include "base/task/single_thread_task_runner.h"
+@@ -173,6 +174,22 @@
+ namespace blink {
+ 
+ namespace {
++bool GetDevicePixelRatioOverride(double* out) {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line)
++    return false;
++  const std::string value =
++      command_line->GetSwitchValueASCII("device-pixel-ratio");
++  if (value.empty())
++    return false;
++  double parsed = 0.0;
++  if (!base::StringToDouble(value, &parsed) || parsed <= 0.0)
++    return false;
++  *out = parsed;
++  return true;
++}
++
+ bool IsRunningMicrotasks(ScriptState* script_state) {
+   if (auto* microtask_queue = ToMicrotaskQueue(script_state))
+     return microtask_queue->IsRunningMicrotasks();
+@@ -1779,6 +1796,10 @@ double LocalDOMWindow::devicePixelRatio() const {
+   if (!GetFrame())
+     return 0.0;
+ 
++  double override_value = 0.0;
++  if (GetDevicePixelRatioOverride(&override_value))
++    return override_value;
++
+   return GetFrame()->DevicePixelRatio();
+ }
+ 
+diff --git a/third_party/blink/renderer/core/frame/navigator.cc b/third_party/blink/renderer/core/frame/navigator.cc
+index a8591113e53e4..0e9a44f46fac8 100644
+--- a/third_party/blink/renderer/core/frame/navigator.cc
++++ b/third_party/blink/renderer/core/frame/navigator.cc
+@@ -23,6 +23,7 @@
+ 
+ #include "third_party/blink/renderer/core/frame/navigator.h"
+ 
++#include "base/command_line.h"
+ #include "third_party/blink/public/common/user_agent/user_agent_metadata.h"
+ #include "third_party/blink/renderer/bindings/core/v8/script_controller.h"
+ #include "third_party/blink/renderer/core/dom/document.h"
+@@ -39,6 +40,34 @@
+ 
+ namespace blink {
+ 
++namespace {
++
++String PlatformOverrideFromCommandLine() {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return String();
++  }
++  const std::string override_value =
++      command_line->GetSwitchValueASCII("platform");
++  if (override_value.empty()) {
++    return String();
++  }
++  return String::FromUtf8(override_value);
++}
++
++bool IsWebDriverDisabled() {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return false;
++  }
++  return command_line->HasSwitch("disable-webdriver") ||
++         command_line->HasSwitch("disable-automation");
++}
++
++}  // namespace
++
+ Navigator::Navigator(ExecutionContext* context) : NavigatorBase(context) {}
+ 
+ String Navigator::productSub() const {
+@@ -58,6 +87,10 @@ String Navigator::vendorSub() const {
+ }
+ 
+ String Navigator::platform() const {
++  String cmdline_override = PlatformOverrideFromCommandLine();
++  if (!cmdline_override.empty()) {
++    return cmdline_override;
++  }
+   // TODO(955620): Consider changing devtools overrides to only allow overriding
+   // the platform with a frozen platform to distinguish between
+   // mobile and desktop when ReduceUserAgent is enabled.
+@@ -82,6 +115,9 @@ bool Navigator::cookieEnabled() const {
+ }
+ 
+ bool Navigator::webdriver() const {
++  if (IsWebDriverDisabled()) {
++    return false;
++  }
+   if (RuntimeEnabledFeatures::AutomationControlledEnabled())
+     return true;
+ 
+diff --git a/third_party/blink/renderer/core/frame/navigator_concurrent_hardware.cc b/third_party/blink/renderer/core/frame/navigator_concurrent_hardware.cc
+index f5c0db2d1b58d..3ba1c31528cfa 100644
+--- a/third_party/blink/renderer/core/frame/navigator_concurrent_hardware.cc
++++ b/third_party/blink/renderer/core/frame/navigator_concurrent_hardware.cc
+@@ -4,11 +4,35 @@
+ 
+ #include "third_party/blink/renderer/core/frame/navigator_concurrent_hardware.h"
+ 
++#include "base/command_line.h"
++#include "base/strings/string_number_conversions.h"
+ #include "base/system/sys_info.h"
+ 
+ namespace blink {
+ 
++namespace {
++bool GetHardwareConcurrencyOverride(unsigned* out) {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line)
++    return false;
++  const std::string value =
++      command_line->GetSwitchValueASCII("hardware-concurrency");
++  if (value.empty())
++    return false;
++  int parsed = 0;
++  if (!base::StringToInt(value, &parsed) || parsed <= 0)
++    return false;
++  *out = static_cast<unsigned>(parsed);
++  return true;
++}
++
++}  // namespace
++
+ unsigned NavigatorConcurrentHardware::hardwareConcurrency() const {
++  unsigned override_value = 0;
++  if (GetHardwareConcurrencyOverride(&override_value))
++    return override_value;
+   return static_cast<unsigned>(base::SysInfo::NumberOfProcessors());
+ }
+ 
+diff --git a/third_party/blink/renderer/core/frame/navigator_device_memory.cc b/third_party/blink/renderer/core/frame/navigator_device_memory.cc
+index 2876aad29853b..f271a48689070 100644
+--- a/third_party/blink/renderer/core/frame/navigator_device_memory.cc
++++ b/third_party/blink/renderer/core/frame/navigator_device_memory.cc
+@@ -4,6 +4,10 @@
+ 
+ #include "third_party/blink/renderer/core/frame/navigator_device_memory.h"
+ 
++#include <cmath>
++
++#include "base/command_line.h"
++#include "base/strings/string_number_conversions.h"
+ #include "third_party/blink/public/common/device_memory/approximated_device_memory.h"
+ #include "third_party/blink/public/common/privacy_budget/identifiability_metric_builder.h"
+ #include "third_party/blink/public/common/privacy_budget/identifiability_metrics.h"
+@@ -13,7 +17,39 @@
+ 
+ namespace blink {
+ 
++namespace {
++bool IsAllowedDeviceMemoryValue(double value) {
++  constexpr double kAllowedValues[] = {0.25, 0.5, 1, 2, 4, 8, 16, 32};
++  for (double allowed : kAllowedValues) {
++    if (std::abs(value - allowed) < 0.001)
++      return true;
++  }
++  return false;
++}
++
++bool GetDeviceMemoryOverride(float* out) {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line)
++    return false;
++  const std::string value = command_line->GetSwitchValueASCII("device-memory");
++  if (value.empty())
++    return false;
++  double parsed = 0.0;
++  if (!base::StringToDouble(value, &parsed) || parsed <= 0.0)
++    return false;
++  if (!IsAllowedDeviceMemoryValue(parsed))
++    return false;
++  *out = static_cast<float>(parsed);
++  return true;
++}
++
++}  // namespace
++
+ float NavigatorDeviceMemory::deviceMemory() const {
++  float override_value = 0.0f;
++  if (GetDeviceMemoryOverride(&override_value))
++    return override_value;
+   return ApproximatedDeviceMemory::GetApproximatedDeviceMemory();
+ }
+ 
+diff --git a/third_party/blink/renderer/core/frame/navigator_language.cc b/third_party/blink/renderer/core/frame/navigator_language.cc
+index e64bc23a80729..0ea3bd9c6e714 100644
+--- a/third_party/blink/renderer/core/frame/navigator_language.cc
++++ b/third_party/blink/renderer/core/frame/navigator_language.cc
+@@ -14,6 +14,24 @@
+ 
+ namespace blink {
+ 
++namespace {
++
++String LocaleOverrideFromCommandLine() {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return String();
++  }
++  const std::string locale_value =
++      command_line->GetSwitchValueASCII("locale");
++  if (locale_value.empty()) {
++    return String();
++  }
++  return String::FromUtf8(locale_value);
++}
++
++}  // namespace
++
+ Vector<String> ParseAndSanitize(const String& accept_languages) {
+   Vector<String> languages;
+   accept_languages.Split(',', languages);
+@@ -60,6 +78,13 @@ void NavigatorLanguage::SetLanguagesForTesting(const String& languages) {
+ }
+ 
+ void NavigatorLanguage::EnsureUpdatedLanguage() {
++  String locale_override = LocaleOverrideFromCommandLine();
++  if (!locale_override.IsNull()) {
++    languages_ = ParseAndSanitize(locale_override);
++    languages_dirty_ = true;
++    return;
++  }
++
+   if (languages_dirty_) {
+     String accept_languages_override;
+     probe::ApplyAcceptLanguageOverride(execution_context_,
+diff --git a/third_party/blink/renderer/core/frame/screen.cc b/third_party/blink/renderer/core/frame/screen.cc
+index 4399f5ed42cc4..cb9cedf39be49 100644
+--- a/third_party/blink/renderer/core/frame/screen.cc
++++ b/third_party/blink/renderer/core/frame/screen.cc
+@@ -28,7 +28,9 @@
+ 
+ #include "third_party/blink/renderer/core/frame/screen.h"
+ 
++#include "base/command_line.h"
+ #include "base/numerics/safe_conversions.h"
++#include "base/strings/string_number_conversions.h"
+ #include "services/network/public/mojom/permissions_policy/permissions_policy_feature.mojom-blink.h"
+ #include "third_party/blink/renderer/core/event_target_names.h"
+ #include "third_party/blink/renderer/core/frame/local_dom_window.h"
+@@ -41,6 +43,42 @@
+ namespace blink {
+ 
+ namespace {
++bool ParseIntSwitch(const char* switch_name, int* out) {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line)
++    return false;
++  const std::string value = command_line->GetSwitchValueASCII(switch_name);
++  if (value.empty())
++    return false;
++  return base::StringToInt(value, out);
++}
++
++bool ParsePositiveIntSwitch(const char* switch_name, int* out) {
++  int value = 0;
++  if (!ParseIntSwitch(switch_name, &value) || value <= 0)
++    return false;
++  *out = value;
++  return true;
++}
++
++bool ParseNonNegativeIntSwitch(const char* switch_name, int* out) {
++  int value = 0;
++  if (!ParseIntSwitch(switch_name, &value) || value < 0)
++    return false;
++  *out = value;
++  return true;
++}
++
++bool GetColorDepthOverride(unsigned* out) {
++  int value = 0;
++  if (!ParseIntSwitch("screen-color-depth", &value))
++    return false;
++  if (value != 24 && value != 30 && value != 32)
++    return false;
++  *out = static_cast<unsigned>(value);
++  return true;
++}
+ 
+ }  // namespace
+ 
+@@ -100,18 +138,27 @@ bool Screen::AreWebExposedScreenPropertiesEqual(
+ int Screen::height() const {
+   if (!DomWindow())
+     return 0;
++  int override_value = 0;
++  if (ParsePositiveIntSwitch("screen-height", &override_value))
++    return override_value;
+   return GetRect(/*available=*/false).height();
+ }
+ 
+ int Screen::width() const {
+   if (!DomWindow())
+     return 0;
++  int override_value = 0;
++  if (ParsePositiveIntSwitch("screen-width", &override_value))
++    return override_value;
+   return GetRect(/*available=*/false).width();
+ }
+ 
+ unsigned Screen::colorDepth() const {
+   if (!DomWindow())
+     return 0;
++  unsigned override_value = 0;
++  if (GetColorDepthOverride(&override_value))
++    return override_value;
+   return base::saturated_cast<unsigned>(GetScreenInfo().depth);
+ }
+ 
+@@ -122,24 +169,36 @@ unsigned Screen::pixelDepth() const {
+ int Screen::availLeft() const {
+   if (!DomWindow())
+     return 0;
++  int override_value = 0;
++  if (ParseNonNegativeIntSwitch("screen-avail-left", &override_value))
++    return override_value;
+   return GetRect(/*available=*/true).x();
+ }
+ 
+ int Screen::availTop() const {
+   if (!DomWindow())
+     return 0;
++  int override_value = 0;
++  if (ParseNonNegativeIntSwitch("screen-avail-top", &override_value))
++    return override_value;
+   return GetRect(/*available=*/true).y();
+ }
+ 
+ int Screen::availHeight() const {
+   if (!DomWindow())
+     return 0;
++  int override_value = 0;
++  if (ParsePositiveIntSwitch("screen-avail-height", &override_value))
++    return override_value;
+   return GetRect(/*available=*/true).height();
+ }
+ 
+ int Screen::availWidth() const {
+   if (!DomWindow())
+     return 0;
++  int override_value = 0;
++  if (ParsePositiveIntSwitch("screen-avail-width", &override_value))
++    return override_value;
+   return GetRect(/*available=*/true).width();
+ }
+ 
+diff --git a/third_party/blink/renderer/core/timezone/timezone_controller.cc b/third_party/blink/renderer/core/timezone/timezone_controller.cc
+index 8e4166b61c218..91c5da10d7d67 100644
+--- a/third_party/blink/renderer/core/timezone/timezone_controller.cc
++++ b/third_party/blink/renderer/core/timezone/timezone_controller.cc
+@@ -4,7 +4,9 @@
+ 
+ #include "third_party/blink/renderer/core/timezone/timezone_controller.h"
+ 
++#include "base/command_line.h"
+ #include "base/feature_list.h"
++#include "base/no_destructor.h"
+ #include "mojo/public/cpp/bindings/pending_remote.h"
+ #include "mojo/public/cpp/bindings/remote.h"
+ #include "third_party/blink/public/common/thread_safe_browser_interface_broker_proxy.h"
+@@ -105,6 +107,32 @@ bool SetIcuTimeZoneAndNotifyV8(const String& timezone_id) {
+ 
+ }  // namespace
+ 
++std::unique_ptr<TimeZoneController::TimeZoneOverride>&
++CommandLineTimezoneOverride() {
++  static base::NoDestructor<std::unique_ptr<TimeZoneController::TimeZoneOverride>>
++      handle;
++  return *handle;
++}
++
++void ApplyCommandLineTimezoneOverride() {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return;
++  }
++  const std::string timezone_value =
++      command_line->GetSwitchValueASCII("timezone");
++  if (timezone_value.empty()) {
++    return;
++  }
++  auto result =
++      TimeZoneController::SetTimeZoneOverride(String::FromUtf8(timezone_value));
++  if (result.status == TimeZoneController::TimeZoneOverrideStatus::kSuccess &&
++      result.handle) {
++    CommandLineTimezoneOverride() = std::move(result.handle);
++  }
++}
++
+ TimeZoneController::TimeZoneController() {
+   DCHECK(IsMainThread());
+   if (!base::FeatureList::IsEnabled(kLazyBlinkTimezoneInit)) {
+@@ -123,6 +151,7 @@ void TimeZoneController::Init() {
+   Platform::Current()->GetBrowserInterfaceBroker()->GetInterface(
+       monitor.BindNewPipeAndPassReceiver());
+   monitor->AddClient(instance().receiver_.BindNewPipeAndPassRemote());
++  ApplyCommandLineTimezoneOverride();
+ }
+ 
+ // static

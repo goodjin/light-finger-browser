@@ -1,0 +1,4 @@
+gen/components/grit/ukm_resources.h
+gen/components/grit/ukm_resources_map.cc
+gen/components/grit/ukm_resources_map.h
+gen/components/ukm_resources.pak

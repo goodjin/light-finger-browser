@@ -1,0 +1,15 @@
+{
+  "deps": [
+    "constants.build_metadata",
+    "../../../../mojo/public/mojom/base/base.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../src/services/service_manager/public/mojom/connector.mojom",
+    "../../../../../../../src/services/service_manager/public/mojom/interface_provider.mojom",
+    "../../../../../../../src/services/service_manager/public/mojom/interface_provider_spec.mojom",
+    "../../../../../../../src/services/service_manager/public/mojom/service.mojom",
+    "../../../../../../../src/services/service_manager/public/mojom/service_control.mojom",
+    "../../../../../../../src/services/service_manager/public/mojom/service_filter.mojom",
+    "../../../../../../../src/services/service_manager/public/mojom/service_manager.mojom"
+  ]
+}

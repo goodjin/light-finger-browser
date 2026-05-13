@@ -1,0 +1,6 @@
+../../src/services/shape_detection/public/mojom/barcodedetection.mojom
+../../src/services/shape_detection/public/mojom/barcodedetection_provider.mojom
+../../src/services/shape_detection/public/mojom/facedetection.mojom
+../../src/services/shape_detection/public/mojom/facedetection_provider.mojom
+../../src/services/shape_detection/public/mojom/shape_detection_service.mojom
+../../src/services/shape_detection/public/mojom/textdetection.mojom

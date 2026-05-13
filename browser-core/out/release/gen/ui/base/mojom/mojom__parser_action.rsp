@@ -1,0 +1,5 @@
+../../src/ui/base/mojom/themes.mojom
+../../src/ui/base/mojom/ui_base_types.mojom
+../../src/ui/base/mojom/window_open_disposition.mojom
+../../src/ui/base/mojom/attributed_string.mojom
+../../src/ui/base/mojom/color_mode.mojom

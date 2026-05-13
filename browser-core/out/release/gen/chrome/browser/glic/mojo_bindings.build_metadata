@@ -1,0 +1,15 @@
+{
+  "deps": [
+    "../../../components/content_settings/core/common/content_settings_types.build_metadata",
+    "../../../mojo/public/mojom/base/base.build_metadata",
+    "../../../mojo/public/mojom/base/protobuf_support.build_metadata",
+    "../../../skia/public/mojom/mojom.build_metadata",
+    "../../../ui/gfx/geometry/mojom/mojom.build_metadata",
+    "../../../url/mojom/url_mojom_gurl.build_metadata",
+    "../../../url/mojom/url_mojom_origin.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../src/chrome/browser/glic/fre/glic_fre.mojom",
+    "../../../../../../src/chrome/browser/glic/host/glic.mojom"
+  ]
+}

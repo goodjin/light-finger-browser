@@ -1,0 +1,295 @@
+diff --git a/third_party/blink/renderer/core/events/keyboard_event.cc b/third_party/blink/renderer/core/events/keyboard_event.cc
+index 7d2a115df12bb..50bba171f6128 100644
+--- a/third_party/blink/renderer/core/events/keyboard_event.cc
++++ b/third_party/blink/renderer/core/events/keyboard_event.cc
+@@ -25,6 +25,9 @@
+ #include "build/build_config.h"
+ #include "third_party/blink/public/common/input/web_input_event.h"
+ #include "third_party/blink/public/platform/platform.h"
++#include "base/command_line.h"
++#include "base/strings/string_number_conversions.h"
++#include "base/strings/string_util.h"
+ #include "third_party/blink/renderer/bindings/core/v8/v8_keyboard_event_init.h"
+ #include "third_party/blink/renderer/core/editing/ime/input_method_controller.h"
+ #include "third_party/blink/renderer/core/event_interface_names.h"
+@@ -83,6 +86,73 @@ static String FromUTF8(const std::string& s) {
+ 
+ }  // namespace
+ 
++namespace {
++
++// Get fingerprint seed from command line
++bool GetKeyboardBehaviorSeed(uint64_t* seed_out) {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return false;
++  }
++
++  // Check if behavior humanization is enabled
++  std::string noise_value = base::ToLowerASCII(
++      command_line->GetSwitchValueASCII("fingerprint-noise"));
++  if (!noise_value.empty() &&
++      (noise_value == "0" || noise_value == "false" ||
++       noise_value == "no")) {
++    return false;
++  }
++
++  std::string seed_value = command_line->GetSwitchValueASCII("fingerprint");
++  uint64_t seed = 0;
++  if (!seed_value.empty()) {
++    if (!base::StringToUint64(seed_value, &seed)) {
++      // FNV-1a hash for string seed
++      seed = 1469598103934665603ULL;
++      for (unsigned char c : seed_value) {
++        seed ^= c;
++        seed *= 1099511628211ULL;
++      }
++    }
++  }
++
++  *seed_out = seed;
++  return true;
++}
++
++// Mix seed with event-specific data for deterministic noise
++uint64_t MixKeyboardBehaviorSeed(uint64_t seed, uint64_t event_data, uint64_t multiplier) {
++  uint64_t value = seed ^ event_data ^ multiplier;
++  value ^= value >> 33;
++  value *= 0xff51afd7ed558ccdULL;
++  value ^= value >> 33;
++  value *= 0xc4ceb9fe1a85ec53ULL;
++  value ^= value >> 33;
++  return value;
++}
++
++// Get dwell time jitter in milliseconds based on seed and key code
++int GetDwellTimeJitter(uint64_t seed, uint64_t key_code, int max_jitter_ms) {
++  uint64_t mixed = MixKeyboardBehaviorSeed(seed, key_code, 0x9e3779b97f4a7c15ULL);
++  int jitter = static_cast<int>(mixed & 0xFFFFULL) % (max_jitter_ms * 2);
++  return jitter - max_jitter_ms;
++}
++
++// Get flight time jitter in milliseconds
++int GetFlightTimeJitter(uint64_t seed, uint64_t key_code, int max_jitter_ms) {
++  uint64_t mixed = MixKeyboardBehaviorSeed(seed, key_code, 0x6b8b4567);
++  int jitter = static_cast<int>(mixed & 0xFFFFULL) % (max_jitter_ms * 2);
++  return jitter - max_jitter_ms;
++}
++
++// Rolling event counter for temporal ordering
++uint64_t g_keyboard_event_counter = 0;
++uint64_t g_last_keydown_time_ms = 0;
++
++}  // namespace
++
+ KeyboardEvent* KeyboardEvent::Create(ScriptState* script_state,
+                                      const AtomicString& type,
+                                      const KeyboardEventInit* initializer) {
+diff --git a/third_party/blink/renderer/core/events/mouse_event.cc b/third_party/blink/renderer/core/events/mouse_event.cc
+index c6331d7836fb3..23410a24eb9d3 100644
+--- a/third_party/blink/renderer/core/events/mouse_event.cc
++++ b/third_party/blink/renderer/core/events/mouse_event.cc
+@@ -35,6 +35,9 @@
+ #include "third_party/blink/renderer/core/html/html_frame_element_base.h"
+ #include "third_party/blink/renderer/core/html/media/html_media_element.h"
+ #include "third_party/blink/renderer/core/input/input_device_capabilities.h"
++#include "base/command_line.h"
++#include "base/strings/string_number_conversions.h"
++#include "base/strings/string_util.h"
+ #include "third_party/blink/renderer/core/layout/layout_object.h"
+ #include "third_party/blink/renderer/core/layout/layout_view.h"
+ #include "third_party/blink/renderer/core/page/page.h"
+@@ -95,6 +98,66 @@ unsigned ButtonsToWebInputEventModifiers(uint16_t buttons) {
+ 
+ }  // namespace
+ 
++namespace {
++
++// Get fingerprint seed from command line
++bool GetMouseBehaviorSeed(uint64_t* seed_out) {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return false;
++  }
++
++  // Check if behavior humanization is enabled
++  std::string noise_value = base::ToLowerASCII(
++      command_line->GetSwitchValueASCII("fingerprint-noise"));
++  if (!noise_value.empty() &&
++      (noise_value == "0" || noise_value == "false" ||
++       noise_value == "no")) {
++    return false;
++  }
++
++  std::string seed_value = command_line->GetSwitchValueASCII("fingerprint");
++  uint64_t seed = 0;
++  if (!seed_value.empty()) {
++    if (!base::StringToUint64(seed_value, &seed)) {
++      // FNV-1a hash for string seed
++      seed = 1469598103934665603ULL;
++      for (unsigned char c : seed_value) {
++        seed ^= c;
++        seed *= 1099511628211ULL;
++      }
++    }
++  }
++
++  *seed_out = seed;
++  return true;
++}
++
++// Mix seed with event-specific data for deterministic noise
++uint64_t MixMouseBehaviorSeed(uint64_t seed, uint64_t event_data, uint64_t multiplier) {
++  uint64_t value = seed ^ event_data ^ multiplier;
++  value ^= value >> 33;
++  value *= 0xff51afd7ed558ccdULL;
++  value ^= value >> 33;
++  value *= 0xc4ceb9fe1a85ec53ULL;
++  value ^= value >> 33;
++  return value;
++}
++
++// Get position jitter in pixels
++double GetMousePositionJitter(uint64_t seed, uint64_t event_id, double max_jitter_px) {
++  uint64_t mixed = MixMouseBehaviorSeed(seed, event_id, 0x6b8b4567);
++  double jitter_ratio = static_cast<double>(mixed & 0xFFFFULL) / 65535.0;
++  // Return jitter in range [-max_jitter_px, max_jitter_px]
++  return (jitter_ratio * 2.0 * max_jitter_px) - max_jitter_px;
++}
++
++// Rolling event counter for temporal ordering
++uint64_t g_mouse_event_counter = 0;
++
++}  // namespace
++
+ MouseEvent* MouseEvent::Create(ScriptState* script_state,
+                                const AtomicString& type,
+                                const MouseEventInit* initializer) {
+@@ -354,6 +417,43 @@ unsigned MouseEvent::which() const {
+   return (unsigned)(button_ + 1);
+ }
+ 
++double MouseEvent::screenX() const {
++  uint64_t seed = 0;
++  if (GetMouseBehaviorSeed(&seed)) {
++    g_mouse_event_counter++;
++    double jitter = GetMousePositionJitter(seed, g_mouse_event_counter, 1.5);
++    return std::floor(screen_x_ + jitter);
++  }
++  return std::floor(screen_x_);
++}
++
++double MouseEvent::screenY() const {
++  uint64_t seed = 0;
++  if (GetMouseBehaviorSeed(&seed)) {
++    double jitter = GetMousePositionJitter(seed, g_mouse_event_counter, 1.5);
++    return std::floor(screen_y_ + jitter);
++  }
++  return std::floor(screen_y_);
++}
++
++double MouseEvent::clientX() const {
++  uint64_t seed = 0;
++  if (GetMouseBehaviorSeed(&seed)) {
++    double jitter = GetMousePositionJitter(seed, g_mouse_event_counter, 1.0);
++    return std::floor(client_x_ + jitter);
++  }
++  return std::floor(client_x_);
++}
++
++double MouseEvent::clientY() const {
++  uint64_t seed = 0;
++  if (GetMouseBehaviorSeed(&seed)) {
++    double jitter = GetMousePositionJitter(seed, g_mouse_event_counter, 1.0);
++    return std::floor(client_y_ + jitter);
++  }
++  return std::floor(client_y_);
++}
++
+ Node* MouseEvent::toElement() const {
+   // MSIE extension - "the object toward which the user is moving the mouse
+   // pointer"
+diff --git a/third_party/blink/renderer/core/events/wheel_event.cc b/third_party/blink/renderer/core/events/wheel_event.cc
+index 61cf62d424ade..bd03fde5aca79 100644
+--- a/third_party/blink/renderer/core/events/wheel_event.cc
++++ b/third_party/blink/renderer/core/events/wheel_event.cc
+@@ -32,6 +32,9 @@
+ #include "third_party/blink/renderer/core/frame/web_feature.h"
+ #include "third_party/blink/renderer/platform/instrumentation/use_counter.h"
+ #include "third_party/blink/renderer/platform/wtf/math_extras.h"
++#include "base/command_line.h"
++#include "base/strings/string_number_conversions.h"
++#include "base/strings/string_util.h"
+ 
+ namespace blink {
+ 
+@@ -72,6 +75,67 @@ MouseEventInit* GetMouseEventInitForWheel(const WebMouseWheelEvent& event,
+ 
+ }  // namespace
+ 
++namespace {
++
++// Get fingerprint seed from command line
++bool GetScrollBehaviorSeed(uint64_t* seed_out) {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return false;
++  }
++
++  // Check if behavior humanization is enabled
++  std::string noise_value = base::ToLowerASCII(
++      command_line->GetSwitchValueASCII("fingerprint-noise"));
++  if (!noise_value.empty() &&
++      (noise_value == "0" || noise_value == "false" ||
++       noise_value == "no")) {
++    return false;
++  }
++
++  std::string seed_value = command_line->GetSwitchValueASCII("fingerprint");
++  uint64_t seed = 0;
++  if (!seed_value.empty()) {
++    if (!base::StringToUint64(seed_value, &seed)) {
++      // FNV-1a hash for string seed
++      seed = 1469598103934665603ULL;
++      for (unsigned char c : seed_value) {
++        seed ^= c;
++        seed *= 1099511628211ULL;
++      }
++    }
++  }
++
++  *seed_out = seed;
++  return true;
++}
++
++// Mix seed with event-specific data for deterministic noise
++uint64_t MixScrollBehaviorSeed(uint64_t seed, uint64_t event_data, uint64_t multiplier) {
++  uint64_t value = seed ^ event_data ^ multiplier;
++  value ^= value >> 33;
++  value *= 0xff51afd7ed558ccdULL;
++  value ^= value >> 33;
++  value *= 0xc4ceb9fe1a85ec53ULL;
++  value ^= value >> 33;
++  return value;
++}
++
++// Get delta multiplier for natural inertia effect
++// Returns a value between 0.8 and 1.2 to apply subtle variation
++double GetScrollInertiaMultiplier(uint64_t seed, uint64_t event_id) {
++  uint64_t mixed = MixScrollBehaviorSeed(seed, event_id, 0x9e3779b97f4a7c15ULL);
++  // Map to [0.8, 1.2] range with center at 1.0
++  double ratio = static_cast<double>(mixed & 0xFFFFULL) / 65535.0;
++  return 0.8 + (ratio * 0.4);
++}
++
++// Rolling event counter for scroll events
++uint64_t g_scroll_event_counter = 0;
++
++}  // namespace
++
+ WheelEvent* WheelEvent::Create(const WebMouseWheelEvent& event,
+                                LocalDOMWindow& window) {
+   return MakeGarbageCollected<WheelEvent>(event, window);

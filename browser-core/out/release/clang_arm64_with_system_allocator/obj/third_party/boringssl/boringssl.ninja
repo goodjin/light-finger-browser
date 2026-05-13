@@ -1,0 +1,958 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DBORINGSSL_IMPLEMENTATION -DOPENSSL_SMALL
+framework_dirs =
+include_dirs = -I../../src -Iclang_arm64_with_system_allocator/gen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/boringssl/src/include
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -O2 -fno-math-errno
+cflags_cc = -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness
+label_name = boringssl
+root_out_dir = clang_arm64_with_system_allocator
+target_out_dir = clang_arm64_with_system_allocator/obj/third_party/boringssl
+target_output_name = libboringssl
+
+build clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/bcm.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/fipsmodule/bcm.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = bcm.cc
+  source_name_part = bcm
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/aes.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/aes/aes.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = aes.cc
+  source_name_part = aes
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_bitstr.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/a_bitstr.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = a_bitstr.cc
+  source_name_part = a_bitstr
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_bool.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/a_bool.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = a_bool.cc
+  source_name_part = a_bool
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_d2i_fp.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/a_d2i_fp.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = a_d2i_fp.cc
+  source_name_part = a_d2i_fp
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_dup.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/a_dup.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = a_dup.cc
+  source_name_part = a_dup
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_gentm.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/a_gentm.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = a_gentm.cc
+  source_name_part = a_gentm
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_i2d_fp.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/a_i2d_fp.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = a_i2d_fp.cc
+  source_name_part = a_i2d_fp
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_int.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/a_int.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = a_int.cc
+  source_name_part = a_int
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_mbstr.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/a_mbstr.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = a_mbstr.cc
+  source_name_part = a_mbstr
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_object.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/a_object.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = a_object.cc
+  source_name_part = a_object
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_octet.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/a_octet.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = a_octet.cc
+  source_name_part = a_octet
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_strex.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/a_strex.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = a_strex.cc
+  source_name_part = a_strex
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_strnid.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/a_strnid.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = a_strnid.cc
+  source_name_part = a_strnid
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_time.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/a_time.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = a_time.cc
+  source_name_part = a_time
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_type.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/a_type.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = a_type.cc
+  source_name_part = a_type
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_utctm.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/a_utctm.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = a_utctm.cc
+  source_name_part = a_utctm
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/asn1_lib.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/asn1_lib.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = asn1_lib.cc
+  source_name_part = asn1_lib
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/asn1_par.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/asn1_par.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = asn1_par.cc
+  source_name_part = asn1_par
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/asn_pack.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/asn_pack.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = asn_pack.cc
+  source_name_part = asn_pack
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/f_int.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/f_int.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = f_int.cc
+  source_name_part = f_int
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/f_string.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/f_string.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = f_string.cc
+  source_name_part = f_string
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/posix_time.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/posix_time.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = posix_time.cc
+  source_name_part = posix_time
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tasn_dec.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/tasn_dec.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = tasn_dec.cc
+  source_name_part = tasn_dec
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tasn_enc.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/tasn_enc.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = tasn_enc.cc
+  source_name_part = tasn_enc
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tasn_fre.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/tasn_fre.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = tasn_fre.cc
+  source_name_part = tasn_fre
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tasn_new.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/tasn_new.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = tasn_new.cc
+  source_name_part = tasn_new
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tasn_typ.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/tasn_typ.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = tasn_typ.cc
+  source_name_part = tasn_typ
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tasn_utl.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/asn1/tasn_utl.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = tasn_utl.cc
+  source_name_part = tasn_utl
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/base64.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/base64/base64.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = base64.cc
+  source_name_part = base64
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/bio.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/bio/bio.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = bio.cc
+  source_name_part = bio
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/bio_mem.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/bio/bio_mem.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = bio_mem.cc
+  source_name_part = bio_mem
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/connect.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/bio/connect.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = connect.cc
+  source_name_part = connect
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/errno.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/bio/errno.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = errno.cc
+  source_name_part = errno
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/fd.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/bio/fd.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = fd.cc
+  source_name_part = fd
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/file.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/bio/file.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = file.cc
+  source_name_part = file
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/hexdump.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/bio/hexdump.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = hexdump.cc
+  source_name_part = hexdump
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pair.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/bio/pair.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = pair.cc
+  source_name_part = pair
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/printf.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/bio/printf.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = printf.cc
+  source_name_part = printf
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/socket.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/bio/socket.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = socket.cc
+  source_name_part = socket
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/socket_helper.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/bio/socket_helper.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = socket_helper.cc
+  source_name_part = socket_helper
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/blake2.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/blake2/blake2.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = blake2.cc
+  source_name_part = blake2
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/bn_asn1.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/bn/bn_asn1.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = bn_asn1.cc
+  source_name_part = bn_asn1
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/convert.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/bn/convert.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = convert.cc
+  source_name_part = convert
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/exponentiation.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/bn/exponentiation.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = exponentiation.cc
+  source_name_part = exponentiation
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/buf.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/buf/buf.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = buf.cc
+  source_name_part = buf
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/asn1_compat.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/bytestring/asn1_compat.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = asn1_compat.cc
+  source_name_part = asn1_compat
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ber.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/bytestring/ber.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = ber.cc
+  source_name_part = ber
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cbb.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/bytestring/cbb.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = cbb.cc
+  source_name_part = cbb
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cbs.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/bytestring/cbs.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = cbs.cc
+  source_name_part = cbs
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/unicode.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/bytestring/unicode.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = unicode.cc
+  source_name_part = unicode
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/chacha.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/chacha/chacha.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = chacha.cc
+  source_name_part = chacha
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/derive_key.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/cipher/derive_key.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = derive_key.cc
+  source_name_part = derive_key
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/e_aesctrhmac.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/cipher/e_aesctrhmac.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = e_aesctrhmac.cc
+  source_name_part = e_aesctrhmac
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/e_aeseax.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/cipher/e_aeseax.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = e_aeseax.cc
+  source_name_part = e_aeseax
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/e_aesgcmsiv.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/cipher/e_aesgcmsiv.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = e_aesgcmsiv.cc
+  source_name_part = e_aesgcmsiv
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/e_chacha20poly1305.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/cipher/e_chacha20poly1305.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = e_chacha20poly1305.cc
+  source_name_part = e_chacha20poly1305
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/e_des.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/cipher/e_des.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = e_des.cc
+  source_name_part = e_des
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/e_null.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/cipher/e_null.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = e_null.cc
+  source_name_part = e_null
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/e_rc2.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/cipher/e_rc2.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = e_rc2.cc
+  source_name_part = e_rc2
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/e_rc4.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/cipher/e_rc4.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = e_rc4.cc
+  source_name_part = e_rc4
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/e_tls.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/cipher/e_tls.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = e_tls.cc
+  source_name_part = e_tls
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/get_cipher.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/cipher/get_cipher.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = get_cipher.cc
+  source_name_part = get_cipher
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tls_cbc.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/cipher/tls_cbc.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = tls_cbc.cc
+  source_name_part = tls_cbc
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/conf.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/conf/conf.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = conf.cc
+  source_name_part = conf
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cpu_aarch64_apple.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/cpu_aarch64_apple.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = cpu_aarch64_apple.cc
+  source_name_part = cpu_aarch64_apple
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cpu_aarch64_fuchsia.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/cpu_aarch64_fuchsia.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = cpu_aarch64_fuchsia.cc
+  source_name_part = cpu_aarch64_fuchsia
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cpu_aarch64_linux.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/cpu_aarch64_linux.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = cpu_aarch64_linux.cc
+  source_name_part = cpu_aarch64_linux
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cpu_aarch64_openbsd.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/cpu_aarch64_openbsd.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = cpu_aarch64_openbsd.cc
+  source_name_part = cpu_aarch64_openbsd
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cpu_aarch64_sysreg.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/cpu_aarch64_sysreg.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = cpu_aarch64_sysreg.cc
+  source_name_part = cpu_aarch64_sysreg
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cpu_aarch64_win.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/cpu_aarch64_win.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = cpu_aarch64_win.cc
+  source_name_part = cpu_aarch64_win
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cpu_arm_freebsd.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/cpu_arm_freebsd.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = cpu_arm_freebsd.cc
+  source_name_part = cpu_arm_freebsd
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cpu_arm_linux.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/cpu_arm_linux.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = cpu_arm_linux.cc
+  source_name_part = cpu_arm_linux
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cpu_intel.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/cpu_intel.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = cpu_intel.cc
+  source_name_part = cpu_intel
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/crypto.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/crypto.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = crypto.cc
+  source_name_part = crypto
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/curve25519.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/curve25519/curve25519.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = curve25519.cc
+  source_name_part = curve25519
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/curve25519_64_adx.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/curve25519/curve25519_64_adx.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = curve25519_64_adx.cc
+  source_name_part = curve25519_64_adx
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/spake25519.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/curve25519/spake25519.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = spake25519.cc
+  source_name_part = spake25519
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/des.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/des/des.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = des.cc
+  source_name_part = des
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/dh_asn1.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/dh/dh_asn1.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = dh_asn1.cc
+  source_name_part = dh_asn1
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/params.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/dh/params.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = params.cc
+  source_name_part = params
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/digest_extra.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/digest/digest_extra.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = digest_extra.cc
+  source_name_part = digest_extra
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/dsa.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/dsa/dsa.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = dsa.cc
+  source_name_part = dsa
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/dsa_asn1.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/dsa/dsa_asn1.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = dsa_asn1.cc
+  source_name_part = dsa_asn1
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ec_asn1.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/ec/ec_asn1.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = ec_asn1.cc
+  source_name_part = ec_asn1
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ec_derive.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/ec/ec_derive.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = ec_derive.cc
+  source_name_part = ec_derive
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/hash_to_curve.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/ec/hash_to_curve.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = hash_to_curve.cc
+  source_name_part = hash_to_curve
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ecdh.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/ecdh/ecdh.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = ecdh.cc
+  source_name_part = ecdh
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ecdsa_asn1.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/ecdsa/ecdsa_asn1.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = ecdsa_asn1.cc
+  source_name_part = ecdsa_asn1
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/engine.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/engine/engine.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = engine.cc
+  source_name_part = engine
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/err.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/err/err.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = err.cc
+  source_name_part = err
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/evp.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/evp/evp.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = evp.cc
+  source_name_part = evp
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/evp_asn1.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/evp/evp_asn1.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = evp_asn1.cc
+  source_name_part = evp_asn1
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/evp_ctx.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/evp/evp_ctx.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = evp_ctx.cc
+  source_name_part = evp_ctx
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p_dh.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/evp/p_dh.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = p_dh.cc
+  source_name_part = p_dh
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p_dh_asn1.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/evp/p_dh_asn1.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = p_dh_asn1.cc
+  source_name_part = p_dh_asn1
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p_dsa_asn1.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/evp/p_dsa_asn1.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = p_dsa_asn1.cc
+  source_name_part = p_dsa_asn1
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p_ec.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/evp/p_ec.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = p_ec.cc
+  source_name_part = p_ec
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p_ec_asn1.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/evp/p_ec_asn1.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = p_ec_asn1.cc
+  source_name_part = p_ec_asn1
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p_ed25519.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/evp/p_ed25519.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = p_ed25519.cc
+  source_name_part = p_ed25519
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p_ed25519_asn1.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/evp/p_ed25519_asn1.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = p_ed25519_asn1.cc
+  source_name_part = p_ed25519_asn1
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p_hkdf.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/evp/p_hkdf.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = p_hkdf.cc
+  source_name_part = p_hkdf
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p_rsa.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/evp/p_rsa.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = p_rsa.cc
+  source_name_part = p_rsa
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p_rsa_asn1.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/evp/p_rsa_asn1.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = p_rsa_asn1.cc
+  source_name_part = p_rsa_asn1
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p_x25519.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/evp/p_x25519.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = p_x25519.cc
+  source_name_part = p_x25519
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p_x25519_asn1.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/evp/p_x25519_asn1.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = p_x25519_asn1.cc
+  source_name_part = p_x25519_asn1
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pbkdf.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/evp/pbkdf.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = pbkdf.cc
+  source_name_part = pbkdf
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/print.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/evp/print.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = print.cc
+  source_name_part = print
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/scrypt.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/evp/scrypt.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = scrypt.cc
+  source_name_part = scrypt
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/sign.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/evp/sign.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = sign.cc
+  source_name_part = sign
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ex_data.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/ex_data.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = ex_data.cc
+  source_name_part = ex_data
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/fips_shared_support.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/fipsmodule/fips_shared_support.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = fips_shared_support.cc
+  source_name_part = fips_shared_support
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/fuzzer_mode.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/fuzzer_mode.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = fuzzer_mode.cc
+  source_name_part = fuzzer_mode
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/hpke.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/hpke/hpke.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = hpke.cc
+  source_name_part = hpke
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/hrss.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/hrss/hrss.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = hrss.cc
+  source_name_part = hrss
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/kyber.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/kyber/kyber.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = kyber.cc
+  source_name_part = kyber
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/lhash.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/lhash/lhash.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = lhash.cc
+  source_name_part = lhash
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/md4.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/md4/md4.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = md4.cc
+  source_name_part = md4
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/md5.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/md5/md5.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = md5.cc
+  source_name_part = md5
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/mem.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/mem.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = mem.cc
+  source_name_part = mem
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/mldsa.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/mldsa/mldsa.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = mldsa.cc
+  source_name_part = mldsa
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/mlkem.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/mlkem/mlkem.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = mlkem.cc
+  source_name_part = mlkem
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/obj.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/obj/obj.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = obj.cc
+  source_name_part = obj
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/obj_xref.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/obj/obj_xref.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = obj_xref.cc
+  source_name_part = obj_xref
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pem_all.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/pem/pem_all.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = pem_all.cc
+  source_name_part = pem_all
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pem_info.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/pem/pem_info.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = pem_info.cc
+  source_name_part = pem_info
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pem_lib.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/pem/pem_lib.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = pem_lib.cc
+  source_name_part = pem_lib
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pem_oth.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/pem/pem_oth.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = pem_oth.cc
+  source_name_part = pem_oth
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pem_pk8.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/pem/pem_pk8.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = pem_pk8.cc
+  source_name_part = pem_pk8
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pem_pkey.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/pem/pem_pkey.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = pem_pkey.cc
+  source_name_part = pem_pkey
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pem_x509.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/pem/pem_x509.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = pem_x509.cc
+  source_name_part = pem_x509
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pem_xaux.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/pem/pem_xaux.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = pem_xaux.cc
+  source_name_part = pem_xaux
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pkcs7.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/pkcs7/pkcs7.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = pkcs7.cc
+  source_name_part = pkcs7
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pkcs7_x509.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/pkcs7/pkcs7_x509.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = pkcs7_x509.cc
+  source_name_part = pkcs7_x509
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p5_pbev2.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/pkcs8/p5_pbev2.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = p5_pbev2.cc
+  source_name_part = p5_pbev2
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pkcs8.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/pkcs8/pkcs8.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = pkcs8.cc
+  source_name_part = pkcs8
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pkcs8_x509.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/pkcs8/pkcs8_x509.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = pkcs8_x509.cc
+  source_name_part = pkcs8_x509
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/poly1305.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/poly1305/poly1305.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = poly1305.cc
+  source_name_part = poly1305
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/poly1305_arm.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/poly1305/poly1305_arm.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = poly1305_arm.cc
+  source_name_part = poly1305_arm
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/poly1305_vec.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/poly1305/poly1305_vec.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = poly1305_vec.cc
+  source_name_part = poly1305_vec
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pool.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/pool/pool.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = pool.cc
+  source_name_part = pool
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/deterministic.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/rand/deterministic.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = deterministic.cc
+  source_name_part = deterministic
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/fork_detect.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/rand/fork_detect.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = fork_detect.cc
+  source_name_part = fork_detect
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/forkunsafe.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/rand/forkunsafe.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = forkunsafe.cc
+  source_name_part = forkunsafe
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/getentropy.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/rand/getentropy.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = getentropy.cc
+  source_name_part = getentropy
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ios.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/rand/ios.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = ios.cc
+  source_name_part = ios
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/passive.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/rand/passive.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = passive.cc
+  source_name_part = passive
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/rand.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/rand/rand.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = rand.cc
+  source_name_part = rand
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/trusty.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/rand/trusty.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = trusty.cc
+  source_name_part = trusty
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/urandom.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/rand/urandom.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = urandom.cc
+  source_name_part = urandom
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/windows.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/rand/windows.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = windows.cc
+  source_name_part = windows
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/rc4.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/rc4/rc4.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = rc4.cc
+  source_name_part = rc4
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/refcount.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/refcount.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = refcount.cc
+  source_name_part = refcount
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/rsa_asn1.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/rsa/rsa_asn1.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = rsa_asn1.cc
+  source_name_part = rsa_asn1
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/rsa_crypt.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/rsa/rsa_crypt.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = rsa_crypt.cc
+  source_name_part = rsa_crypt
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/rsa_extra.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/rsa/rsa_extra.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = rsa_extra.cc
+  source_name_part = rsa_extra
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/rsa_print.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/rsa/rsa_print.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = rsa_print.cc
+  source_name_part = rsa_print
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/sha1.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/sha/sha1.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = sha1.cc
+  source_name_part = sha1
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/sha256.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/sha/sha256.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = sha256.cc
+  source_name_part = sha256
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/sha512.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/sha/sha512.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = sha512.cc
+  source_name_part = sha512
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/siphash.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/siphash/siphash.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = siphash.cc
+  source_name_part = siphash
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/slhdsa.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/slhdsa/slhdsa.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = slhdsa.cc
+  source_name_part = slhdsa
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/spake2plus.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/spake2plus/spake2plus.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = spake2plus.cc
+  source_name_part = spake2plus
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/stack.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/stack/stack.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = stack.cc
+  source_name_part = stack
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/thread.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/thread.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = thread.cc
+  source_name_part = thread
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/thread_none.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/thread_none.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = thread_none.cc
+  source_name_part = thread_none
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/thread_pthread.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/thread_pthread.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = thread_pthread.cc
+  source_name_part = thread_pthread
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/thread_win.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/thread_win.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = thread_win.cc
+  source_name_part = thread_win
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pmbtoken.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/trust_token/pmbtoken.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = pmbtoken.cc
+  source_name_part = pmbtoken
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/trust_token.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/trust_token/trust_token.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = trust_token.cc
+  source_name_part = trust_token
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/voprf.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/trust_token/voprf.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = voprf.cc
+  source_name_part = voprf
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_digest.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/a_digest.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = a_digest.cc
+  source_name_part = a_digest
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_sign.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/a_sign.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = a_sign.cc
+  source_name_part = a_sign
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_verify.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/a_verify.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = a_verify.cc
+  source_name_part = a_verify
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/algorithm.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/algorithm.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = algorithm.cc
+  source_name_part = algorithm
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/asn1_gen.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/asn1_gen.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = asn1_gen.cc
+  source_name_part = asn1_gen
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/by_dir.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/by_dir.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = by_dir.cc
+  source_name_part = by_dir
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/by_file.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/by_file.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = by_file.cc
+  source_name_part = by_file
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/i2d_pr.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/i2d_pr.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = i2d_pr.cc
+  source_name_part = i2d_pr
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/name_print.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/name_print.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = name_print.cc
+  source_name_part = name_print
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/policy.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/policy.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = policy.cc
+  source_name_part = policy
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/rsa_pss.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/rsa_pss.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = rsa_pss.cc
+  source_name_part = rsa_pss
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/t_crl.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/t_crl.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = t_crl.cc
+  source_name_part = t_crl
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/t_req.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/t_req.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = t_req.cc
+  source_name_part = t_req
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/t_x509.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/t_x509.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = t_x509.cc
+  source_name_part = t_x509
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/t_x509a.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/t_x509a.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = t_x509a.cc
+  source_name_part = t_x509a
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_akey.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/v3_akey.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = v3_akey.cc
+  source_name_part = v3_akey
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_akeya.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/v3_akeya.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = v3_akeya.cc
+  source_name_part = v3_akeya
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_alt.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/v3_alt.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = v3_alt.cc
+  source_name_part = v3_alt
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_bcons.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/v3_bcons.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = v3_bcons.cc
+  source_name_part = v3_bcons
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_bitst.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/v3_bitst.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = v3_bitst.cc
+  source_name_part = v3_bitst
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_conf.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/v3_conf.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = v3_conf.cc
+  source_name_part = v3_conf
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_cpols.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/v3_cpols.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = v3_cpols.cc
+  source_name_part = v3_cpols
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_crld.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/v3_crld.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = v3_crld.cc
+  source_name_part = v3_crld
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_enum.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/v3_enum.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = v3_enum.cc
+  source_name_part = v3_enum
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_extku.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/v3_extku.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = v3_extku.cc
+  source_name_part = v3_extku
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_genn.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/v3_genn.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = v3_genn.cc
+  source_name_part = v3_genn
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_ia5.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/v3_ia5.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = v3_ia5.cc
+  source_name_part = v3_ia5
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_info.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/v3_info.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = v3_info.cc
+  source_name_part = v3_info
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_int.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/v3_int.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = v3_int.cc
+  source_name_part = v3_int
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_lib.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/v3_lib.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = v3_lib.cc
+  source_name_part = v3_lib
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_ncons.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/v3_ncons.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = v3_ncons.cc
+  source_name_part = v3_ncons
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_ocsp.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/v3_ocsp.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = v3_ocsp.cc
+  source_name_part = v3_ocsp
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_pcons.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/v3_pcons.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = v3_pcons.cc
+  source_name_part = v3_pcons
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_pmaps.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/v3_pmaps.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = v3_pmaps.cc
+  source_name_part = v3_pmaps
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_prn.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/v3_prn.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = v3_prn.cc
+  source_name_part = v3_prn
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_purp.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/v3_purp.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = v3_purp.cc
+  source_name_part = v3_purp
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_skey.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/v3_skey.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = v3_skey.cc
+  source_name_part = v3_skey
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_utl.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/v3_utl.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = v3_utl.cc
+  source_name_part = v3_utl
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x509.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x509.cc
+  source_name_part = x509
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_att.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x509_att.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x509_att.cc
+  source_name_part = x509_att
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_cmp.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x509_cmp.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x509_cmp.cc
+  source_name_part = x509_cmp
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_d2.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x509_d2.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x509_d2.cc
+  source_name_part = x509_d2
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_def.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x509_def.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x509_def.cc
+  source_name_part = x509_def
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_ext.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x509_ext.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x509_ext.cc
+  source_name_part = x509_ext
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_lu.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x509_lu.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x509_lu.cc
+  source_name_part = x509_lu
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_obj.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x509_obj.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x509_obj.cc
+  source_name_part = x509_obj
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_req.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x509_req.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x509_req.cc
+  source_name_part = x509_req
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_set.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x509_set.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x509_set.cc
+  source_name_part = x509_set
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_trs.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x509_trs.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x509_trs.cc
+  source_name_part = x509_trs
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_txt.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x509_txt.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x509_txt.cc
+  source_name_part = x509_txt
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_v3.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x509_v3.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x509_v3.cc
+  source_name_part = x509_v3
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_vfy.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x509_vfy.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x509_vfy.cc
+  source_name_part = x509_vfy
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_vpm.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x509_vpm.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x509_vpm.cc
+  source_name_part = x509_vpm
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509cset.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x509cset.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x509cset.cc
+  source_name_part = x509cset
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509name.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x509name.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x509name.cc
+  source_name_part = x509name
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509rset.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x509rset.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x509rset.cc
+  source_name_part = x509rset
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509spki.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x509spki.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x509spki.cc
+  source_name_part = x509spki
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_algor.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x_algor.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x_algor.cc
+  source_name_part = x_algor
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_all.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x_all.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x_all.cc
+  source_name_part = x_all
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_attrib.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x_attrib.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x_attrib.cc
+  source_name_part = x_attrib
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_crl.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x_crl.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x_crl.cc
+  source_name_part = x_crl
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_exten.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x_exten.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x_exten.cc
+  source_name_part = x_exten
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_name.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x_name.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x_name.cc
+  source_name_part = x_name
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_pubkey.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x_pubkey.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x_pubkey.cc
+  source_name_part = x_pubkey
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_req.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x_req.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x_req.cc
+  source_name_part = x_req
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_sig.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x_sig.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x_sig.cc
+  source_name_part = x_sig
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_spki.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x_spki.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x_spki.cc
+  source_name_part = x_spki
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_val.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x_val.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x_val.cc
+  source_name_part = x_val
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_x509.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x_x509.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x_x509.cc
+  source_name_part = x_x509
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_x509a.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/crypto/x509/x_x509a.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = x_x509a.cc
+  source_name_part = x_x509a
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/err_data.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/gen/crypto/err_data.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = err_data.cc
+  source_name_part = err_data
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/bio_ssl.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/bio_ssl.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = bio_ssl.cc
+  source_name_part = bio_ssl
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/d1_both.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/d1_both.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = d1_both.cc
+  source_name_part = d1_both
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/d1_lib.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/d1_lib.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = d1_lib.cc
+  source_name_part = d1_lib
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/d1_pkt.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/d1_pkt.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = d1_pkt.cc
+  source_name_part = d1_pkt
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/d1_srtp.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/d1_srtp.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = d1_srtp.cc
+  source_name_part = d1_srtp
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/dtls_method.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/dtls_method.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = dtls_method.cc
+  source_name_part = dtls_method
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/dtls_record.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/dtls_record.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = dtls_record.cc
+  source_name_part = dtls_record
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/encrypted_client_hello.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/encrypted_client_hello.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = encrypted_client_hello.cc
+  source_name_part = encrypted_client_hello
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/extensions.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/extensions.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = extensions.cc
+  source_name_part = extensions
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/handoff.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/handoff.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = handoff.cc
+  source_name_part = handoff
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/handshake.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/handshake.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = handshake.cc
+  source_name_part = handshake
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/handshake_client.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/handshake_client.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = handshake_client.cc
+  source_name_part = handshake_client
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/handshake_server.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/handshake_server.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = handshake_server.cc
+  source_name_part = handshake_server
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/s3_both.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/s3_both.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = s3_both.cc
+  source_name_part = s3_both
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/s3_lib.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/s3_lib.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = s3_lib.cc
+  source_name_part = s3_lib
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/s3_pkt.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/s3_pkt.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = s3_pkt.cc
+  source_name_part = s3_pkt
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_aead_ctx.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/ssl_aead_ctx.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = ssl_aead_ctx.cc
+  source_name_part = ssl_aead_ctx
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_asn1.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/ssl_asn1.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = ssl_asn1.cc
+  source_name_part = ssl_asn1
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_buffer.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/ssl_buffer.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = ssl_buffer.cc
+  source_name_part = ssl_buffer
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_cert.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/ssl_cert.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = ssl_cert.cc
+  source_name_part = ssl_cert
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_cipher.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/ssl_cipher.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = ssl_cipher.cc
+  source_name_part = ssl_cipher
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_credential.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/ssl_credential.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = ssl_credential.cc
+  source_name_part = ssl_credential
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_file.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/ssl_file.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = ssl_file.cc
+  source_name_part = ssl_file
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_key_share.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/ssl_key_share.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = ssl_key_share.cc
+  source_name_part = ssl_key_share
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_lib.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/ssl_lib.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = ssl_lib.cc
+  source_name_part = ssl_lib
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_privkey.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/ssl_privkey.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = ssl_privkey.cc
+  source_name_part = ssl_privkey
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_session.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/ssl_session.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = ssl_session.cc
+  source_name_part = ssl_session
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_stat.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/ssl_stat.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = ssl_stat.cc
+  source_name_part = ssl_stat
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_transcript.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/ssl_transcript.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = ssl_transcript.cc
+  source_name_part = ssl_transcript
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_versions.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/ssl_versions.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = ssl_versions.cc
+  source_name_part = ssl_versions
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_x509.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/ssl_x509.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = ssl_x509.cc
+  source_name_part = ssl_x509
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/t1_enc.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/t1_enc.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = t1_enc.cc
+  source_name_part = t1_enc
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tls13_both.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/tls13_both.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = tls13_both.cc
+  source_name_part = tls13_both
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tls13_client.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/tls13_client.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = tls13_client.cc
+  source_name_part = tls13_client
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tls13_enc.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/tls13_enc.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = tls13_enc.cc
+  source_name_part = tls13_enc
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tls13_server.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/tls13_server.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = tls13_server.cc
+  source_name_part = tls13_server
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tls_method.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/tls_method.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = tls_method.cc
+  source_name_part = tls_method
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tls_record.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/ssl/tls_record.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = tls_record.cc
+  source_name_part = tls_record
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cert_error_id.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/cert_error_id.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = cert_error_id.cc
+  source_name_part = cert_error_id
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cert_error_params.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/cert_error_params.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = cert_error_params.cc
+  source_name_part = cert_error_params
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cert_errors.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/cert_errors.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = cert_errors.cc
+  source_name_part = cert_errors
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cert_issuer_source_static.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/cert_issuer_source_static.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = cert_issuer_source_static.cc
+  source_name_part = cert_issuer_source_static
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/certificate.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/certificate.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = certificate.cc
+  source_name_part = certificate
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/certificate_policies.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/certificate_policies.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = certificate_policies.cc
+  source_name_part = certificate_policies
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/common_cert_errors.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/common_cert_errors.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = common_cert_errors.cc
+  source_name_part = common_cert_errors
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/crl.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/crl.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = crl.cc
+  source_name_part = crl
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/encode_values.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/encode_values.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = encode_values.cc
+  source_name_part = encode_values
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/extended_key_usage.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/extended_key_usage.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = extended_key_usage.cc
+  source_name_part = extended_key_usage
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/general_names.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/general_names.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = general_names.cc
+  source_name_part = general_names
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/input.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/input.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = input.cc
+  source_name_part = input
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ip_util.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/ip_util.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = ip_util.cc
+  source_name_part = ip_util
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/name_constraints.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/name_constraints.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = name_constraints.cc
+  source_name_part = name_constraints
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ocsp.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/ocsp.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = ocsp.cc
+  source_name_part = ocsp
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/parse_certificate.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/parse_certificate.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = parse_certificate.cc
+  source_name_part = parse_certificate
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/parse_name.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/parse_name.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = parse_name.cc
+  source_name_part = parse_name
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/parse_values.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/parse_values.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = parse_values.cc
+  source_name_part = parse_values
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/parsed_certificate.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/parsed_certificate.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = parsed_certificate.cc
+  source_name_part = parsed_certificate
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/parser.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/parser.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = parser.cc
+  source_name_part = parser
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/path_builder.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/path_builder.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = path_builder.cc
+  source_name_part = path_builder
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pem.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/pem.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = pem.cc
+  source_name_part = pem
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/revocation_util.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/revocation_util.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = revocation_util.cc
+  source_name_part = revocation_util
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/signature_algorithm.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/signature_algorithm.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = signature_algorithm.cc
+  source_name_part = signature_algorithm
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/simple_path_builder_delegate.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/simple_path_builder_delegate.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = simple_path_builder_delegate.cc
+  source_name_part = simple_path_builder_delegate
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/string_util.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/string_util.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = string_util.cc
+  source_name_part = string_util
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/trust_store.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/trust_store.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = trust_store.cc
+  source_name_part = trust_store
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/trust_store_collection.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/trust_store_collection.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = trust_store_collection.cc
+  source_name_part = trust_store_collection
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/trust_store_in_memory.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/trust_store_in_memory.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = trust_store_in_memory.cc
+  source_name_part = trust_store_in_memory
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/verify.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/verify.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = verify.cc
+  source_name_part = verify
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/verify_certificate_chain.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/verify_certificate_chain.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = verify_certificate_chain.cc
+  source_name_part = verify_certificate_chain
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/verify_error.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/verify_error.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = verify_error.cc
+  source_name_part = verify_error
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/verify_name_match.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/verify_name_match.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = verify_name_match.cc
+  source_name_part = verify_name_match
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/verify_signed_data.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/boringssl/src/pki/verify_signed_data.cc | clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs
+  source_file_part = verify_signed_data.cc
+  source_name_part = verify_signed_data
+
+build clang_arm64_with_system_allocator/obj/third_party/boringssl/libboringssl.a: clang_arm64_with_system_allocator_alink clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/bcm.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/aes.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_bitstr.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_bool.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_d2i_fp.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_dup.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_gentm.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_i2d_fp.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_int.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_mbstr.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_object.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_octet.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_strex.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_strnid.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_time.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_type.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_utctm.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/asn1_lib.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/asn1_par.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/asn_pack.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/f_int.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/f_string.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/posix_time.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tasn_dec.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tasn_enc.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tasn_fre.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tasn_new.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tasn_typ.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tasn_utl.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/base64.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/bio.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/bio_mem.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/connect.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/errno.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/fd.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/file.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/hexdump.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pair.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/printf.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/socket.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/socket_helper.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/blake2.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/bn_asn1.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/convert.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/exponentiation.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/buf.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/asn1_compat.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ber.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cbb.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cbs.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/unicode.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/chacha.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/derive_key.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/e_aesctrhmac.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/e_aeseax.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/e_aesgcmsiv.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/e_chacha20poly1305.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/e_des.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/e_null.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/e_rc2.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/e_rc4.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/e_tls.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/get_cipher.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tls_cbc.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/conf.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cpu_aarch64_apple.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cpu_aarch64_fuchsia.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cpu_aarch64_linux.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cpu_aarch64_openbsd.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cpu_aarch64_sysreg.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cpu_aarch64_win.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cpu_arm_freebsd.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cpu_arm_linux.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cpu_intel.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/crypto.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/curve25519.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/curve25519_64_adx.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/spake25519.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/des.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/dh_asn1.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/params.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/digest_extra.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/dsa.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/dsa_asn1.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ec_asn1.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ec_derive.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/hash_to_curve.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ecdh.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ecdsa_asn1.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/engine.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/err.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/evp.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/evp_asn1.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/evp_ctx.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p_dh.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p_dh_asn1.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p_dsa_asn1.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p_ec.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p_ec_asn1.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p_ed25519.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p_ed25519_asn1.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p_hkdf.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p_rsa.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p_rsa_asn1.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p_x25519.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p_x25519_asn1.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pbkdf.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/print.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/scrypt.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/sign.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ex_data.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/fips_shared_support.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/fuzzer_mode.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/hpke.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/hrss.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/kyber.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/lhash.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/md4.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/md5.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/mem.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/mldsa.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/mlkem.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/obj.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/obj_xref.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pem_all.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pem_info.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pem_lib.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pem_oth.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pem_pk8.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pem_pkey.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pem_x509.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pem_xaux.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pkcs7.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pkcs7_x509.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/p5_pbev2.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pkcs8.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pkcs8_x509.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/poly1305.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/poly1305_arm.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/poly1305_vec.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pool.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/deterministic.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/fork_detect.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/forkunsafe.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/getentropy.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ios.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/passive.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/rand.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/trusty.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/urandom.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/windows.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/rc4.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/refcount.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/rsa_asn1.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/rsa_crypt.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/rsa_extra.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/rsa_print.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/sha1.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/sha256.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/sha512.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/siphash.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/slhdsa.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/spake2plus.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/stack.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/thread.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/thread_none.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/thread_pthread.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/thread_win.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pmbtoken.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/trust_token.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/voprf.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_digest.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_sign.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/a_verify.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/algorithm.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/asn1_gen.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/by_dir.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/by_file.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/i2d_pr.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/name_print.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/policy.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/rsa_pss.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/t_crl.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/t_req.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/t_x509.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/t_x509a.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_akey.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_akeya.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_alt.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_bcons.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_bitst.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_conf.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_cpols.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_crld.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_enum.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_extku.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_genn.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_ia5.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_info.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_int.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_lib.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_ncons.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_ocsp.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_pcons.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_pmaps.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_prn.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_purp.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_skey.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/v3_utl.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_att.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_cmp.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_d2.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_def.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_ext.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_lu.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_obj.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_req.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_set.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_trs.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_txt.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_v3.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_vfy.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509_vpm.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509cset.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509name.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509rset.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x509spki.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_algor.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_all.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_attrib.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_crl.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_exten.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_name.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_pubkey.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_req.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_sig.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_spki.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_val.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_x509.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/x_x509a.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/err_data.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/bio_ssl.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/d1_both.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/d1_lib.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/d1_pkt.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/d1_srtp.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/dtls_method.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/dtls_record.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/encrypted_client_hello.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/extensions.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/handoff.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/handshake.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/handshake_client.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/handshake_server.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/s3_both.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/s3_lib.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/s3_pkt.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_aead_ctx.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_asn1.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_buffer.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_cert.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_cipher.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_credential.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_file.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_key_share.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_lib.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_privkey.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_session.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_stat.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_transcript.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_versions.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ssl_x509.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/t1_enc.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tls13_both.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tls13_client.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tls13_enc.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tls13_server.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tls_method.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/tls_record.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cert_error_id.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cert_error_params.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cert_errors.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/cert_issuer_source_static.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/certificate.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/certificate_policies.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/common_cert_errors.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/crl.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/encode_values.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/extended_key_usage.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/general_names.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/input.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ip_util.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/name_constraints.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/ocsp.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/parse_certificate.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/parse_name.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/parse_values.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/parsed_certificate.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/parser.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/path_builder.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/pem.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/revocation_util.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/signature_algorithm.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/simple_path_builder_delegate.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/string_util.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/trust_store.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/trust_store_collection.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/trust_store_in_memory.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/verify.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/verify_certificate_chain.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/verify_error.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/verify_name_match.o clang_arm64_with_system_allocator/obj/third_party/boringssl/boringssl/verify_signed_data.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl.inputs || clang_arm64_with_system_allocator/phony/third_party/boringssl/boringssl_asm
+  arflags = -T -s
+  output_extension = .a
+  output_dir = clang_arm64_with_system_allocator/obj/third_party/boringssl

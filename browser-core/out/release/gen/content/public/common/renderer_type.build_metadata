@@ -1,0 +1,8 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../../src/content/public/common/media_playback_renderer_type.mojom"
+  ]
+}

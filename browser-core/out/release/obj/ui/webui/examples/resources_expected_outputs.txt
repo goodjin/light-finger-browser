@@ -1,0 +1,2 @@
+gen/ui/webui/examples/grit/webui_examples_resources.h
+gen/ui/webui/examples/webui_examples_resources.pak

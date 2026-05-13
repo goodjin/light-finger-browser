@@ -302,7 +302,7 @@ func TestBuildArgs(t *testing.T) {
 	args := pm.buildArgs(9005, "/tmp/userdata", cfg)
 
 	expectedArgs := []string{
-		"--port=9005",
+		"--remote-debugging-port=9005",
 		"--user-data-dir=/tmp/userdata",
 		"--proxy-server=http://proxy:8080",
 		"--headless",

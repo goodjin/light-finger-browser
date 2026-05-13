@@ -1,0 +1,9 @@
+{
+  "deps": [
+    "../../../mojo/public/mojom/base/base.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../src/components/spellcheck/common/spellcheck.mojom",
+    "../../../../../../src/components/spellcheck/common/spellcheck_panel.mojom"
+  ]
+}

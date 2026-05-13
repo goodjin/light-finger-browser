@@ -1,0 +1,8 @@
+{
+  "deps": [
+    "mojo_types.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../src/components/content_capture/common/traits_test_service.test-mojom"
+  ]
+}

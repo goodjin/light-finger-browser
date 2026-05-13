@@ -1,0 +1,5 @@
+gen/chrome/grit/app_icon_resources.h
+gen/chrome/grit/app_icon_resources_map.cc
+gen/chrome/grit/app_icon_resources_map.h
+gen/chrome/app_icon_resources_100_percent.pak
+gen/chrome/app_icon_resources_200_percent.pak

@@ -1,0 +1,4 @@
+gen/components/grit/ntp_tiles_internals_resources.h
+gen/components/grit/ntp_tiles_internals_resources_map.cc
+gen/components/grit/ntp_tiles_internals_resources_map.h
+gen/components/ntp_tiles_internals_resources.pak

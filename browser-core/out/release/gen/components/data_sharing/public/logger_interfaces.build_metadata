@@ -1,0 +1,8 @@
+{
+  "deps": [
+    "../../../mojo/public/mojom/base/base.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../src/components/data_sharing/public/logger_common.mojom"
+  ]
+}

@@ -1,0 +1,4 @@
+gen/chrome/grit/search_engine_choice_resources.h
+gen/chrome/grit/search_engine_choice_resources_map.cc
+gen/chrome/grit/search_engine_choice_resources_map.h
+gen/chrome/search_engine_choice_resources.pak

@@ -1,0 +1,21 @@
+{
+  "deps": [
+    "../../../mojo/public/mojom/base/base.build_metadata",
+    "../../../skia/public/mojom/mojom.build_metadata",
+    "../../gfx/geometry/mojom/mojom.build_metadata",
+    "../../gfx/mojom/mojom.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../src/ui/display/mojom/display.mojom",
+    "../../../../../../src/ui/display/mojom/display_color_management.mojom",
+    "../../../../../../src/ui/display/mojom/display_configuration_params.mojom",
+    "../../../../../../src/ui/display/mojom/display_constants.mojom",
+    "../../../../../../src/ui/display/mojom/display_layout.mojom",
+    "../../../../../../src/ui/display/mojom/display_mode.mojom",
+    "../../../../../../src/ui/display/mojom/display_snapshot.mojom",
+    "../../../../../../src/ui/display/mojom/gamma_ramp_rgb_entry.mojom",
+    "../../../../../../src/ui/display/mojom/screen_info.mojom",
+    "../../../../../../src/ui/display/mojom/screen_infos.mojom",
+    "../../../../../../src/ui/display/mojom/screen_orientation.mojom"
+  ]
+}

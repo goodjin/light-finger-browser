@@ -178,7 +178,7 @@ func (pm *ProcessManager) Stop(ctx context.Context, id string) error {
 // buildArgs constructs the command-line arguments for the browser.
 func (pm *ProcessManager) buildArgs(port int, userDataDir string, cfg *InstanceConfig) []string {
 	args := []string{
-		"--port=" + strconv.Itoa(port),
+		"--remote-debugging-port=" + strconv.Itoa(port),
 		"--user-data-dir=" + userDataDir,
 	}
 

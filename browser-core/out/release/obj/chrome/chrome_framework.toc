@@ -1,0 +1,5 @@
+Version=136.0.7103.99
+Chromium Framework
+Helpers
+Libraries
+Resources

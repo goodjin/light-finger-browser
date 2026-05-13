@@ -5,11 +5,15 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
 	"net"
 	"net/http"
+	"net/url"
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/gorilla/websocket"
 )
 
 // ErrConnectionClosed is returned when the WebSocket connection is closed.
@@ -25,10 +29,11 @@ type WebSocket interface {
 	Close() error
 }
 
-// Conn represents a WebSocket connection.
+// Conn represents a WebSocket connection wrapping gorilla/websocket.Conn.
 type Conn struct {
 	mu     sync.Mutex
 	closed bool
+	conn   *websocket.Conn
 }
 
 // WebSocketMessage represents a WebSocket message.
@@ -49,22 +54,29 @@ type Dialer struct {
 
 // DialContext connects to a WebSocket server using the context.
 func (d *Dialer) DialContext(ctx context.Context, network, addr string) (*Conn, *http.Response, error) {
-	// For testing purposes, this is a stub implementation
-	// In production, this would use the actual gorilla/websocket library
-	conn := &Conn{}
+	// Parse the address - if it's not a ws:// URL, add the scheme
+	wsURL := addr
+	if !strings.HasPrefix(addr, "ws://") && !strings.HasPrefix(addr, "wss://") {
+		wsURL = "ws://" + addr
+	}
 
-	// Try to establish a TCP connection
-	dialer := net.Dialer{Timeout: d.HandshakeTimeout}
-	connFd, err := dialer.DialContext(ctx, network, addr)
-	if err != nil {
+	if _, err := url.Parse(wsURL); err != nil {
 		return nil, nil, err
 	}
 
-	// Upgrade to WebSocket would happen here
-	// For now, return a stub connection
-	_ = connFd
+	dialer := websocket.Dialer{
+		HandshakeTimeout: d.HandshakeTimeout,
+	}
 
-	return conn, nil, nil
+	log.Printf("[WebSocket DialContext] Connecting to: %s", wsURL)
+	conn, resp, err := dialer.DialContext(ctx, wsURL, nil)
+	if err != nil {
+		log.Printf("[WebSocket DialContext] Error: %v, resp: %v", err, resp)
+		return nil, resp, err
+	}
+	log.Printf("[WebSocket DialContext] Connected successfully!")
+
+	return &Conn{conn: conn}, resp, nil
 }
 
 // ReadJSON reads a JSON message from the WebSocket connection.
@@ -72,11 +84,11 @@ func (c *Conn) ReadJSON(v interface{}) error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
-	if c.closed {
+	if c.closed || c.conn == nil {
 		return ErrNotConnected
 	}
 
-	return errors.New("stub: ReadJSON not implemented")
+	return c.conn.ReadJSON(v)
 }
 
 // WriteJSON writes a JSON message to the WebSocket connection.
@@ -84,17 +96,11 @@ func (c *Conn) WriteJSON(v interface{}) error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
-	if c.closed {
+	if c.closed || c.conn == nil {
 		return ErrNotConnected
 	}
 
-	data, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	_ = data // Stub: would send data over WebSocket
-	return nil
+	return c.conn.WriteJSON(v)
 }
 
 // Close closes the WebSocket connection.
@@ -103,6 +109,9 @@ func (c *Conn) Close() error {
 	defer c.mu.Unlock()
 
 	c.closed = true
+	if c.conn != nil {
+		return c.conn.Close()
+	}
 	return nil
 }
 
@@ -121,8 +130,15 @@ type Upgrader struct {
 
 // Upgrade upgrades an HTTP connection to a WebSocket connection.
 func (u *Upgrader) Upgrade(w http.ResponseWriter, r *http.Request) (*Conn, error) {
-	// Stub implementation
-	return &Conn{}, nil
+	upgrader := websocket.Upgrader{
+		ReadBufferSize:  u.ReadBufferSize,
+		WriteBufferSize: u.WriteBufferSize,
+	}
+	conn, err := upgrader.Upgrade(w, r, nil)
+	if err != nil {
+		return nil, err
+	}
+	return &Conn{conn: conn}, nil
 }
 
 // Message represents a CDP message for WebSocket transport.
@@ -147,5 +163,5 @@ type Error struct {
 
 // FormatAddr formats an address for WebSocket connection.
 func FormatAddr(host string, port int) string {
-	return net.JoinHostPort(host, strings.TrimPrefix(strings.TrimPrefix(fmt.Sprintf("%d", port), ":"), "ws://"))
+	return net.JoinHostPort(host, fmt.Sprintf("%d", port))
 }

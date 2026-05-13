@@ -1,0 +1,104 @@
+defines = -DHAVE_DLADDR -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=2 -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DIS_PARTITION_ALLOC_BASE_IMPL
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/base/allocator/partition_allocator/src -Igen/base/allocator/partition_allocator/src
+cflags = -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wthread-safety -Wgnu -Wno-gnu-anonymous-struct -Wno-gnu-conditional-omitted-operand -Wno-gnu-include-next -Wno-gnu-label-as-value -Wno-gnu-redeclared-enum -Wno-gnu-statement-expression -Wno-gnu-zero-variadic-macro-arguments -Wno-zero-length-array -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wshadow -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wexit-time-destructors -O3 -fno-math-errno -Wc++11-narrowing -Wconditional-uninitialized -Wcstring-format-directive -Wctad-maybe-unsupported -Wdeprecated-copy -Wdeprecated-copy-dtor -Wduplicate-enum -Wextra-semi -Wextra-semi-stmt -Widiomatic-parentheses -Wimplicit-fallthrough -Winconsistent-missing-destructor-override -Winvalid-offsetof -Wmissing-field-initializers -Wnon-c-typedef-for-linkage -Wpessimizing-move -Wrange-loop-analysis -Wredundant-move -Wshadow-field -Wstrict-prototypes -Wsuggest-destructor-override -Wsuggest-override -Wtautological-unsigned-zero-compare -Wunreachable-code-aggressive -Wunused-but-set-variable -Wunused-macros -pedantic
+cflags_cc = -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden
+cflags_objcc = -Wimplicit-retain-self -Wobjc-missing-property-synthesis -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fobjc-arc -fno-objc-arc-exceptions -fvisibility-inlines-hidden
+label_name = allocator_base
+root_out_dir = .
+target_out_dir = obj/base/allocator/partition_allocator/src/partition_alloc
+target_output_name = liballocator_base
+
+build phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/check.o: cxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/check.cc | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = check.cc
+  source_name_part = check
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/cpu.o: cxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/cpu.cc | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = cpu.cc
+  source_name_part = cpu
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/alias.o: cxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/debug/alias.cc | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = alias.cc
+  source_name_part = alias
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/stack_trace.o: cxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/debug/stack_trace.cc | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = stack_trace.cc
+  source_name_part = stack_trace
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/log_message.o: cxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/log_message.cc | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = log_message.cc
+  source_name_part = log_message
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/logging.o: cxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/logging.cc | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = logging.cc
+  source_name_part = logging
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/ref_counted.o: cxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/memory/ref_counted.cc | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = ref_counted.cc
+  source_name_part = ref_counted
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/rand_util.o: cxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/rand_util.cc | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = rand_util.cc
+  source_name_part = rand_util
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/cstring_builder.o: cxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/strings/cstring_builder.cc | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = cstring_builder.cc
+  source_name_part = cstring_builder
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/safe_sprintf.o: cxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/strings/safe_sprintf.cc | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = safe_sprintf.cc
+  source_name_part = safe_sprintf
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/string_util.o: cxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/strings/string_util.cc | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = string_util.cc
+  source_name_part = string_util
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/stringprintf.o: cxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/strings/stringprintf.cc | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = stringprintf.cc
+  source_name_part = stringprintf
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/platform_thread.o: cxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/threading/platform_thread.cc | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = platform_thread.cc
+  source_name_part = platform_thread
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/time.o: cxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/time/time.cc | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = time.cc
+  source_name_part = time
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/time_override.o: cxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/time/time_override.cc | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = time_override.cc
+  source_name_part = time_override
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/stack_trace_posix.o: cxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/debug/stack_trace_posix.cc | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = stack_trace_posix.cc
+  source_name_part = stack_trace_posix
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/file_util_posix.o: cxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/files/file_util_posix.cc | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = file_util_posix.cc
+  source_name_part = file_util_posix
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/page_size_posix.o: cxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/memory/page_size_posix.cc | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = page_size_posix.cc
+  source_name_part = page_size_posix
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/safe_strerror.o: cxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/posix/safe_strerror.cc | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = safe_strerror.cc
+  source_name_part = safe_strerror
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/process_handle_posix.o: cxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/process/process_handle_posix.cc | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = process_handle_posix.cc
+  source_name_part = process_handle_posix
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/rand_util_posix.o: cxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/rand_util_posix.cc | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = rand_util_posix.cc
+  source_name_part = rand_util_posix
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/platform_thread_posix.o: cxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/threading/platform_thread_posix.cc | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = platform_thread_posix.cc
+  source_name_part = platform_thread_posix
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/time_conversion_posix.o: cxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/time/time_conversion_posix.cc | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = time_conversion_posix.cc
+  source_name_part = time_conversion_posix
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/stack_trace_mac.o: cxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/debug/stack_trace_mac.cc | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = stack_trace_mac.cc
+  source_name_part = stack_trace_mac
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/time_apple.o: objcxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/time/time_apple.mm | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = time_apple.mm
+  source_name_part = time_apple
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/foundation_util.o: objcxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/apple/foundation_util.mm | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = foundation_util.mm
+  source_name_part = foundation_util
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/mach_logging.o: cxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/apple/mach_logging.cc | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = mach_logging.cc
+  source_name_part = mach_logging
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/mac_util.o: objcxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/mac/mac_util.mm | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = mac_util.mm
+  source_name_part = mac_util
+build obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/sys_info_mac.o: objcxx ../../src/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/system/sys_info_mac.mm | phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  source_file_part = sys_info_mac.mm
+  source_name_part = sys_info_mac
+
+build obj/base/allocator/partition_allocator/src/partition_alloc/liballocator_base.a: alink obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/check.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/cpu.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/alias.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/stack_trace.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/log_message.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/logging.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/ref_counted.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/rand_util.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/cstring_builder.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/safe_sprintf.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/string_util.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/stringprintf.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/platform_thread.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/time.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/time_override.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/stack_trace_posix.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/file_util_posix.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/page_size_posix.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/safe_strerror.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/process_handle_posix.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/rand_util_posix.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/platform_thread_posix.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/time_conversion_posix.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/stack_trace_mac.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/time_apple.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/foundation_util.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/mach_logging.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/mac_util.o obj/base/allocator/partition_allocator/src/partition_alloc/allocator_base/sys_info_mac.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a phony/base/allocator/partition_allocator/src/partition_alloc/allocator_base.inputs || phony/base/allocator/partition_allocator/src/partition_alloc/build_config phony/base/allocator/partition_allocator/src/partition_alloc/buildflags
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/base/allocator/partition_allocator/src/partition_alloc

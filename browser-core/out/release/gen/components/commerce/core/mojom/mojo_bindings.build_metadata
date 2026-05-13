@@ -1,0 +1,14 @@
+{
+  "deps": [
+    "../../../../mojo/public/mojom/base/base.build_metadata",
+    "../../../../url/mojom/url_mojom_gurl.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../src/components/commerce/core/mojom/commerce_web_extractor.mojom",
+    "../../../../../../../src/components/commerce/core/mojom/price_insights.mojom",
+    "../../../../../../../src/components/commerce/core/mojom/price_tracking.mojom",
+    "../../../../../../../src/components/commerce/core/mojom/product_specifications.mojom",
+    "../../../../../../../src/components/commerce/core/mojom/shared.mojom",
+    "../../../../../../../src/components/commerce/core/mojom/shopping_service.mojom"
+  ]
+}

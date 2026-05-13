@@ -1,0 +1,43 @@
+{
+  "deps": [
+    "../../content/public/common/interfaces.build_metadata",
+    "api/mojom.build_metadata",
+    "../../mojo/public/mojom/base/base.build_metadata",
+    "../../services/accessibility/public/mojom/automation.build_metadata",
+    "../../third_party/blink/public/mojom/mojom_core.build_metadata",
+    "../../ui/gfx/geometry/mojom/mojom.build_metadata",
+    "../../url/mojom/url_mojom_gurl.build_metadata"
+  ],
+  "sources": [
+    "../../../../../src/extensions/common/mojom/api_permission_id.mojom",
+    "../../../../../src/extensions/common/mojom/app_window.mojom",
+    "../../../../../src/extensions/common/mojom/automation_registry.mojom",
+    "../../../../../src/extensions/common/mojom/channel.mojom",
+    "../../../../../src/extensions/common/mojom/code_injection.mojom",
+    "../../../../../src/extensions/common/mojom/context_type.mojom",
+    "../../../../../src/extensions/common/mojom/css_origin.mojom",
+    "../../../../../src/extensions/common/mojom/event_dispatcher.mojom",
+    "../../../../../src/extensions/common/mojom/event_router.mojom",
+    "../../../../../src/extensions/common/mojom/execution_world.mojom",
+    "../../../../../src/extensions/common/mojom/extension_id.mojom",
+    "../../../../../src/extensions/common/mojom/extra_response_data.mojom",
+    "../../../../../src/extensions/common/mojom/feature_session_type.mojom",
+    "../../../../../src/extensions/common/mojom/frame.mojom",
+    "../../../../../src/extensions/common/mojom/host_id.mojom",
+    "../../../../../src/extensions/common/mojom/injection_type.mojom",
+    "../../../../../src/extensions/common/mojom/keep_alive.mojom",
+    "../../../../../src/extensions/common/mojom/manifest.mojom",
+    "../../../../../src/extensions/common/mojom/match_origin_as_fallback.mojom",
+    "../../../../../src/extensions/common/mojom/message_port.mojom",
+    "../../../../../src/extensions/common/mojom/permission_set.mojom",
+    "../../../../../src/extensions/common/mojom/renderer.mojom",
+    "../../../../../src/extensions/common/mojom/renderer_host.mojom",
+    "../../../../../src/extensions/common/mojom/run_location.mojom",
+    "../../../../../src/extensions/common/mojom/service_worker.mojom",
+    "../../../../../src/extensions/common/mojom/service_worker_host.mojom",
+    "../../../../../src/extensions/common/mojom/stack_frame.mojom",
+    "../../../../../src/extensions/common/mojom/url_pattern_set.mojom",
+    "../../../../../src/extensions/common/mojom/view_type.mojom",
+    "../../../../../src/extensions/common/mojom/guest_view.mojom"
+  ]
+}

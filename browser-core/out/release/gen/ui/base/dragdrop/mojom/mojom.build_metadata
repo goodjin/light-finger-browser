@@ -1,0 +1,8 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../../../src/ui/base/dragdrop/mojom/drag_drop_types.mojom"
+  ]
+}

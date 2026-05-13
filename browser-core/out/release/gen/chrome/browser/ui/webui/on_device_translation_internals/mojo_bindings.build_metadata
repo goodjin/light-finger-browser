@@ -1,0 +1,8 @@
+{
+  "deps": [
+    "../../../../../mojo/public/mojom/base/base.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../src/chrome/browser/ui/webui/on_device_translation_internals/on_device_translation_internals.mojom"
+  ]
+}

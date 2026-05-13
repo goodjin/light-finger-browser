@@ -1,0 +1,10 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DABSL_ALLOCATOR_NOTHROW=1
+framework_dirs =
+include_dirs = -I../../src -Iclang_arm64_with_system_allocator/gen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/abseil-cpp
+label_name = endian
+root_out_dir = clang_arm64_with_system_allocator
+target_out_dir = clang_arm64_with_system_allocator/obj/third_party/abseil-cpp/absl/base
+target_output_name = endian
+
+
+build clang_arm64_with_system_allocator/phony/third_party/abseil-cpp/absl/base/endian: phony || clang_arm64_with_system_allocator/phony/third_party/abseil-cpp/absl/base/base clang_arm64_with_system_allocator/phony/third_party/abseil-cpp/absl/base/log_severity clang_arm64_with_system_allocator/phony/third_party/abseil-cpp/absl/base/raw_logging_internal clang_arm64_with_system_allocator/phony/third_party/abseil-cpp/absl/base/spinlock_wait

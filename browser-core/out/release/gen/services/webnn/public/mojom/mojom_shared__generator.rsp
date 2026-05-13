@@ -1,0 +1,7 @@
+../../src/services/webnn/public/mojom/webnn_context.mojom
+../../src/services/webnn/public/mojom/webnn_context_properties.mojom
+../../src/services/webnn/public/mojom/webnn_context_provider.mojom
+../../src/services/webnn/public/mojom/webnn_error.mojom
+../../src/services/webnn/public/mojom/webnn_graph.mojom
+../../src/services/webnn/public/mojom/webnn_graph_builder.mojom
+../../src/services/webnn/public/mojom/webnn_tensor.mojom

@@ -1,0 +1,2 @@
+gen/components/metrics/grit/metrics_server_urls.h
+gen/components/metrics/metrics_server_urls.pak

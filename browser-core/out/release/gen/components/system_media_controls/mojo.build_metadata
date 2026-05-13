@@ -1,0 +1,9 @@
+{
+  "deps": [
+    "../../mojo/public/mojom/base/base.build_metadata",
+    "../../services/media_session/public/mojom/mojom.build_metadata"
+  ],
+  "sources": [
+    "../../../../../src/components/system_media_controls/mac/remote_cocoa/system_media_controls.mojom"
+  ]
+}

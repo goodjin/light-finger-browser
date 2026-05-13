@@ -1,0 +1,8 @@
+{
+  "deps": [
+    "../../../../mojo/public/mojom/base/base.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../src/services/network/public/mojom/network_isolation_partition.mojom"
+  ]
+}

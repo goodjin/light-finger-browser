@@ -1,0 +1,380 @@
+defines = -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=2 -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0
+framework_dirs =
+include_dirs = -I../../src/third_party/boringssl/src/include -I../../src -Igen -I../../src/buildtools/third_party/libc++
+asmflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers -std=c11 --target=arm64-apple-macos -mno-outline -fno-standalone-debug -g2 -gdwarf-aranges -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0
+label_name = boringssl_asm
+root_out_dir = .
+target_out_dir = obj/third_party/boringssl
+target_output_name = boringssl_asm
+
+build obj/third_party/boringssl/boringssl_asm/aes-gcm-avx2-x86_64-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/aes-gcm-avx2-x86_64-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = aes-gcm-avx2-x86_64-apple.S
+  source_name_part = aes-gcm-avx2-x86_64-apple
+build obj/third_party/boringssl/boringssl_asm/aes-gcm-avx2-x86_64-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/aes-gcm-avx2-x86_64-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = aes-gcm-avx2-x86_64-linux.S
+  source_name_part = aes-gcm-avx2-x86_64-linux
+build obj/third_party/boringssl/boringssl_asm/aes-gcm-avx512-x86_64-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/aes-gcm-avx512-x86_64-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = aes-gcm-avx512-x86_64-apple.S
+  source_name_part = aes-gcm-avx512-x86_64-apple
+build obj/third_party/boringssl/boringssl_asm/aes-gcm-avx512-x86_64-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/aes-gcm-avx512-x86_64-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = aes-gcm-avx512-x86_64-linux.S
+  source_name_part = aes-gcm-avx512-x86_64-linux
+build obj/third_party/boringssl/boringssl_asm/aesni-gcm-x86_64-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/aesni-gcm-x86_64-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = aesni-gcm-x86_64-apple.S
+  source_name_part = aesni-gcm-x86_64-apple
+build obj/third_party/boringssl/boringssl_asm/aesni-gcm-x86_64-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/aesni-gcm-x86_64-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = aesni-gcm-x86_64-linux.S
+  source_name_part = aesni-gcm-x86_64-linux
+build obj/third_party/boringssl/boringssl_asm/aesni-x86-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/aesni-x86-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = aesni-x86-apple.S
+  source_name_part = aesni-x86-apple
+build obj/third_party/boringssl/boringssl_asm/aesni-x86-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/aesni-x86-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = aesni-x86-linux.S
+  source_name_part = aesni-x86-linux
+build obj/third_party/boringssl/boringssl_asm/aesni-x86_64-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/aesni-x86_64-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = aesni-x86_64-apple.S
+  source_name_part = aesni-x86_64-apple
+build obj/third_party/boringssl/boringssl_asm/aesni-x86_64-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/aesni-x86_64-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = aesni-x86_64-linux.S
+  source_name_part = aesni-x86_64-linux
+build obj/third_party/boringssl/boringssl_asm/aesv8-armv7-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/aesv8-armv7-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = aesv8-armv7-linux.S
+  source_name_part = aesv8-armv7-linux
+build obj/third_party/boringssl/boringssl_asm/aesv8-armv8-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/aesv8-armv8-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = aesv8-armv8-apple.S
+  source_name_part = aesv8-armv8-apple
+build obj/third_party/boringssl/boringssl_asm/aesv8-armv8-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/aesv8-armv8-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = aesv8-armv8-linux.S
+  source_name_part = aesv8-armv8-linux
+build obj/third_party/boringssl/boringssl_asm/aesv8-armv8-win.o: asm ../../src/third_party/boringssl/src/gen/bcm/aesv8-armv8-win.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = aesv8-armv8-win.S
+  source_name_part = aesv8-armv8-win
+build obj/third_party/boringssl/boringssl_asm/aesv8-gcm-armv8-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/aesv8-gcm-armv8-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = aesv8-gcm-armv8-apple.S
+  source_name_part = aesv8-gcm-armv8-apple
+build obj/third_party/boringssl/boringssl_asm/aesv8-gcm-armv8-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/aesv8-gcm-armv8-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = aesv8-gcm-armv8-linux.S
+  source_name_part = aesv8-gcm-armv8-linux
+build obj/third_party/boringssl/boringssl_asm/aesv8-gcm-armv8-win.o: asm ../../src/third_party/boringssl/src/gen/bcm/aesv8-gcm-armv8-win.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = aesv8-gcm-armv8-win.S
+  source_name_part = aesv8-gcm-armv8-win
+build obj/third_party/boringssl/boringssl_asm/armv4-mont-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/armv4-mont-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = armv4-mont-linux.S
+  source_name_part = armv4-mont-linux
+build obj/third_party/boringssl/boringssl_asm/armv8-mont-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/armv8-mont-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = armv8-mont-apple.S
+  source_name_part = armv8-mont-apple
+build obj/third_party/boringssl/boringssl_asm/armv8-mont-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/armv8-mont-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = armv8-mont-linux.S
+  source_name_part = armv8-mont-linux
+build obj/third_party/boringssl/boringssl_asm/armv8-mont-win.o: asm ../../src/third_party/boringssl/src/gen/bcm/armv8-mont-win.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = armv8-mont-win.S
+  source_name_part = armv8-mont-win
+build obj/third_party/boringssl/boringssl_asm/bn-586-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/bn-586-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = bn-586-apple.S
+  source_name_part = bn-586-apple
+build obj/third_party/boringssl/boringssl_asm/bn-586-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/bn-586-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = bn-586-linux.S
+  source_name_part = bn-586-linux
+build obj/third_party/boringssl/boringssl_asm/bn-armv8-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/bn-armv8-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = bn-armv8-apple.S
+  source_name_part = bn-armv8-apple
+build obj/third_party/boringssl/boringssl_asm/bn-armv8-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/bn-armv8-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = bn-armv8-linux.S
+  source_name_part = bn-armv8-linux
+build obj/third_party/boringssl/boringssl_asm/bn-armv8-win.o: asm ../../src/third_party/boringssl/src/gen/bcm/bn-armv8-win.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = bn-armv8-win.S
+  source_name_part = bn-armv8-win
+build obj/third_party/boringssl/boringssl_asm/bsaes-armv7-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/bsaes-armv7-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = bsaes-armv7-linux.S
+  source_name_part = bsaes-armv7-linux
+build obj/third_party/boringssl/boringssl_asm/co-586-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/co-586-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = co-586-apple.S
+  source_name_part = co-586-apple
+build obj/third_party/boringssl/boringssl_asm/co-586-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/co-586-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = co-586-linux.S
+  source_name_part = co-586-linux
+build obj/third_party/boringssl/boringssl_asm/ghash-armv4-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/ghash-armv4-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = ghash-armv4-linux.S
+  source_name_part = ghash-armv4-linux
+build obj/third_party/boringssl/boringssl_asm/ghash-neon-armv8-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/ghash-neon-armv8-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = ghash-neon-armv8-apple.S
+  source_name_part = ghash-neon-armv8-apple
+build obj/third_party/boringssl/boringssl_asm/ghash-neon-armv8-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/ghash-neon-armv8-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = ghash-neon-armv8-linux.S
+  source_name_part = ghash-neon-armv8-linux
+build obj/third_party/boringssl/boringssl_asm/ghash-neon-armv8-win.o: asm ../../src/third_party/boringssl/src/gen/bcm/ghash-neon-armv8-win.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = ghash-neon-armv8-win.S
+  source_name_part = ghash-neon-armv8-win
+build obj/third_party/boringssl/boringssl_asm/ghash-ssse3-x86-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/ghash-ssse3-x86-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = ghash-ssse3-x86-apple.S
+  source_name_part = ghash-ssse3-x86-apple
+build obj/third_party/boringssl/boringssl_asm/ghash-ssse3-x86-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/ghash-ssse3-x86-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = ghash-ssse3-x86-linux.S
+  source_name_part = ghash-ssse3-x86-linux
+build obj/third_party/boringssl/boringssl_asm/ghash-ssse3-x86_64-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/ghash-ssse3-x86_64-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = ghash-ssse3-x86_64-apple.S
+  source_name_part = ghash-ssse3-x86_64-apple
+build obj/third_party/boringssl/boringssl_asm/ghash-ssse3-x86_64-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/ghash-ssse3-x86_64-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = ghash-ssse3-x86_64-linux.S
+  source_name_part = ghash-ssse3-x86_64-linux
+build obj/third_party/boringssl/boringssl_asm/ghash-x86-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/ghash-x86-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = ghash-x86-apple.S
+  source_name_part = ghash-x86-apple
+build obj/third_party/boringssl/boringssl_asm/ghash-x86-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/ghash-x86-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = ghash-x86-linux.S
+  source_name_part = ghash-x86-linux
+build obj/third_party/boringssl/boringssl_asm/ghash-x86_64-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/ghash-x86_64-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = ghash-x86_64-apple.S
+  source_name_part = ghash-x86_64-apple
+build obj/third_party/boringssl/boringssl_asm/ghash-x86_64-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/ghash-x86_64-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = ghash-x86_64-linux.S
+  source_name_part = ghash-x86_64-linux
+build obj/third_party/boringssl/boringssl_asm/ghashv8-armv7-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/ghashv8-armv7-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = ghashv8-armv7-linux.S
+  source_name_part = ghashv8-armv7-linux
+build obj/third_party/boringssl/boringssl_asm/ghashv8-armv8-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/ghashv8-armv8-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = ghashv8-armv8-apple.S
+  source_name_part = ghashv8-armv8-apple
+build obj/third_party/boringssl/boringssl_asm/ghashv8-armv8-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/ghashv8-armv8-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = ghashv8-armv8-linux.S
+  source_name_part = ghashv8-armv8-linux
+build obj/third_party/boringssl/boringssl_asm/ghashv8-armv8-win.o: asm ../../src/third_party/boringssl/src/gen/bcm/ghashv8-armv8-win.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = ghashv8-armv8-win.S
+  source_name_part = ghashv8-armv8-win
+build obj/third_party/boringssl/boringssl_asm/p256-armv8-asm-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/p256-armv8-asm-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = p256-armv8-asm-apple.S
+  source_name_part = p256-armv8-asm-apple
+build obj/third_party/boringssl/boringssl_asm/p256-armv8-asm-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/p256-armv8-asm-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = p256-armv8-asm-linux.S
+  source_name_part = p256-armv8-asm-linux
+build obj/third_party/boringssl/boringssl_asm/p256-armv8-asm-win.o: asm ../../src/third_party/boringssl/src/gen/bcm/p256-armv8-asm-win.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = p256-armv8-asm-win.S
+  source_name_part = p256-armv8-asm-win
+build obj/third_party/boringssl/boringssl_asm/p256-x86_64-asm-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/p256-x86_64-asm-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = p256-x86_64-asm-apple.S
+  source_name_part = p256-x86_64-asm-apple
+build obj/third_party/boringssl/boringssl_asm/p256-x86_64-asm-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/p256-x86_64-asm-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = p256-x86_64-asm-linux.S
+  source_name_part = p256-x86_64-asm-linux
+build obj/third_party/boringssl/boringssl_asm/p256_beeu-armv8-asm-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/p256_beeu-armv8-asm-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = p256_beeu-armv8-asm-apple.S
+  source_name_part = p256_beeu-armv8-asm-apple
+build obj/third_party/boringssl/boringssl_asm/p256_beeu-armv8-asm-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/p256_beeu-armv8-asm-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = p256_beeu-armv8-asm-linux.S
+  source_name_part = p256_beeu-armv8-asm-linux
+build obj/third_party/boringssl/boringssl_asm/p256_beeu-armv8-asm-win.o: asm ../../src/third_party/boringssl/src/gen/bcm/p256_beeu-armv8-asm-win.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = p256_beeu-armv8-asm-win.S
+  source_name_part = p256_beeu-armv8-asm-win
+build obj/third_party/boringssl/boringssl_asm/p256_beeu-x86_64-asm-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/p256_beeu-x86_64-asm-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = p256_beeu-x86_64-asm-apple.S
+  source_name_part = p256_beeu-x86_64-asm-apple
+build obj/third_party/boringssl/boringssl_asm/p256_beeu-x86_64-asm-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/p256_beeu-x86_64-asm-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = p256_beeu-x86_64-asm-linux.S
+  source_name_part = p256_beeu-x86_64-asm-linux
+build obj/third_party/boringssl/boringssl_asm/rdrand-x86_64-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/rdrand-x86_64-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = rdrand-x86_64-apple.S
+  source_name_part = rdrand-x86_64-apple
+build obj/third_party/boringssl/boringssl_asm/rdrand-x86_64-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/rdrand-x86_64-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = rdrand-x86_64-linux.S
+  source_name_part = rdrand-x86_64-linux
+build obj/third_party/boringssl/boringssl_asm/rsaz-avx2-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/rsaz-avx2-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = rsaz-avx2-apple.S
+  source_name_part = rsaz-avx2-apple
+build obj/third_party/boringssl/boringssl_asm/rsaz-avx2-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/rsaz-avx2-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = rsaz-avx2-linux.S
+  source_name_part = rsaz-avx2-linux
+build obj/third_party/boringssl/boringssl_asm/sha1-586-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/sha1-586-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = sha1-586-apple.S
+  source_name_part = sha1-586-apple
+build obj/third_party/boringssl/boringssl_asm/sha1-586-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/sha1-586-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = sha1-586-linux.S
+  source_name_part = sha1-586-linux
+build obj/third_party/boringssl/boringssl_asm/sha1-armv4-large-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/sha1-armv4-large-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = sha1-armv4-large-linux.S
+  source_name_part = sha1-armv4-large-linux
+build obj/third_party/boringssl/boringssl_asm/sha1-armv8-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/sha1-armv8-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = sha1-armv8-apple.S
+  source_name_part = sha1-armv8-apple
+build obj/third_party/boringssl/boringssl_asm/sha1-armv8-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/sha1-armv8-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = sha1-armv8-linux.S
+  source_name_part = sha1-armv8-linux
+build obj/third_party/boringssl/boringssl_asm/sha1-armv8-win.o: asm ../../src/third_party/boringssl/src/gen/bcm/sha1-armv8-win.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = sha1-armv8-win.S
+  source_name_part = sha1-armv8-win
+build obj/third_party/boringssl/boringssl_asm/sha1-x86_64-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/sha1-x86_64-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = sha1-x86_64-apple.S
+  source_name_part = sha1-x86_64-apple
+build obj/third_party/boringssl/boringssl_asm/sha1-x86_64-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/sha1-x86_64-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = sha1-x86_64-linux.S
+  source_name_part = sha1-x86_64-linux
+build obj/third_party/boringssl/boringssl_asm/sha256-586-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/sha256-586-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = sha256-586-apple.S
+  source_name_part = sha256-586-apple
+build obj/third_party/boringssl/boringssl_asm/sha256-586-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/sha256-586-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = sha256-586-linux.S
+  source_name_part = sha256-586-linux
+build obj/third_party/boringssl/boringssl_asm/sha256-armv4-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/sha256-armv4-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = sha256-armv4-linux.S
+  source_name_part = sha256-armv4-linux
+build obj/third_party/boringssl/boringssl_asm/sha256-armv8-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/sha256-armv8-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = sha256-armv8-apple.S
+  source_name_part = sha256-armv8-apple
+build obj/third_party/boringssl/boringssl_asm/sha256-armv8-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/sha256-armv8-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = sha256-armv8-linux.S
+  source_name_part = sha256-armv8-linux
+build obj/third_party/boringssl/boringssl_asm/sha256-armv8-win.o: asm ../../src/third_party/boringssl/src/gen/bcm/sha256-armv8-win.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = sha256-armv8-win.S
+  source_name_part = sha256-armv8-win
+build obj/third_party/boringssl/boringssl_asm/sha256-x86_64-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/sha256-x86_64-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = sha256-x86_64-apple.S
+  source_name_part = sha256-x86_64-apple
+build obj/third_party/boringssl/boringssl_asm/sha256-x86_64-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/sha256-x86_64-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = sha256-x86_64-linux.S
+  source_name_part = sha256-x86_64-linux
+build obj/third_party/boringssl/boringssl_asm/sha512-586-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/sha512-586-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = sha512-586-apple.S
+  source_name_part = sha512-586-apple
+build obj/third_party/boringssl/boringssl_asm/sha512-586-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/sha512-586-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = sha512-586-linux.S
+  source_name_part = sha512-586-linux
+build obj/third_party/boringssl/boringssl_asm/sha512-armv4-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/sha512-armv4-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = sha512-armv4-linux.S
+  source_name_part = sha512-armv4-linux
+build obj/third_party/boringssl/boringssl_asm/sha512-armv8-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/sha512-armv8-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = sha512-armv8-apple.S
+  source_name_part = sha512-armv8-apple
+build obj/third_party/boringssl/boringssl_asm/sha512-armv8-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/sha512-armv8-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = sha512-armv8-linux.S
+  source_name_part = sha512-armv8-linux
+build obj/third_party/boringssl/boringssl_asm/sha512-armv8-win.o: asm ../../src/third_party/boringssl/src/gen/bcm/sha512-armv8-win.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = sha512-armv8-win.S
+  source_name_part = sha512-armv8-win
+build obj/third_party/boringssl/boringssl_asm/sha512-x86_64-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/sha512-x86_64-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = sha512-x86_64-apple.S
+  source_name_part = sha512-x86_64-apple
+build obj/third_party/boringssl/boringssl_asm/sha512-x86_64-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/sha512-x86_64-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = sha512-x86_64-linux.S
+  source_name_part = sha512-x86_64-linux
+build obj/third_party/boringssl/boringssl_asm/vpaes-armv7-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/vpaes-armv7-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = vpaes-armv7-linux.S
+  source_name_part = vpaes-armv7-linux
+build obj/third_party/boringssl/boringssl_asm/vpaes-armv8-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/vpaes-armv8-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = vpaes-armv8-apple.S
+  source_name_part = vpaes-armv8-apple
+build obj/third_party/boringssl/boringssl_asm/vpaes-armv8-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/vpaes-armv8-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = vpaes-armv8-linux.S
+  source_name_part = vpaes-armv8-linux
+build obj/third_party/boringssl/boringssl_asm/vpaes-armv8-win.o: asm ../../src/third_party/boringssl/src/gen/bcm/vpaes-armv8-win.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = vpaes-armv8-win.S
+  source_name_part = vpaes-armv8-win
+build obj/third_party/boringssl/boringssl_asm/vpaes-x86-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/vpaes-x86-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = vpaes-x86-apple.S
+  source_name_part = vpaes-x86-apple
+build obj/third_party/boringssl/boringssl_asm/vpaes-x86-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/vpaes-x86-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = vpaes-x86-linux.S
+  source_name_part = vpaes-x86-linux
+build obj/third_party/boringssl/boringssl_asm/vpaes-x86_64-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/vpaes-x86_64-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = vpaes-x86_64-apple.S
+  source_name_part = vpaes-x86_64-apple
+build obj/third_party/boringssl/boringssl_asm/vpaes-x86_64-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/vpaes-x86_64-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = vpaes-x86_64-linux.S
+  source_name_part = vpaes-x86_64-linux
+build obj/third_party/boringssl/boringssl_asm/x86-mont-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/x86-mont-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = x86-mont-apple.S
+  source_name_part = x86-mont-apple
+build obj/third_party/boringssl/boringssl_asm/x86-mont-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/x86-mont-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = x86-mont-linux.S
+  source_name_part = x86-mont-linux
+build obj/third_party/boringssl/boringssl_asm/x86_64-mont-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/x86_64-mont-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = x86_64-mont-apple.S
+  source_name_part = x86_64-mont-apple
+build obj/third_party/boringssl/boringssl_asm/x86_64-mont-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/x86_64-mont-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = x86_64-mont-linux.S
+  source_name_part = x86_64-mont-linux
+build obj/third_party/boringssl/boringssl_asm/x86_64-mont5-apple.o: asm ../../src/third_party/boringssl/src/gen/bcm/x86_64-mont5-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = x86_64-mont5-apple.S
+  source_name_part = x86_64-mont5-apple
+build obj/third_party/boringssl/boringssl_asm/x86_64-mont5-linux.o: asm ../../src/third_party/boringssl/src/gen/bcm/x86_64-mont5-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = x86_64-mont5-linux.S
+  source_name_part = x86_64-mont5-linux
+build obj/third_party/boringssl/boringssl_asm/fiat_p256_adx_mul.o: asm ../../src/third_party/boringssl/src/third_party/fiat/asm/fiat_p256_adx_mul.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = fiat_p256_adx_mul.S
+  source_name_part = fiat_p256_adx_mul
+build obj/third_party/boringssl/boringssl_asm/fiat_p256_adx_sqr.o: asm ../../src/third_party/boringssl/src/third_party/fiat/asm/fiat_p256_adx_sqr.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = fiat_p256_adx_sqr.S
+  source_name_part = fiat_p256_adx_sqr
+build obj/third_party/boringssl/boringssl_asm/x25519-asm-arm.o: asm ../../src/third_party/boringssl/src/crypto/curve25519/asm/x25519-asm-arm.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = x25519-asm-arm.S
+  source_name_part = x25519-asm-arm
+build obj/third_party/boringssl/boringssl_asm/poly_rq_mul.o: asm ../../src/third_party/boringssl/src/crypto/hrss/asm/poly_rq_mul.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = poly_rq_mul.S
+  source_name_part = poly_rq_mul
+build obj/third_party/boringssl/boringssl_asm/poly1305_arm_asm.o: asm ../../src/third_party/boringssl/src/crypto/poly1305/poly1305_arm_asm.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = poly1305_arm_asm.S
+  source_name_part = poly1305_arm_asm
+build obj/third_party/boringssl/boringssl_asm/aes128gcmsiv-x86_64-apple.o: asm ../../src/third_party/boringssl/src/gen/crypto/aes128gcmsiv-x86_64-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = aes128gcmsiv-x86_64-apple.S
+  source_name_part = aes128gcmsiv-x86_64-apple
+build obj/third_party/boringssl/boringssl_asm/aes128gcmsiv-x86_64-linux.o: asm ../../src/third_party/boringssl/src/gen/crypto/aes128gcmsiv-x86_64-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = aes128gcmsiv-x86_64-linux.S
+  source_name_part = aes128gcmsiv-x86_64-linux
+build obj/third_party/boringssl/boringssl_asm/chacha-armv4-linux.o: asm ../../src/third_party/boringssl/src/gen/crypto/chacha-armv4-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = chacha-armv4-linux.S
+  source_name_part = chacha-armv4-linux
+build obj/third_party/boringssl/boringssl_asm/chacha-armv8-apple.o: asm ../../src/third_party/boringssl/src/gen/crypto/chacha-armv8-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = chacha-armv8-apple.S
+  source_name_part = chacha-armv8-apple
+build obj/third_party/boringssl/boringssl_asm/chacha-armv8-linux.o: asm ../../src/third_party/boringssl/src/gen/crypto/chacha-armv8-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = chacha-armv8-linux.S
+  source_name_part = chacha-armv8-linux
+build obj/third_party/boringssl/boringssl_asm/chacha-armv8-win.o: asm ../../src/third_party/boringssl/src/gen/crypto/chacha-armv8-win.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = chacha-armv8-win.S
+  source_name_part = chacha-armv8-win
+build obj/third_party/boringssl/boringssl_asm/chacha-x86-apple.o: asm ../../src/third_party/boringssl/src/gen/crypto/chacha-x86-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = chacha-x86-apple.S
+  source_name_part = chacha-x86-apple
+build obj/third_party/boringssl/boringssl_asm/chacha-x86-linux.o: asm ../../src/third_party/boringssl/src/gen/crypto/chacha-x86-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = chacha-x86-linux.S
+  source_name_part = chacha-x86-linux
+build obj/third_party/boringssl/boringssl_asm/chacha-x86_64-apple.o: asm ../../src/third_party/boringssl/src/gen/crypto/chacha-x86_64-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = chacha-x86_64-apple.S
+  source_name_part = chacha-x86_64-apple
+build obj/third_party/boringssl/boringssl_asm/chacha-x86_64-linux.o: asm ../../src/third_party/boringssl/src/gen/crypto/chacha-x86_64-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = chacha-x86_64-linux.S
+  source_name_part = chacha-x86_64-linux
+build obj/third_party/boringssl/boringssl_asm/chacha20_poly1305_armv8-apple.o: asm ../../src/third_party/boringssl/src/gen/crypto/chacha20_poly1305_armv8-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = chacha20_poly1305_armv8-apple.S
+  source_name_part = chacha20_poly1305_armv8-apple
+build obj/third_party/boringssl/boringssl_asm/chacha20_poly1305_armv8-linux.o: asm ../../src/third_party/boringssl/src/gen/crypto/chacha20_poly1305_armv8-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = chacha20_poly1305_armv8-linux.S
+  source_name_part = chacha20_poly1305_armv8-linux
+build obj/third_party/boringssl/boringssl_asm/chacha20_poly1305_armv8-win.o: asm ../../src/third_party/boringssl/src/gen/crypto/chacha20_poly1305_armv8-win.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = chacha20_poly1305_armv8-win.S
+  source_name_part = chacha20_poly1305_armv8-win
+build obj/third_party/boringssl/boringssl_asm/chacha20_poly1305_x86_64-apple.o: asm ../../src/third_party/boringssl/src/gen/crypto/chacha20_poly1305_x86_64-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = chacha20_poly1305_x86_64-apple.S
+  source_name_part = chacha20_poly1305_x86_64-apple
+build obj/third_party/boringssl/boringssl_asm/chacha20_poly1305_x86_64-linux.o: asm ../../src/third_party/boringssl/src/gen/crypto/chacha20_poly1305_x86_64-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = chacha20_poly1305_x86_64-linux.S
+  source_name_part = chacha20_poly1305_x86_64-linux
+build obj/third_party/boringssl/boringssl_asm/md5-586-apple.o: asm ../../src/third_party/boringssl/src/gen/crypto/md5-586-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = md5-586-apple.S
+  source_name_part = md5-586-apple
+build obj/third_party/boringssl/boringssl_asm/md5-586-linux.o: asm ../../src/third_party/boringssl/src/gen/crypto/md5-586-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = md5-586-linux.S
+  source_name_part = md5-586-linux
+build obj/third_party/boringssl/boringssl_asm/md5-x86_64-apple.o: asm ../../src/third_party/boringssl/src/gen/crypto/md5-x86_64-apple.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = md5-x86_64-apple.S
+  source_name_part = md5-x86_64-apple
+build obj/third_party/boringssl/boringssl_asm/md5-x86_64-linux.o: asm ../../src/third_party/boringssl/src/gen/crypto/md5-x86_64-linux.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = md5-x86_64-linux.S
+  source_name_part = md5-x86_64-linux
+build obj/third_party/boringssl/boringssl_asm/fiat_curve25519_adx_mul.o: asm ../../src/third_party/boringssl/src/third_party/fiat/asm/fiat_curve25519_adx_mul.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = fiat_curve25519_adx_mul.S
+  source_name_part = fiat_curve25519_adx_mul
+build obj/third_party/boringssl/boringssl_asm/fiat_curve25519_adx_square.o: asm ../../src/third_party/boringssl/src/third_party/fiat/asm/fiat_curve25519_adx_square.S | ../../src/build/config/warning_suppression.txt
+  source_file_part = fiat_curve25519_adx_square.S
+  source_name_part = fiat_curve25519_adx_square
+
+build phony/third_party/boringssl/boringssl_asm: phony obj/third_party/boringssl/boringssl_asm/aes-gcm-avx2-x86_64-apple.o obj/third_party/boringssl/boringssl_asm/aes-gcm-avx2-x86_64-linux.o obj/third_party/boringssl/boringssl_asm/aes-gcm-avx512-x86_64-apple.o obj/third_party/boringssl/boringssl_asm/aes-gcm-avx512-x86_64-linux.o obj/third_party/boringssl/boringssl_asm/aesni-gcm-x86_64-apple.o obj/third_party/boringssl/boringssl_asm/aesni-gcm-x86_64-linux.o obj/third_party/boringssl/boringssl_asm/aesni-x86-apple.o obj/third_party/boringssl/boringssl_asm/aesni-x86-linux.o obj/third_party/boringssl/boringssl_asm/aesni-x86_64-apple.o obj/third_party/boringssl/boringssl_asm/aesni-x86_64-linux.o obj/third_party/boringssl/boringssl_asm/aesv8-armv7-linux.o obj/third_party/boringssl/boringssl_asm/aesv8-armv8-apple.o obj/third_party/boringssl/boringssl_asm/aesv8-armv8-linux.o obj/third_party/boringssl/boringssl_asm/aesv8-armv8-win.o obj/third_party/boringssl/boringssl_asm/aesv8-gcm-armv8-apple.o obj/third_party/boringssl/boringssl_asm/aesv8-gcm-armv8-linux.o obj/third_party/boringssl/boringssl_asm/aesv8-gcm-armv8-win.o obj/third_party/boringssl/boringssl_asm/armv4-mont-linux.o obj/third_party/boringssl/boringssl_asm/armv8-mont-apple.o obj/third_party/boringssl/boringssl_asm/armv8-mont-linux.o obj/third_party/boringssl/boringssl_asm/armv8-mont-win.o obj/third_party/boringssl/boringssl_asm/bn-586-apple.o obj/third_party/boringssl/boringssl_asm/bn-586-linux.o obj/third_party/boringssl/boringssl_asm/bn-armv8-apple.o obj/third_party/boringssl/boringssl_asm/bn-armv8-linux.o obj/third_party/boringssl/boringssl_asm/bn-armv8-win.o obj/third_party/boringssl/boringssl_asm/bsaes-armv7-linux.o obj/third_party/boringssl/boringssl_asm/co-586-apple.o obj/third_party/boringssl/boringssl_asm/co-586-linux.o obj/third_party/boringssl/boringssl_asm/ghash-armv4-linux.o obj/third_party/boringssl/boringssl_asm/ghash-neon-armv8-apple.o obj/third_party/boringssl/boringssl_asm/ghash-neon-armv8-linux.o obj/third_party/boringssl/boringssl_asm/ghash-neon-armv8-win.o obj/third_party/boringssl/boringssl_asm/ghash-ssse3-x86-apple.o obj/third_party/boringssl/boringssl_asm/ghash-ssse3-x86-linux.o obj/third_party/boringssl/boringssl_asm/ghash-ssse3-x86_64-apple.o obj/third_party/boringssl/boringssl_asm/ghash-ssse3-x86_64-linux.o obj/third_party/boringssl/boringssl_asm/ghash-x86-apple.o obj/third_party/boringssl/boringssl_asm/ghash-x86-linux.o obj/third_party/boringssl/boringssl_asm/ghash-x86_64-apple.o obj/third_party/boringssl/boringssl_asm/ghash-x86_64-linux.o obj/third_party/boringssl/boringssl_asm/ghashv8-armv7-linux.o obj/third_party/boringssl/boringssl_asm/ghashv8-armv8-apple.o obj/third_party/boringssl/boringssl_asm/ghashv8-armv8-linux.o obj/third_party/boringssl/boringssl_asm/ghashv8-armv8-win.o obj/third_party/boringssl/boringssl_asm/p256-armv8-asm-apple.o obj/third_party/boringssl/boringssl_asm/p256-armv8-asm-linux.o obj/third_party/boringssl/boringssl_asm/p256-armv8-asm-win.o obj/third_party/boringssl/boringssl_asm/p256-x86_64-asm-apple.o obj/third_party/boringssl/boringssl_asm/p256-x86_64-asm-linux.o obj/third_party/boringssl/boringssl_asm/p256_beeu-armv8-asm-apple.o obj/third_party/boringssl/boringssl_asm/p256_beeu-armv8-asm-linux.o obj/third_party/boringssl/boringssl_asm/p256_beeu-armv8-asm-win.o obj/third_party/boringssl/boringssl_asm/p256_beeu-x86_64-asm-apple.o obj/third_party/boringssl/boringssl_asm/p256_beeu-x86_64-asm-linux.o obj/third_party/boringssl/boringssl_asm/rdrand-x86_64-apple.o obj/third_party/boringssl/boringssl_asm/rdrand-x86_64-linux.o obj/third_party/boringssl/boringssl_asm/rsaz-avx2-apple.o obj/third_party/boringssl/boringssl_asm/rsaz-avx2-linux.o obj/third_party/boringssl/boringssl_asm/sha1-586-apple.o obj/third_party/boringssl/boringssl_asm/sha1-586-linux.o obj/third_party/boringssl/boringssl_asm/sha1-armv4-large-linux.o obj/third_party/boringssl/boringssl_asm/sha1-armv8-apple.o obj/third_party/boringssl/boringssl_asm/sha1-armv8-linux.o obj/third_party/boringssl/boringssl_asm/sha1-armv8-win.o obj/third_party/boringssl/boringssl_asm/sha1-x86_64-apple.o obj/third_party/boringssl/boringssl_asm/sha1-x86_64-linux.o obj/third_party/boringssl/boringssl_asm/sha256-586-apple.o obj/third_party/boringssl/boringssl_asm/sha256-586-linux.o obj/third_party/boringssl/boringssl_asm/sha256-armv4-linux.o obj/third_party/boringssl/boringssl_asm/sha256-armv8-apple.o obj/third_party/boringssl/boringssl_asm/sha256-armv8-linux.o obj/third_party/boringssl/boringssl_asm/sha256-armv8-win.o obj/third_party/boringssl/boringssl_asm/sha256-x86_64-apple.o obj/third_party/boringssl/boringssl_asm/sha256-x86_64-linux.o obj/third_party/boringssl/boringssl_asm/sha512-586-apple.o obj/third_party/boringssl/boringssl_asm/sha512-586-linux.o obj/third_party/boringssl/boringssl_asm/sha512-armv4-linux.o obj/third_party/boringssl/boringssl_asm/sha512-armv8-apple.o obj/third_party/boringssl/boringssl_asm/sha512-armv8-linux.o obj/third_party/boringssl/boringssl_asm/sha512-armv8-win.o obj/third_party/boringssl/boringssl_asm/sha512-x86_64-apple.o obj/third_party/boringssl/boringssl_asm/sha512-x86_64-linux.o obj/third_party/boringssl/boringssl_asm/vpaes-armv7-linux.o obj/third_party/boringssl/boringssl_asm/vpaes-armv8-apple.o obj/third_party/boringssl/boringssl_asm/vpaes-armv8-linux.o obj/third_party/boringssl/boringssl_asm/vpaes-armv8-win.o obj/third_party/boringssl/boringssl_asm/vpaes-x86-apple.o obj/third_party/boringssl/boringssl_asm/vpaes-x86-linux.o obj/third_party/boringssl/boringssl_asm/vpaes-x86_64-apple.o obj/third_party/boringssl/boringssl_asm/vpaes-x86_64-linux.o obj/third_party/boringssl/boringssl_asm/x86-mont-apple.o obj/third_party/boringssl/boringssl_asm/x86-mont-linux.o obj/third_party/boringssl/boringssl_asm/x86_64-mont-apple.o obj/third_party/boringssl/boringssl_asm/x86_64-mont-linux.o obj/third_party/boringssl/boringssl_asm/x86_64-mont5-apple.o obj/third_party/boringssl/boringssl_asm/x86_64-mont5-linux.o obj/third_party/boringssl/boringssl_asm/fiat_p256_adx_mul.o obj/third_party/boringssl/boringssl_asm/fiat_p256_adx_sqr.o obj/third_party/boringssl/boringssl_asm/x25519-asm-arm.o obj/third_party/boringssl/boringssl_asm/poly_rq_mul.o obj/third_party/boringssl/boringssl_asm/poly1305_arm_asm.o obj/third_party/boringssl/boringssl_asm/aes128gcmsiv-x86_64-apple.o obj/third_party/boringssl/boringssl_asm/aes128gcmsiv-x86_64-linux.o obj/third_party/boringssl/boringssl_asm/chacha-armv4-linux.o obj/third_party/boringssl/boringssl_asm/chacha-armv8-apple.o obj/third_party/boringssl/boringssl_asm/chacha-armv8-linux.o obj/third_party/boringssl/boringssl_asm/chacha-armv8-win.o obj/third_party/boringssl/boringssl_asm/chacha-x86-apple.o obj/third_party/boringssl/boringssl_asm/chacha-x86-linux.o obj/third_party/boringssl/boringssl_asm/chacha-x86_64-apple.o obj/third_party/boringssl/boringssl_asm/chacha-x86_64-linux.o obj/third_party/boringssl/boringssl_asm/chacha20_poly1305_armv8-apple.o obj/third_party/boringssl/boringssl_asm/chacha20_poly1305_armv8-linux.o obj/third_party/boringssl/boringssl_asm/chacha20_poly1305_armv8-win.o obj/third_party/boringssl/boringssl_asm/chacha20_poly1305_x86_64-apple.o obj/third_party/boringssl/boringssl_asm/chacha20_poly1305_x86_64-linux.o obj/third_party/boringssl/boringssl_asm/md5-586-apple.o obj/third_party/boringssl/boringssl_asm/md5-586-linux.o obj/third_party/boringssl/boringssl_asm/md5-x86_64-apple.o obj/third_party/boringssl/boringssl_asm/md5-x86_64-linux.o obj/third_party/boringssl/boringssl_asm/fiat_curve25519_adx_mul.o obj/third_party/boringssl/boringssl_asm/fiat_curve25519_adx_square.o

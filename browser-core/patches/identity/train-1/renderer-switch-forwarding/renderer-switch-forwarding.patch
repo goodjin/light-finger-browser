@@ -1,8 +1,8 @@
 diff --git a/chrome/browser/chrome_content_browser_client.cc b/chrome/browser/chrome_content_browser_client.cc
-index 91ec3849b5aee..8f90dac0d464c 100644
+index a7d66215ad0b7..bff2929e0a453 100644
 --- a/chrome/browser/chrome_content_browser_client.cc
 +++ b/chrome/browser/chrome_content_browser_client.cc
-@@ -2843,6 +2843,12 @@ void ChromeContentBrowserClient::AppendExtraCommandLineSwitches(
+@@ -2755,6 +2755,22 @@ void ChromeContentBrowserClient::AppendExtraCommandLineSwitches(
    command_line->CopySwitchesFrom(browser_command_line,
                                   kDinosaurEasterEggSwitches);
  
@@ -25,7 +25,7 @@ index 91ec3849b5aee..8f90dac0d464c 100644
  #if BUILDFLAG(IS_CHROMEOS)
    // On Chrome OS need to pass primary user homedir (in multi-profiles session).
    base::FilePath homedir;
-@@ -2851,6 +2857,8 @@ void ChromeContentBrowserClient::AppendExtraCommandLineSwitches(
+@@ -2763,6 +2779,8 @@ void ChromeContentBrowserClient::AppendExtraCommandLineSwitches(
  #endif
  
    if (process_type == switches::kRendererProcess) {

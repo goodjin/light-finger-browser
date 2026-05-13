@@ -1,0 +1,40 @@
+defines = -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=2 -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++
+cflags = -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wthread-safety -Wgnu -Wno-gnu-anonymous-struct -Wno-gnu-conditional-omitted-operand -Wno-gnu-include-next -Wno-gnu-label-as-value -Wno-gnu-redeclared-enum -Wno-gnu-statement-expression -Wno-gnu-zero-variadic-macro-arguments -Wno-zero-length-array -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wshadow -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wno-unused-const-variable -Wno-unused-function
+cflags_cc = -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden
+label_name = double_conversion
+root_out_dir = .
+target_out_dir = obj/base/third_party/double_conversion
+target_output_name = libdouble_conversion
+
+build phony/base/third_party/double_conversion/double_conversion.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/base/third_party/double_conversion/double_conversion/bignum-dtoa.o: cxx ../../src/base/third_party/double_conversion/double-conversion/bignum-dtoa.cc | phony/base/third_party/double_conversion/double_conversion.inputs
+  source_file_part = bignum-dtoa.cc
+  source_name_part = bignum-dtoa
+build obj/base/third_party/double_conversion/double_conversion/bignum.o: cxx ../../src/base/third_party/double_conversion/double-conversion/bignum.cc | phony/base/third_party/double_conversion/double_conversion.inputs
+  source_file_part = bignum.cc
+  source_name_part = bignum
+build obj/base/third_party/double_conversion/double_conversion/cached-powers.o: cxx ../../src/base/third_party/double_conversion/double-conversion/cached-powers.cc | phony/base/third_party/double_conversion/double_conversion.inputs
+  source_file_part = cached-powers.cc
+  source_name_part = cached-powers
+build obj/base/third_party/double_conversion/double_conversion/double-to-string.o: cxx ../../src/base/third_party/double_conversion/double-conversion/double-to-string.cc | phony/base/third_party/double_conversion/double_conversion.inputs
+  source_file_part = double-to-string.cc
+  source_name_part = double-to-string
+build obj/base/third_party/double_conversion/double_conversion/fast-dtoa.o: cxx ../../src/base/third_party/double_conversion/double-conversion/fast-dtoa.cc | phony/base/third_party/double_conversion/double_conversion.inputs
+  source_file_part = fast-dtoa.cc
+  source_name_part = fast-dtoa
+build obj/base/third_party/double_conversion/double_conversion/fixed-dtoa.o: cxx ../../src/base/third_party/double_conversion/double-conversion/fixed-dtoa.cc | phony/base/third_party/double_conversion/double_conversion.inputs
+  source_file_part = fixed-dtoa.cc
+  source_name_part = fixed-dtoa
+build obj/base/third_party/double_conversion/double_conversion/string-to-double.o: cxx ../../src/base/third_party/double_conversion/double-conversion/string-to-double.cc | phony/base/third_party/double_conversion/double_conversion.inputs
+  source_file_part = string-to-double.cc
+  source_name_part = string-to-double
+build obj/base/third_party/double_conversion/double_conversion/strtod.o: cxx ../../src/base/third_party/double_conversion/double-conversion/strtod.cc | phony/base/third_party/double_conversion/double_conversion.inputs
+  source_file_part = strtod.cc
+  source_name_part = strtod
+
+build obj/base/third_party/double_conversion/libdouble_conversion.a: alink obj/base/third_party/double_conversion/double_conversion/bignum-dtoa.o obj/base/third_party/double_conversion/double_conversion/bignum.o obj/base/third_party/double_conversion/double_conversion/cached-powers.o obj/base/third_party/double_conversion/double_conversion/double-to-string.o obj/base/third_party/double_conversion/double_conversion/fast-dtoa.o obj/base/third_party/double_conversion/double_conversion/fixed-dtoa.o obj/base/third_party/double_conversion/double_conversion/string-to-double.o obj/base/third_party/double_conversion/double_conversion/strtod.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a phony/base/third_party/double_conversion/double_conversion.inputs ||
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/base/third_party/double_conversion

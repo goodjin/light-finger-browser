@@ -1,0 +1,97 @@
+defines = -DFLAC__OVERFLOW_DETECT -DFLAC__HAS_OGG=0 -DPACKAGE_VERSION=\"1.4.2\" -DHAVE_LROUND -DHAVE_INTTYPES_H -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DFLAC__NO_DLL
+framework_dirs =
+include_dirs = -I../../src/third_party/flac/include -I../../src/third_party/flac/src/libFLAC/include -I../../src -Igen -I../../src/buildtools/third_party/libc++
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wno-conversion -Wno-unused-const-variable -Wno-incompatible-pointer-types -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall
+cflags_c = -std=c11
+label_name = flac
+root_out_dir = .
+target_out_dir = obj/third_party/flac
+target_output_name = flac
+
+build phony/third_party/flac/flac.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/flac/flac/bitmath.o: cc ../../src/third_party/flac/src/libFLAC/bitmath.c | phony/third_party/flac/flac.inputs
+  source_file_part = bitmath.c
+  source_name_part = bitmath
+build obj/third_party/flac/flac/bitreader.o: cc ../../src/third_party/flac/src/libFLAC/bitreader.c | phony/third_party/flac/flac.inputs
+  source_file_part = bitreader.c
+  source_name_part = bitreader
+build obj/third_party/flac/flac/bitwriter.o: cc ../../src/third_party/flac/src/libFLAC/bitwriter.c | phony/third_party/flac/flac.inputs
+  source_file_part = bitwriter.c
+  source_name_part = bitwriter
+build obj/third_party/flac/flac/cpu.o: cc ../../src/third_party/flac/src/libFLAC/cpu.c | phony/third_party/flac/flac.inputs
+  source_file_part = cpu.c
+  source_name_part = cpu
+build obj/third_party/flac/flac/crc.o: cc ../../src/third_party/flac/src/libFLAC/crc.c | phony/third_party/flac/flac.inputs
+  source_file_part = crc.c
+  source_name_part = crc
+build obj/third_party/flac/flac/fixed.o: cc ../../src/third_party/flac/src/libFLAC/fixed.c | phony/third_party/flac/flac.inputs
+  source_file_part = fixed.c
+  source_name_part = fixed
+build obj/third_party/flac/flac/fixed_intrin_sse2.o: cc ../../src/third_party/flac/src/libFLAC/fixed_intrin_sse2.c | phony/third_party/flac/flac.inputs
+  source_file_part = fixed_intrin_sse2.c
+  source_name_part = fixed_intrin_sse2
+build obj/third_party/flac/flac/fixed_intrin_ssse3.o: cc ../../src/third_party/flac/src/libFLAC/fixed_intrin_ssse3.c | phony/third_party/flac/flac.inputs
+  source_file_part = fixed_intrin_ssse3.c
+  source_name_part = fixed_intrin_ssse3
+build obj/third_party/flac/flac/float.o: cc ../../src/third_party/flac/src/libFLAC/float.c | phony/third_party/flac/flac.inputs
+  source_file_part = float.c
+  source_name_part = float
+build obj/third_party/flac/flac/format.o: cc ../../src/third_party/flac/src/libFLAC/format.c | phony/third_party/flac/flac.inputs
+  source_file_part = format.c
+  source_name_part = format
+build obj/third_party/flac/flac/lpc.o: cc ../../src/third_party/flac/src/libFLAC/lpc.c | phony/third_party/flac/flac.inputs
+  source_file_part = lpc.c
+  source_name_part = lpc
+build obj/third_party/flac/flac/lpc_intrin_avx2.o: cc ../../src/third_party/flac/src/libFLAC/lpc_intrin_avx2.c | phony/third_party/flac/flac.inputs
+  source_file_part = lpc_intrin_avx2.c
+  source_name_part = lpc_intrin_avx2
+build obj/third_party/flac/flac/lpc_intrin_fma.o: cc ../../src/third_party/flac/src/libFLAC/lpc_intrin_fma.c | phony/third_party/flac/flac.inputs
+  source_file_part = lpc_intrin_fma.c
+  source_name_part = lpc_intrin_fma
+build obj/third_party/flac/flac/lpc_intrin_neon.o: cc ../../src/third_party/flac/src/libFLAC/lpc_intrin_neon.c | phony/third_party/flac/flac.inputs
+  source_file_part = lpc_intrin_neon.c
+  source_name_part = lpc_intrin_neon
+build obj/third_party/flac/flac/lpc_intrin_sse2.o: cc ../../src/third_party/flac/src/libFLAC/lpc_intrin_sse2.c | phony/third_party/flac/flac.inputs
+  source_file_part = lpc_intrin_sse2.c
+  source_name_part = lpc_intrin_sse2
+build obj/third_party/flac/flac/lpc_intrin_sse41.o: cc ../../src/third_party/flac/src/libFLAC/lpc_intrin_sse41.c | phony/third_party/flac/flac.inputs
+  source_file_part = lpc_intrin_sse41.c
+  source_name_part = lpc_intrin_sse41
+build obj/third_party/flac/flac/lpc_intrin_vsx.o: cc ../../src/third_party/flac/src/libFLAC/lpc_intrin_vsx.c | phony/third_party/flac/flac.inputs
+  source_file_part = lpc_intrin_vsx.c
+  source_name_part = lpc_intrin_vsx
+build obj/third_party/flac/flac/md5.o: cc ../../src/third_party/flac/src/libFLAC/md5.c | phony/third_party/flac/flac.inputs
+  source_file_part = md5.c
+  source_name_part = md5
+build obj/third_party/flac/flac/memory.o: cc ../../src/third_party/flac/src/libFLAC/memory.c | phony/third_party/flac/flac.inputs
+  source_file_part = memory.c
+  source_name_part = memory
+build obj/third_party/flac/flac/metadata_iterators.o: cc ../../src/third_party/flac/src/libFLAC/metadata_iterators.c | phony/third_party/flac/flac.inputs
+  source_file_part = metadata_iterators.c
+  source_name_part = metadata_iterators
+build obj/third_party/flac/flac/metadata_object.o: cc ../../src/third_party/flac/src/libFLAC/metadata_object.c | phony/third_party/flac/flac.inputs
+  source_file_part = metadata_object.c
+  source_name_part = metadata_object
+build obj/third_party/flac/flac/stream_decoder.o: cc ../../src/third_party/flac/src/libFLAC/stream_decoder.c | phony/third_party/flac/flac.inputs
+  source_file_part = stream_decoder.c
+  source_name_part = stream_decoder
+build obj/third_party/flac/flac/stream_encoder.o: cc ../../src/third_party/flac/src/libFLAC/stream_encoder.c | phony/third_party/flac/flac.inputs
+  source_file_part = stream_encoder.c
+  source_name_part = stream_encoder
+build obj/third_party/flac/flac/stream_encoder_framing.o: cc ../../src/third_party/flac/src/libFLAC/stream_encoder_framing.c | phony/third_party/flac/flac.inputs
+  source_file_part = stream_encoder_framing.c
+  source_name_part = stream_encoder_framing
+build obj/third_party/flac/flac/stream_encoder_intrin_avx2.o: cc ../../src/third_party/flac/src/libFLAC/stream_encoder_intrin_avx2.c | phony/third_party/flac/flac.inputs
+  source_file_part = stream_encoder_intrin_avx2.c
+  source_name_part = stream_encoder_intrin_avx2
+build obj/third_party/flac/flac/stream_encoder_intrin_sse2.o: cc ../../src/third_party/flac/src/libFLAC/stream_encoder_intrin_sse2.c | phony/third_party/flac/flac.inputs
+  source_file_part = stream_encoder_intrin_sse2.c
+  source_name_part = stream_encoder_intrin_sse2
+build obj/third_party/flac/flac/stream_encoder_intrin_ssse3.o: cc ../../src/third_party/flac/src/libFLAC/stream_encoder_intrin_ssse3.c | phony/third_party/flac/flac.inputs
+  source_file_part = stream_encoder_intrin_ssse3.c
+  source_name_part = stream_encoder_intrin_ssse3
+build obj/third_party/flac/flac/window.o: cc ../../src/third_party/flac/src/libFLAC/window.c | phony/third_party/flac/flac.inputs
+  source_file_part = window.c
+  source_name_part = window
+
+build phony/third_party/flac/flac: phony obj/third_party/flac/flac/bitmath.o obj/third_party/flac/flac/bitreader.o obj/third_party/flac/flac/bitwriter.o obj/third_party/flac/flac/cpu.o obj/third_party/flac/flac/crc.o obj/third_party/flac/flac/fixed.o obj/third_party/flac/flac/fixed_intrin_sse2.o obj/third_party/flac/flac/fixed_intrin_ssse3.o obj/third_party/flac/flac/float.o obj/third_party/flac/flac/format.o obj/third_party/flac/flac/lpc.o obj/third_party/flac/flac/lpc_intrin_avx2.o obj/third_party/flac/flac/lpc_intrin_fma.o obj/third_party/flac/flac/lpc_intrin_neon.o obj/third_party/flac/flac/lpc_intrin_sse2.o obj/third_party/flac/flac/lpc_intrin_sse41.o obj/third_party/flac/flac/lpc_intrin_vsx.o obj/third_party/flac/flac/md5.o obj/third_party/flac/flac/memory.o obj/third_party/flac/flac/metadata_iterators.o obj/third_party/flac/flac/metadata_object.o obj/third_party/flac/flac/stream_decoder.o obj/third_party/flac/flac/stream_encoder.o obj/third_party/flac/flac/stream_encoder_framing.o obj/third_party/flac/flac/stream_encoder_intrin_avx2.o obj/third_party/flac/flac/stream_encoder_intrin_sse2.o obj/third_party/flac/flac/stream_encoder_intrin_ssse3.o obj/third_party/flac/flac/window.o

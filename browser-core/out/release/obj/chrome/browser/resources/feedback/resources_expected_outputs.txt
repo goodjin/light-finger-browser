@@ -1,0 +1,4 @@
+gen/chrome/grit/feedback_resources.h
+gen/chrome/grit/feedback_resources_map.cc
+gen/chrome/grit/feedback_resources_map.h
+gen/chrome/feedback_resources.pak

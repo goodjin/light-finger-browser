@@ -1,0 +1,268 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DCHROMIUM -DVPX_MAX_ALLOCABLE_MEMORY=\(\(1ULL\$ \<\<\$ 31\)\$ -\$ \(1\$ \<\<\$ 21\)\)
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/libvpx/source/config -I../../src/third_party/libvpx/source/libvpx -I../../src/third_party/libvpx/source/config/linux/arm64-highbd
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wno-conversion -Wno-parentheses-equality -Wno-unused-function
+cflags_c = -std=c11
+label_name = libvpx_intrinsics_neon
+root_out_dir = .
+target_out_dir = obj/third_party/libvpx
+target_output_name = libvpx_intrinsics_neon
+
+build phony/third_party/libvpx/libvpx_intrinsics_neon.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/libvpx/libvpx_intrinsics_neon/bilinearpredict_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/arm/neon/bilinearpredict_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = bilinearpredict_neon.c
+  source_name_part = bilinearpredict_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/copymem_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/arm/neon/copymem_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = copymem_neon.c
+  source_name_part = copymem_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/dc_only_idct_add_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/arm/neon/dc_only_idct_add_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = dc_only_idct_add_neon.c
+  source_name_part = dc_only_idct_add_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/dequant_idct_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/arm/neon/dequant_idct_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = dequant_idct_neon.c
+  source_name_part = dequant_idct_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/dequantizeb_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/arm/neon/dequantizeb_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = dequantizeb_neon.c
+  source_name_part = dequantizeb_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/idct_blk_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/arm/neon/idct_blk_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = idct_blk_neon.c
+  source_name_part = idct_blk_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/iwalsh_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/arm/neon/iwalsh_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = iwalsh_neon.c
+  source_name_part = iwalsh_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/loopfiltersimplehorizontaledge_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/arm/neon/loopfiltersimplehorizontaledge_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = loopfiltersimplehorizontaledge_neon.c
+  source_name_part = loopfiltersimplehorizontaledge_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/loopfiltersimpleverticaledge_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/arm/neon/loopfiltersimpleverticaledge_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = loopfiltersimpleverticaledge_neon.c
+  source_name_part = loopfiltersimpleverticaledge_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/mbloopfilter_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/arm/neon/mbloopfilter_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = mbloopfilter_neon.c
+  source_name_part = mbloopfilter_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/shortidct4x4llm_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/arm/neon/shortidct4x4llm_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = shortidct4x4llm_neon.c
+  source_name_part = shortidct4x4llm_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/sixtappredict_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/arm/neon/sixtappredict_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = sixtappredict_neon.c
+  source_name_part = sixtappredict_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/vp8_loopfilter_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/arm/neon/vp8_loopfilter_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = vp8_loopfilter_neon.c
+  source_name_part = vp8_loopfilter_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/denoising_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/arm/neon/denoising_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = denoising_neon.c
+  source_name_part = denoising_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/fastquantizeb_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/arm/neon/fastquantizeb_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = fastquantizeb_neon.c
+  source_name_part = fastquantizeb_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/shortfdct_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/arm/neon/shortfdct_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = shortfdct_neon.c
+  source_name_part = shortfdct_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/vp8_shortwalsh4x4_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/arm/neon/vp8_shortwalsh4x4_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = vp8_shortwalsh4x4_neon.c
+  source_name_part = vp8_shortwalsh4x4_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_highbd_iht16x16_add_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/arm/neon/vp9_highbd_iht16x16_add_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = vp9_highbd_iht16x16_add_neon.c
+  source_name_part = vp9_highbd_iht16x16_add_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_highbd_iht4x4_add_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/arm/neon/vp9_highbd_iht4x4_add_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = vp9_highbd_iht4x4_add_neon.c
+  source_name_part = vp9_highbd_iht4x4_add_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_highbd_iht8x8_add_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/arm/neon/vp9_highbd_iht8x8_add_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = vp9_highbd_iht8x8_add_neon.c
+  source_name_part = vp9_highbd_iht8x8_add_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_iht16x16_add_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/arm/neon/vp9_iht16x16_add_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = vp9_iht16x16_add_neon.c
+  source_name_part = vp9_iht16x16_add_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_iht4x4_add_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/arm/neon/vp9_iht4x4_add_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = vp9_iht4x4_add_neon.c
+  source_name_part = vp9_iht4x4_add_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_iht8x8_add_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/arm/neon/vp9_iht8x8_add_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = vp9_iht8x8_add_neon.c
+  source_name_part = vp9_iht8x8_add_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_dct_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/arm/neon/vp9_dct_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = vp9_dct_neon.c
+  source_name_part = vp9_dct_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_denoiser_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/arm/neon/vp9_denoiser_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = vp9_denoiser_neon.c
+  source_name_part = vp9_denoiser_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_diamond_search_sad_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/arm/neon/vp9_diamond_search_sad_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = vp9_diamond_search_sad_neon.c
+  source_name_part = vp9_diamond_search_sad_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_error_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/arm/neon/vp9_error_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = vp9_error_neon.c
+  source_name_part = vp9_error_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_frame_scale_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/arm/neon/vp9_frame_scale_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = vp9_frame_scale_neon.c
+  source_name_part = vp9_frame_scale_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_highbd_error_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/arm/neon/vp9_highbd_error_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = vp9_highbd_error_neon.c
+  source_name_part = vp9_highbd_error_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_quantize_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/arm/neon/vp9_quantize_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = vp9_quantize_neon.c
+  source_name_part = vp9_quantize_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/avg_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/avg_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = avg_neon.c
+  source_name_part = avg_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/avg_pred_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/avg_pred_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = avg_pred_neon.c
+  source_name_part = avg_pred_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/deblock_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/deblock_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = deblock_neon.c
+  source_name_part = deblock_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/fdct16x16_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/fdct16x16_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = fdct16x16_neon.c
+  source_name_part = fdct16x16_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/fdct32x32_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/fdct32x32_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = fdct32x32_neon.c
+  source_name_part = fdct32x32_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/fdct4x4_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/fdct4x4_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = fdct4x4_neon.c
+  source_name_part = fdct4x4_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/fdct8x8_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/fdct8x8_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = fdct8x8_neon.c
+  source_name_part = fdct8x8_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/fdct_partial_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/fdct_partial_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = fdct_partial_neon.c
+  source_name_part = fdct_partial_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/hadamard_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/hadamard_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = hadamard_neon.c
+  source_name_part = hadamard_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_avg_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/highbd_avg_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = highbd_avg_neon.c
+  source_name_part = highbd_avg_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_avg_pred_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/highbd_avg_pred_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = highbd_avg_pred_neon.c
+  source_name_part = highbd_avg_pred_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_hadamard_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/highbd_hadamard_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = highbd_hadamard_neon.c
+  source_name_part = highbd_hadamard_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_idct16x16_add_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/highbd_idct16x16_add_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = highbd_idct16x16_add_neon.c
+  source_name_part = highbd_idct16x16_add_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_idct32x32_1024_add_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/highbd_idct32x32_1024_add_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = highbd_idct32x32_1024_add_neon.c
+  source_name_part = highbd_idct32x32_1024_add_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_idct32x32_135_add_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/highbd_idct32x32_135_add_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = highbd_idct32x32_135_add_neon.c
+  source_name_part = highbd_idct32x32_135_add_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_idct32x32_34_add_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/highbd_idct32x32_34_add_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = highbd_idct32x32_34_add_neon.c
+  source_name_part = highbd_idct32x32_34_add_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_idct32x32_add_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/highbd_idct32x32_add_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = highbd_idct32x32_add_neon.c
+  source_name_part = highbd_idct32x32_add_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_idct4x4_add_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/highbd_idct4x4_add_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = highbd_idct4x4_add_neon.c
+  source_name_part = highbd_idct4x4_add_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_idct8x8_add_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/highbd_idct8x8_add_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = highbd_idct8x8_add_neon.c
+  source_name_part = highbd_idct8x8_add_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_intrapred_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/highbd_intrapred_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = highbd_intrapred_neon.c
+  source_name_part = highbd_intrapred_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_loopfilter_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/highbd_loopfilter_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = highbd_loopfilter_neon.c
+  source_name_part = highbd_loopfilter_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_quantize_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/highbd_quantize_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = highbd_quantize_neon.c
+  source_name_part = highbd_quantize_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_sad4d_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/highbd_sad4d_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = highbd_sad4d_neon.c
+  source_name_part = highbd_sad4d_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_sad_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/highbd_sad_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = highbd_sad_neon.c
+  source_name_part = highbd_sad_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_sse_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/highbd_sse_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = highbd_sse_neon.c
+  source_name_part = highbd_sse_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_subpel_variance_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/highbd_subpel_variance_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = highbd_subpel_variance_neon.c
+  source_name_part = highbd_subpel_variance_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_variance_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/highbd_variance_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = highbd_variance_neon.c
+  source_name_part = highbd_variance_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_vpx_convolve8_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/highbd_vpx_convolve8_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = highbd_vpx_convolve8_neon.c
+  source_name_part = highbd_vpx_convolve8_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_vpx_convolve_avg_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/highbd_vpx_convolve_avg_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = highbd_vpx_convolve_avg_neon.c
+  source_name_part = highbd_vpx_convolve_avg_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_vpx_convolve_copy_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/highbd_vpx_convolve_copy_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = highbd_vpx_convolve_copy_neon.c
+  source_name_part = highbd_vpx_convolve_copy_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/idct16x16_1_add_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/idct16x16_1_add_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = idct16x16_1_add_neon.c
+  source_name_part = idct16x16_1_add_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/idct16x16_add_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/idct16x16_add_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = idct16x16_add_neon.c
+  source_name_part = idct16x16_add_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/idct32x32_135_add_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/idct32x32_135_add_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = idct32x32_135_add_neon.c
+  source_name_part = idct32x32_135_add_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/idct32x32_1_add_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/idct32x32_1_add_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = idct32x32_1_add_neon.c
+  source_name_part = idct32x32_1_add_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/idct32x32_34_add_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/idct32x32_34_add_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = idct32x32_34_add_neon.c
+  source_name_part = idct32x32_34_add_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/idct32x32_add_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/idct32x32_add_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = idct32x32_add_neon.c
+  source_name_part = idct32x32_add_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/idct4x4_1_add_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/idct4x4_1_add_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = idct4x4_1_add_neon.c
+  source_name_part = idct4x4_1_add_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/idct4x4_add_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/idct4x4_add_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = idct4x4_add_neon.c
+  source_name_part = idct4x4_add_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/idct8x8_1_add_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/idct8x8_1_add_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = idct8x8_1_add_neon.c
+  source_name_part = idct8x8_1_add_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/idct8x8_add_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/idct8x8_add_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = idct8x8_add_neon.c
+  source_name_part = idct8x8_add_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/intrapred_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/intrapred_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = intrapred_neon.c
+  source_name_part = intrapred_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/loopfilter_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/loopfilter_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = loopfilter_neon.c
+  source_name_part = loopfilter_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/quantize_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/quantize_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = quantize_neon.c
+  source_name_part = quantize_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/sad4d_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/sad4d_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = sad4d_neon.c
+  source_name_part = sad4d_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/sad_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/sad_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = sad_neon.c
+  source_name_part = sad_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/sse_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/sse_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = sse_neon.c
+  source_name_part = sse_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/subpel_variance_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/subpel_variance_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = subpel_variance_neon.c
+  source_name_part = subpel_variance_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/subtract_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/subtract_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = subtract_neon.c
+  source_name_part = subtract_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/sum_squares_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/sum_squares_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = sum_squares_neon.c
+  source_name_part = sum_squares_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/variance_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/variance_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = variance_neon.c
+  source_name_part = variance_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/vpx_convolve8_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/vpx_convolve8_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = vpx_convolve8_neon.c
+  source_name_part = vpx_convolve8_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/vpx_convolve_avg_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/vpx_convolve_avg_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = vpx_convolve_avg_neon.c
+  source_name_part = vpx_convolve_avg_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/vpx_convolve_copy_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/vpx_convolve_copy_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = vpx_convolve_copy_neon.c
+  source_name_part = vpx_convolve_copy_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/vpx_convolve_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/vpx_convolve_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = vpx_convolve_neon.c
+  source_name_part = vpx_convolve_neon
+build obj/third_party/libvpx/libvpx_intrinsics_neon/vpx_scaled_convolve8_neon.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/arm/vpx_scaled_convolve8_neon.c | phony/third_party/libvpx/libvpx_intrinsics_neon.inputs
+  source_file_part = vpx_scaled_convolve8_neon.c
+  source_name_part = vpx_scaled_convolve8_neon
+
+build phony/third_party/libvpx/libvpx_intrinsics_neon: phony obj/third_party/libvpx/libvpx_intrinsics_neon/bilinearpredict_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/copymem_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/dc_only_idct_add_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/dequant_idct_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/dequantizeb_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/idct_blk_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/iwalsh_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/loopfiltersimplehorizontaledge_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/loopfiltersimpleverticaledge_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/mbloopfilter_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/shortidct4x4llm_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/sixtappredict_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/vp8_loopfilter_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/denoising_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/fastquantizeb_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/shortfdct_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/vp8_shortwalsh4x4_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_highbd_iht16x16_add_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_highbd_iht4x4_add_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_highbd_iht8x8_add_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_iht16x16_add_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_iht4x4_add_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_iht8x8_add_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_dct_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_denoiser_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_diamond_search_sad_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_error_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_frame_scale_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_highbd_error_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/vp9_quantize_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/avg_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/avg_pred_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/deblock_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/fdct16x16_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/fdct32x32_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/fdct4x4_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/fdct8x8_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/fdct_partial_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/hadamard_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_avg_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_avg_pred_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_hadamard_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_idct16x16_add_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_idct32x32_1024_add_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_idct32x32_135_add_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_idct32x32_34_add_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_idct32x32_add_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_idct4x4_add_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_idct8x8_add_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_intrapred_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_loopfilter_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_quantize_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_sad4d_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_sad_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_sse_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_subpel_variance_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_variance_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_vpx_convolve8_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_vpx_convolve_avg_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/highbd_vpx_convolve_copy_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/idct16x16_1_add_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/idct16x16_add_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/idct32x32_135_add_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/idct32x32_1_add_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/idct32x32_34_add_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/idct32x32_add_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/idct4x4_1_add_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/idct4x4_add_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/idct8x8_1_add_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/idct8x8_add_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/intrapred_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/loopfilter_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/quantize_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/sad4d_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/sad_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/sse_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/subpel_variance_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/subtract_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/sum_squares_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/variance_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/vpx_convolve8_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/vpx_convolve_avg_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/vpx_convolve_copy_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/vpx_convolve_neon.o obj/third_party/libvpx/libvpx_intrinsics_neon/vpx_scaled_convolve8_neon.o

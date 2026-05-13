@@ -1,0 +1,1006 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DSK_ENABLE_SKSL -DSK_UNTIL_CRBUG_1187654_IS_FIXED -DSK_USER_CONFIG_HEADER=\"../../skia/config/SkUserConfig.h\" -DSK_WIN_FONTMGR_NO_SIMULATIONS -DSK_DISABLE_LEGACY_INIT_DECODERS -DSK_CODEC_DECODES_JPEG -DSK_CODEC_ENCODES_JPEG -DSK_BUILD_FOR_MAC -DSK_GAMMA_SRGB -DSK_GAMMA_CONTRAST=0.0 -DSK_GANESH -DSK_GPU_WORKAROUNDS_HEADER=\"gpu/config/gpu_driver_bug_workaround_autogen.h\" -DSK_GL -DSK_GRAPHITE -DSK_DAWN -DIS_SKIA_IMPL=1 -DSKIA_IMPLEMENTATION=1 -DSK_FREETYPE_MINIMUM_RUNTIME_VERSION_IS_BUILD_VERSION -DSK_TYPEFACE_FACTORY_FREETYPE -DSK_TYPEFACE_FACTORY_FONTATIONS -DSK_FONTMGR_FREETYPE_EMPTY_AVAILABLE -DSK_TYPEFACE_FACTORY_CORETEXT -DSK_DEFAULT_FONT_CACHE_LIMIT=20971520 -DCR_CXX_INCLUDE=\"third_party/rust/chromium_crates_io/vendor/cxx-1.0.150/include/cxx.h\"
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/skia -Igen/third_party/skia -I../../src/third_party/wuffs/src/release/c -Igen/third_party/dawn/include -I../../src/third_party/dawn/include
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -O2 -fno-math-errno -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall
+cflags_cc = -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness
+label_name = skia_core_and_effects
+root_out_dir = .
+target_out_dir = obj/skia
+target_output_name = skia_core_and_effects
+
+build phony/skia/skia_core_and_effects.inputdeps: phony phony/base/allocator/partition_allocator/src/partition_alloc/buildflags phony/build/rust/std/buildflags phony/build/rust/std/empty_sysroot_for_std_build clang_arm64_for_rust_host_build_tools/phony/build/rust/std/prebuilt_rustc_copy_to_sysroot phony/build/rust/std/rules/compiler_builtins_compiler_builtins_vunknown_build_script_output phony/build/rust/std/rules/libc_libc_vunknown_build_script_output phony/build/rust/std/rules/object_object_vunknown_build_script_output phony/build/rust/std/rules/std_std_vunknown_build_script_output phony/gpu/config/workaround_list phony/skia/bridge_rust_side_cxx_generated_gen phony/third_party/dawn/include/dawn/cpp_headers_gen phony/third_party/dawn/include/dawn/headers_gen clang_arm64_for_rust_host_build_tools/phony/third_party/rust/proc_macro2/v1/proc_macro2_lib_v1_build_script_output clang_arm64_for_rust_host_build_tools/phony/third_party/rust/rustversion/v1/rustversion_lib_v1_build_script_output
+build obj/skia/skia_core_and_effects/SkArenaAlloc.o: cxx ../../src/third_party/skia/src/base/SkArenaAlloc.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkArenaAlloc.cpp
+  source_name_part = SkArenaAlloc
+build obj/skia/skia_core_and_effects/SkBase64.o: cxx ../../src/third_party/skia/src/base/SkBase64.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBase64.cpp
+  source_name_part = SkBase64
+build obj/skia/skia_core_and_effects/SkBezierCurves.o: cxx ../../src/third_party/skia/src/base/SkBezierCurves.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBezierCurves.cpp
+  source_name_part = SkBezierCurves
+build obj/skia/skia_core_and_effects/SkBlockAllocator.o: cxx ../../src/third_party/skia/src/base/SkBlockAllocator.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBlockAllocator.cpp
+  source_name_part = SkBlockAllocator
+build obj/skia/skia_core_and_effects/SkBuffer.o: cxx ../../src/third_party/skia/src/base/SkBuffer.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBuffer.cpp
+  source_name_part = SkBuffer
+build obj/skia/skia_core_and_effects/SkContainers.o: cxx ../../src/third_party/skia/src/base/SkContainers.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkContainers.cpp
+  source_name_part = SkContainers
+build obj/skia/skia_core_and_effects/SkCubics.o: cxx ../../src/third_party/skia/src/base/SkCubics.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkCubics.cpp
+  source_name_part = SkCubics
+build obj/skia/skia_core_and_effects/SkDebug.o: cxx ../../src/third_party/skia/src/base/SkDebug.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkDebug.cpp
+  source_name_part = SkDebug
+build obj/skia/skia_core_and_effects/SkDeque.o: cxx ../../src/third_party/skia/src/base/SkDeque.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkDeque.cpp
+  source_name_part = SkDeque
+build obj/skia/skia_core_and_effects/SkFloatingPoint.o: cxx ../../src/third_party/skia/src/base/SkFloatingPoint.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkFloatingPoint.cpp
+  source_name_part = SkFloatingPoint
+build obj/skia/skia_core_and_effects/SkHalf.o: cxx ../../src/third_party/skia/src/base/SkHalf.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkHalf.cpp
+  source_name_part = SkHalf
+build obj/skia/skia_core_and_effects/SkMalloc.o: cxx ../../src/third_party/skia/src/base/SkMalloc.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMalloc.cpp
+  source_name_part = SkMalloc
+build obj/skia/skia_core_and_effects/SkMathPriv.o: cxx ../../src/third_party/skia/src/base/SkMathPriv.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMathPriv.cpp
+  source_name_part = SkMathPriv
+build obj/skia/skia_core_and_effects/SkQuads.o: cxx ../../src/third_party/skia/src/base/SkQuads.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkQuads.cpp
+  source_name_part = SkQuads
+build obj/skia/skia_core_and_effects/SkSafeMath.o: cxx ../../src/third_party/skia/src/base/SkSafeMath.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkSafeMath.cpp
+  source_name_part = SkSafeMath
+build obj/skia/skia_core_and_effects/SkSemaphore.o: cxx ../../src/third_party/skia/src/base/SkSemaphore.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkSemaphore.cpp
+  source_name_part = SkSemaphore
+build obj/skia/skia_core_and_effects/SkSharedMutex.o: cxx ../../src/third_party/skia/src/base/SkSharedMutex.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkSharedMutex.cpp
+  source_name_part = SkSharedMutex
+build obj/skia/skia_core_and_effects/SkSpinlock.o: cxx ../../src/third_party/skia/src/base/SkSpinlock.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkSpinlock.cpp
+  source_name_part = SkSpinlock
+build obj/skia/skia_core_and_effects/SkTDArray.o: cxx ../../src/third_party/skia/src/base/SkTDArray.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkTDArray.cpp
+  source_name_part = SkTDArray
+build obj/skia/skia_core_and_effects/SkTSearch.o: cxx ../../src/third_party/skia/src/base/SkTSearch.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkTSearch.cpp
+  source_name_part = SkTSearch
+build obj/skia/skia_core_and_effects/SkThreadID.o: cxx ../../src/third_party/skia/src/base/SkThreadID.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkThreadID.cpp
+  source_name_part = SkThreadID
+build obj/skia/skia_core_and_effects/SkTime.o: cxx ../../src/third_party/skia/src/base/SkTime.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkTime.cpp
+  source_name_part = SkTime
+build obj/skia/skia_core_and_effects/SkUTF.o: cxx ../../src/third_party/skia/src/base/SkUTF.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkUTF.cpp
+  source_name_part = SkUTF
+build obj/skia/skia_core_and_effects/SkUtils.o: cxx ../../src/third_party/skia/src/base/SkUtils.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkUtils.cpp
+  source_name_part = SkUtils
+build obj/skia/skia_core_and_effects/SkAAClip.o: cxx ../../src/third_party/skia/src/core/SkAAClip.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkAAClip.cpp
+  source_name_part = SkAAClip
+build obj/skia/skia_core_and_effects/SkATrace.o: cxx ../../src/third_party/skia/src/core/SkATrace.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkATrace.cpp
+  source_name_part = SkATrace
+build obj/skia/skia_core_and_effects/SkAlphaRuns.o: cxx ../../src/third_party/skia/src/core/SkAlphaRuns.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkAlphaRuns.cpp
+  source_name_part = SkAlphaRuns
+build obj/skia/skia_core_and_effects/SkAnalyticEdge.o: cxx ../../src/third_party/skia/src/core/SkAnalyticEdge.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkAnalyticEdge.cpp
+  source_name_part = SkAnalyticEdge
+build obj/skia/skia_core_and_effects/SkAnnotation.o: cxx ../../src/third_party/skia/src/core/SkAnnotation.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkAnnotation.cpp
+  source_name_part = SkAnnotation
+build obj/skia/skia_core_and_effects/SkAutoPixmapStorage.o: cxx ../../src/third_party/skia/src/core/SkAutoPixmapStorage.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkAutoPixmapStorage.cpp
+  source_name_part = SkAutoPixmapStorage
+build obj/skia/skia_core_and_effects/SkBBHFactory.o: cxx ../../src/third_party/skia/src/core/SkBBHFactory.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBBHFactory.cpp
+  source_name_part = SkBBHFactory
+build obj/skia/skia_core_and_effects/SkBigPicture.o: cxx ../../src/third_party/skia/src/core/SkBigPicture.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBigPicture.cpp
+  source_name_part = SkBigPicture
+build obj/skia/skia_core_and_effects/SkBitmap.o: cxx ../../src/third_party/skia/src/core/SkBitmap.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBitmap.cpp
+  source_name_part = SkBitmap
+build obj/skia/skia_core_and_effects/SkBitmapCache.o: cxx ../../src/third_party/skia/src/core/SkBitmapCache.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBitmapCache.cpp
+  source_name_part = SkBitmapCache
+build obj/skia/skia_core_and_effects/SkBitmapDevice.o: cxx ../../src/third_party/skia/src/core/SkBitmapDevice.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBitmapDevice.cpp
+  source_name_part = SkBitmapDevice
+build obj/skia/skia_core_and_effects/SkBitmapProcState.o: cxx ../../src/third_party/skia/src/core/SkBitmapProcState.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBitmapProcState.cpp
+  source_name_part = SkBitmapProcState
+build obj/skia/skia_core_and_effects/SkBitmapProcState_matrixProcs.o: cxx ../../src/third_party/skia/src/core/SkBitmapProcState_matrixProcs.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBitmapProcState_matrixProcs.cpp
+  source_name_part = SkBitmapProcState_matrixProcs
+build obj/skia/skia_core_and_effects/SkBitmapProcState_opts.o: cxx ../../src/third_party/skia/src/core/SkBitmapProcState_opts.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBitmapProcState_opts.cpp
+  source_name_part = SkBitmapProcState_opts
+build obj/skia/skia_core_and_effects/SkBitmapProcState_opts_lasx.o: cxx ../../src/third_party/skia/src/core/SkBitmapProcState_opts_lasx.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBitmapProcState_opts_lasx.cpp
+  source_name_part = SkBitmapProcState_opts_lasx
+build obj/skia/skia_core_and_effects/SkBitmapProcState_opts_ssse3.o: cxx ../../src/third_party/skia/src/core/SkBitmapProcState_opts_ssse3.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBitmapProcState_opts_ssse3.cpp
+  source_name_part = SkBitmapProcState_opts_ssse3
+build obj/skia/skia_core_and_effects/SkBlendMode.o: cxx ../../src/third_party/skia/src/core/SkBlendMode.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBlendMode.cpp
+  source_name_part = SkBlendMode
+build obj/skia/skia_core_and_effects/SkBlendModeBlender.o: cxx ../../src/third_party/skia/src/core/SkBlendModeBlender.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBlendModeBlender.cpp
+  source_name_part = SkBlendModeBlender
+build obj/skia/skia_core_and_effects/SkBlitMask_opts.o: cxx ../../src/third_party/skia/src/core/SkBlitMask_opts.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBlitMask_opts.cpp
+  source_name_part = SkBlitMask_opts
+build obj/skia/skia_core_and_effects/SkBlitMask_opts_ssse3.o: cxx ../../src/third_party/skia/src/core/SkBlitMask_opts_ssse3.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBlitMask_opts_ssse3.cpp
+  source_name_part = SkBlitMask_opts_ssse3
+build obj/skia/skia_core_and_effects/SkBlitRow_D32.o: cxx ../../src/third_party/skia/src/core/SkBlitRow_D32.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBlitRow_D32.cpp
+  source_name_part = SkBlitRow_D32
+build obj/skia/skia_core_and_effects/SkBlitRow_opts.o: cxx ../../src/third_party/skia/src/core/SkBlitRow_opts.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBlitRow_opts.cpp
+  source_name_part = SkBlitRow_opts
+build obj/skia/skia_core_and_effects/SkBlitRow_opts_hsw.o: cxx ../../src/third_party/skia/src/core/SkBlitRow_opts_hsw.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBlitRow_opts_hsw.cpp
+  source_name_part = SkBlitRow_opts_hsw
+build obj/skia/skia_core_and_effects/SkBlitRow_opts_lasx.o: cxx ../../src/third_party/skia/src/core/SkBlitRow_opts_lasx.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBlitRow_opts_lasx.cpp
+  source_name_part = SkBlitRow_opts_lasx
+build obj/skia/skia_core_and_effects/SkBlitter.o: cxx ../../src/third_party/skia/src/core/SkBlitter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBlitter.cpp
+  source_name_part = SkBlitter
+build obj/skia/skia_core_and_effects/SkBlitter_A8.o: cxx ../../src/third_party/skia/src/core/SkBlitter_A8.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBlitter_A8.cpp
+  source_name_part = SkBlitter_A8
+build obj/skia/skia_core_and_effects/SkBlitter_ARGB32.o: cxx ../../src/third_party/skia/src/core/SkBlitter_ARGB32.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBlitter_ARGB32.cpp
+  source_name_part = SkBlitter_ARGB32
+build obj/skia/skia_core_and_effects/SkBlitter_Sprite.o: cxx ../../src/third_party/skia/src/core/SkBlitter_Sprite.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBlitter_Sprite.cpp
+  source_name_part = SkBlitter_Sprite
+build obj/skia/skia_core_and_effects/SkBlurEngine.o: cxx ../../src/third_party/skia/src/core/SkBlurEngine.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBlurEngine.cpp
+  source_name_part = SkBlurEngine
+build obj/skia/skia_core_and_effects/SkBlurMask.o: cxx ../../src/third_party/skia/src/core/SkBlurMask.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBlurMask.cpp
+  source_name_part = SkBlurMask
+build obj/skia/skia_core_and_effects/SkBlurMaskFilterImpl.o: cxx ../../src/third_party/skia/src/core/SkBlurMaskFilterImpl.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBlurMaskFilterImpl.cpp
+  source_name_part = SkBlurMaskFilterImpl
+build obj/skia/skia_core_and_effects/SkCachedData.o: cxx ../../src/third_party/skia/src/core/SkCachedData.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkCachedData.cpp
+  source_name_part = SkCachedData
+build obj/skia/skia_core_and_effects/SkCanvas.o: cxx ../../src/third_party/skia/src/core/SkCanvas.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkCanvas.cpp
+  source_name_part = SkCanvas
+build obj/skia/skia_core_and_effects/SkCanvasPriv.o: cxx ../../src/third_party/skia/src/core/SkCanvasPriv.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkCanvasPriv.cpp
+  source_name_part = SkCanvasPriv
+build obj/skia/skia_core_and_effects/SkCanvas_Raster.o: cxx ../../src/third_party/skia/src/core/SkCanvas_Raster.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkCanvas_Raster.cpp
+  source_name_part = SkCanvas_Raster
+build obj/skia/skia_core_and_effects/SkCapabilities.o: cxx ../../src/third_party/skia/src/core/SkCapabilities.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkCapabilities.cpp
+  source_name_part = SkCapabilities
+build obj/skia/skia_core_and_effects/SkChecksum.o: cxx ../../src/third_party/skia/src/core/SkChecksum.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkChecksum.cpp
+  source_name_part = SkChecksum
+build obj/skia/skia_core_and_effects/SkClipStack.o: cxx ../../src/third_party/skia/src/core/SkClipStack.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkClipStack.cpp
+  source_name_part = SkClipStack
+build obj/skia/skia_core_and_effects/SkClipStackDevice.o: cxx ../../src/third_party/skia/src/core/SkClipStackDevice.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkClipStackDevice.cpp
+  source_name_part = SkClipStackDevice
+build obj/skia/skia_core_and_effects/SkColor.o: cxx ../../src/third_party/skia/src/core/SkColor.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkColor.cpp
+  source_name_part = SkColor
+build obj/skia/skia_core_and_effects/SkColorFilter.o: cxx ../../src/third_party/skia/src/core/SkColorFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkColorFilter.cpp
+  source_name_part = SkColorFilter
+build obj/skia/skia_core_and_effects/SkColorSpace.o: cxx ../../src/third_party/skia/src/core/SkColorSpace.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkColorSpace.cpp
+  source_name_part = SkColorSpace
+build obj/skia/skia_core_and_effects/SkColorSpaceXformSteps.o: cxx ../../src/third_party/skia/src/core/SkColorSpaceXformSteps.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkColorSpaceXformSteps.cpp
+  source_name_part = SkColorSpaceXformSteps
+build obj/skia/skia_core_and_effects/SkColorTable.o: cxx ../../src/third_party/skia/src/core/SkColorTable.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkColorTable.cpp
+  source_name_part = SkColorTable
+build obj/skia/skia_core_and_effects/SkCompressedDataUtils.o: cxx ../../src/third_party/skia/src/core/SkCompressedDataUtils.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkCompressedDataUtils.cpp
+  source_name_part = SkCompressedDataUtils
+build obj/skia/skia_core_and_effects/SkContourMeasure.o: cxx ../../src/third_party/skia/src/core/SkContourMeasure.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkContourMeasure.cpp
+  source_name_part = SkContourMeasure
+build obj/skia/skia_core_and_effects/SkConvertPixels.o: cxx ../../src/third_party/skia/src/core/SkConvertPixels.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkConvertPixels.cpp
+  source_name_part = SkConvertPixels
+build obj/skia/skia_core_and_effects/SkCpu.o: cxx ../../src/third_party/skia/src/core/SkCpu.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkCpu.cpp
+  source_name_part = SkCpu
+build obj/skia/skia_core_and_effects/SkCubicClipper.o: cxx ../../src/third_party/skia/src/core/SkCubicClipper.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkCubicClipper.cpp
+  source_name_part = SkCubicClipper
+build obj/skia/skia_core_and_effects/SkCubicMap.o: cxx ../../src/third_party/skia/src/core/SkCubicMap.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkCubicMap.cpp
+  source_name_part = SkCubicMap
+build obj/skia/skia_core_and_effects/SkData.o: cxx ../../src/third_party/skia/src/core/SkData.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkData.cpp
+  source_name_part = SkData
+build obj/skia/skia_core_and_effects/SkDataTable.o: cxx ../../src/third_party/skia/src/core/SkDataTable.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkDataTable.cpp
+  source_name_part = SkDataTable
+build obj/skia/skia_core_and_effects/SkDescriptor.o: cxx ../../src/third_party/skia/src/core/SkDescriptor.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkDescriptor.cpp
+  source_name_part = SkDescriptor
+build obj/skia/skia_core_and_effects/SkDevice.o: cxx ../../src/third_party/skia/src/core/SkDevice.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkDevice.cpp
+  source_name_part = SkDevice
+build obj/skia/skia_core_and_effects/SkDistanceFieldGen.o: cxx ../../src/third_party/skia/src/core/SkDistanceFieldGen.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkDistanceFieldGen.cpp
+  source_name_part = SkDistanceFieldGen
+build obj/skia/skia_core_and_effects/SkDocument.o: cxx ../../src/third_party/skia/src/core/SkDocument.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkDocument.cpp
+  source_name_part = SkDocument
+build obj/skia/skia_core_and_effects/SkDraw.o: cxx ../../src/third_party/skia/src/core/SkDraw.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkDraw.cpp
+  source_name_part = SkDraw
+build obj/skia/skia_core_and_effects/SkDrawBase.o: cxx ../../src/third_party/skia/src/core/SkDrawBase.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkDrawBase.cpp
+  source_name_part = SkDrawBase
+build obj/skia/skia_core_and_effects/SkDrawShadowInfo.o: cxx ../../src/third_party/skia/src/core/SkDrawShadowInfo.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkDrawShadowInfo.cpp
+  source_name_part = SkDrawShadowInfo
+build obj/skia/skia_core_and_effects/SkDraw_atlas.o: cxx ../../src/third_party/skia/src/core/SkDraw_atlas.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkDraw_atlas.cpp
+  source_name_part = SkDraw_atlas
+build obj/skia/skia_core_and_effects/SkDraw_text.o: cxx ../../src/third_party/skia/src/core/SkDraw_text.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkDraw_text.cpp
+  source_name_part = SkDraw_text
+build obj/skia/skia_core_and_effects/SkDraw_vertices.o: cxx ../../src/third_party/skia/src/core/SkDraw_vertices.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkDraw_vertices.cpp
+  source_name_part = SkDraw_vertices
+build obj/skia/skia_core_and_effects/SkDrawable.o: cxx ../../src/third_party/skia/src/core/SkDrawable.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkDrawable.cpp
+  source_name_part = SkDrawable
+build obj/skia/skia_core_and_effects/SkEdge.o: cxx ../../src/third_party/skia/src/core/SkEdge.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkEdge.cpp
+  source_name_part = SkEdge
+build obj/skia/skia_core_and_effects/SkEdgeBuilder.o: cxx ../../src/third_party/skia/src/core/SkEdgeBuilder.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkEdgeBuilder.cpp
+  source_name_part = SkEdgeBuilder
+build obj/skia/skia_core_and_effects/SkEdgeClipper.o: cxx ../../src/third_party/skia/src/core/SkEdgeClipper.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkEdgeClipper.cpp
+  source_name_part = SkEdgeClipper
+build obj/skia/skia_core_and_effects/SkExecutor.o: cxx ../../src/third_party/skia/src/core/SkExecutor.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkExecutor.cpp
+  source_name_part = SkExecutor
+build obj/skia/skia_core_and_effects/SkFlattenable.o: cxx ../../src/third_party/skia/src/core/SkFlattenable.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkFlattenable.cpp
+  source_name_part = SkFlattenable
+build obj/skia/skia_core_and_effects/SkFont.o: cxx ../../src/third_party/skia/src/core/SkFont.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkFont.cpp
+  source_name_part = SkFont
+build obj/skia/skia_core_and_effects/SkFontDescriptor.o: cxx ../../src/third_party/skia/src/core/SkFontDescriptor.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkFontDescriptor.cpp
+  source_name_part = SkFontDescriptor
+build obj/skia/skia_core_and_effects/SkFontMetricsPriv.o: cxx ../../src/third_party/skia/src/core/SkFontMetricsPriv.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkFontMetricsPriv.cpp
+  source_name_part = SkFontMetricsPriv
+build obj/skia/skia_core_and_effects/SkFontMgr.o: cxx ../../src/third_party/skia/src/core/SkFontMgr.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkFontMgr.cpp
+  source_name_part = SkFontMgr
+build obj/skia/skia_core_and_effects/SkFontStream.o: cxx ../../src/third_party/skia/src/core/SkFontStream.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkFontStream.cpp
+  source_name_part = SkFontStream
+build obj/skia/skia_core_and_effects/SkFont_serial.o: cxx ../../src/third_party/skia/src/core/SkFont_serial.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkFont_serial.cpp
+  source_name_part = SkFont_serial
+build obj/skia/skia_core_and_effects/SkGaussFilter.o: cxx ../../src/third_party/skia/src/core/SkGaussFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkGaussFilter.cpp
+  source_name_part = SkGaussFilter
+build obj/skia/skia_core_and_effects/SkGeometry.o: cxx ../../src/third_party/skia/src/core/SkGeometry.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkGeometry.cpp
+  source_name_part = SkGeometry
+build obj/skia/skia_core_and_effects/SkGlobalInitialization_core.o: cxx ../../src/third_party/skia/src/core/SkGlobalInitialization_core.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkGlobalInitialization_core.cpp
+  source_name_part = SkGlobalInitialization_core
+build obj/skia/skia_core_and_effects/SkGlyph.o: cxx ../../src/third_party/skia/src/core/SkGlyph.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkGlyph.cpp
+  source_name_part = SkGlyph
+build obj/skia/skia_core_and_effects/SkGlyphRunPainter.o: cxx ../../src/third_party/skia/src/core/SkGlyphRunPainter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkGlyphRunPainter.cpp
+  source_name_part = SkGlyphRunPainter
+build obj/skia/skia_core_and_effects/SkGraphics.o: cxx ../../src/third_party/skia/src/core/SkGraphics.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkGraphics.cpp
+  source_name_part = SkGraphics
+build obj/skia/skia_core_and_effects/SkIDChangeListener.o: cxx ../../src/third_party/skia/src/core/SkIDChangeListener.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkIDChangeListener.cpp
+  source_name_part = SkIDChangeListener
+build obj/skia/skia_core_and_effects/SkImageFilter.o: cxx ../../src/third_party/skia/src/core/SkImageFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkImageFilter.cpp
+  source_name_part = SkImageFilter
+build obj/skia/skia_core_and_effects/SkImageFilterCache.o: cxx ../../src/third_party/skia/src/core/SkImageFilterCache.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkImageFilterCache.cpp
+  source_name_part = SkImageFilterCache
+build obj/skia/skia_core_and_effects/SkImageFilterTypes.o: cxx ../../src/third_party/skia/src/core/SkImageFilterTypes.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkImageFilterTypes.cpp
+  source_name_part = SkImageFilterTypes
+build obj/skia/skia_core_and_effects/SkImageGenerator.o: cxx ../../src/third_party/skia/src/core/SkImageGenerator.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkImageGenerator.cpp
+  source_name_part = SkImageGenerator
+build obj/skia/skia_core_and_effects/SkImageInfo.o: cxx ../../src/third_party/skia/src/core/SkImageInfo.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkImageInfo.cpp
+  source_name_part = SkImageInfo
+build obj/skia/skia_core_and_effects/SkKnownRuntimeEffects.o: cxx ../../src/third_party/skia/src/core/SkKnownRuntimeEffects.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkKnownRuntimeEffects.cpp
+  source_name_part = SkKnownRuntimeEffects
+build obj/skia/skia_core_and_effects/SkLatticeIter.o: cxx ../../src/third_party/skia/src/core/SkLatticeIter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkLatticeIter.cpp
+  source_name_part = SkLatticeIter
+build obj/skia/skia_core_and_effects/SkLineClipper.o: cxx ../../src/third_party/skia/src/core/SkLineClipper.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkLineClipper.cpp
+  source_name_part = SkLineClipper
+build obj/skia/skia_core_and_effects/SkLocalMatrixImageFilter.o: cxx ../../src/third_party/skia/src/core/SkLocalMatrixImageFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkLocalMatrixImageFilter.cpp
+  source_name_part = SkLocalMatrixImageFilter
+build obj/skia/skia_core_and_effects/SkM44.o: cxx ../../src/third_party/skia/src/core/SkM44.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkM44.cpp
+  source_name_part = SkM44
+build obj/skia/skia_core_and_effects/SkMD5.o: cxx ../../src/third_party/skia/src/core/SkMD5.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMD5.cpp
+  source_name_part = SkMD5
+build obj/skia/skia_core_and_effects/SkMallocPixelRef.o: cxx ../../src/third_party/skia/src/core/SkMallocPixelRef.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMallocPixelRef.cpp
+  source_name_part = SkMallocPixelRef
+build obj/skia/skia_core_and_effects/SkMask.o: cxx ../../src/third_party/skia/src/core/SkMask.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMask.cpp
+  source_name_part = SkMask
+build obj/skia/skia_core_and_effects/SkMaskBlurFilter.o: cxx ../../src/third_party/skia/src/core/SkMaskBlurFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMaskBlurFilter.cpp
+  source_name_part = SkMaskBlurFilter
+build obj/skia/skia_core_and_effects/SkMaskCache.o: cxx ../../src/third_party/skia/src/core/SkMaskCache.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMaskCache.cpp
+  source_name_part = SkMaskCache
+build obj/skia/skia_core_and_effects/SkMaskFilter.o: cxx ../../src/third_party/skia/src/core/SkMaskFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMaskFilter.cpp
+  source_name_part = SkMaskFilter
+build obj/skia/skia_core_and_effects/SkMaskFilterBase.o: cxx ../../src/third_party/skia/src/core/SkMaskFilterBase.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMaskFilterBase.cpp
+  source_name_part = SkMaskFilterBase
+build obj/skia/skia_core_and_effects/SkMaskGamma.o: cxx ../../src/third_party/skia/src/core/SkMaskGamma.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMaskGamma.cpp
+  source_name_part = SkMaskGamma
+build obj/skia/skia_core_and_effects/SkMasks.o: cxx ../../src/third_party/skia/src/core/SkMasks.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMasks.cpp
+  source_name_part = SkMasks
+build obj/skia/skia_core_and_effects/SkMatrix.o: cxx ../../src/third_party/skia/src/core/SkMatrix.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMatrix.cpp
+  source_name_part = SkMatrix
+build obj/skia/skia_core_and_effects/SkMatrixInvert.o: cxx ../../src/third_party/skia/src/core/SkMatrixInvert.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMatrixInvert.cpp
+  source_name_part = SkMatrixInvert
+build obj/skia/skia_core_and_effects/SkMemset_opts.o: cxx ../../src/third_party/skia/src/core/SkMemset_opts.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMemset_opts.cpp
+  source_name_part = SkMemset_opts
+build obj/skia/skia_core_and_effects/SkMemset_opts_avx.o: cxx ../../src/third_party/skia/src/core/SkMemset_opts_avx.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMemset_opts_avx.cpp
+  source_name_part = SkMemset_opts_avx
+build obj/skia/skia_core_and_effects/SkMemset_opts_erms.o: cxx ../../src/third_party/skia/src/core/SkMemset_opts_erms.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMemset_opts_erms.cpp
+  source_name_part = SkMemset_opts_erms
+build obj/skia/skia_core_and_effects/SkMesh.o: cxx ../../src/third_party/skia/src/core/SkMesh.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMesh.cpp
+  source_name_part = SkMesh
+build obj/skia/skia_core_and_effects/SkMipmap.o: cxx ../../src/third_party/skia/src/core/SkMipmap.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMipmap.cpp
+  source_name_part = SkMipmap
+build obj/skia/skia_core_and_effects/SkMipmapAccessor.o: cxx ../../src/third_party/skia/src/core/SkMipmapAccessor.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMipmapAccessor.cpp
+  source_name_part = SkMipmapAccessor
+build obj/skia/skia_core_and_effects/SkMipmapBuilder.o: cxx ../../src/third_party/skia/src/core/SkMipmapBuilder.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMipmapBuilder.cpp
+  source_name_part = SkMipmapBuilder
+build obj/skia/skia_core_and_effects/SkMipmapDrawDownSampler.o: cxx ../../src/third_party/skia/src/core/SkMipmapDrawDownSampler.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMipmapDrawDownSampler.cpp
+  source_name_part = SkMipmapDrawDownSampler
+build obj/skia/skia_core_and_effects/SkMipmapHQDownSampler.o: cxx ../../src/third_party/skia/src/core/SkMipmapHQDownSampler.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMipmapHQDownSampler.cpp
+  source_name_part = SkMipmapHQDownSampler
+build obj/skia/skia_core_and_effects/SkOpts.o: cxx ../../src/third_party/skia/src/core/SkOpts.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkOpts.cpp
+  source_name_part = SkOpts
+build obj/skia/skia_core_and_effects/SkOverdrawCanvas.o: cxx ../../src/third_party/skia/src/core/SkOverdrawCanvas.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkOverdrawCanvas.cpp
+  source_name_part = SkOverdrawCanvas
+build obj/skia/skia_core_and_effects/SkPaint.o: cxx ../../src/third_party/skia/src/core/SkPaint.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPaint.cpp
+  source_name_part = SkPaint
+build obj/skia/skia_core_and_effects/SkPaintPriv.o: cxx ../../src/third_party/skia/src/core/SkPaintPriv.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPaintPriv.cpp
+  source_name_part = SkPaintPriv
+build obj/skia/skia_core_and_effects/SkPath.o: cxx ../../src/third_party/skia/src/core/SkPath.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPath.cpp
+  source_name_part = SkPath
+build obj/skia/skia_core_and_effects/SkPathBuilder.o: cxx ../../src/third_party/skia/src/core/SkPathBuilder.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPathBuilder.cpp
+  source_name_part = SkPathBuilder
+build obj/skia/skia_core_and_effects/SkPathEffect.o: cxx ../../src/third_party/skia/src/core/SkPathEffect.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPathEffect.cpp
+  source_name_part = SkPathEffect
+build obj/skia/skia_core_and_effects/SkPathMeasure.o: cxx ../../src/third_party/skia/src/core/SkPathMeasure.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPathMeasure.cpp
+  source_name_part = SkPathMeasure
+build obj/skia/skia_core_and_effects/SkPathRef.o: cxx ../../src/third_party/skia/src/core/SkPathRef.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPathRef.cpp
+  source_name_part = SkPathRef
+build obj/skia/skia_core_and_effects/SkPathUtils.o: cxx ../../src/third_party/skia/src/core/SkPathUtils.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPathUtils.cpp
+  source_name_part = SkPathUtils
+build obj/skia/skia_core_and_effects/SkPath_serial.o: cxx ../../src/third_party/skia/src/core/SkPath_serial.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPath_serial.cpp
+  source_name_part = SkPath_serial
+build obj/skia/skia_core_and_effects/SkPicture.o: cxx ../../src/third_party/skia/src/core/SkPicture.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPicture.cpp
+  source_name_part = SkPicture
+build obj/skia/skia_core_and_effects/SkPictureData.o: cxx ../../src/third_party/skia/src/core/SkPictureData.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPictureData.cpp
+  source_name_part = SkPictureData
+build obj/skia/skia_core_and_effects/SkPictureFlat.o: cxx ../../src/third_party/skia/src/core/SkPictureFlat.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPictureFlat.cpp
+  source_name_part = SkPictureFlat
+build obj/skia/skia_core_and_effects/SkPicturePlayback.o: cxx ../../src/third_party/skia/src/core/SkPicturePlayback.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPicturePlayback.cpp
+  source_name_part = SkPicturePlayback
+build obj/skia/skia_core_and_effects/SkPictureRecord.o: cxx ../../src/third_party/skia/src/core/SkPictureRecord.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPictureRecord.cpp
+  source_name_part = SkPictureRecord
+build obj/skia/skia_core_and_effects/SkPictureRecorder.o: cxx ../../src/third_party/skia/src/core/SkPictureRecorder.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPictureRecorder.cpp
+  source_name_part = SkPictureRecorder
+build obj/skia/skia_core_and_effects/SkPixelRef.o: cxx ../../src/third_party/skia/src/core/SkPixelRef.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPixelRef.cpp
+  source_name_part = SkPixelRef
+build obj/skia/skia_core_and_effects/SkPixmap.o: cxx ../../src/third_party/skia/src/core/SkPixmap.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPixmap.cpp
+  source_name_part = SkPixmap
+build obj/skia/skia_core_and_effects/SkPixmapDraw.o: cxx ../../src/third_party/skia/src/core/SkPixmapDraw.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPixmapDraw.cpp
+  source_name_part = SkPixmapDraw
+build obj/skia/skia_core_and_effects/SkPoint.o: cxx ../../src/third_party/skia/src/core/SkPoint.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPoint.cpp
+  source_name_part = SkPoint
+build obj/skia/skia_core_and_effects/SkPoint3.o: cxx ../../src/third_party/skia/src/core/SkPoint3.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPoint3.cpp
+  source_name_part = SkPoint3
+build obj/skia/skia_core_and_effects/SkPtrRecorder.o: cxx ../../src/third_party/skia/src/core/SkPtrRecorder.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPtrRecorder.cpp
+  source_name_part = SkPtrRecorder
+build obj/skia/skia_core_and_effects/SkQuadClipper.o: cxx ../../src/third_party/skia/src/core/SkQuadClipper.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkQuadClipper.cpp
+  source_name_part = SkQuadClipper
+build obj/skia/skia_core_and_effects/SkRRect.o: cxx ../../src/third_party/skia/src/core/SkRRect.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkRRect.cpp
+  source_name_part = SkRRect
+build obj/skia/skia_core_and_effects/SkRSXform.o: cxx ../../src/third_party/skia/src/core/SkRSXform.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkRSXform.cpp
+  source_name_part = SkRSXform
+build obj/skia/skia_core_and_effects/SkRTree.o: cxx ../../src/third_party/skia/src/core/SkRTree.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkRTree.cpp
+  source_name_part = SkRTree
+build obj/skia/skia_core_and_effects/SkRasterClip.o: cxx ../../src/third_party/skia/src/core/SkRasterClip.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkRasterClip.cpp
+  source_name_part = SkRasterClip
+build obj/skia/skia_core_and_effects/SkRasterPipeline.o: cxx ../../src/third_party/skia/src/core/SkRasterPipeline.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkRasterPipeline.cpp
+  source_name_part = SkRasterPipeline
+build obj/skia/skia_core_and_effects/SkRasterPipelineBlitter.o: cxx ../../src/third_party/skia/src/core/SkRasterPipelineBlitter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkRasterPipelineBlitter.cpp
+  source_name_part = SkRasterPipelineBlitter
+build obj/skia/skia_core_and_effects/SkReadBuffer.o: cxx ../../src/third_party/skia/src/core/SkReadBuffer.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkReadBuffer.cpp
+  source_name_part = SkReadBuffer
+build obj/skia/skia_core_and_effects/SkReadPixelsRec.o: cxx ../../src/third_party/skia/src/core/SkReadPixelsRec.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkReadPixelsRec.cpp
+  source_name_part = SkReadPixelsRec
+build obj/skia/skia_core_and_effects/SkRecord.o: cxx ../../src/third_party/skia/src/core/SkRecord.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkRecord.cpp
+  source_name_part = SkRecord
+build obj/skia/skia_core_and_effects/SkRecordDraw.o: cxx ../../src/third_party/skia/src/core/SkRecordDraw.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkRecordDraw.cpp
+  source_name_part = SkRecordDraw
+build obj/skia/skia_core_and_effects/SkRecordOpts.o: cxx ../../src/third_party/skia/src/core/SkRecordOpts.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkRecordOpts.cpp
+  source_name_part = SkRecordOpts
+build obj/skia/skia_core_and_effects/SkRecordedDrawable.o: cxx ../../src/third_party/skia/src/core/SkRecordedDrawable.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkRecordedDrawable.cpp
+  source_name_part = SkRecordedDrawable
+build obj/skia/skia_core_and_effects/SkRecorder.o: cxx ../../src/third_party/skia/src/core/SkRecorder.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkRecorder.cpp
+  source_name_part = SkRecorder
+build obj/skia/skia_core_and_effects/SkRecords.o: cxx ../../src/third_party/skia/src/core/SkRecords.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkRecords.cpp
+  source_name_part = SkRecords
+build obj/skia/skia_core_and_effects/SkRect.o: cxx ../../src/third_party/skia/src/core/SkRect.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkRect.cpp
+  source_name_part = SkRect
+build obj/skia/skia_core_and_effects/SkRegion.o: cxx ../../src/third_party/skia/src/core/SkRegion.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkRegion.cpp
+  source_name_part = SkRegion
+build obj/skia/skia_core_and_effects/SkRegion_path.o: cxx ../../src/third_party/skia/src/core/SkRegion_path.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkRegion_path.cpp
+  source_name_part = SkRegion_path
+build obj/skia/skia_core_and_effects/SkResourceCache.o: cxx ../../src/third_party/skia/src/core/SkResourceCache.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkResourceCache.cpp
+  source_name_part = SkResourceCache
+build obj/skia/skia_core_and_effects/SkRuntimeBlender.o: cxx ../../src/third_party/skia/src/core/SkRuntimeBlender.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkRuntimeBlender.cpp
+  source_name_part = SkRuntimeBlender
+build obj/skia/skia_core_and_effects/SkRuntimeEffect.o: cxx ../../src/third_party/skia/src/core/SkRuntimeEffect.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkRuntimeEffect.cpp
+  source_name_part = SkRuntimeEffect
+build obj/skia/skia_core_and_effects/SkSLTypeShared.o: cxx ../../src/third_party/skia/src/core/SkSLTypeShared.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkSLTypeShared.cpp
+  source_name_part = SkSLTypeShared
+build obj/skia/skia_core_and_effects/SkScalar.o: cxx ../../src/third_party/skia/src/core/SkScalar.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkScalar.cpp
+  source_name_part = SkScalar
+build obj/skia/skia_core_and_effects/SkScalerContext.o: cxx ../../src/third_party/skia/src/core/SkScalerContext.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkScalerContext.cpp
+  source_name_part = SkScalerContext
+build obj/skia/skia_core_and_effects/SkScan.o: cxx ../../src/third_party/skia/src/core/SkScan.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkScan.cpp
+  source_name_part = SkScan
+build obj/skia/skia_core_and_effects/SkScan_AAAPath.o: cxx ../../src/third_party/skia/src/core/SkScan_AAAPath.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkScan_AAAPath.cpp
+  source_name_part = SkScan_AAAPath
+build obj/skia/skia_core_and_effects/SkScan_AntiPath.o: cxx ../../src/third_party/skia/src/core/SkScan_AntiPath.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkScan_AntiPath.cpp
+  source_name_part = SkScan_AntiPath
+build obj/skia/skia_core_and_effects/SkScan_Antihair.o: cxx ../../src/third_party/skia/src/core/SkScan_Antihair.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkScan_Antihair.cpp
+  source_name_part = SkScan_Antihair
+build obj/skia/skia_core_and_effects/SkScan_Hairline.o: cxx ../../src/third_party/skia/src/core/SkScan_Hairline.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkScan_Hairline.cpp
+  source_name_part = SkScan_Hairline
+build obj/skia/skia_core_and_effects/SkScan_Path.o: cxx ../../src/third_party/skia/src/core/SkScan_Path.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkScan_Path.cpp
+  source_name_part = SkScan_Path
+build obj/skia/skia_core_and_effects/SkSpecialImage.o: cxx ../../src/third_party/skia/src/core/SkSpecialImage.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkSpecialImage.cpp
+  source_name_part = SkSpecialImage
+build obj/skia/skia_core_and_effects/SkSpriteBlitter_ARGB32.o: cxx ../../src/third_party/skia/src/core/SkSpriteBlitter_ARGB32.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkSpriteBlitter_ARGB32.cpp
+  source_name_part = SkSpriteBlitter_ARGB32
+build obj/skia/skia_core_and_effects/SkStream.o: cxx ../../src/third_party/skia/src/core/SkStream.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkStream.cpp
+  source_name_part = SkStream
+build obj/skia/skia_core_and_effects/SkStrike.o: cxx ../../src/third_party/skia/src/core/SkStrike.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkStrike.cpp
+  source_name_part = SkStrike
+build obj/skia/skia_core_and_effects/SkStrikeCache.o: cxx ../../src/third_party/skia/src/core/SkStrikeCache.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkStrikeCache.cpp
+  source_name_part = SkStrikeCache
+build obj/skia/skia_core_and_effects/SkStrikeSpec.o: cxx ../../src/third_party/skia/src/core/SkStrikeSpec.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkStrikeSpec.cpp
+  source_name_part = SkStrikeSpec
+build obj/skia/skia_core_and_effects/SkString.o: cxx ../../src/third_party/skia/src/core/SkString.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkString.cpp
+  source_name_part = SkString
+build obj/skia/skia_core_and_effects/SkStringUtils.o: cxx ../../src/third_party/skia/src/core/SkStringUtils.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkStringUtils.cpp
+  source_name_part = SkStringUtils
+build obj/skia/skia_core_and_effects/SkStroke.o: cxx ../../src/third_party/skia/src/core/SkStroke.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkStroke.cpp
+  source_name_part = SkStroke
+build obj/skia/skia_core_and_effects/SkStrokeRec.o: cxx ../../src/third_party/skia/src/core/SkStrokeRec.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkStrokeRec.cpp
+  source_name_part = SkStrokeRec
+build obj/skia/skia_core_and_effects/SkStrokerPriv.o: cxx ../../src/third_party/skia/src/core/SkStrokerPriv.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkStrokerPriv.cpp
+  source_name_part = SkStrokerPriv
+build obj/skia/skia_core_and_effects/SkSwizzle.o: cxx ../../src/third_party/skia/src/core/SkSwizzle.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkSwizzle.cpp
+  source_name_part = SkSwizzle
+build obj/skia/skia_core_and_effects/SkSwizzler_opts.o: cxx ../../src/third_party/skia/src/core/SkSwizzler_opts.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkSwizzler_opts.cpp
+  source_name_part = SkSwizzler_opts
+build obj/skia/skia_core_and_effects/SkSwizzler_opts_hsw.o: cxx ../../src/third_party/skia/src/core/SkSwizzler_opts_hsw.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkSwizzler_opts_hsw.cpp
+  source_name_part = SkSwizzler_opts_hsw
+build obj/skia/skia_core_and_effects/SkSwizzler_opts_lasx.o: cxx ../../src/third_party/skia/src/core/SkSwizzler_opts_lasx.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkSwizzler_opts_lasx.cpp
+  source_name_part = SkSwizzler_opts_lasx
+build obj/skia/skia_core_and_effects/SkSwizzler_opts_ssse3.o: cxx ../../src/third_party/skia/src/core/SkSwizzler_opts_ssse3.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkSwizzler_opts_ssse3.cpp
+  source_name_part = SkSwizzler_opts_ssse3
+build obj/skia/skia_core_and_effects/SkTaskGroup.o: cxx ../../src/third_party/skia/src/core/SkTaskGroup.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkTaskGroup.cpp
+  source_name_part = SkTaskGroup
+build obj/skia/skia_core_and_effects/SkTextBlob.o: cxx ../../src/third_party/skia/src/core/SkTextBlob.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkTextBlob.cpp
+  source_name_part = SkTextBlob
+build obj/skia/skia_core_and_effects/SkTypeface.o: cxx ../../src/third_party/skia/src/core/SkTypeface.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkTypeface.cpp
+  source_name_part = SkTypeface
+build obj/skia/skia_core_and_effects/SkTypefaceCache.o: cxx ../../src/third_party/skia/src/core/SkTypefaceCache.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkTypefaceCache.cpp
+  source_name_part = SkTypefaceCache
+build obj/skia/skia_core_and_effects/SkTypeface_remote.o: cxx ../../src/third_party/skia/src/core/SkTypeface_remote.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkTypeface_remote.cpp
+  source_name_part = SkTypeface_remote
+build obj/skia/skia_core_and_effects/SkUnPreMultiply.o: cxx ../../src/third_party/skia/src/core/SkUnPreMultiply.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkUnPreMultiply.cpp
+  source_name_part = SkUnPreMultiply
+build obj/skia/skia_core_and_effects/SkVertState.o: cxx ../../src/third_party/skia/src/core/SkVertState.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkVertState.cpp
+  source_name_part = SkVertState
+build obj/skia/skia_core_and_effects/SkVertices.o: cxx ../../src/third_party/skia/src/core/SkVertices.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkVertices.cpp
+  source_name_part = SkVertices
+build obj/skia/skia_core_and_effects/SkWriteBuffer.o: cxx ../../src/third_party/skia/src/core/SkWriteBuffer.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkWriteBuffer.cpp
+  source_name_part = SkWriteBuffer
+build obj/skia/skia_core_and_effects/SkWritePixelsRec.o: cxx ../../src/third_party/skia/src/core/SkWritePixelsRec.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkWritePixelsRec.cpp
+  source_name_part = SkWritePixelsRec
+build obj/skia/skia_core_and_effects/SkWriter32.o: cxx ../../src/third_party/skia/src/core/SkWriter32.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkWriter32.cpp
+  source_name_part = SkWriter32
+build obj/skia/skia_core_and_effects/SkYUVAInfo.o: cxx ../../src/third_party/skia/src/core/SkYUVAInfo.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkYUVAInfo.cpp
+  source_name_part = SkYUVAInfo
+build obj/skia/skia_core_and_effects/SkYUVAPixmaps.o: cxx ../../src/third_party/skia/src/core/SkYUVAPixmaps.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkYUVAPixmaps.cpp
+  source_name_part = SkYUVAPixmaps
+build obj/skia/skia_core_and_effects/SkYUVMath.o: cxx ../../src/third_party/skia/src/core/SkYUVMath.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkYUVMath.cpp
+  source_name_part = SkYUVMath
+build obj/skia/skia_core_and_effects/SkYUVPlanesCache.o: cxx ../../src/third_party/skia/src/core/SkYUVPlanesCache.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkYUVPlanesCache.cpp
+  source_name_part = SkYUVPlanesCache
+build obj/skia/skia_core_and_effects/SkImage.o: cxx ../../src/third_party/skia/src/image/SkImage.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkImage.cpp
+  source_name_part = SkImage
+build obj/skia/skia_core_and_effects/SkImage_Base.o: cxx ../../src/third_party/skia/src/image/SkImage_Base.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkImage_Base.cpp
+  source_name_part = SkImage_Base
+build obj/skia/skia_core_and_effects/SkImage_Lazy.o: cxx ../../src/third_party/skia/src/image/SkImage_Lazy.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkImage_Lazy.cpp
+  source_name_part = SkImage_Lazy
+build obj/skia/skia_core_and_effects/SkImage_LazyFactories.o: cxx ../../src/third_party/skia/src/image/SkImage_LazyFactories.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkImage_LazyFactories.cpp
+  source_name_part = SkImage_LazyFactories
+build obj/skia/skia_core_and_effects/SkImage_Picture.o: cxx ../../src/third_party/skia/src/image/SkImage_Picture.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkImage_Picture.cpp
+  source_name_part = SkImage_Picture
+build obj/skia/skia_core_and_effects/SkImage_Raster.o: cxx ../../src/third_party/skia/src/image/SkImage_Raster.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkImage_Raster.cpp
+  source_name_part = SkImage_Raster
+build obj/skia/skia_core_and_effects/SkImage_RasterFactories.o: cxx ../../src/third_party/skia/src/image/SkImage_RasterFactories.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkImage_RasterFactories.cpp
+  source_name_part = SkImage_RasterFactories
+build obj/skia/skia_core_and_effects/SkPictureImageGenerator.o: cxx ../../src/third_party/skia/src/image/SkPictureImageGenerator.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPictureImageGenerator.cpp
+  source_name_part = SkPictureImageGenerator
+build obj/skia/skia_core_and_effects/SkRescaleAndReadPixels.o: cxx ../../src/third_party/skia/src/image/SkRescaleAndReadPixels.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkRescaleAndReadPixels.cpp
+  source_name_part = SkRescaleAndReadPixels
+build obj/skia/skia_core_and_effects/SkSurface.o: cxx ../../src/third_party/skia/src/image/SkSurface.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkSurface.cpp
+  source_name_part = SkSurface
+build obj/skia/skia_core_and_effects/SkSurface_Base.o: cxx ../../src/third_party/skia/src/image/SkSurface_Base.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkSurface_Base.cpp
+  source_name_part = SkSurface_Base
+build obj/skia/skia_core_and_effects/SkSurface_Null.o: cxx ../../src/third_party/skia/src/image/SkSurface_Null.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkSurface_Null.cpp
+  source_name_part = SkSurface_Null
+build obj/skia/skia_core_and_effects/SkSurface_Raster.o: cxx ../../src/third_party/skia/src/image/SkSurface_Raster.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkSurface_Raster.cpp
+  source_name_part = SkSurface_Raster
+build obj/skia/skia_core_and_effects/SkTiledImageUtils.o: cxx ../../src/third_party/skia/src/image/SkTiledImageUtils.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkTiledImageUtils.cpp
+  source_name_part = SkTiledImageUtils
+build obj/skia/skia_core_and_effects/SkDiscardableMemoryPool.o: cxx ../../src/third_party/skia/src/lazy/SkDiscardableMemoryPool.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkDiscardableMemoryPool.cpp
+  source_name_part = SkDiscardableMemoryPool
+build obj/skia/skia_core_and_effects/SkBitmapProcShader.o: cxx ../../src/third_party/skia/src/shaders/SkBitmapProcShader.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBitmapProcShader.cpp
+  source_name_part = SkBitmapProcShader
+build obj/skia/skia_core_and_effects/SkBlendShader.o: cxx ../../src/third_party/skia/src/shaders/SkBlendShader.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBlendShader.cpp
+  source_name_part = SkBlendShader
+build obj/skia/skia_core_and_effects/SkColorFilterShader.o: cxx ../../src/third_party/skia/src/shaders/SkColorFilterShader.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkColorFilterShader.cpp
+  source_name_part = SkColorFilterShader
+build obj/skia/skia_core_and_effects/SkColorShader.o: cxx ../../src/third_party/skia/src/shaders/SkColorShader.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkColorShader.cpp
+  source_name_part = SkColorShader
+build obj/skia/skia_core_and_effects/SkCoordClampShader.o: cxx ../../src/third_party/skia/src/shaders/SkCoordClampShader.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkCoordClampShader.cpp
+  source_name_part = SkCoordClampShader
+build obj/skia/skia_core_and_effects/SkEmptyShader.o: cxx ../../src/third_party/skia/src/shaders/SkEmptyShader.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkEmptyShader.cpp
+  source_name_part = SkEmptyShader
+build obj/skia/skia_core_and_effects/SkGainmapShader.o: cxx ../../src/third_party/skia/src/shaders/SkGainmapShader.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkGainmapShader.cpp
+  source_name_part = SkGainmapShader
+build obj/skia/skia_core_and_effects/SkImageShader.o: cxx ../../src/third_party/skia/src/shaders/SkImageShader.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkImageShader.cpp
+  source_name_part = SkImageShader
+build obj/skia/skia_core_and_effects/SkLocalMatrixShader.o: cxx ../../src/third_party/skia/src/shaders/SkLocalMatrixShader.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkLocalMatrixShader.cpp
+  source_name_part = SkLocalMatrixShader
+build obj/skia/skia_core_and_effects/SkPerlinNoiseShaderImpl.o: cxx ../../src/third_party/skia/src/shaders/SkPerlinNoiseShaderImpl.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPerlinNoiseShaderImpl.cpp
+  source_name_part = SkPerlinNoiseShaderImpl
+build obj/skia/skia_core_and_effects/SkPictureShader.o: cxx ../../src/third_party/skia/src/shaders/SkPictureShader.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPictureShader.cpp
+  source_name_part = SkPictureShader
+build obj/skia/skia_core_and_effects/SkRuntimeShader.o: cxx ../../src/third_party/skia/src/shaders/SkRuntimeShader.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkRuntimeShader.cpp
+  source_name_part = SkRuntimeShader
+build obj/skia/skia_core_and_effects/SkShader.o: cxx ../../src/third_party/skia/src/shaders/SkShader.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkShader.cpp
+  source_name_part = SkShader
+build obj/skia/skia_core_and_effects/SkShaderBase.o: cxx ../../src/third_party/skia/src/shaders/SkShaderBase.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkShaderBase.cpp
+  source_name_part = SkShaderBase
+build obj/skia/skia_core_and_effects/SkTransformShader.o: cxx ../../src/third_party/skia/src/shaders/SkTransformShader.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkTransformShader.cpp
+  source_name_part = SkTransformShader
+build obj/skia/skia_core_and_effects/SkTriColorShader.o: cxx ../../src/third_party/skia/src/shaders/SkTriColorShader.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkTriColorShader.cpp
+  source_name_part = SkTriColorShader
+build obj/skia/skia_core_and_effects/SkWorkingColorSpaceShader.o: cxx ../../src/third_party/skia/src/shaders/SkWorkingColorSpaceShader.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkWorkingColorSpaceShader.cpp
+  source_name_part = SkWorkingColorSpaceShader
+build obj/skia/skia_core_and_effects/GlyphRun.o: cxx ../../src/third_party/skia/src/text/GlyphRun.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = GlyphRun.cpp
+  source_name_part = GlyphRun
+build obj/skia/skia_core_and_effects/SlugFromBuffer.o: cxx ../../src/third_party/skia/src/text/SlugFromBuffer.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SlugFromBuffer.cpp
+  source_name_part = SlugFromBuffer
+build obj/skia/skia_core_and_effects/StrikeForGPU.o: cxx ../../src/third_party/skia/src/text/StrikeForGPU.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = StrikeForGPU.cpp
+  source_name_part = StrikeForGPU
+build obj/skia/skia_core_and_effects/SkAddIntersections.o: cxx ../../src/third_party/skia/src/pathops/SkAddIntersections.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkAddIntersections.cpp
+  source_name_part = SkAddIntersections
+build obj/skia/skia_core_and_effects/SkDConicLineIntersection.o: cxx ../../src/third_party/skia/src/pathops/SkDConicLineIntersection.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkDConicLineIntersection.cpp
+  source_name_part = SkDConicLineIntersection
+build obj/skia/skia_core_and_effects/SkDCubicLineIntersection.o: cxx ../../src/third_party/skia/src/pathops/SkDCubicLineIntersection.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkDCubicLineIntersection.cpp
+  source_name_part = SkDCubicLineIntersection
+build obj/skia/skia_core_and_effects/SkDCubicToQuads.o: cxx ../../src/third_party/skia/src/pathops/SkDCubicToQuads.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkDCubicToQuads.cpp
+  source_name_part = SkDCubicToQuads
+build obj/skia/skia_core_and_effects/SkDLineIntersection.o: cxx ../../src/third_party/skia/src/pathops/SkDLineIntersection.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkDLineIntersection.cpp
+  source_name_part = SkDLineIntersection
+build obj/skia/skia_core_and_effects/SkDQuadLineIntersection.o: cxx ../../src/third_party/skia/src/pathops/SkDQuadLineIntersection.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkDQuadLineIntersection.cpp
+  source_name_part = SkDQuadLineIntersection
+build obj/skia/skia_core_and_effects/SkIntersections.o: cxx ../../src/third_party/skia/src/pathops/SkIntersections.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkIntersections.cpp
+  source_name_part = SkIntersections
+build obj/skia/skia_core_and_effects/SkOpAngle.o: cxx ../../src/third_party/skia/src/pathops/SkOpAngle.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkOpAngle.cpp
+  source_name_part = SkOpAngle
+build obj/skia/skia_core_and_effects/SkOpBuilder.o: cxx ../../src/third_party/skia/src/pathops/SkOpBuilder.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkOpBuilder.cpp
+  source_name_part = SkOpBuilder
+build obj/skia/skia_core_and_effects/SkOpCoincidence.o: cxx ../../src/third_party/skia/src/pathops/SkOpCoincidence.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkOpCoincidence.cpp
+  source_name_part = SkOpCoincidence
+build obj/skia/skia_core_and_effects/SkOpContour.o: cxx ../../src/third_party/skia/src/pathops/SkOpContour.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkOpContour.cpp
+  source_name_part = SkOpContour
+build obj/skia/skia_core_and_effects/SkOpCubicHull.o: cxx ../../src/third_party/skia/src/pathops/SkOpCubicHull.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkOpCubicHull.cpp
+  source_name_part = SkOpCubicHull
+build obj/skia/skia_core_and_effects/SkOpEdgeBuilder.o: cxx ../../src/third_party/skia/src/pathops/SkOpEdgeBuilder.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkOpEdgeBuilder.cpp
+  source_name_part = SkOpEdgeBuilder
+build obj/skia/skia_core_and_effects/SkOpSegment.o: cxx ../../src/third_party/skia/src/pathops/SkOpSegment.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkOpSegment.cpp
+  source_name_part = SkOpSegment
+build obj/skia/skia_core_and_effects/SkOpSpan.o: cxx ../../src/third_party/skia/src/pathops/SkOpSpan.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkOpSpan.cpp
+  source_name_part = SkOpSpan
+build obj/skia/skia_core_and_effects/SkPathOpsAsWinding.o: cxx ../../src/third_party/skia/src/pathops/SkPathOpsAsWinding.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPathOpsAsWinding.cpp
+  source_name_part = SkPathOpsAsWinding
+build obj/skia/skia_core_and_effects/SkPathOpsCommon.o: cxx ../../src/third_party/skia/src/pathops/SkPathOpsCommon.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPathOpsCommon.cpp
+  source_name_part = SkPathOpsCommon
+build obj/skia/skia_core_and_effects/SkPathOpsConic.o: cxx ../../src/third_party/skia/src/pathops/SkPathOpsConic.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPathOpsConic.cpp
+  source_name_part = SkPathOpsConic
+build obj/skia/skia_core_and_effects/SkPathOpsCubic.o: cxx ../../src/third_party/skia/src/pathops/SkPathOpsCubic.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPathOpsCubic.cpp
+  source_name_part = SkPathOpsCubic
+build obj/skia/skia_core_and_effects/SkPathOpsCurve.o: cxx ../../src/third_party/skia/src/pathops/SkPathOpsCurve.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPathOpsCurve.cpp
+  source_name_part = SkPathOpsCurve
+build obj/skia/skia_core_and_effects/SkPathOpsDebug.o: cxx ../../src/third_party/skia/src/pathops/SkPathOpsDebug.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPathOpsDebug.cpp
+  source_name_part = SkPathOpsDebug
+build obj/skia/skia_core_and_effects/SkPathOpsLine.o: cxx ../../src/third_party/skia/src/pathops/SkPathOpsLine.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPathOpsLine.cpp
+  source_name_part = SkPathOpsLine
+build obj/skia/skia_core_and_effects/SkPathOpsOp.o: cxx ../../src/third_party/skia/src/pathops/SkPathOpsOp.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPathOpsOp.cpp
+  source_name_part = SkPathOpsOp
+build obj/skia/skia_core_and_effects/SkPathOpsQuad.o: cxx ../../src/third_party/skia/src/pathops/SkPathOpsQuad.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPathOpsQuad.cpp
+  source_name_part = SkPathOpsQuad
+build obj/skia/skia_core_and_effects/SkPathOpsRect.o: cxx ../../src/third_party/skia/src/pathops/SkPathOpsRect.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPathOpsRect.cpp
+  source_name_part = SkPathOpsRect
+build obj/skia/skia_core_and_effects/SkPathOpsSimplify.o: cxx ../../src/third_party/skia/src/pathops/SkPathOpsSimplify.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPathOpsSimplify.cpp
+  source_name_part = SkPathOpsSimplify
+build obj/skia/skia_core_and_effects/SkPathOpsTSect.o: cxx ../../src/third_party/skia/src/pathops/SkPathOpsTSect.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPathOpsTSect.cpp
+  source_name_part = SkPathOpsTSect
+build obj/skia/skia_core_and_effects/SkPathOpsTightBounds.o: cxx ../../src/third_party/skia/src/pathops/SkPathOpsTightBounds.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPathOpsTightBounds.cpp
+  source_name_part = SkPathOpsTightBounds
+build obj/skia/skia_core_and_effects/SkPathOpsTypes.o: cxx ../../src/third_party/skia/src/pathops/SkPathOpsTypes.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPathOpsTypes.cpp
+  source_name_part = SkPathOpsTypes
+build obj/skia/skia_core_and_effects/SkPathOpsWinding.o: cxx ../../src/third_party/skia/src/pathops/SkPathOpsWinding.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPathOpsWinding.cpp
+  source_name_part = SkPathOpsWinding
+build obj/skia/skia_core_and_effects/SkPathWriter.o: cxx ../../src/third_party/skia/src/pathops/SkPathWriter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPathWriter.cpp
+  source_name_part = SkPathWriter
+build obj/skia/skia_core_and_effects/SkReduceOrder.o: cxx ../../src/third_party/skia/src/pathops/SkReduceOrder.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkReduceOrder.cpp
+  source_name_part = SkReduceOrder
+build obj/skia/skia_core_and_effects/SkBlendModeColorFilter.o: cxx ../../src/third_party/skia/src/effects/colorfilters/SkBlendModeColorFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBlendModeColorFilter.cpp
+  source_name_part = SkBlendModeColorFilter
+build obj/skia/skia_core_and_effects/SkColorFilterBase.o: cxx ../../src/third_party/skia/src/effects/colorfilters/SkColorFilterBase.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkColorFilterBase.cpp
+  source_name_part = SkColorFilterBase
+build obj/skia/skia_core_and_effects/SkColorSpaceXformColorFilter.o: cxx ../../src/third_party/skia/src/effects/colorfilters/SkColorSpaceXformColorFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkColorSpaceXformColorFilter.cpp
+  source_name_part = SkColorSpaceXformColorFilter
+build obj/skia/skia_core_and_effects/SkComposeColorFilter.o: cxx ../../src/third_party/skia/src/effects/colorfilters/SkComposeColorFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkComposeColorFilter.cpp
+  source_name_part = SkComposeColorFilter
+build obj/skia/skia_core_and_effects/SkGaussianColorFilter.o: cxx ../../src/third_party/skia/src/effects/colorfilters/SkGaussianColorFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkGaussianColorFilter.cpp
+  source_name_part = SkGaussianColorFilter
+build obj/skia/skia_core_and_effects/SkMatrixColorFilter.o: cxx ../../src/third_party/skia/src/effects/colorfilters/SkMatrixColorFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMatrixColorFilter.cpp
+  source_name_part = SkMatrixColorFilter
+build obj/skia/skia_core_and_effects/SkRuntimeColorFilter.o: cxx ../../src/third_party/skia/src/effects/colorfilters/SkRuntimeColorFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkRuntimeColorFilter.cpp
+  source_name_part = SkRuntimeColorFilter
+build obj/skia/skia_core_and_effects/SkTableColorFilter.o: cxx ../../src/third_party/skia/src/effects/colorfilters/SkTableColorFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkTableColorFilter.cpp
+  source_name_part = SkTableColorFilter
+build obj/skia/skia_core_and_effects/SkWorkingFormatColorFilter.o: cxx ../../src/third_party/skia/src/effects/colorfilters/SkWorkingFormatColorFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkWorkingFormatColorFilter.cpp
+  source_name_part = SkWorkingFormatColorFilter
+build obj/skia/skia_core_and_effects/Sk1DPathEffect.o: cxx ../../src/third_party/skia/src/effects/Sk1DPathEffect.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = Sk1DPathEffect.cpp
+  source_name_part = Sk1DPathEffect
+build obj/skia/skia_core_and_effects/Sk2DPathEffect.o: cxx ../../src/third_party/skia/src/effects/Sk2DPathEffect.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = Sk2DPathEffect.cpp
+  source_name_part = Sk2DPathEffect
+build obj/skia/skia_core_and_effects/SkBlenders.o: cxx ../../src/third_party/skia/src/effects/SkBlenders.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBlenders.cpp
+  source_name_part = SkBlenders
+build obj/skia/skia_core_and_effects/SkColorMatrix.o: cxx ../../src/third_party/skia/src/effects/SkColorMatrix.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkColorMatrix.cpp
+  source_name_part = SkColorMatrix
+build obj/skia/skia_core_and_effects/SkColorMatrixFilter.o: cxx ../../src/third_party/skia/src/effects/SkColorMatrixFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkColorMatrixFilter.cpp
+  source_name_part = SkColorMatrixFilter
+build obj/skia/skia_core_and_effects/SkCornerPathEffect.o: cxx ../../src/third_party/skia/src/effects/SkCornerPathEffect.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkCornerPathEffect.cpp
+  source_name_part = SkCornerPathEffect
+build obj/skia/skia_core_and_effects/SkDashPathEffect.o: cxx ../../src/third_party/skia/src/effects/SkDashPathEffect.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkDashPathEffect.cpp
+  source_name_part = SkDashPathEffect
+build obj/skia/skia_core_and_effects/SkDiscretePathEffect.o: cxx ../../src/third_party/skia/src/effects/SkDiscretePathEffect.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkDiscretePathEffect.cpp
+  source_name_part = SkDiscretePathEffect
+build obj/skia/skia_core_and_effects/SkEmbossMask.o: cxx ../../src/third_party/skia/src/effects/SkEmbossMask.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkEmbossMask.cpp
+  source_name_part = SkEmbossMask
+build obj/skia/skia_core_and_effects/SkEmbossMaskFilter.o: cxx ../../src/third_party/skia/src/effects/SkEmbossMaskFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkEmbossMaskFilter.cpp
+  source_name_part = SkEmbossMaskFilter
+build obj/skia/skia_core_and_effects/SkHighContrastFilter.o: cxx ../../src/third_party/skia/src/effects/SkHighContrastFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkHighContrastFilter.cpp
+  source_name_part = SkHighContrastFilter
+build obj/skia/skia_core_and_effects/SkShaderMaskFilterImpl.o: cxx ../../src/third_party/skia/src/effects/SkShaderMaskFilterImpl.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkShaderMaskFilterImpl.cpp
+  source_name_part = SkShaderMaskFilterImpl
+build obj/skia/skia_core_and_effects/SkTableMaskFilter.o: cxx ../../src/third_party/skia/src/effects/SkTableMaskFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkTableMaskFilter.cpp
+  source_name_part = SkTableMaskFilter
+build obj/skia/skia_core_and_effects/SkTrimPathEffect.o: cxx ../../src/third_party/skia/src/effects/SkTrimPathEffect.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkTrimPathEffect.cpp
+  source_name_part = SkTrimPathEffect
+build obj/skia/skia_core_and_effects/SkConicalGradient.o: cxx ../../src/third_party/skia/src/shaders/gradients/SkConicalGradient.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkConicalGradient.cpp
+  source_name_part = SkConicalGradient
+build obj/skia/skia_core_and_effects/SkGradientBaseShader.o: cxx ../../src/third_party/skia/src/shaders/gradients/SkGradientBaseShader.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkGradientBaseShader.cpp
+  source_name_part = SkGradientBaseShader
+build obj/skia/skia_core_and_effects/SkLinearGradient.o: cxx ../../src/third_party/skia/src/shaders/gradients/SkLinearGradient.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkLinearGradient.cpp
+  source_name_part = SkLinearGradient
+build obj/skia/skia_core_and_effects/SkRadialGradient.o: cxx ../../src/third_party/skia/src/shaders/gradients/SkRadialGradient.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkRadialGradient.cpp
+  source_name_part = SkRadialGradient
+build obj/skia/skia_core_and_effects/SkSweepGradient.o: cxx ../../src/third_party/skia/src/shaders/gradients/SkSweepGradient.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkSweepGradient.cpp
+  source_name_part = SkSweepGradient
+build obj/skia/skia_core_and_effects/SkBlendImageFilter.o: cxx ../../src/third_party/skia/src/effects/imagefilters/SkBlendImageFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBlendImageFilter.cpp
+  source_name_part = SkBlendImageFilter
+build obj/skia/skia_core_and_effects/SkBlurImageFilter.o: cxx ../../src/third_party/skia/src/effects/imagefilters/SkBlurImageFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkBlurImageFilter.cpp
+  source_name_part = SkBlurImageFilter
+build obj/skia/skia_core_and_effects/SkColorFilterImageFilter.o: cxx ../../src/third_party/skia/src/effects/imagefilters/SkColorFilterImageFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkColorFilterImageFilter.cpp
+  source_name_part = SkColorFilterImageFilter
+build obj/skia/skia_core_and_effects/SkComposeImageFilter.o: cxx ../../src/third_party/skia/src/effects/imagefilters/SkComposeImageFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkComposeImageFilter.cpp
+  source_name_part = SkComposeImageFilter
+build obj/skia/skia_core_and_effects/SkCropImageFilter.o: cxx ../../src/third_party/skia/src/effects/imagefilters/SkCropImageFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkCropImageFilter.cpp
+  source_name_part = SkCropImageFilter
+build obj/skia/skia_core_and_effects/SkDisplacementMapImageFilter.o: cxx ../../src/third_party/skia/src/effects/imagefilters/SkDisplacementMapImageFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkDisplacementMapImageFilter.cpp
+  source_name_part = SkDisplacementMapImageFilter
+build obj/skia/skia_core_and_effects/SkDropShadowImageFilter.o: cxx ../../src/third_party/skia/src/effects/imagefilters/SkDropShadowImageFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkDropShadowImageFilter.cpp
+  source_name_part = SkDropShadowImageFilter
+build obj/skia/skia_core_and_effects/SkImageImageFilter.o: cxx ../../src/third_party/skia/src/effects/imagefilters/SkImageImageFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkImageImageFilter.cpp
+  source_name_part = SkImageImageFilter
+build obj/skia/skia_core_and_effects/SkLightingImageFilter.o: cxx ../../src/third_party/skia/src/effects/imagefilters/SkLightingImageFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkLightingImageFilter.cpp
+  source_name_part = SkLightingImageFilter
+build obj/skia/skia_core_and_effects/SkMagnifierImageFilter.o: cxx ../../src/third_party/skia/src/effects/imagefilters/SkMagnifierImageFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMagnifierImageFilter.cpp
+  source_name_part = SkMagnifierImageFilter
+build obj/skia/skia_core_and_effects/SkMatrixConvolutionImageFilter.o: cxx ../../src/third_party/skia/src/effects/imagefilters/SkMatrixConvolutionImageFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMatrixConvolutionImageFilter.cpp
+  source_name_part = SkMatrixConvolutionImageFilter
+build obj/skia/skia_core_and_effects/SkMatrixTransformImageFilter.o: cxx ../../src/third_party/skia/src/effects/imagefilters/SkMatrixTransformImageFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMatrixTransformImageFilter.cpp
+  source_name_part = SkMatrixTransformImageFilter
+build obj/skia/skia_core_and_effects/SkMergeImageFilter.o: cxx ../../src/third_party/skia/src/effects/imagefilters/SkMergeImageFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMergeImageFilter.cpp
+  source_name_part = SkMergeImageFilter
+build obj/skia/skia_core_and_effects/SkMorphologyImageFilter.o: cxx ../../src/third_party/skia/src/effects/imagefilters/SkMorphologyImageFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkMorphologyImageFilter.cpp
+  source_name_part = SkMorphologyImageFilter
+build obj/skia/skia_core_and_effects/SkPictureImageFilter.o: cxx ../../src/third_party/skia/src/effects/imagefilters/SkPictureImageFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkPictureImageFilter.cpp
+  source_name_part = SkPictureImageFilter
+build obj/skia/skia_core_and_effects/SkRuntimeImageFilter.o: cxx ../../src/third_party/skia/src/effects/imagefilters/SkRuntimeImageFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkRuntimeImageFilter.cpp
+  source_name_part = SkRuntimeImageFilter
+build obj/skia/skia_core_and_effects/SkShaderImageFilter.o: cxx ../../src/third_party/skia/src/effects/imagefilters/SkShaderImageFilter.cpp | ../../src/build/config/warning_suppression.txt || phony/skia/skia_core_and_effects.inputdeps
+  source_file_part = SkShaderImageFilter.cpp
+  source_name_part = SkShaderImageFilter
+
+build phony/skia/skia_core_and_effects: phony obj/skia/skia_core_and_effects/SkArenaAlloc.o obj/skia/skia_core_and_effects/SkBase64.o obj/skia/skia_core_and_effects/SkBezierCurves.o obj/skia/skia_core_and_effects/SkBlockAllocator.o obj/skia/skia_core_and_effects/SkBuffer.o obj/skia/skia_core_and_effects/SkContainers.o obj/skia/skia_core_and_effects/SkCubics.o obj/skia/skia_core_and_effects/SkDebug.o obj/skia/skia_core_and_effects/SkDeque.o obj/skia/skia_core_and_effects/SkFloatingPoint.o obj/skia/skia_core_and_effects/SkHalf.o obj/skia/skia_core_and_effects/SkMalloc.o obj/skia/skia_core_and_effects/SkMathPriv.o obj/skia/skia_core_and_effects/SkQuads.o obj/skia/skia_core_and_effects/SkSafeMath.o obj/skia/skia_core_and_effects/SkSemaphore.o obj/skia/skia_core_and_effects/SkSharedMutex.o obj/skia/skia_core_and_effects/SkSpinlock.o obj/skia/skia_core_and_effects/SkTDArray.o obj/skia/skia_core_and_effects/SkTSearch.o obj/skia/skia_core_and_effects/SkThreadID.o obj/skia/skia_core_and_effects/SkTime.o obj/skia/skia_core_and_effects/SkUTF.o obj/skia/skia_core_and_effects/SkUtils.o obj/skia/skia_core_and_effects/SkAAClip.o obj/skia/skia_core_and_effects/SkATrace.o obj/skia/skia_core_and_effects/SkAlphaRuns.o obj/skia/skia_core_and_effects/SkAnalyticEdge.o obj/skia/skia_core_and_effects/SkAnnotation.o obj/skia/skia_core_and_effects/SkAutoPixmapStorage.o obj/skia/skia_core_and_effects/SkBBHFactory.o obj/skia/skia_core_and_effects/SkBigPicture.o obj/skia/skia_core_and_effects/SkBitmap.o obj/skia/skia_core_and_effects/SkBitmapCache.o obj/skia/skia_core_and_effects/SkBitmapDevice.o obj/skia/skia_core_and_effects/SkBitmapProcState.o obj/skia/skia_core_and_effects/SkBitmapProcState_matrixProcs.o obj/skia/skia_core_and_effects/SkBitmapProcState_opts.o obj/skia/skia_core_and_effects/SkBitmapProcState_opts_lasx.o obj/skia/skia_core_and_effects/SkBitmapProcState_opts_ssse3.o obj/skia/skia_core_and_effects/SkBlendMode.o obj/skia/skia_core_and_effects/SkBlendModeBlender.o obj/skia/skia_core_and_effects/SkBlitMask_opts.o obj/skia/skia_core_and_effects/SkBlitMask_opts_ssse3.o obj/skia/skia_core_and_effects/SkBlitRow_D32.o obj/skia/skia_core_and_effects/SkBlitRow_opts.o obj/skia/skia_core_and_effects/SkBlitRow_opts_hsw.o obj/skia/skia_core_and_effects/SkBlitRow_opts_lasx.o obj/skia/skia_core_and_effects/SkBlitter.o obj/skia/skia_core_and_effects/SkBlitter_A8.o obj/skia/skia_core_and_effects/SkBlitter_ARGB32.o obj/skia/skia_core_and_effects/SkBlitter_Sprite.o obj/skia/skia_core_and_effects/SkBlurEngine.o obj/skia/skia_core_and_effects/SkBlurMask.o obj/skia/skia_core_and_effects/SkBlurMaskFilterImpl.o obj/skia/skia_core_and_effects/SkCachedData.o obj/skia/skia_core_and_effects/SkCanvas.o obj/skia/skia_core_and_effects/SkCanvasPriv.o obj/skia/skia_core_and_effects/SkCanvas_Raster.o obj/skia/skia_core_and_effects/SkCapabilities.o obj/skia/skia_core_and_effects/SkChecksum.o obj/skia/skia_core_and_effects/SkClipStack.o obj/skia/skia_core_and_effects/SkClipStackDevice.o obj/skia/skia_core_and_effects/SkColor.o obj/skia/skia_core_and_effects/SkColorFilter.o obj/skia/skia_core_and_effects/SkColorSpace.o obj/skia/skia_core_and_effects/SkColorSpaceXformSteps.o obj/skia/skia_core_and_effects/SkColorTable.o obj/skia/skia_core_and_effects/SkCompressedDataUtils.o obj/skia/skia_core_and_effects/SkContourMeasure.o obj/skia/skia_core_and_effects/SkConvertPixels.o obj/skia/skia_core_and_effects/SkCpu.o obj/skia/skia_core_and_effects/SkCubicClipper.o obj/skia/skia_core_and_effects/SkCubicMap.o obj/skia/skia_core_and_effects/SkData.o obj/skia/skia_core_and_effects/SkDataTable.o obj/skia/skia_core_and_effects/SkDescriptor.o obj/skia/skia_core_and_effects/SkDevice.o obj/skia/skia_core_and_effects/SkDistanceFieldGen.o obj/skia/skia_core_and_effects/SkDocument.o obj/skia/skia_core_and_effects/SkDraw.o obj/skia/skia_core_and_effects/SkDrawBase.o obj/skia/skia_core_and_effects/SkDrawShadowInfo.o obj/skia/skia_core_and_effects/SkDraw_atlas.o obj/skia/skia_core_and_effects/SkDraw_text.o obj/skia/skia_core_and_effects/SkDraw_vertices.o obj/skia/skia_core_and_effects/SkDrawable.o obj/skia/skia_core_and_effects/SkEdge.o obj/skia/skia_core_and_effects/SkEdgeBuilder.o obj/skia/skia_core_and_effects/SkEdgeClipper.o obj/skia/skia_core_and_effects/SkExecutor.o obj/skia/skia_core_and_effects/SkFlattenable.o obj/skia/skia_core_and_effects/SkFont.o obj/skia/skia_core_and_effects/SkFontDescriptor.o obj/skia/skia_core_and_effects/SkFontMetricsPriv.o obj/skia/skia_core_and_effects/SkFontMgr.o obj/skia/skia_core_and_effects/SkFontStream.o obj/skia/skia_core_and_effects/SkFont_serial.o obj/skia/skia_core_and_effects/SkGaussFilter.o obj/skia/skia_core_and_effects/SkGeometry.o obj/skia/skia_core_and_effects/SkGlobalInitialization_core.o obj/skia/skia_core_and_effects/SkGlyph.o obj/skia/skia_core_and_effects/SkGlyphRunPainter.o obj/skia/skia_core_and_effects/SkGraphics.o obj/skia/skia_core_and_effects/SkIDChangeListener.o obj/skia/skia_core_and_effects/SkImageFilter.o obj/skia/skia_core_and_effects/SkImageFilterCache.o obj/skia/skia_core_and_effects/SkImageFilterTypes.o obj/skia/skia_core_and_effects/SkImageGenerator.o obj/skia/skia_core_and_effects/SkImageInfo.o obj/skia/skia_core_and_effects/SkKnownRuntimeEffects.o obj/skia/skia_core_and_effects/SkLatticeIter.o obj/skia/skia_core_and_effects/SkLineClipper.o obj/skia/skia_core_and_effects/SkLocalMatrixImageFilter.o obj/skia/skia_core_and_effects/SkM44.o obj/skia/skia_core_and_effects/SkMD5.o obj/skia/skia_core_and_effects/SkMallocPixelRef.o obj/skia/skia_core_and_effects/SkMask.o obj/skia/skia_core_and_effects/SkMaskBlurFilter.o obj/skia/skia_core_and_effects/SkMaskCache.o obj/skia/skia_core_and_effects/SkMaskFilter.o obj/skia/skia_core_and_effects/SkMaskFilterBase.o obj/skia/skia_core_and_effects/SkMaskGamma.o obj/skia/skia_core_and_effects/SkMasks.o obj/skia/skia_core_and_effects/SkMatrix.o obj/skia/skia_core_and_effects/SkMatrixInvert.o obj/skia/skia_core_and_effects/SkMemset_opts.o obj/skia/skia_core_and_effects/SkMemset_opts_avx.o obj/skia/skia_core_and_effects/SkMemset_opts_erms.o obj/skia/skia_core_and_effects/SkMesh.o obj/skia/skia_core_and_effects/SkMipmap.o obj/skia/skia_core_and_effects/SkMipmapAccessor.o obj/skia/skia_core_and_effects/SkMipmapBuilder.o obj/skia/skia_core_and_effects/SkMipmapDrawDownSampler.o obj/skia/skia_core_and_effects/SkMipmapHQDownSampler.o obj/skia/skia_core_and_effects/SkOpts.o obj/skia/skia_core_and_effects/SkOverdrawCanvas.o obj/skia/skia_core_and_effects/SkPaint.o obj/skia/skia_core_and_effects/SkPaintPriv.o obj/skia/skia_core_and_effects/SkPath.o obj/skia/skia_core_and_effects/SkPathBuilder.o obj/skia/skia_core_and_effects/SkPathEffect.o obj/skia/skia_core_and_effects/SkPathMeasure.o obj/skia/skia_core_and_effects/SkPathRef.o obj/skia/skia_core_and_effects/SkPathUtils.o obj/skia/skia_core_and_effects/SkPath_serial.o obj/skia/skia_core_and_effects/SkPicture.o obj/skia/skia_core_and_effects/SkPictureData.o obj/skia/skia_core_and_effects/SkPictureFlat.o obj/skia/skia_core_and_effects/SkPicturePlayback.o obj/skia/skia_core_and_effects/SkPictureRecord.o obj/skia/skia_core_and_effects/SkPictureRecorder.o obj/skia/skia_core_and_effects/SkPixelRef.o obj/skia/skia_core_and_effects/SkPixmap.o obj/skia/skia_core_and_effects/SkPixmapDraw.o obj/skia/skia_core_and_effects/SkPoint.o obj/skia/skia_core_and_effects/SkPoint3.o obj/skia/skia_core_and_effects/SkPtrRecorder.o obj/skia/skia_core_and_effects/SkQuadClipper.o obj/skia/skia_core_and_effects/SkRRect.o obj/skia/skia_core_and_effects/SkRSXform.o obj/skia/skia_core_and_effects/SkRTree.o obj/skia/skia_core_and_effects/SkRasterClip.o obj/skia/skia_core_and_effects/SkRasterPipeline.o obj/skia/skia_core_and_effects/SkRasterPipelineBlitter.o obj/skia/skia_core_and_effects/SkReadBuffer.o obj/skia/skia_core_and_effects/SkReadPixelsRec.o obj/skia/skia_core_and_effects/SkRecord.o obj/skia/skia_core_and_effects/SkRecordDraw.o obj/skia/skia_core_and_effects/SkRecordOpts.o obj/skia/skia_core_and_effects/SkRecordedDrawable.o obj/skia/skia_core_and_effects/SkRecorder.o obj/skia/skia_core_and_effects/SkRecords.o obj/skia/skia_core_and_effects/SkRect.o obj/skia/skia_core_and_effects/SkRegion.o obj/skia/skia_core_and_effects/SkRegion_path.o obj/skia/skia_core_and_effects/SkResourceCache.o obj/skia/skia_core_and_effects/SkRuntimeBlender.o obj/skia/skia_core_and_effects/SkRuntimeEffect.o obj/skia/skia_core_and_effects/SkSLTypeShared.o obj/skia/skia_core_and_effects/SkScalar.o obj/skia/skia_core_and_effects/SkScalerContext.o obj/skia/skia_core_and_effects/SkScan.o obj/skia/skia_core_and_effects/SkScan_AAAPath.o obj/skia/skia_core_and_effects/SkScan_AntiPath.o obj/skia/skia_core_and_effects/SkScan_Antihair.o obj/skia/skia_core_and_effects/SkScan_Hairline.o obj/skia/skia_core_and_effects/SkScan_Path.o obj/skia/skia_core_and_effects/SkSpecialImage.o obj/skia/skia_core_and_effects/SkSpriteBlitter_ARGB32.o obj/skia/skia_core_and_effects/SkStream.o obj/skia/skia_core_and_effects/SkStrike.o obj/skia/skia_core_and_effects/SkStrikeCache.o obj/skia/skia_core_and_effects/SkStrikeSpec.o obj/skia/skia_core_and_effects/SkString.o obj/skia/skia_core_and_effects/SkStringUtils.o obj/skia/skia_core_and_effects/SkStroke.o obj/skia/skia_core_and_effects/SkStrokeRec.o obj/skia/skia_core_and_effects/SkStrokerPriv.o obj/skia/skia_core_and_effects/SkSwizzle.o obj/skia/skia_core_and_effects/SkSwizzler_opts.o obj/skia/skia_core_and_effects/SkSwizzler_opts_hsw.o obj/skia/skia_core_and_effects/SkSwizzler_opts_lasx.o obj/skia/skia_core_and_effects/SkSwizzler_opts_ssse3.o obj/skia/skia_core_and_effects/SkTaskGroup.o obj/skia/skia_core_and_effects/SkTextBlob.o obj/skia/skia_core_and_effects/SkTypeface.o obj/skia/skia_core_and_effects/SkTypefaceCache.o obj/skia/skia_core_and_effects/SkTypeface_remote.o obj/skia/skia_core_and_effects/SkUnPreMultiply.o obj/skia/skia_core_and_effects/SkVertState.o obj/skia/skia_core_and_effects/SkVertices.o obj/skia/skia_core_and_effects/SkWriteBuffer.o obj/skia/skia_core_and_effects/SkWritePixelsRec.o obj/skia/skia_core_and_effects/SkWriter32.o obj/skia/skia_core_and_effects/SkYUVAInfo.o obj/skia/skia_core_and_effects/SkYUVAPixmaps.o obj/skia/skia_core_and_effects/SkYUVMath.o obj/skia/skia_core_and_effects/SkYUVPlanesCache.o obj/skia/skia_core_and_effects/SkImage.o obj/skia/skia_core_and_effects/SkImage_Base.o obj/skia/skia_core_and_effects/SkImage_Lazy.o obj/skia/skia_core_and_effects/SkImage_LazyFactories.o obj/skia/skia_core_and_effects/SkImage_Picture.o obj/skia/skia_core_and_effects/SkImage_Raster.o obj/skia/skia_core_and_effects/SkImage_RasterFactories.o obj/skia/skia_core_and_effects/SkPictureImageGenerator.o obj/skia/skia_core_and_effects/SkRescaleAndReadPixels.o obj/skia/skia_core_and_effects/SkSurface.o obj/skia/skia_core_and_effects/SkSurface_Base.o obj/skia/skia_core_and_effects/SkSurface_Null.o obj/skia/skia_core_and_effects/SkSurface_Raster.o obj/skia/skia_core_and_effects/SkTiledImageUtils.o obj/skia/skia_core_and_effects/SkDiscardableMemoryPool.o obj/skia/skia_core_and_effects/SkBitmapProcShader.o obj/skia/skia_core_and_effects/SkBlendShader.o obj/skia/skia_core_and_effects/SkColorFilterShader.o obj/skia/skia_core_and_effects/SkColorShader.o obj/skia/skia_core_and_effects/SkCoordClampShader.o obj/skia/skia_core_and_effects/SkEmptyShader.o obj/skia/skia_core_and_effects/SkGainmapShader.o obj/skia/skia_core_and_effects/SkImageShader.o obj/skia/skia_core_and_effects/SkLocalMatrixShader.o obj/skia/skia_core_and_effects/SkPerlinNoiseShaderImpl.o obj/skia/skia_core_and_effects/SkPictureShader.o obj/skia/skia_core_and_effects/SkRuntimeShader.o obj/skia/skia_core_and_effects/SkShader.o obj/skia/skia_core_and_effects/SkShaderBase.o obj/skia/skia_core_and_effects/SkTransformShader.o obj/skia/skia_core_and_effects/SkTriColorShader.o obj/skia/skia_core_and_effects/SkWorkingColorSpaceShader.o obj/skia/skia_core_and_effects/GlyphRun.o obj/skia/skia_core_and_effects/SlugFromBuffer.o obj/skia/skia_core_and_effects/StrikeForGPU.o obj/skia/skia_core_and_effects/SkAddIntersections.o obj/skia/skia_core_and_effects/SkDConicLineIntersection.o obj/skia/skia_core_and_effects/SkDCubicLineIntersection.o obj/skia/skia_core_and_effects/SkDCubicToQuads.o obj/skia/skia_core_and_effects/SkDLineIntersection.o obj/skia/skia_core_and_effects/SkDQuadLineIntersection.o obj/skia/skia_core_and_effects/SkIntersections.o obj/skia/skia_core_and_effects/SkOpAngle.o obj/skia/skia_core_and_effects/SkOpBuilder.o obj/skia/skia_core_and_effects/SkOpCoincidence.o obj/skia/skia_core_and_effects/SkOpContour.o obj/skia/skia_core_and_effects/SkOpCubicHull.o obj/skia/skia_core_and_effects/SkOpEdgeBuilder.o obj/skia/skia_core_and_effects/SkOpSegment.o obj/skia/skia_core_and_effects/SkOpSpan.o obj/skia/skia_core_and_effects/SkPathOpsAsWinding.o obj/skia/skia_core_and_effects/SkPathOpsCommon.o obj/skia/skia_core_and_effects/SkPathOpsConic.o obj/skia/skia_core_and_effects/SkPathOpsCubic.o obj/skia/skia_core_and_effects/SkPathOpsCurve.o obj/skia/skia_core_and_effects/SkPathOpsDebug.o obj/skia/skia_core_and_effects/SkPathOpsLine.o obj/skia/skia_core_and_effects/SkPathOpsOp.o obj/skia/skia_core_and_effects/SkPathOpsQuad.o obj/skia/skia_core_and_effects/SkPathOpsRect.o obj/skia/skia_core_and_effects/SkPathOpsSimplify.o obj/skia/skia_core_and_effects/SkPathOpsTSect.o obj/skia/skia_core_and_effects/SkPathOpsTightBounds.o obj/skia/skia_core_and_effects/SkPathOpsTypes.o obj/skia/skia_core_and_effects/SkPathOpsWinding.o obj/skia/skia_core_and_effects/SkPathWriter.o obj/skia/skia_core_and_effects/SkReduceOrder.o obj/skia/skia_core_and_effects/SkBlendModeColorFilter.o obj/skia/skia_core_and_effects/SkColorFilterBase.o obj/skia/skia_core_and_effects/SkColorSpaceXformColorFilter.o obj/skia/skia_core_and_effects/SkComposeColorFilter.o obj/skia/skia_core_and_effects/SkGaussianColorFilter.o obj/skia/skia_core_and_effects/SkMatrixColorFilter.o obj/skia/skia_core_and_effects/SkRuntimeColorFilter.o obj/skia/skia_core_and_effects/SkTableColorFilter.o obj/skia/skia_core_and_effects/SkWorkingFormatColorFilter.o obj/skia/skia_core_and_effects/Sk1DPathEffect.o obj/skia/skia_core_and_effects/Sk2DPathEffect.o obj/skia/skia_core_and_effects/SkBlenders.o obj/skia/skia_core_and_effects/SkColorMatrix.o obj/skia/skia_core_and_effects/SkColorMatrixFilter.o obj/skia/skia_core_and_effects/SkCornerPathEffect.o obj/skia/skia_core_and_effects/SkDashPathEffect.o obj/skia/skia_core_and_effects/SkDiscretePathEffect.o obj/skia/skia_core_and_effects/SkEmbossMask.o obj/skia/skia_core_and_effects/SkEmbossMaskFilter.o obj/skia/skia_core_and_effects/SkHighContrastFilter.o obj/skia/skia_core_and_effects/SkShaderMaskFilterImpl.o obj/skia/skia_core_and_effects/SkTableMaskFilter.o obj/skia/skia_core_and_effects/SkTrimPathEffect.o obj/skia/skia_core_and_effects/SkConicalGradient.o obj/skia/skia_core_and_effects/SkGradientBaseShader.o obj/skia/skia_core_and_effects/SkLinearGradient.o obj/skia/skia_core_and_effects/SkRadialGradient.o obj/skia/skia_core_and_effects/SkSweepGradient.o obj/skia/skia_core_and_effects/SkBlendImageFilter.o obj/skia/skia_core_and_effects/SkBlurImageFilter.o obj/skia/skia_core_and_effects/SkColorFilterImageFilter.o obj/skia/skia_core_and_effects/SkComposeImageFilter.o obj/skia/skia_core_and_effects/SkCropImageFilter.o obj/skia/skia_core_and_effects/SkDisplacementMapImageFilter.o obj/skia/skia_core_and_effects/SkDropShadowImageFilter.o obj/skia/skia_core_and_effects/SkImageImageFilter.o obj/skia/skia_core_and_effects/SkLightingImageFilter.o obj/skia/skia_core_and_effects/SkMagnifierImageFilter.o obj/skia/skia_core_and_effects/SkMatrixConvolutionImageFilter.o obj/skia/skia_core_and_effects/SkMatrixTransformImageFilter.o obj/skia/skia_core_and_effects/SkMergeImageFilter.o obj/skia/skia_core_and_effects/SkMorphologyImageFilter.o obj/skia/skia_core_and_effects/SkPictureImageFilter.o obj/skia/skia_core_and_effects/SkRuntimeImageFilter.o obj/skia/skia_core_and_effects/SkShaderImageFilter.o || phony/third_party/dawn/include/dawn/cpp_headers phony/gpu/config/workaround_list obj/skia/libskia_cbridge_urust_uside.rlib phony/third_party/dawn/include/dawn/headers obj/skia/libbridge_rust_side_cxx_generated.a obj/third_party/rust/font_types/v0_8/lib/libfont_types_lib.rlib obj/third_party/rust/bytemuck/v1/lib/libbytemuck_lib.rlib phony/build/rust/std/remap_alloc obj/base/allocator/partition_allocator/src/partition_alloc/liballocator_base.a phony/base/allocator/partition_allocator/src/partition_alloc/build_config obj/base/allocator/partition_allocator/src/partition_alloc/liballocator_core.a obj/base/allocator/partition_allocator/src/partition_alloc/liballocator_shim.a local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libstd_std.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/liballoc_alloc.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libcompiler_builtins_compiler_builtins.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/librustc_std_workspace_core_rustc_std_workspace_core.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libcore_core.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libprofiler_builtins_profiler_builtins.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libcfg_if_cfg_if.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libhashbrown_hashbrown.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/librustc_std_workspace_alloc_rustc_std_workspace_alloc.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libpanic_abort_panic_abort.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/liblibc_libc.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libpanic_unwind_panic_unwind.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libunwind_unwind.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/librustc_demangle_rustc_demangle.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libstd_detect_std_detect.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libaddr2line_addr2line.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libgimli_gimli.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libminiz_oxide_miniz_oxide.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libadler2_adler2.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libobject_object.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libmemchr_memchr.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libgetopts_getopts.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/librustc_std_workspace_std_rustc_std_workspace_std.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libunicode_width_unicode_width.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libtest_test.rlib obj/third_party/rust/read_fonts/v0_27/lib/libread_fonts_lib.rlib obj/third_party/rust/skrifa/v0_29/lib/libskrifa_lib.rlib obj/build/rust/libcxx_cppdeps.a obj/third_party/rust/cxx/v1/lib/libcxx_lib.rlib obj/third_party/rust/foldhash/v0_1/lib/libfoldhash_lib.rlib obj/build/rust/chromium_prelude/libchromium.rlib

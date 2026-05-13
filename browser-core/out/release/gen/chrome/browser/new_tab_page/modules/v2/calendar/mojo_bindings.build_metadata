@@ -1,0 +1,11 @@
+{
+  "deps": [
+    "../../../../../../mojo/public/mojom/base/base.build_metadata",
+    "../../../../../../url/mojom/url_mojom_gurl.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../../src/chrome/browser/new_tab_page/modules/v2/calendar/calendar_data.mojom",
+    "../../../../../../../../../src/chrome/browser/new_tab_page/modules/v2/calendar/google_calendar.mojom",
+    "../../../../../../../../../src/chrome/browser/new_tab_page/modules/v2/calendar/outlook_calendar.mojom"
+  ]
+}

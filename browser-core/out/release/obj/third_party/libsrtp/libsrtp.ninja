@@ -1,0 +1,67 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DPACKAGE_STRING=\"860492290f7d1f25e2bd45da6471bfd4cd4d7add\" -DPACKAGE_VERSION=\"860492290f7d1f25e2bd45da6471bfd4cd4d7add\" -DHAVE_CONFIG_H -DOPENSSL -DGCM -DHAVE_STDLIB_H -DHAVE_STRING_H -DHAVE_STDINT_H -DHAVE_INTTYPES_H -DHAVE_INT16_T -DHAVE_INT32_T -DHAVE_INT8_T -DHAVE_UINT16_T -DHAVE_UINT32_T -DHAVE_UINT64_T -DHAVE_UINT8_T -DHAVE_ARPA_INET_H -DHAVE_NETINET_IN_H -DHAVE_SYS_TYPES_H -DHAVE_UNISTD_H
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/libsrtp -I../../src/third_party/libsrtp/config -I../../src/third_party/libsrtp/include -I../../src/third_party/libsrtp/crypto/include -I../../src/third_party/boringssl/src/include
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall
+cflags_c = -std=c11
+label_name = libsrtp
+root_out_dir = .
+target_out_dir = obj/third_party/libsrtp
+target_output_name = libsrtp
+
+build phony/third_party/libsrtp/libsrtp.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/libsrtp/libsrtp/aes_gcm_ossl.o: cc ../../src/third_party/libsrtp/crypto/cipher/aes_gcm_ossl.c | phony/third_party/libsrtp/libsrtp.inputs
+  source_file_part = aes_gcm_ossl.c
+  source_name_part = aes_gcm_ossl
+build obj/third_party/libsrtp/libsrtp/aes_icm_ossl.o: cc ../../src/third_party/libsrtp/crypto/cipher/aes_icm_ossl.c | phony/third_party/libsrtp/libsrtp.inputs
+  source_file_part = aes_icm_ossl.c
+  source_name_part = aes_icm_ossl
+build obj/third_party/libsrtp/libsrtp/cipher.o: cc ../../src/third_party/libsrtp/crypto/cipher/cipher.c | phony/third_party/libsrtp/libsrtp.inputs
+  source_file_part = cipher.c
+  source_name_part = cipher
+build obj/third_party/libsrtp/libsrtp/cipher_test_cases.o: cc ../../src/third_party/libsrtp/crypto/cipher/cipher_test_cases.c | phony/third_party/libsrtp/libsrtp.inputs
+  source_file_part = cipher_test_cases.c
+  source_name_part = cipher_test_cases
+build obj/third_party/libsrtp/libsrtp/null_cipher.o: cc ../../src/third_party/libsrtp/crypto/cipher/null_cipher.c | phony/third_party/libsrtp/libsrtp.inputs
+  source_file_part = null_cipher.c
+  source_name_part = null_cipher
+build obj/third_party/libsrtp/libsrtp/auth.o: cc ../../src/third_party/libsrtp/crypto/hash/auth.c | phony/third_party/libsrtp/libsrtp.inputs
+  source_file_part = auth.c
+  source_name_part = auth
+build obj/third_party/libsrtp/libsrtp/auth_test_cases.o: cc ../../src/third_party/libsrtp/crypto/hash/auth_test_cases.c | phony/third_party/libsrtp/libsrtp.inputs
+  source_file_part = auth_test_cases.c
+  source_name_part = auth_test_cases
+build obj/third_party/libsrtp/libsrtp/hmac_ossl.o: cc ../../src/third_party/libsrtp/crypto/hash/hmac_ossl.c | phony/third_party/libsrtp/libsrtp.inputs
+  source_file_part = hmac_ossl.c
+  source_name_part = hmac_ossl
+build obj/third_party/libsrtp/libsrtp/null_auth.o: cc ../../src/third_party/libsrtp/crypto/hash/null_auth.c | phony/third_party/libsrtp/libsrtp.inputs
+  source_file_part = null_auth.c
+  source_name_part = null_auth
+build obj/third_party/libsrtp/libsrtp/alloc.o: cc ../../src/third_party/libsrtp/crypto/kernel/alloc.c | phony/third_party/libsrtp/libsrtp.inputs
+  source_file_part = alloc.c
+  source_name_part = alloc
+build obj/third_party/libsrtp/libsrtp/crypto_kernel.o: cc ../../src/third_party/libsrtp/crypto/kernel/crypto_kernel.c | phony/third_party/libsrtp/libsrtp.inputs
+  source_file_part = crypto_kernel.c
+  source_name_part = crypto_kernel
+build obj/third_party/libsrtp/libsrtp/err.o: cc ../../src/third_party/libsrtp/crypto/kernel/err.c | phony/third_party/libsrtp/libsrtp.inputs
+  source_file_part = err.c
+  source_name_part = err
+build obj/third_party/libsrtp/libsrtp/key.o: cc ../../src/third_party/libsrtp/crypto/kernel/key.c | phony/third_party/libsrtp/libsrtp.inputs
+  source_file_part = key.c
+  source_name_part = key
+build obj/third_party/libsrtp/libsrtp/datatypes.o: cc ../../src/third_party/libsrtp/crypto/math/datatypes.c | phony/third_party/libsrtp/libsrtp.inputs
+  source_file_part = datatypes.c
+  source_name_part = datatypes
+build obj/third_party/libsrtp/libsrtp/rdb.o: cc ../../src/third_party/libsrtp/crypto/replay/rdb.c | phony/third_party/libsrtp/libsrtp.inputs
+  source_file_part = rdb.c
+  source_name_part = rdb
+build obj/third_party/libsrtp/libsrtp/rdbx.o: cc ../../src/third_party/libsrtp/crypto/replay/rdbx.c | phony/third_party/libsrtp/libsrtp.inputs
+  source_file_part = rdbx.c
+  source_name_part = rdbx
+build obj/third_party/libsrtp/libsrtp/srtp.o: cc ../../src/third_party/libsrtp/srtp/srtp.c | phony/third_party/libsrtp/libsrtp.inputs
+  source_file_part = srtp.c
+  source_name_part = srtp
+
+build obj/third_party/libsrtp/libsrtp.a: alink obj/third_party/libsrtp/libsrtp/aes_gcm_ossl.o obj/third_party/libsrtp/libsrtp/aes_icm_ossl.o obj/third_party/libsrtp/libsrtp/cipher.o obj/third_party/libsrtp/libsrtp/cipher_test_cases.o obj/third_party/libsrtp/libsrtp/null_cipher.o obj/third_party/libsrtp/libsrtp/auth.o obj/third_party/libsrtp/libsrtp/auth_test_cases.o obj/third_party/libsrtp/libsrtp/hmac_ossl.o obj/third_party/libsrtp/libsrtp/null_auth.o obj/third_party/libsrtp/libsrtp/alloc.o obj/third_party/libsrtp/libsrtp/crypto_kernel.o obj/third_party/libsrtp/libsrtp/err.o obj/third_party/libsrtp/libsrtp/key.o obj/third_party/libsrtp/libsrtp/datatypes.o obj/third_party/libsrtp/libsrtp/rdb.o obj/third_party/libsrtp/libsrtp/rdbx.o obj/third_party/libsrtp/libsrtp/srtp.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a phony/third_party/libsrtp/libsrtp.inputs || obj/third_party/boringssl/libboringssl.a phony/third_party/boringssl/boringssl_asm
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/third_party/libsrtp

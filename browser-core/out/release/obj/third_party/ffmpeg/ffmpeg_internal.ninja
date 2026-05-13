@@ -1,0 +1,821 @@
+defines = -DHAVE_AV_CONFIG_H -D_POSIX_C_SOURCE=200112 -D_XOPEN_SOURCE=600 -DPIC -DFFMPEG_CONFIGURATION=NULL -DCHROMIUM_NO_LOGGING -D_DARWIN_C_SOURCE -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0
+framework_dirs =
+include_dirs = -I../../src/third_party/ffmpeg/chromium/config/Chrome/mac/arm64 -I../../src/third_party/ffmpeg -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/opus/src/include
+asmflags = -DHAVE_VFP_ARGS=1 -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers -std=c11 --target=arm64-apple-macos -mno-outline -fno-standalone-debug -g2 -gdwarf-aranges -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0
+cflags = -fPIC -Wno-deprecated-declarations -fomit-frame-pointer -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wno-incompatible-pointer-types -Wno-absolute-value -Wno-deprecated-declarations -Wno-incompatible-pointer-types -Wno-logical-op-parentheses -Wno-parentheses -Wno-pointer-sign -Wno-switch -Wno-unused-label -Wno-unused-variable -Wno-string-conversion -Wno-sometimes-uninitialized -Wno-unguarded-availability -Wno-unused-function -Wno-constant-conversion -Wno-string-plus-int -Wno-tautological-constant-out-of-range-compare -Wno-implicit-int-float-conversion -Wno-inline-asm -O2 -fno-math-errno
+cflags_c = -std=c11
+label_name = ffmpeg_internal
+root_out_dir = .
+target_out_dir = obj/third_party/ffmpeg
+target_output_name = libffmpeg_internal
+
+build phony/third_party/ffmpeg/ffmpeg_internal.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/ffmpeg/ffmpeg_internal/ac3_channel_layout_tab.o: cc ../../src/third_party/ffmpeg/libavcodec/ac3_channel_layout_tab.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = ac3_channel_layout_tab.c
+  source_name_part = ac3_channel_layout_tab
+build obj/third_party/ffmpeg/ffmpeg_internal/ac3_parser.o: cc ../../src/third_party/ffmpeg/libavcodec/ac3_parser.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = ac3_parser.c
+  source_name_part = ac3_parser
+build obj/third_party/ffmpeg/ffmpeg_internal/adts_parser.o: cc ../../src/third_party/ffmpeg/libavcodec/adts_parser.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = adts_parser.c
+  source_name_part = adts_parser
+build obj/third_party/ffmpeg/ffmpeg_internal/allcodecs.o: cc ../../src/third_party/ffmpeg/libavcodec/allcodecs.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = allcodecs.c
+  source_name_part = allcodecs
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_flacdsp.o: cc ../../src/third_party/ffmpeg/libavcodec/autorename_libavcodec_flacdsp.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavcodec_flacdsp.c
+  source_name_part = autorename_libavcodec_flacdsp
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_mpegaudiodsp.o: cc ../../src/third_party/ffmpeg/libavcodec/autorename_libavcodec_mpegaudiodsp.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavcodec_mpegaudiodsp.c
+  source_name_part = autorename_libavcodec_mpegaudiodsp
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_parser.o: cc ../../src/third_party/ffmpeg/libavcodec/autorename_libavcodec_parser.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavcodec_parser.c
+  source_name_part = autorename_libavcodec_parser
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_vorbisdsp.o: cc ../../src/third_party/ffmpeg/libavcodec/autorename_libavcodec_vorbisdsp.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavcodec_vorbisdsp.c
+  source_name_part = autorename_libavcodec_vorbisdsp
+build obj/third_party/ffmpeg/ffmpeg_internal/avcodec.o: cc ../../src/third_party/ffmpeg/libavcodec/avcodec.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = avcodec.c
+  source_name_part = avcodec
+build obj/third_party/ffmpeg/ffmpeg_internal/avdct.o: cc ../../src/third_party/ffmpeg/libavcodec/avdct.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = avdct.c
+  source_name_part = avdct
+build obj/third_party/ffmpeg/ffmpeg_internal/avfft.o: cc ../../src/third_party/ffmpeg/libavcodec/avfft.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = avfft.c
+  source_name_part = avfft
+build obj/third_party/ffmpeg/ffmpeg_internal/bitstream.o: cc ../../src/third_party/ffmpeg/libavcodec/bitstream.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = bitstream.c
+  source_name_part = bitstream
+build obj/third_party/ffmpeg/ffmpeg_internal/bitstream_filters.o: cc ../../src/third_party/ffmpeg/libavcodec/bitstream_filters.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = bitstream_filters.c
+  source_name_part = bitstream_filters
+build obj/third_party/ffmpeg/ffmpeg_internal/bsf.o: cc ../../src/third_party/ffmpeg/libavcodec/bsf.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = bsf.c
+  source_name_part = bsf
+build obj/third_party/ffmpeg/ffmpeg_internal/codec_desc.o: cc ../../src/third_party/ffmpeg/libavcodec/codec_desc.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = codec_desc.c
+  source_name_part = codec_desc
+build obj/third_party/ffmpeg/ffmpeg_internal/codec_par.o: cc ../../src/third_party/ffmpeg/libavcodec/codec_par.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = codec_par.c
+  source_name_part = codec_par
+build obj/third_party/ffmpeg/ffmpeg_internal/d3d11va.o: cc ../../src/third_party/ffmpeg/libavcodec/d3d11va.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = d3d11va.c
+  source_name_part = d3d11va
+build obj/third_party/ffmpeg/ffmpeg_internal/dct32_fixed.o: cc ../../src/third_party/ffmpeg/libavcodec/dct32_fixed.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = dct32_fixed.c
+  source_name_part = dct32_fixed
+build obj/third_party/ffmpeg/ffmpeg_internal/dct32_float.o: cc ../../src/third_party/ffmpeg/libavcodec/dct32_float.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = dct32_float.c
+  source_name_part = dct32_float
+build obj/third_party/ffmpeg/ffmpeg_internal/decode.o: cc ../../src/third_party/ffmpeg/libavcodec/decode.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = decode.c
+  source_name_part = decode
+build obj/third_party/ffmpeg/ffmpeg_internal/dirac.o: cc ../../src/third_party/ffmpeg/libavcodec/dirac.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = dirac.c
+  source_name_part = dirac
+build obj/third_party/ffmpeg/ffmpeg_internal/dv_profile.o: cc ../../src/third_party/ffmpeg/libavcodec/dv_profile.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = dv_profile.c
+  source_name_part = dv_profile
+build obj/third_party/ffmpeg/ffmpeg_internal/encode.o: cc ../../src/third_party/ffmpeg/libavcodec/encode.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = encode.c
+  source_name_part = encode
+build obj/third_party/ffmpeg/ffmpeg_internal/executor.o: cc ../../src/third_party/ffmpeg/libavcodec/executor.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = executor.c
+  source_name_part = executor
+build obj/third_party/ffmpeg/ffmpeg_internal/flac.o: cc ../../src/third_party/ffmpeg/libavcodec/flac.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = flac.c
+  source_name_part = flac
+build obj/third_party/ffmpeg/ffmpeg_internal/flac_parser.o: cc ../../src/third_party/ffmpeg/libavcodec/flac_parser.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = flac_parser.c
+  source_name_part = flac_parser
+build obj/third_party/ffmpeg/ffmpeg_internal/flacdata.o: cc ../../src/third_party/ffmpeg/libavcodec/flacdata.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = flacdata.c
+  source_name_part = flacdata
+build obj/third_party/ffmpeg/ffmpeg_internal/flacdec.o: cc ../../src/third_party/ffmpeg/libavcodec/flacdec.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = flacdec.c
+  source_name_part = flacdec
+build obj/third_party/ffmpeg/ffmpeg_internal/get_buffer.o: cc ../../src/third_party/ffmpeg/libavcodec/get_buffer.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = get_buffer.c
+  source_name_part = get_buffer
+build obj/third_party/ffmpeg/ffmpeg_internal/golomb.o: cc ../../src/third_party/ffmpeg/libavcodec/golomb.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = golomb.c
+  source_name_part = golomb
+build obj/third_party/ffmpeg/ffmpeg_internal/imgconvert.o: cc ../../src/third_party/ffmpeg/libavcodec/imgconvert.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = imgconvert.c
+  source_name_part = imgconvert
+build obj/third_party/ffmpeg/ffmpeg_internal/jni.o: cc ../../src/third_party/ffmpeg/libavcodec/jni.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = jni.c
+  source_name_part = jni
+build obj/third_party/ffmpeg/ffmpeg_internal/lcevcdec.o: cc ../../src/third_party/ffmpeg/libavcodec/lcevcdec.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = lcevcdec.c
+  source_name_part = lcevcdec
+build obj/third_party/ffmpeg/ffmpeg_internal/libopus.o: cc ../../src/third_party/ffmpeg/libavcodec/libopus.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = libopus.c
+  source_name_part = libopus
+build obj/third_party/ffmpeg/ffmpeg_internal/libopusdec.o: cc ../../src/third_party/ffmpeg/libavcodec/libopusdec.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = libopusdec.c
+  source_name_part = libopusdec
+build obj/third_party/ffmpeg/ffmpeg_internal/mathtables.o: cc ../../src/third_party/ffmpeg/libavcodec/mathtables.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mathtables.c
+  source_name_part = mathtables
+build obj/third_party/ffmpeg/ffmpeg_internal/mediacodec.o: cc ../../src/third_party/ffmpeg/libavcodec/mediacodec.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mediacodec.c
+  source_name_part = mediacodec
+build obj/third_party/ffmpeg/ffmpeg_internal/mpeg12framerate.o: cc ../../src/third_party/ffmpeg/libavcodec/mpeg12framerate.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mpeg12framerate.c
+  source_name_part = mpeg12framerate
+build obj/third_party/ffmpeg/ffmpeg_internal/mpeg4audio.o: cc ../../src/third_party/ffmpeg/libavcodec/mpeg4audio.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mpeg4audio.c
+  source_name_part = mpeg4audio
+build obj/third_party/ffmpeg/ffmpeg_internal/mpeg4audio_sample_rates.o: cc ../../src/third_party/ffmpeg/libavcodec/mpeg4audio_sample_rates.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mpeg4audio_sample_rates.c
+  source_name_part = mpeg4audio_sample_rates
+build obj/third_party/ffmpeg/ffmpeg_internal/mpegaudio.o: cc ../../src/third_party/ffmpeg/libavcodec/mpegaudio.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mpegaudio.c
+  source_name_part = mpegaudio
+build obj/third_party/ffmpeg/ffmpeg_internal/mpegaudio_parser.o: cc ../../src/third_party/ffmpeg/libavcodec/mpegaudio_parser.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mpegaudio_parser.c
+  source_name_part = mpegaudio_parser
+build obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodata.o: cc ../../src/third_party/ffmpeg/libavcodec/mpegaudiodata.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mpegaudiodata.c
+  source_name_part = mpegaudiodata
+build obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodec_common.o: cc ../../src/third_party/ffmpeg/libavcodec/mpegaudiodec_common.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mpegaudiodec_common.c
+  source_name_part = mpegaudiodec_common
+build obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodec_fixed.o: cc ../../src/third_party/ffmpeg/libavcodec/mpegaudiodec_fixed.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mpegaudiodec_fixed.c
+  source_name_part = mpegaudiodec_fixed
+build obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodecheader.o: cc ../../src/third_party/ffmpeg/libavcodec/mpegaudiodecheader.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mpegaudiodecheader.c
+  source_name_part = mpegaudiodecheader
+build obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodsp_data.o: cc ../../src/third_party/ffmpeg/libavcodec/mpegaudiodsp_data.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mpegaudiodsp_data.c
+  source_name_part = mpegaudiodsp_data
+build obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodsp_fixed.o: cc ../../src/third_party/ffmpeg/libavcodec/mpegaudiodsp_fixed.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mpegaudiodsp_fixed.c
+  source_name_part = mpegaudiodsp_fixed
+build obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodsp_float.o: cc ../../src/third_party/ffmpeg/libavcodec/mpegaudiodsp_float.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mpegaudiodsp_float.c
+  source_name_part = mpegaudiodsp_float
+build obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiotabs.o: cc ../../src/third_party/ffmpeg/libavcodec/mpegaudiotabs.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mpegaudiotabs.c
+  source_name_part = mpegaudiotabs
+build obj/third_party/ffmpeg/ffmpeg_internal/options.o: cc ../../src/third_party/ffmpeg/libavcodec/options.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = options.c
+  source_name_part = options
+build obj/third_party/ffmpeg/ffmpeg_internal/parse.o: cc ../../src/third_party/ffmpeg/libavcodec/opus/parse.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = parse.c
+  source_name_part = parse
+build obj/third_party/ffmpeg/ffmpeg_internal/parser.o: cc ../../src/third_party/ffmpeg/libavcodec/opus/parser.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = parser.c
+  source_name_part = parser
+build obj/third_party/ffmpeg/ffmpeg_internal/packet.o: cc ../../src/third_party/ffmpeg/libavcodec/packet.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = packet.c
+  source_name_part = packet
+build obj/third_party/ffmpeg/ffmpeg_internal/parsers.o: cc ../../src/third_party/ffmpeg/libavcodec/parsers.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = parsers.c
+  source_name_part = parsers
+build obj/third_party/ffmpeg/ffmpeg_internal/pcm.o: cc ../../src/third_party/ffmpeg/libavcodec/pcm.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = pcm.c
+  source_name_part = pcm
+build obj/third_party/ffmpeg/ffmpeg_internal/profiles.o: cc ../../src/third_party/ffmpeg/libavcodec/profiles.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = profiles.c
+  source_name_part = profiles
+build obj/third_party/ffmpeg/ffmpeg_internal/pthread.o: cc ../../src/third_party/ffmpeg/libavcodec/pthread.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = pthread.c
+  source_name_part = pthread
+build obj/third_party/ffmpeg/ffmpeg_internal/pthread_frame.o: cc ../../src/third_party/ffmpeg/libavcodec/pthread_frame.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = pthread_frame.c
+  source_name_part = pthread_frame
+build obj/third_party/ffmpeg/ffmpeg_internal/pthread_slice.o: cc ../../src/third_party/ffmpeg/libavcodec/pthread_slice.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = pthread_slice.c
+  source_name_part = pthread_slice
+build obj/third_party/ffmpeg/ffmpeg_internal/qsv_api.o: cc ../../src/third_party/ffmpeg/libavcodec/qsv_api.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = qsv_api.c
+  source_name_part = qsv_api
+build obj/third_party/ffmpeg/ffmpeg_internal/raw.o: cc ../../src/third_party/ffmpeg/libavcodec/raw.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = raw.c
+  source_name_part = raw
+build obj/third_party/ffmpeg/ffmpeg_internal/threadprogress.o: cc ../../src/third_party/ffmpeg/libavcodec/threadprogress.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = threadprogress.c
+  source_name_part = threadprogress
+build obj/third_party/ffmpeg/ffmpeg_internal/to_upper4.o: cc ../../src/third_party/ffmpeg/libavcodec/to_upper4.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = to_upper4.c
+  source_name_part = to_upper4
+build obj/third_party/ffmpeg/ffmpeg_internal/utils.o: cc ../../src/third_party/ffmpeg/libavcodec/utils.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = utils.c
+  source_name_part = utils
+build obj/third_party/ffmpeg/ffmpeg_internal/version.o: cc ../../src/third_party/ffmpeg/libavcodec/version.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = version.c
+  source_name_part = version
+build obj/third_party/ffmpeg/ffmpeg_internal/vlc.o: cc ../../src/third_party/ffmpeg/libavcodec/vlc.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = vlc.c
+  source_name_part = vlc
+build obj/third_party/ffmpeg/ffmpeg_internal/vorbis.o: cc ../../src/third_party/ffmpeg/libavcodec/vorbis.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = vorbis.c
+  source_name_part = vorbis
+build obj/third_party/ffmpeg/ffmpeg_internal/vorbis_data.o: cc ../../src/third_party/ffmpeg/libavcodec/vorbis_data.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = vorbis_data.c
+  source_name_part = vorbis_data
+build obj/third_party/ffmpeg/ffmpeg_internal/vorbis_parser.o: cc ../../src/third_party/ffmpeg/libavcodec/vorbis_parser.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = vorbis_parser.c
+  source_name_part = vorbis_parser
+build obj/third_party/ffmpeg/ffmpeg_internal/vorbisdec.o: cc ../../src/third_party/ffmpeg/libavcodec/vorbisdec.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = vorbisdec.c
+  source_name_part = vorbisdec
+build obj/third_party/ffmpeg/ffmpeg_internal/vp9_parser.o: cc ../../src/third_party/ffmpeg/libavcodec/vp9_parser.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = vp9_parser.c
+  source_name_part = vp9_parser
+build obj/third_party/ffmpeg/ffmpeg_internal/xiph.o: cc ../../src/third_party/ffmpeg/libavcodec/xiph.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = xiph.c
+  source_name_part = xiph
+build obj/third_party/ffmpeg/ffmpeg_internal/allformats.o: cc ../../src/third_party/ffmpeg/libavformat/allformats.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = allformats.c
+  source_name_part = allformats
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavformat_flacdec.o: cc ../../src/third_party/ffmpeg/libavformat/autorename_libavformat_flacdec.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavformat_flacdec.c
+  source_name_part = autorename_libavformat_flacdec
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavformat_options.o: cc ../../src/third_party/ffmpeg/libavformat/autorename_libavformat_options.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavformat_options.c
+  source_name_part = autorename_libavformat_options
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavformat_pcm.o: cc ../../src/third_party/ffmpeg/libavformat/autorename_libavformat_pcm.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavformat_pcm.c
+  source_name_part = autorename_libavformat_pcm
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavformat_utils.o: cc ../../src/third_party/ffmpeg/libavformat/autorename_libavformat_utils.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavformat_utils.c
+  source_name_part = autorename_libavformat_utils
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavformat_version.o: cc ../../src/third_party/ffmpeg/libavformat/autorename_libavformat_version.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavformat_version.c
+  source_name_part = autorename_libavformat_version
+build obj/third_party/ffmpeg/ffmpeg_internal/avformat.o: cc ../../src/third_party/ffmpeg/libavformat/avformat.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = avformat.c
+  source_name_part = avformat
+build obj/third_party/ffmpeg/ffmpeg_internal/avio.o: cc ../../src/third_party/ffmpeg/libavformat/avio.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = avio.c
+  source_name_part = avio
+build obj/third_party/ffmpeg/ffmpeg_internal/aviobuf.o: cc ../../src/third_party/ffmpeg/libavformat/aviobuf.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = aviobuf.c
+  source_name_part = aviobuf
+build obj/third_party/ffmpeg/ffmpeg_internal/demux.o: cc ../../src/third_party/ffmpeg/libavformat/demux.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = demux.c
+  source_name_part = demux
+build obj/third_party/ffmpeg/ffmpeg_internal/demux_utils.o: cc ../../src/third_party/ffmpeg/libavformat/demux_utils.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = demux_utils.c
+  source_name_part = demux_utils
+build obj/third_party/ffmpeg/ffmpeg_internal/dovi_isom.o: cc ../../src/third_party/ffmpeg/libavformat/dovi_isom.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = dovi_isom.c
+  source_name_part = dovi_isom
+build obj/third_party/ffmpeg/ffmpeg_internal/dump.o: cc ../../src/third_party/ffmpeg/libavformat/dump.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = dump.c
+  source_name_part = dump
+build obj/third_party/ffmpeg/ffmpeg_internal/dv.o: cc ../../src/third_party/ffmpeg/libavformat/dv.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = dv.c
+  source_name_part = dv
+build obj/third_party/ffmpeg/ffmpeg_internal/dvdclut.o: cc ../../src/third_party/ffmpeg/libavformat/dvdclut.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = dvdclut.c
+  source_name_part = dvdclut
+build obj/third_party/ffmpeg/ffmpeg_internal/flac_picture.o: cc ../../src/third_party/ffmpeg/libavformat/flac_picture.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = flac_picture.c
+  source_name_part = flac_picture
+build obj/third_party/ffmpeg/ffmpeg_internal/format.o: cc ../../src/third_party/ffmpeg/libavformat/format.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = format.c
+  source_name_part = format
+build obj/third_party/ffmpeg/ffmpeg_internal/id3v1.o: cc ../../src/third_party/ffmpeg/libavformat/id3v1.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = id3v1.c
+  source_name_part = id3v1
+build obj/third_party/ffmpeg/ffmpeg_internal/id3v2.o: cc ../../src/third_party/ffmpeg/libavformat/id3v2.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = id3v2.c
+  source_name_part = id3v2
+build obj/third_party/ffmpeg/ffmpeg_internal/isom.o: cc ../../src/third_party/ffmpeg/libavformat/isom.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = isom.c
+  source_name_part = isom
+build obj/third_party/ffmpeg/ffmpeg_internal/isom_tags.o: cc ../../src/third_party/ffmpeg/libavformat/isom_tags.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = isom_tags.c
+  source_name_part = isom_tags
+build obj/third_party/ffmpeg/ffmpeg_internal/matroska.o: cc ../../src/third_party/ffmpeg/libavformat/matroska.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = matroska.c
+  source_name_part = matroska
+build obj/third_party/ffmpeg/ffmpeg_internal/matroskadec.o: cc ../../src/third_party/ffmpeg/libavformat/matroskadec.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = matroskadec.c
+  source_name_part = matroskadec
+build obj/third_party/ffmpeg/ffmpeg_internal/metadata.o: cc ../../src/third_party/ffmpeg/libavformat/metadata.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = metadata.c
+  source_name_part = metadata
+build obj/third_party/ffmpeg/ffmpeg_internal/mov.o: cc ../../src/third_party/ffmpeg/libavformat/mov.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mov.c
+  source_name_part = mov
+build obj/third_party/ffmpeg/ffmpeg_internal/mov_chan.o: cc ../../src/third_party/ffmpeg/libavformat/mov_chan.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mov_chan.c
+  source_name_part = mov_chan
+build obj/third_party/ffmpeg/ffmpeg_internal/mov_esds.o: cc ../../src/third_party/ffmpeg/libavformat/mov_esds.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mov_esds.c
+  source_name_part = mov_esds
+build obj/third_party/ffmpeg/ffmpeg_internal/mp3dec.o: cc ../../src/third_party/ffmpeg/libavformat/mp3dec.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mp3dec.c
+  source_name_part = mp3dec
+build obj/third_party/ffmpeg/ffmpeg_internal/mux.o: cc ../../src/third_party/ffmpeg/libavformat/mux.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mux.c
+  source_name_part = mux
+build obj/third_party/ffmpeg/ffmpeg_internal/mux_utils.o: cc ../../src/third_party/ffmpeg/libavformat/mux_utils.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mux_utils.c
+  source_name_part = mux_utils
+build obj/third_party/ffmpeg/ffmpeg_internal/oggdec.o: cc ../../src/third_party/ffmpeg/libavformat/oggdec.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = oggdec.c
+  source_name_part = oggdec
+build obj/third_party/ffmpeg/ffmpeg_internal/oggparseflac.o: cc ../../src/third_party/ffmpeg/libavformat/oggparseflac.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = oggparseflac.c
+  source_name_part = oggparseflac
+build obj/third_party/ffmpeg/ffmpeg_internal/oggparseogm.o: cc ../../src/third_party/ffmpeg/libavformat/oggparseogm.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = oggparseogm.c
+  source_name_part = oggparseogm
+build obj/third_party/ffmpeg/ffmpeg_internal/oggparseopus.o: cc ../../src/third_party/ffmpeg/libavformat/oggparseopus.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = oggparseopus.c
+  source_name_part = oggparseopus
+build obj/third_party/ffmpeg/ffmpeg_internal/oggparseskeleton.o: cc ../../src/third_party/ffmpeg/libavformat/oggparseskeleton.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = oggparseskeleton.c
+  source_name_part = oggparseskeleton
+build obj/third_party/ffmpeg/ffmpeg_internal/oggparsetheora.o: cc ../../src/third_party/ffmpeg/libavformat/oggparsetheora.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = oggparsetheora.c
+  source_name_part = oggparsetheora
+build obj/third_party/ffmpeg/ffmpeg_internal/oggparsevorbis.o: cc ../../src/third_party/ffmpeg/libavformat/oggparsevorbis.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = oggparsevorbis.c
+  source_name_part = oggparsevorbis
+build obj/third_party/ffmpeg/ffmpeg_internal/oggparsevp8.o: cc ../../src/third_party/ffmpeg/libavformat/oggparsevp8.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = oggparsevp8.c
+  source_name_part = oggparsevp8
+build obj/third_party/ffmpeg/ffmpeg_internal/os_support.o: cc ../../src/third_party/ffmpeg/libavformat/os_support.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = os_support.c
+  source_name_part = os_support
+build obj/third_party/ffmpeg/ffmpeg_internal/protocols.o: cc ../../src/third_party/ffmpeg/libavformat/protocols.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = protocols.c
+  source_name_part = protocols
+build obj/third_party/ffmpeg/ffmpeg_internal/qtpalette.o: cc ../../src/third_party/ffmpeg/libavformat/qtpalette.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = qtpalette.c
+  source_name_part = qtpalette
+build obj/third_party/ffmpeg/ffmpeg_internal/rawdec.o: cc ../../src/third_party/ffmpeg/libavformat/rawdec.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = rawdec.c
+  source_name_part = rawdec
+build obj/third_party/ffmpeg/ffmpeg_internal/replaygain.o: cc ../../src/third_party/ffmpeg/libavformat/replaygain.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = replaygain.c
+  source_name_part = replaygain
+build obj/third_party/ffmpeg/ffmpeg_internal/riff.o: cc ../../src/third_party/ffmpeg/libavformat/riff.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = riff.c
+  source_name_part = riff
+build obj/third_party/ffmpeg/ffmpeg_internal/riffdec.o: cc ../../src/third_party/ffmpeg/libavformat/riffdec.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = riffdec.c
+  source_name_part = riffdec
+build obj/third_party/ffmpeg/ffmpeg_internal/rmsipr.o: cc ../../src/third_party/ffmpeg/libavformat/rmsipr.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = rmsipr.c
+  source_name_part = rmsipr
+build obj/third_party/ffmpeg/ffmpeg_internal/seek.o: cc ../../src/third_party/ffmpeg/libavformat/seek.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = seek.c
+  source_name_part = seek
+build obj/third_party/ffmpeg/ffmpeg_internal/url.o: cc ../../src/third_party/ffmpeg/libavformat/url.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = url.c
+  source_name_part = url
+build obj/third_party/ffmpeg/ffmpeg_internal/vorbiscomment.o: cc ../../src/third_party/ffmpeg/libavformat/vorbiscomment.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = vorbiscomment.c
+  source_name_part = vorbiscomment
+build obj/third_party/ffmpeg/ffmpeg_internal/wavdec.o: cc ../../src/third_party/ffmpeg/libavformat/wavdec.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = wavdec.c
+  source_name_part = wavdec
+build obj/third_party/ffmpeg/ffmpeg_internal/aes.o: cc ../../src/third_party/ffmpeg/libavutil/aes.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = aes.c
+  source_name_part = aes
+build obj/third_party/ffmpeg/ffmpeg_internal/aes_ctr.o: cc ../../src/third_party/ffmpeg/libavutil/aes_ctr.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = aes_ctr.c
+  source_name_part = aes_ctr
+build obj/third_party/ffmpeg/ffmpeg_internal/ambient_viewing_environment.o: cc ../../src/third_party/ffmpeg/libavutil/ambient_viewing_environment.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = ambient_viewing_environment.c
+  source_name_part = ambient_viewing_environment
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_cpu.o: cc ../../src/third_party/ffmpeg/libavutil/autorename_libavutil_cpu.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavutil_cpu.c
+  source_name_part = autorename_libavutil_cpu
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_executor.o: cc ../../src/third_party/ffmpeg/libavutil/autorename_libavutil_executor.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavutil_executor.c
+  source_name_part = autorename_libavutil_executor
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_fixed_dsp.o: cc ../../src/third_party/ffmpeg/libavutil/autorename_libavutil_fixed_dsp.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavutil_fixed_dsp.c
+  source_name_part = autorename_libavutil_fixed_dsp
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_float_dsp.o: cc ../../src/third_party/ffmpeg/libavutil/autorename_libavutil_float_dsp.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavutil_float_dsp.c
+  source_name_part = autorename_libavutil_float_dsp
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_imgutils.o: cc ../../src/third_party/ffmpeg/libavutil/autorename_libavutil_imgutils.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavutil_imgutils.c
+  source_name_part = autorename_libavutil_imgutils
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_tx_float.o: cc ../../src/third_party/ffmpeg/libavutil/autorename_libavutil_tx_float.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavutil_tx_float.c
+  source_name_part = autorename_libavutil_tx_float
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_utils.o: cc ../../src/third_party/ffmpeg/libavutil/autorename_libavutil_utils.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavutil_utils.c
+  source_name_part = autorename_libavutil_utils
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_version.o: cc ../../src/third_party/ffmpeg/libavutil/autorename_libavutil_version.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavutil_version.c
+  source_name_part = autorename_libavutil_version
+build obj/third_party/ffmpeg/ffmpeg_internal/avstring.o: cc ../../src/third_party/ffmpeg/libavutil/avstring.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = avstring.c
+  source_name_part = avstring
+build obj/third_party/ffmpeg/ffmpeg_internal/base64.o: cc ../../src/third_party/ffmpeg/libavutil/base64.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = base64.c
+  source_name_part = base64
+build obj/third_party/ffmpeg/ffmpeg_internal/bprint.o: cc ../../src/third_party/ffmpeg/libavutil/bprint.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = bprint.c
+  source_name_part = bprint
+build obj/third_party/ffmpeg/ffmpeg_internal/buffer.o: cc ../../src/third_party/ffmpeg/libavutil/buffer.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = buffer.c
+  source_name_part = buffer
+build obj/third_party/ffmpeg/ffmpeg_internal/camellia.o: cc ../../src/third_party/ffmpeg/libavutil/camellia.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = camellia.c
+  source_name_part = camellia
+build obj/third_party/ffmpeg/ffmpeg_internal/channel_layout.o: cc ../../src/third_party/ffmpeg/libavutil/channel_layout.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = channel_layout.c
+  source_name_part = channel_layout
+build obj/third_party/ffmpeg/ffmpeg_internal/container_fifo.o: cc ../../src/third_party/ffmpeg/libavutil/container_fifo.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = container_fifo.c
+  source_name_part = container_fifo
+build obj/third_party/ffmpeg/ffmpeg_internal/crc.o: cc ../../src/third_party/ffmpeg/libavutil/crc.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = crc.c
+  source_name_part = crc
+build obj/third_party/ffmpeg/ffmpeg_internal/csp.o: cc ../../src/third_party/ffmpeg/libavutil/csp.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = csp.c
+  source_name_part = csp
+build obj/third_party/ffmpeg/ffmpeg_internal/detection_bbox.o: cc ../../src/third_party/ffmpeg/libavutil/detection_bbox.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = detection_bbox.c
+  source_name_part = detection_bbox
+build obj/third_party/ffmpeg/ffmpeg_internal/dict.o: cc ../../src/third_party/ffmpeg/libavutil/dict.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = dict.c
+  source_name_part = dict
+build obj/third_party/ffmpeg/ffmpeg_internal/display.o: cc ../../src/third_party/ffmpeg/libavutil/display.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = display.c
+  source_name_part = display
+build obj/third_party/ffmpeg/ffmpeg_internal/dovi_meta.o: cc ../../src/third_party/ffmpeg/libavutil/dovi_meta.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = dovi_meta.c
+  source_name_part = dovi_meta
+build obj/third_party/ffmpeg/ffmpeg_internal/downmix_info.o: cc ../../src/third_party/ffmpeg/libavutil/downmix_info.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = downmix_info.c
+  source_name_part = downmix_info
+build obj/third_party/ffmpeg/ffmpeg_internal/encryption_info.o: cc ../../src/third_party/ffmpeg/libavutil/encryption_info.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = encryption_info.c
+  source_name_part = encryption_info
+build obj/third_party/ffmpeg/ffmpeg_internal/error.o: cc ../../src/third_party/ffmpeg/libavutil/error.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = error.c
+  source_name_part = error
+build obj/third_party/ffmpeg/ffmpeg_internal/eval.o: cc ../../src/third_party/ffmpeg/libavutil/eval.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = eval.c
+  source_name_part = eval
+build obj/third_party/ffmpeg/ffmpeg_internal/fifo.o: cc ../../src/third_party/ffmpeg/libavutil/fifo.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = fifo.c
+  source_name_part = fifo
+build obj/third_party/ffmpeg/ffmpeg_internal/file_open.o: cc ../../src/third_party/ffmpeg/libavutil/file_open.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = file_open.c
+  source_name_part = file_open
+build obj/third_party/ffmpeg/ffmpeg_internal/film_grain_params.o: cc ../../src/third_party/ffmpeg/libavutil/film_grain_params.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = film_grain_params.c
+  source_name_part = film_grain_params
+build obj/third_party/ffmpeg/ffmpeg_internal/frame.o: cc ../../src/third_party/ffmpeg/libavutil/frame.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = frame.c
+  source_name_part = frame
+build obj/third_party/ffmpeg/ffmpeg_internal/hdr_dynamic_metadata.o: cc ../../src/third_party/ffmpeg/libavutil/hdr_dynamic_metadata.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = hdr_dynamic_metadata.c
+  source_name_part = hdr_dynamic_metadata
+build obj/third_party/ffmpeg/ffmpeg_internal/hdr_dynamic_vivid_metadata.o: cc ../../src/third_party/ffmpeg/libavutil/hdr_dynamic_vivid_metadata.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = hdr_dynamic_vivid_metadata.c
+  source_name_part = hdr_dynamic_vivid_metadata
+build obj/third_party/ffmpeg/ffmpeg_internal/hwcontext.o: cc ../../src/third_party/ffmpeg/libavutil/hwcontext.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = hwcontext.c
+  source_name_part = hwcontext
+build obj/third_party/ffmpeg/ffmpeg_internal/hwcontext_stub.o: cc ../../src/third_party/ffmpeg/libavutil/hwcontext_stub.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = hwcontext_stub.c
+  source_name_part = hwcontext_stub
+build obj/third_party/ffmpeg/ffmpeg_internal/iamf.o: cc ../../src/third_party/ffmpeg/libavutil/iamf.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = iamf.c
+  source_name_part = iamf
+build obj/third_party/ffmpeg/ffmpeg_internal/integer.o: cc ../../src/third_party/ffmpeg/libavutil/integer.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = integer.c
+  source_name_part = integer
+build obj/third_party/ffmpeg/ffmpeg_internal/intmath.o: cc ../../src/third_party/ffmpeg/libavutil/intmath.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = intmath.c
+  source_name_part = intmath
+build obj/third_party/ffmpeg/ffmpeg_internal/lfg.o: cc ../../src/third_party/ffmpeg/libavutil/lfg.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = lfg.c
+  source_name_part = lfg
+build obj/third_party/ffmpeg/ffmpeg_internal/log.o: cc ../../src/third_party/ffmpeg/libavutil/log.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = log.c
+  source_name_part = log
+build obj/third_party/ffmpeg/ffmpeg_internal/log2_tab.o: cc ../../src/third_party/ffmpeg/libavutil/log2_tab.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = log2_tab.c
+  source_name_part = log2_tab
+build obj/third_party/ffmpeg/ffmpeg_internal/lzo.o: cc ../../src/third_party/ffmpeg/libavutil/lzo.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = lzo.c
+  source_name_part = lzo
+build obj/third_party/ffmpeg/ffmpeg_internal/mastering_display_metadata.o: cc ../../src/third_party/ffmpeg/libavutil/mastering_display_metadata.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mastering_display_metadata.c
+  source_name_part = mastering_display_metadata
+build obj/third_party/ffmpeg/ffmpeg_internal/mathematics.o: cc ../../src/third_party/ffmpeg/libavutil/mathematics.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mathematics.c
+  source_name_part = mathematics
+build obj/third_party/ffmpeg/ffmpeg_internal/md5.o: cc ../../src/third_party/ffmpeg/libavutil/md5.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = md5.c
+  source_name_part = md5
+build obj/third_party/ffmpeg/ffmpeg_internal/mem.o: cc ../../src/third_party/ffmpeg/libavutil/mem.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mem.c
+  source_name_part = mem
+build obj/third_party/ffmpeg/ffmpeg_internal/opt.o: cc ../../src/third_party/ffmpeg/libavutil/opt.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = opt.c
+  source_name_part = opt
+build obj/third_party/ffmpeg/ffmpeg_internal/parseutils.o: cc ../../src/third_party/ffmpeg/libavutil/parseutils.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = parseutils.c
+  source_name_part = parseutils
+build obj/third_party/ffmpeg/ffmpeg_internal/pixdesc.o: cc ../../src/third_party/ffmpeg/libavutil/pixdesc.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = pixdesc.c
+  source_name_part = pixdesc
+build obj/third_party/ffmpeg/ffmpeg_internal/pixelutils.o: cc ../../src/third_party/ffmpeg/libavutil/pixelutils.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = pixelutils.c
+  source_name_part = pixelutils
+build obj/third_party/ffmpeg/ffmpeg_internal/random_seed.o: cc ../../src/third_party/ffmpeg/libavutil/random_seed.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = random_seed.c
+  source_name_part = random_seed
+build obj/third_party/ffmpeg/ffmpeg_internal/rational.o: cc ../../src/third_party/ffmpeg/libavutil/rational.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = rational.c
+  source_name_part = rational
+build obj/third_party/ffmpeg/ffmpeg_internal/refstruct.o: cc ../../src/third_party/ffmpeg/libavutil/refstruct.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = refstruct.c
+  source_name_part = refstruct
+build obj/third_party/ffmpeg/ffmpeg_internal/reverse.o: cc ../../src/third_party/ffmpeg/libavutil/reverse.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = reverse.c
+  source_name_part = reverse
+build obj/third_party/ffmpeg/ffmpeg_internal/samplefmt.o: cc ../../src/third_party/ffmpeg/libavutil/samplefmt.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = samplefmt.c
+  source_name_part = samplefmt
+build obj/third_party/ffmpeg/ffmpeg_internal/sha.o: cc ../../src/third_party/ffmpeg/libavutil/sha.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = sha.c
+  source_name_part = sha
+build obj/third_party/ffmpeg/ffmpeg_internal/slicethread.o: cc ../../src/third_party/ffmpeg/libavutil/slicethread.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = slicethread.c
+  source_name_part = slicethread
+build obj/third_party/ffmpeg/ffmpeg_internal/spherical.o: cc ../../src/third_party/ffmpeg/libavutil/spherical.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = spherical.c
+  source_name_part = spherical
+build obj/third_party/ffmpeg/ffmpeg_internal/stereo3d.o: cc ../../src/third_party/ffmpeg/libavutil/stereo3d.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = stereo3d.c
+  source_name_part = stereo3d
+build obj/third_party/ffmpeg/ffmpeg_internal/tea.o: cc ../../src/third_party/ffmpeg/libavutil/tea.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = tea.c
+  source_name_part = tea
+build obj/third_party/ffmpeg/ffmpeg_internal/threadmessage.o: cc ../../src/third_party/ffmpeg/libavutil/threadmessage.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = threadmessage.c
+  source_name_part = threadmessage
+build obj/third_party/ffmpeg/ffmpeg_internal/time.o: cc ../../src/third_party/ffmpeg/libavutil/time.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = time.c
+  source_name_part = time
+build obj/third_party/ffmpeg/ffmpeg_internal/timecode.o: cc ../../src/third_party/ffmpeg/libavutil/timecode.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = timecode.c
+  source_name_part = timecode
+build obj/third_party/ffmpeg/ffmpeg_internal/timestamp.o: cc ../../src/third_party/ffmpeg/libavutil/timestamp.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = timestamp.c
+  source_name_part = timestamp
+build obj/third_party/ffmpeg/ffmpeg_internal/twofish.o: cc ../../src/third_party/ffmpeg/libavutil/twofish.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = twofish.c
+  source_name_part = twofish
+build obj/third_party/ffmpeg/ffmpeg_internal/tx.o: cc ../../src/third_party/ffmpeg/libavutil/tx.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = tx.c
+  source_name_part = tx
+build obj/third_party/ffmpeg/ffmpeg_internal/uuid.o: cc ../../src/third_party/ffmpeg/libavutil/uuid.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = uuid.c
+  source_name_part = uuid
+build obj/third_party/ffmpeg/ffmpeg_internal/video_enc_params.o: cc ../../src/third_party/ffmpeg/libavutil/video_enc_params.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = video_enc_params.c
+  source_name_part = video_enc_params
+build obj/third_party/ffmpeg/ffmpeg_internal/video_hint.o: cc ../../src/third_party/ffmpeg/libavutil/video_hint.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = video_hint.c
+  source_name_part = video_hint
+build obj/third_party/ffmpeg/ffmpeg_internal/atsc_a53.o: cc ../../src/third_party/ffmpeg/libavcodec/atsc_a53.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = atsc_a53.c
+  source_name_part = atsc_a53
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_videodsp.o: cc ../../src/third_party/ffmpeg/libavcodec/autorename_libavcodec_videodsp.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavcodec_videodsp.c
+  source_name_part = autorename_libavcodec_videodsp
+build obj/third_party/ffmpeg/ffmpeg_internal/cabac.o: cc ../../src/third_party/ffmpeg/libavcodec/cabac.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = cabac.c
+  source_name_part = cabac
+build obj/third_party/ffmpeg/ffmpeg_internal/h2645_parse.o: cc ../../src/third_party/ffmpeg/libavcodec/h2645_parse.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h2645_parse.c
+  source_name_part = h2645_parse
+build obj/third_party/ffmpeg/ffmpeg_internal/h2645_sei.o: cc ../../src/third_party/ffmpeg/libavcodec/h2645_sei.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h2645_sei.c
+  source_name_part = h2645_sei
+build obj/third_party/ffmpeg/ffmpeg_internal/h2645_vui.o: cc ../../src/third_party/ffmpeg/libavcodec/h2645_vui.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h2645_vui.c
+  source_name_part = h2645_vui
+build obj/third_party/ffmpeg/ffmpeg_internal/h2645data.o: cc ../../src/third_party/ffmpeg/libavcodec/h2645data.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h2645data.c
+  source_name_part = h2645data
+build obj/third_party/ffmpeg/ffmpeg_internal/h264_cabac.o: cc ../../src/third_party/ffmpeg/libavcodec/h264_cabac.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h264_cabac.c
+  source_name_part = h264_cabac
+build obj/third_party/ffmpeg/ffmpeg_internal/h264_cavlc.o: cc ../../src/third_party/ffmpeg/libavcodec/h264_cavlc.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h264_cavlc.c
+  source_name_part = h264_cavlc
+build obj/third_party/ffmpeg/ffmpeg_internal/h264_direct.o: cc ../../src/third_party/ffmpeg/libavcodec/h264_direct.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h264_direct.c
+  source_name_part = h264_direct
+build obj/third_party/ffmpeg/ffmpeg_internal/h264_loopfilter.o: cc ../../src/third_party/ffmpeg/libavcodec/h264_loopfilter.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h264_loopfilter.c
+  source_name_part = h264_loopfilter
+build obj/third_party/ffmpeg/ffmpeg_internal/h264_mb.o: cc ../../src/third_party/ffmpeg/libavcodec/h264_mb.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h264_mb.c
+  source_name_part = h264_mb
+build obj/third_party/ffmpeg/ffmpeg_internal/h264_parse.o: cc ../../src/third_party/ffmpeg/libavcodec/h264_parse.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h264_parse.c
+  source_name_part = h264_parse
+build obj/third_party/ffmpeg/ffmpeg_internal/h264_parser.o: cc ../../src/third_party/ffmpeg/libavcodec/h264_parser.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h264_parser.c
+  source_name_part = h264_parser
+build obj/third_party/ffmpeg/ffmpeg_internal/h264_picture.o: cc ../../src/third_party/ffmpeg/libavcodec/h264_picture.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h264_picture.c
+  source_name_part = h264_picture
+build obj/third_party/ffmpeg/ffmpeg_internal/h264_ps.o: cc ../../src/third_party/ffmpeg/libavcodec/h264_ps.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h264_ps.c
+  source_name_part = h264_ps
+build obj/third_party/ffmpeg/ffmpeg_internal/h264_refs.o: cc ../../src/third_party/ffmpeg/libavcodec/h264_refs.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h264_refs.c
+  source_name_part = h264_refs
+build obj/third_party/ffmpeg/ffmpeg_internal/h264_sei.o: cc ../../src/third_party/ffmpeg/libavcodec/h264_sei.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h264_sei.c
+  source_name_part = h264_sei
+build obj/third_party/ffmpeg/ffmpeg_internal/h264_slice.o: cc ../../src/third_party/ffmpeg/libavcodec/h264_slice.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h264_slice.c
+  source_name_part = h264_slice
+build obj/third_party/ffmpeg/ffmpeg_internal/h264chroma.o: cc ../../src/third_party/ffmpeg/libavcodec/h264chroma.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h264chroma.c
+  source_name_part = h264chroma
+build obj/third_party/ffmpeg/ffmpeg_internal/h264data.o: cc ../../src/third_party/ffmpeg/libavcodec/h264data.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h264data.c
+  source_name_part = h264data
+build obj/third_party/ffmpeg/ffmpeg_internal/h264dec.o: cc ../../src/third_party/ffmpeg/libavcodec/h264dec.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h264dec.c
+  source_name_part = h264dec
+build obj/third_party/ffmpeg/ffmpeg_internal/h264dsp.o: cc ../../src/third_party/ffmpeg/libavcodec/h264dsp.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h264dsp.c
+  source_name_part = h264dsp
+build obj/third_party/ffmpeg/ffmpeg_internal/h264idct.o: cc ../../src/third_party/ffmpeg/libavcodec/h264idct.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h264idct.c
+  source_name_part = h264idct
+build obj/third_party/ffmpeg/ffmpeg_internal/h264pred.o: cc ../../src/third_party/ffmpeg/libavcodec/h264pred.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h264pred.c
+  source_name_part = h264pred
+build obj/third_party/ffmpeg/ffmpeg_internal/h264qpel.o: cc ../../src/third_party/ffmpeg/libavcodec/h264qpel.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h264qpel.c
+  source_name_part = h264qpel
+build obj/third_party/ffmpeg/ffmpeg_internal/h274.o: cc ../../src/third_party/ffmpeg/libavcodec/h274.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h274.c
+  source_name_part = h274
+build obj/third_party/ffmpeg/ffmpeg_internal/startcode.o: cc ../../src/third_party/ffmpeg/libavcodec/startcode.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = startcode.c
+  source_name_part = startcode
+build obj/third_party/ffmpeg/ffmpeg_internal/aacdec.o: cc ../../src/third_party/ffmpeg/libavcodec/aac/aacdec.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = aacdec.c
+  source_name_part = aacdec
+build obj/third_party/ffmpeg/ffmpeg_internal/aacdec_ac.o: cc ../../src/third_party/ffmpeg/libavcodec/aac/aacdec_ac.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = aacdec_ac.c
+  source_name_part = aacdec_ac
+build obj/third_party/ffmpeg/ffmpeg_internal/aacdec_float.o: cc ../../src/third_party/ffmpeg/libavcodec/aac/aacdec_float.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = aacdec_float.c
+  source_name_part = aacdec_float
+build obj/third_party/ffmpeg/ffmpeg_internal/aacdec_lpd.o: cc ../../src/third_party/ffmpeg/libavcodec/aac/aacdec_lpd.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = aacdec_lpd.c
+  source_name_part = aacdec_lpd
+build obj/third_party/ffmpeg/ffmpeg_internal/aacdec_tab.o: cc ../../src/third_party/ffmpeg/libavcodec/aac/aacdec_tab.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = aacdec_tab.c
+  source_name_part = aacdec_tab
+build obj/third_party/ffmpeg/ffmpeg_internal/aacdec_usac.o: cc ../../src/third_party/ffmpeg/libavcodec/aac/aacdec_usac.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = aacdec_usac.c
+  source_name_part = aacdec_usac
+build obj/third_party/ffmpeg/ffmpeg_internal/aac_ac3_parser.o: cc ../../src/third_party/ffmpeg/libavcodec/aac_ac3_parser.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = aac_ac3_parser.c
+  source_name_part = aac_ac3_parser
+build obj/third_party/ffmpeg/ffmpeg_internal/aac_parser.o: cc ../../src/third_party/ffmpeg/libavcodec/aac_parser.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = aac_parser.c
+  source_name_part = aac_parser
+build obj/third_party/ffmpeg/ffmpeg_internal/aacps_common.o: cc ../../src/third_party/ffmpeg/libavcodec/aacps_common.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = aacps_common.c
+  source_name_part = aacps_common
+build obj/third_party/ffmpeg/ffmpeg_internal/aacps_float.o: cc ../../src/third_party/ffmpeg/libavcodec/aacps_float.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = aacps_float.c
+  source_name_part = aacps_float
+build obj/third_party/ffmpeg/ffmpeg_internal/aacpsdsp_float.o: cc ../../src/third_party/ffmpeg/libavcodec/aacpsdsp_float.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = aacpsdsp_float.c
+  source_name_part = aacpsdsp_float
+build obj/third_party/ffmpeg/ffmpeg_internal/aacsbr.o: cc ../../src/third_party/ffmpeg/libavcodec/aacsbr.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = aacsbr.c
+  source_name_part = aacsbr
+build obj/third_party/ffmpeg/ffmpeg_internal/aactab.o: cc ../../src/third_party/ffmpeg/libavcodec/aactab.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = aactab.c
+  source_name_part = aactab
+build obj/third_party/ffmpeg/ffmpeg_internal/adts_header.o: cc ../../src/third_party/ffmpeg/libavcodec/adts_header.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = adts_header.c
+  source_name_part = adts_header
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_sbrdsp.o: cc ../../src/third_party/ffmpeg/libavcodec/autorename_libavcodec_sbrdsp.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavcodec_sbrdsp.c
+  source_name_part = autorename_libavcodec_sbrdsp
+build obj/third_party/ffmpeg/ffmpeg_internal/cbrt_data.o: cc ../../src/third_party/ffmpeg/libavcodec/cbrt_data.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = cbrt_data.c
+  source_name_part = cbrt_data
+build obj/third_party/ffmpeg/ffmpeg_internal/kbdwin.o: cc ../../src/third_party/ffmpeg/libavcodec/kbdwin.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = kbdwin.c
+  source_name_part = kbdwin
+build obj/third_party/ffmpeg/ffmpeg_internal/sinewin.o: cc ../../src/third_party/ffmpeg/libavcodec/sinewin.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = sinewin.c
+  source_name_part = sinewin
+build obj/third_party/ffmpeg/ffmpeg_internal/apetag.o: cc ../../src/third_party/ffmpeg/libavformat/apetag.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = apetag.c
+  source_name_part = apetag
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavformat_aacdec.o: cc ../../src/third_party/ffmpeg/libavformat/autorename_libavformat_aacdec.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavformat_aacdec.c
+  source_name_part = autorename_libavformat_aacdec
+build obj/third_party/ffmpeg/ffmpeg_internal/img2.o: cc ../../src/third_party/ffmpeg/libavformat/img2.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = img2.c
+  source_name_part = img2
+build obj/third_party/ffmpeg/ffmpeg_internal/aacpsdsp_init_aarch64.o: cc ../../src/third_party/ffmpeg/libavcodec/aarch64/aacpsdsp_init_aarch64.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = aacpsdsp_init_aarch64.c
+  source_name_part = aacpsdsp_init_aarch64
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_videodsp_init.o: cc ../../src/third_party/ffmpeg/libavcodec/aarch64/autorename_libavcodec_aarch64_videodsp_init.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavcodec_aarch64_videodsp_init.c
+  source_name_part = autorename_libavcodec_aarch64_videodsp_init
+build obj/third_party/ffmpeg/ffmpeg_internal/h264chroma_init_aarch64.o: cc ../../src/third_party/ffmpeg/libavcodec/aarch64/h264chroma_init_aarch64.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h264chroma_init_aarch64.c
+  source_name_part = h264chroma_init_aarch64
+build obj/third_party/ffmpeg/ffmpeg_internal/h264dsp_init_aarch64.o: cc ../../src/third_party/ffmpeg/libavcodec/aarch64/h264dsp_init_aarch64.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h264dsp_init_aarch64.c
+  source_name_part = h264dsp_init_aarch64
+build obj/third_party/ffmpeg/ffmpeg_internal/h264pred_init.o: cc ../../src/third_party/ffmpeg/libavcodec/aarch64/h264pred_init.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h264pred_init.c
+  source_name_part = h264pred_init
+build obj/third_party/ffmpeg/ffmpeg_internal/h264qpel_init_aarch64.o: cc ../../src/third_party/ffmpeg/libavcodec/aarch64/h264qpel_init_aarch64.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = h264qpel_init_aarch64.c
+  source_name_part = h264qpel_init_aarch64
+build obj/third_party/ffmpeg/ffmpeg_internal/sbrdsp_init_aarch64.o: cc ../../src/third_party/ffmpeg/libavcodec/aarch64/sbrdsp_init_aarch64.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = sbrdsp_init_aarch64.c
+  source_name_part = sbrdsp_init_aarch64
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_vorbisdsp_init.o: cc ../../src/third_party/ffmpeg/libavcodec/aarch64/autorename_libavcodec_aarch64_vorbisdsp_init.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavcodec_aarch64_vorbisdsp_init.c
+  source_name_part = autorename_libavcodec_aarch64_vorbisdsp_init
+build obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodsp_init.o: cc ../../src/third_party/ffmpeg/libavcodec/aarch64/mpegaudiodsp_init.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mpegaudiodsp_init.c
+  source_name_part = mpegaudiodsp_init
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_aarch64_cpu.o: cc ../../src/third_party/ffmpeg/libavutil/aarch64/autorename_libavutil_aarch64_cpu.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavutil_aarch64_cpu.c
+  source_name_part = autorename_libavutil_aarch64_cpu
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_aarch64_float_dsp_init.o: cc ../../src/third_party/ffmpeg/libavutil/aarch64/autorename_libavutil_aarch64_float_dsp_init.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavutil_aarch64_float_dsp_init.c
+  source_name_part = autorename_libavutil_aarch64_float_dsp_init
+build obj/third_party/ffmpeg/ffmpeg_internal/tx_float_init.o: cc ../../src/third_party/ffmpeg/libavutil/aarch64/tx_float_init.c | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = tx_float_init.c
+  source_name_part = tx_float_init
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_aacpsdsp_neon.o: asm ../../src/third_party/ffmpeg/libavcodec/aarch64/autorename_libavcodec_aarch64_aacpsdsp_neon.S | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavcodec_aarch64_aacpsdsp_neon.S
+  source_name_part = autorename_libavcodec_aarch64_aacpsdsp_neon
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_h264cmc_neon.o: asm ../../src/third_party/ffmpeg/libavcodec/aarch64/autorename_libavcodec_aarch64_h264cmc_neon.S | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavcodec_aarch64_h264cmc_neon.S
+  source_name_part = autorename_libavcodec_aarch64_h264cmc_neon
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_h264dsp_neon.o: asm ../../src/third_party/ffmpeg/libavcodec/aarch64/autorename_libavcodec_aarch64_h264dsp_neon.S | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavcodec_aarch64_h264dsp_neon.S
+  source_name_part = autorename_libavcodec_aarch64_h264dsp_neon
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_h264idct_neon.o: asm ../../src/third_party/ffmpeg/libavcodec/aarch64/autorename_libavcodec_aarch64_h264idct_neon.S | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavcodec_aarch64_h264idct_neon.S
+  source_name_part = autorename_libavcodec_aarch64_h264idct_neon
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_h264pred_neon.o: asm ../../src/third_party/ffmpeg/libavcodec/aarch64/autorename_libavcodec_aarch64_h264pred_neon.S | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavcodec_aarch64_h264pred_neon.S
+  source_name_part = autorename_libavcodec_aarch64_h264pred_neon
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_h264qpel_neon.o: asm ../../src/third_party/ffmpeg/libavcodec/aarch64/autorename_libavcodec_aarch64_h264qpel_neon.S | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavcodec_aarch64_h264qpel_neon.S
+  source_name_part = autorename_libavcodec_aarch64_h264qpel_neon
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_hpeldsp_neon.o: asm ../../src/third_party/ffmpeg/libavcodec/aarch64/autorename_libavcodec_aarch64_hpeldsp_neon.S | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavcodec_aarch64_hpeldsp_neon.S
+  source_name_part = autorename_libavcodec_aarch64_hpeldsp_neon
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_sbrdsp_neon.o: asm ../../src/third_party/ffmpeg/libavcodec/aarch64/autorename_libavcodec_aarch64_sbrdsp_neon.S | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavcodec_aarch64_sbrdsp_neon.S
+  source_name_part = autorename_libavcodec_aarch64_sbrdsp_neon
+build obj/third_party/ffmpeg/ffmpeg_internal/videodsp.o: asm ../../src/third_party/ffmpeg/libavcodec/aarch64/videodsp.S | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = videodsp.S
+  source_name_part = videodsp
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_vorbisdsp_neon.o: asm ../../src/third_party/ffmpeg/libavcodec/aarch64/autorename_libavcodec_aarch64_vorbisdsp_neon.S | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavcodec_aarch64_vorbisdsp_neon.S
+  source_name_part = autorename_libavcodec_aarch64_vorbisdsp_neon
+build obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodsp_neon.o: asm ../../src/third_party/ffmpeg/libavcodec/aarch64/mpegaudiodsp_neon.S | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = mpegaudiodsp_neon.S
+  source_name_part = mpegaudiodsp_neon
+build obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_aarch64_float_dsp_neon.o: asm ../../src/third_party/ffmpeg/libavutil/aarch64/autorename_libavutil_aarch64_float_dsp_neon.S | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = autorename_libavutil_aarch64_float_dsp_neon.S
+  source_name_part = autorename_libavutil_aarch64_float_dsp_neon
+build obj/third_party/ffmpeg/ffmpeg_internal/cpu_sve.o: asm ../../src/third_party/ffmpeg/libavutil/aarch64/cpu_sve.S | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = cpu_sve.S
+  source_name_part = cpu_sve
+build obj/third_party/ffmpeg/ffmpeg_internal/tx_float_neon.o: asm ../../src/third_party/ffmpeg/libavutil/aarch64/tx_float_neon.S | phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features
+  source_file_part = tx_float_neon.S
+  source_name_part = tx_float_neon
+
+build obj/third_party/ffmpeg/libffmpeg_internal.a: alink obj/third_party/ffmpeg/ffmpeg_internal/ac3_channel_layout_tab.o obj/third_party/ffmpeg/ffmpeg_internal/ac3_parser.o obj/third_party/ffmpeg/ffmpeg_internal/adts_parser.o obj/third_party/ffmpeg/ffmpeg_internal/allcodecs.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_flacdsp.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_mpegaudiodsp.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_parser.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_vorbisdsp.o obj/third_party/ffmpeg/ffmpeg_internal/avcodec.o obj/third_party/ffmpeg/ffmpeg_internal/avdct.o obj/third_party/ffmpeg/ffmpeg_internal/avfft.o obj/third_party/ffmpeg/ffmpeg_internal/bitstream.o obj/third_party/ffmpeg/ffmpeg_internal/bitstream_filters.o obj/third_party/ffmpeg/ffmpeg_internal/bsf.o obj/third_party/ffmpeg/ffmpeg_internal/codec_desc.o obj/third_party/ffmpeg/ffmpeg_internal/codec_par.o obj/third_party/ffmpeg/ffmpeg_internal/d3d11va.o obj/third_party/ffmpeg/ffmpeg_internal/dct32_fixed.o obj/third_party/ffmpeg/ffmpeg_internal/dct32_float.o obj/third_party/ffmpeg/ffmpeg_internal/decode.o obj/third_party/ffmpeg/ffmpeg_internal/dirac.o obj/third_party/ffmpeg/ffmpeg_internal/dv_profile.o obj/third_party/ffmpeg/ffmpeg_internal/encode.o obj/third_party/ffmpeg/ffmpeg_internal/executor.o obj/third_party/ffmpeg/ffmpeg_internal/flac.o obj/third_party/ffmpeg/ffmpeg_internal/flac_parser.o obj/third_party/ffmpeg/ffmpeg_internal/flacdata.o obj/third_party/ffmpeg/ffmpeg_internal/flacdec.o obj/third_party/ffmpeg/ffmpeg_internal/get_buffer.o obj/third_party/ffmpeg/ffmpeg_internal/golomb.o obj/third_party/ffmpeg/ffmpeg_internal/imgconvert.o obj/third_party/ffmpeg/ffmpeg_internal/jni.o obj/third_party/ffmpeg/ffmpeg_internal/lcevcdec.o obj/third_party/ffmpeg/ffmpeg_internal/libopus.o obj/third_party/ffmpeg/ffmpeg_internal/libopusdec.o obj/third_party/ffmpeg/ffmpeg_internal/mathtables.o obj/third_party/ffmpeg/ffmpeg_internal/mediacodec.o obj/third_party/ffmpeg/ffmpeg_internal/mpeg12framerate.o obj/third_party/ffmpeg/ffmpeg_internal/mpeg4audio.o obj/third_party/ffmpeg/ffmpeg_internal/mpeg4audio_sample_rates.o obj/third_party/ffmpeg/ffmpeg_internal/mpegaudio.o obj/third_party/ffmpeg/ffmpeg_internal/mpegaudio_parser.o obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodata.o obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodec_common.o obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodec_fixed.o obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodecheader.o obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodsp_data.o obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodsp_fixed.o obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodsp_float.o obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiotabs.o obj/third_party/ffmpeg/ffmpeg_internal/options.o obj/third_party/ffmpeg/ffmpeg_internal/parse.o obj/third_party/ffmpeg/ffmpeg_internal/parser.o obj/third_party/ffmpeg/ffmpeg_internal/packet.o obj/third_party/ffmpeg/ffmpeg_internal/parsers.o obj/third_party/ffmpeg/ffmpeg_internal/pcm.o obj/third_party/ffmpeg/ffmpeg_internal/profiles.o obj/third_party/ffmpeg/ffmpeg_internal/pthread.o obj/third_party/ffmpeg/ffmpeg_internal/pthread_frame.o obj/third_party/ffmpeg/ffmpeg_internal/pthread_slice.o obj/third_party/ffmpeg/ffmpeg_internal/qsv_api.o obj/third_party/ffmpeg/ffmpeg_internal/raw.o obj/third_party/ffmpeg/ffmpeg_internal/threadprogress.o obj/third_party/ffmpeg/ffmpeg_internal/to_upper4.o obj/third_party/ffmpeg/ffmpeg_internal/utils.o obj/third_party/ffmpeg/ffmpeg_internal/version.o obj/third_party/ffmpeg/ffmpeg_internal/vlc.o obj/third_party/ffmpeg/ffmpeg_internal/vorbis.o obj/third_party/ffmpeg/ffmpeg_internal/vorbis_data.o obj/third_party/ffmpeg/ffmpeg_internal/vorbis_parser.o obj/third_party/ffmpeg/ffmpeg_internal/vorbisdec.o obj/third_party/ffmpeg/ffmpeg_internal/vp9_parser.o obj/third_party/ffmpeg/ffmpeg_internal/xiph.o obj/third_party/ffmpeg/ffmpeg_internal/allformats.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavformat_flacdec.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavformat_options.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavformat_pcm.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavformat_utils.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavformat_version.o obj/third_party/ffmpeg/ffmpeg_internal/avformat.o obj/third_party/ffmpeg/ffmpeg_internal/avio.o obj/third_party/ffmpeg/ffmpeg_internal/aviobuf.o obj/third_party/ffmpeg/ffmpeg_internal/demux.o obj/third_party/ffmpeg/ffmpeg_internal/demux_utils.o obj/third_party/ffmpeg/ffmpeg_internal/dovi_isom.o obj/third_party/ffmpeg/ffmpeg_internal/dump.o obj/third_party/ffmpeg/ffmpeg_internal/dv.o obj/third_party/ffmpeg/ffmpeg_internal/dvdclut.o obj/third_party/ffmpeg/ffmpeg_internal/flac_picture.o obj/third_party/ffmpeg/ffmpeg_internal/format.o obj/third_party/ffmpeg/ffmpeg_internal/id3v1.o obj/third_party/ffmpeg/ffmpeg_internal/id3v2.o obj/third_party/ffmpeg/ffmpeg_internal/isom.o obj/third_party/ffmpeg/ffmpeg_internal/isom_tags.o obj/third_party/ffmpeg/ffmpeg_internal/matroska.o obj/third_party/ffmpeg/ffmpeg_internal/matroskadec.o obj/third_party/ffmpeg/ffmpeg_internal/metadata.o obj/third_party/ffmpeg/ffmpeg_internal/mov.o obj/third_party/ffmpeg/ffmpeg_internal/mov_chan.o obj/third_party/ffmpeg/ffmpeg_internal/mov_esds.o obj/third_party/ffmpeg/ffmpeg_internal/mp3dec.o obj/third_party/ffmpeg/ffmpeg_internal/mux.o obj/third_party/ffmpeg/ffmpeg_internal/mux_utils.o obj/third_party/ffmpeg/ffmpeg_internal/oggdec.o obj/third_party/ffmpeg/ffmpeg_internal/oggparseflac.o obj/third_party/ffmpeg/ffmpeg_internal/oggparseogm.o obj/third_party/ffmpeg/ffmpeg_internal/oggparseopus.o obj/third_party/ffmpeg/ffmpeg_internal/oggparseskeleton.o obj/third_party/ffmpeg/ffmpeg_internal/oggparsetheora.o obj/third_party/ffmpeg/ffmpeg_internal/oggparsevorbis.o obj/third_party/ffmpeg/ffmpeg_internal/oggparsevp8.o obj/third_party/ffmpeg/ffmpeg_internal/os_support.o obj/third_party/ffmpeg/ffmpeg_internal/protocols.o obj/third_party/ffmpeg/ffmpeg_internal/qtpalette.o obj/third_party/ffmpeg/ffmpeg_internal/rawdec.o obj/third_party/ffmpeg/ffmpeg_internal/replaygain.o obj/third_party/ffmpeg/ffmpeg_internal/riff.o obj/third_party/ffmpeg/ffmpeg_internal/riffdec.o obj/third_party/ffmpeg/ffmpeg_internal/rmsipr.o obj/third_party/ffmpeg/ffmpeg_internal/seek.o obj/third_party/ffmpeg/ffmpeg_internal/url.o obj/third_party/ffmpeg/ffmpeg_internal/vorbiscomment.o obj/third_party/ffmpeg/ffmpeg_internal/wavdec.o obj/third_party/ffmpeg/ffmpeg_internal/aes.o obj/third_party/ffmpeg/ffmpeg_internal/aes_ctr.o obj/third_party/ffmpeg/ffmpeg_internal/ambient_viewing_environment.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_cpu.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_executor.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_fixed_dsp.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_float_dsp.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_imgutils.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_tx_float.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_utils.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_version.o obj/third_party/ffmpeg/ffmpeg_internal/avstring.o obj/third_party/ffmpeg/ffmpeg_internal/base64.o obj/third_party/ffmpeg/ffmpeg_internal/bprint.o obj/third_party/ffmpeg/ffmpeg_internal/buffer.o obj/third_party/ffmpeg/ffmpeg_internal/camellia.o obj/third_party/ffmpeg/ffmpeg_internal/channel_layout.o obj/third_party/ffmpeg/ffmpeg_internal/container_fifo.o obj/third_party/ffmpeg/ffmpeg_internal/crc.o obj/third_party/ffmpeg/ffmpeg_internal/csp.o obj/third_party/ffmpeg/ffmpeg_internal/detection_bbox.o obj/third_party/ffmpeg/ffmpeg_internal/dict.o obj/third_party/ffmpeg/ffmpeg_internal/display.o obj/third_party/ffmpeg/ffmpeg_internal/dovi_meta.o obj/third_party/ffmpeg/ffmpeg_internal/downmix_info.o obj/third_party/ffmpeg/ffmpeg_internal/encryption_info.o obj/third_party/ffmpeg/ffmpeg_internal/error.o obj/third_party/ffmpeg/ffmpeg_internal/eval.o obj/third_party/ffmpeg/ffmpeg_internal/fifo.o obj/third_party/ffmpeg/ffmpeg_internal/file_open.o obj/third_party/ffmpeg/ffmpeg_internal/film_grain_params.o obj/third_party/ffmpeg/ffmpeg_internal/frame.o obj/third_party/ffmpeg/ffmpeg_internal/hdr_dynamic_metadata.o obj/third_party/ffmpeg/ffmpeg_internal/hdr_dynamic_vivid_metadata.o obj/third_party/ffmpeg/ffmpeg_internal/hwcontext.o obj/third_party/ffmpeg/ffmpeg_internal/hwcontext_stub.o obj/third_party/ffmpeg/ffmpeg_internal/iamf.o obj/third_party/ffmpeg/ffmpeg_internal/integer.o obj/third_party/ffmpeg/ffmpeg_internal/intmath.o obj/third_party/ffmpeg/ffmpeg_internal/lfg.o obj/third_party/ffmpeg/ffmpeg_internal/log.o obj/third_party/ffmpeg/ffmpeg_internal/log2_tab.o obj/third_party/ffmpeg/ffmpeg_internal/lzo.o obj/third_party/ffmpeg/ffmpeg_internal/mastering_display_metadata.o obj/third_party/ffmpeg/ffmpeg_internal/mathematics.o obj/third_party/ffmpeg/ffmpeg_internal/md5.o obj/third_party/ffmpeg/ffmpeg_internal/mem.o obj/third_party/ffmpeg/ffmpeg_internal/opt.o obj/third_party/ffmpeg/ffmpeg_internal/parseutils.o obj/third_party/ffmpeg/ffmpeg_internal/pixdesc.o obj/third_party/ffmpeg/ffmpeg_internal/pixelutils.o obj/third_party/ffmpeg/ffmpeg_internal/random_seed.o obj/third_party/ffmpeg/ffmpeg_internal/rational.o obj/third_party/ffmpeg/ffmpeg_internal/refstruct.o obj/third_party/ffmpeg/ffmpeg_internal/reverse.o obj/third_party/ffmpeg/ffmpeg_internal/samplefmt.o obj/third_party/ffmpeg/ffmpeg_internal/sha.o obj/third_party/ffmpeg/ffmpeg_internal/slicethread.o obj/third_party/ffmpeg/ffmpeg_internal/spherical.o obj/third_party/ffmpeg/ffmpeg_internal/stereo3d.o obj/third_party/ffmpeg/ffmpeg_internal/tea.o obj/third_party/ffmpeg/ffmpeg_internal/threadmessage.o obj/third_party/ffmpeg/ffmpeg_internal/time.o obj/third_party/ffmpeg/ffmpeg_internal/timecode.o obj/third_party/ffmpeg/ffmpeg_internal/timestamp.o obj/third_party/ffmpeg/ffmpeg_internal/twofish.o obj/third_party/ffmpeg/ffmpeg_internal/tx.o obj/third_party/ffmpeg/ffmpeg_internal/uuid.o obj/third_party/ffmpeg/ffmpeg_internal/video_enc_params.o obj/third_party/ffmpeg/ffmpeg_internal/video_hint.o obj/third_party/ffmpeg/ffmpeg_internal/atsc_a53.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_videodsp.o obj/third_party/ffmpeg/ffmpeg_internal/cabac.o obj/third_party/ffmpeg/ffmpeg_internal/h2645_parse.o obj/third_party/ffmpeg/ffmpeg_internal/h2645_sei.o obj/third_party/ffmpeg/ffmpeg_internal/h2645_vui.o obj/third_party/ffmpeg/ffmpeg_internal/h2645data.o obj/third_party/ffmpeg/ffmpeg_internal/h264_cabac.o obj/third_party/ffmpeg/ffmpeg_internal/h264_cavlc.o obj/third_party/ffmpeg/ffmpeg_internal/h264_direct.o obj/third_party/ffmpeg/ffmpeg_internal/h264_loopfilter.o obj/third_party/ffmpeg/ffmpeg_internal/h264_mb.o obj/third_party/ffmpeg/ffmpeg_internal/h264_parse.o obj/third_party/ffmpeg/ffmpeg_internal/h264_parser.o obj/third_party/ffmpeg/ffmpeg_internal/h264_picture.o obj/third_party/ffmpeg/ffmpeg_internal/h264_ps.o obj/third_party/ffmpeg/ffmpeg_internal/h264_refs.o obj/third_party/ffmpeg/ffmpeg_internal/h264_sei.o obj/third_party/ffmpeg/ffmpeg_internal/h264_slice.o obj/third_party/ffmpeg/ffmpeg_internal/h264chroma.o obj/third_party/ffmpeg/ffmpeg_internal/h264data.o obj/third_party/ffmpeg/ffmpeg_internal/h264dec.o obj/third_party/ffmpeg/ffmpeg_internal/h264dsp.o obj/third_party/ffmpeg/ffmpeg_internal/h264idct.o obj/third_party/ffmpeg/ffmpeg_internal/h264pred.o obj/third_party/ffmpeg/ffmpeg_internal/h264qpel.o obj/third_party/ffmpeg/ffmpeg_internal/h274.o obj/third_party/ffmpeg/ffmpeg_internal/startcode.o obj/third_party/ffmpeg/ffmpeg_internal/aacdec.o obj/third_party/ffmpeg/ffmpeg_internal/aacdec_ac.o obj/third_party/ffmpeg/ffmpeg_internal/aacdec_float.o obj/third_party/ffmpeg/ffmpeg_internal/aacdec_lpd.o obj/third_party/ffmpeg/ffmpeg_internal/aacdec_tab.o obj/third_party/ffmpeg/ffmpeg_internal/aacdec_usac.o obj/third_party/ffmpeg/ffmpeg_internal/aac_ac3_parser.o obj/third_party/ffmpeg/ffmpeg_internal/aac_parser.o obj/third_party/ffmpeg/ffmpeg_internal/aacps_common.o obj/third_party/ffmpeg/ffmpeg_internal/aacps_float.o obj/third_party/ffmpeg/ffmpeg_internal/aacpsdsp_float.o obj/third_party/ffmpeg/ffmpeg_internal/aacsbr.o obj/third_party/ffmpeg/ffmpeg_internal/aactab.o obj/third_party/ffmpeg/ffmpeg_internal/adts_header.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_sbrdsp.o obj/third_party/ffmpeg/ffmpeg_internal/cbrt_data.o obj/third_party/ffmpeg/ffmpeg_internal/kbdwin.o obj/third_party/ffmpeg/ffmpeg_internal/sinewin.o obj/third_party/ffmpeg/ffmpeg_internal/apetag.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavformat_aacdec.o obj/third_party/ffmpeg/ffmpeg_internal/img2.o obj/third_party/ffmpeg/ffmpeg_internal/aacpsdsp_init_aarch64.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_videodsp_init.o obj/third_party/ffmpeg/ffmpeg_internal/h264chroma_init_aarch64.o obj/third_party/ffmpeg/ffmpeg_internal/h264dsp_init_aarch64.o obj/third_party/ffmpeg/ffmpeg_internal/h264pred_init.o obj/third_party/ffmpeg/ffmpeg_internal/h264qpel_init_aarch64.o obj/third_party/ffmpeg/ffmpeg_internal/sbrdsp_init_aarch64.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_vorbisdsp_init.o obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodsp_init.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_aarch64_cpu.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_aarch64_float_dsp_init.o obj/third_party/ffmpeg/ffmpeg_internal/tx_float_init.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_aacpsdsp_neon.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_h264cmc_neon.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_h264dsp_neon.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_h264idct_neon.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_h264pred_neon.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_h264qpel_neon.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_hpeldsp_neon.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_sbrdsp_neon.o obj/third_party/ffmpeg/ffmpeg_internal/videodsp.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavcodec_aarch64_vorbisdsp_neon.o obj/third_party/ffmpeg/ffmpeg_internal/mpegaudiodsp_neon.o obj/third_party/ffmpeg/ffmpeg_internal/autorename_libavutil_aarch64_float_dsp_neon.o obj/third_party/ffmpeg/ffmpeg_internal/cpu_sve.o obj/third_party/ffmpeg/ffmpeg_internal/tx_float_neon.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a phony/third_party/ffmpeg/ffmpeg_internal.inputs || phony/third_party/ffmpeg/ffmpeg_features obj/third_party/opus/libopus.a
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/third_party/ffmpeg

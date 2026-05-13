@@ -1,0 +1,4 @@
+gen/chrome/grit/commerce_product_specifications_resources.h
+gen/chrome/grit/commerce_product_specifications_resources_map.cc
+gen/chrome/grit/commerce_product_specifications_resources_map.h
+gen/chrome/commerce_product_specifications_resources.pak

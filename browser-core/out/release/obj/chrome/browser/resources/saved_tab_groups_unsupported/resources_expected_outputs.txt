@@ -1,0 +1,4 @@
+gen/chrome/grit/saved_tab_groups_unsupported_resources.h
+gen/chrome/grit/saved_tab_groups_unsupported_resources_map.h
+gen/chrome/grit/saved_tab_groups_unsupported_resources_map.cc
+gen/chrome/saved_tab_groups_unsupported_resources.pak

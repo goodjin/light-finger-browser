@@ -1,0 +1,30 @@
+[
+  {
+    "traits_headers": [
+      "ui/base/mojom/color_mode_mojom_traits.h"
+    ],
+    "traits_public_deps": [
+      "//ui/color:color_provider_key"
+    ],
+    "types": [
+      {
+        "cpp": "::ui::ColorProviderKey::ColorMode",
+        "mojom": "ui.mojom.ColorMode"
+      }
+    ]
+  },
+  {
+    "traits_headers": [
+      "ui/base/mojom/window_open_disposition_mojom_traits.h"
+    ],
+    "traits_public_deps": [
+      "//ui/base:types"
+    ],
+    "types": [
+      {
+        "cpp": "::WindowOpenDisposition",
+        "mojom": "ui.mojom.WindowOpenDisposition"
+      }
+    ]
+  }
+]

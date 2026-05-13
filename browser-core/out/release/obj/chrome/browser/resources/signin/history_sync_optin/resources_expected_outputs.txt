@@ -1,0 +1,4 @@
+gen/chrome/grit/signin_history_sync_optin_resources.h
+gen/chrome/grit/signin_history_sync_optin_resources_map.cc
+gen/chrome/grit/signin_history_sync_optin_resources_map.h
+gen/chrome/signin_history_sync_optin_resources.pak

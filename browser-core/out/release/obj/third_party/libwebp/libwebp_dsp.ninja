@@ -1,0 +1,124 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DWEBP_NEAR_LOSSLESS=0 -DWEBP_DISABLE_STATS -DWEBP_USE_THREAD -DWEBP_REDUCE_SIZE -DWEBP_REDUCE_CSP -DWEBP_EXTERN=extern
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/libwebp/src -I../../src/third_party/libwebp/src/src
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -O2 -fno-math-errno
+cflags_c = -std=c11
+label_name = libwebp_dsp
+root_out_dir = .
+target_out_dir = obj/third_party/libwebp
+target_output_name = libwebp_dsp
+
+build phony/third_party/libwebp/libwebp_dsp.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/libwebp/libwebp_dsp/alpha_processing.o: cc ../../src/third_party/libwebp/src/src/dsp/alpha_processing.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = alpha_processing.c
+  source_name_part = alpha_processing
+build obj/third_party/libwebp/libwebp_dsp/alpha_processing_mips_dsp_r2.o: cc ../../src/third_party/libwebp/src/src/dsp/alpha_processing_mips_dsp_r2.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = alpha_processing_mips_dsp_r2.c
+  source_name_part = alpha_processing_mips_dsp_r2
+build obj/third_party/libwebp/libwebp_dsp/cost.o: cc ../../src/third_party/libwebp/src/src/dsp/cost.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = cost.c
+  source_name_part = cost
+build obj/third_party/libwebp/libwebp_dsp/cost_mips32.o: cc ../../src/third_party/libwebp/src/src/dsp/cost_mips32.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = cost_mips32.c
+  source_name_part = cost_mips32
+build obj/third_party/libwebp/libwebp_dsp/cost_mips_dsp_r2.o: cc ../../src/third_party/libwebp/src/src/dsp/cost_mips_dsp_r2.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = cost_mips_dsp_r2.c
+  source_name_part = cost_mips_dsp_r2
+build obj/third_party/libwebp/libwebp_dsp/cpu.o: cc ../../src/third_party/libwebp/src/src/dsp/cpu.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = cpu.c
+  source_name_part = cpu
+build obj/third_party/libwebp/libwebp_dsp/dec.o: cc ../../src/third_party/libwebp/src/src/dsp/dec.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = dec.c
+  source_name_part = dec
+build obj/third_party/libwebp/libwebp_dsp/dec_clip_tables.o: cc ../../src/third_party/libwebp/src/src/dsp/dec_clip_tables.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = dec_clip_tables.c
+  source_name_part = dec_clip_tables
+build obj/third_party/libwebp/libwebp_dsp/dec_mips32.o: cc ../../src/third_party/libwebp/src/src/dsp/dec_mips32.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = dec_mips32.c
+  source_name_part = dec_mips32
+build obj/third_party/libwebp/libwebp_dsp/dec_mips_dsp_r2.o: cc ../../src/third_party/libwebp/src/src/dsp/dec_mips_dsp_r2.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = dec_mips_dsp_r2.c
+  source_name_part = dec_mips_dsp_r2
+build obj/third_party/libwebp/libwebp_dsp/dec_msa.o: cc ../../src/third_party/libwebp/src/src/dsp/dec_msa.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = dec_msa.c
+  source_name_part = dec_msa
+build obj/third_party/libwebp/libwebp_dsp/enc.o: cc ../../src/third_party/libwebp/src/src/dsp/enc.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = enc.c
+  source_name_part = enc
+build obj/third_party/libwebp/libwebp_dsp/enc_mips32.o: cc ../../src/third_party/libwebp/src/src/dsp/enc_mips32.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = enc_mips32.c
+  source_name_part = enc_mips32
+build obj/third_party/libwebp/libwebp_dsp/enc_mips_dsp_r2.o: cc ../../src/third_party/libwebp/src/src/dsp/enc_mips_dsp_r2.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = enc_mips_dsp_r2.c
+  source_name_part = enc_mips_dsp_r2
+build obj/third_party/libwebp/libwebp_dsp/enc_msa.o: cc ../../src/third_party/libwebp/src/src/dsp/enc_msa.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = enc_msa.c
+  source_name_part = enc_msa
+build obj/third_party/libwebp/libwebp_dsp/filters.o: cc ../../src/third_party/libwebp/src/src/dsp/filters.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = filters.c
+  source_name_part = filters
+build obj/third_party/libwebp/libwebp_dsp/filters_mips_dsp_r2.o: cc ../../src/third_party/libwebp/src/src/dsp/filters_mips_dsp_r2.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = filters_mips_dsp_r2.c
+  source_name_part = filters_mips_dsp_r2
+build obj/third_party/libwebp/libwebp_dsp/filters_msa.o: cc ../../src/third_party/libwebp/src/src/dsp/filters_msa.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = filters_msa.c
+  source_name_part = filters_msa
+build obj/third_party/libwebp/libwebp_dsp/lossless.o: cc ../../src/third_party/libwebp/src/src/dsp/lossless.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = lossless.c
+  source_name_part = lossless
+build obj/third_party/libwebp/libwebp_dsp/lossless_enc.o: cc ../../src/third_party/libwebp/src/src/dsp/lossless_enc.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = lossless_enc.c
+  source_name_part = lossless_enc
+build obj/third_party/libwebp/libwebp_dsp/lossless_enc_mips32.o: cc ../../src/third_party/libwebp/src/src/dsp/lossless_enc_mips32.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = lossless_enc_mips32.c
+  source_name_part = lossless_enc_mips32
+build obj/third_party/libwebp/libwebp_dsp/lossless_enc_mips_dsp_r2.o: cc ../../src/third_party/libwebp/src/src/dsp/lossless_enc_mips_dsp_r2.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = lossless_enc_mips_dsp_r2.c
+  source_name_part = lossless_enc_mips_dsp_r2
+build obj/third_party/libwebp/libwebp_dsp/lossless_enc_msa.o: cc ../../src/third_party/libwebp/src/src/dsp/lossless_enc_msa.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = lossless_enc_msa.c
+  source_name_part = lossless_enc_msa
+build obj/third_party/libwebp/libwebp_dsp/lossless_mips_dsp_r2.o: cc ../../src/third_party/libwebp/src/src/dsp/lossless_mips_dsp_r2.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = lossless_mips_dsp_r2.c
+  source_name_part = lossless_mips_dsp_r2
+build obj/third_party/libwebp/libwebp_dsp/lossless_msa.o: cc ../../src/third_party/libwebp/src/src/dsp/lossless_msa.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = lossless_msa.c
+  source_name_part = lossless_msa
+build obj/third_party/libwebp/libwebp_dsp/rescaler.o: cc ../../src/third_party/libwebp/src/src/dsp/rescaler.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = rescaler.c
+  source_name_part = rescaler
+build obj/third_party/libwebp/libwebp_dsp/rescaler_mips32.o: cc ../../src/third_party/libwebp/src/src/dsp/rescaler_mips32.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = rescaler_mips32.c
+  source_name_part = rescaler_mips32
+build obj/third_party/libwebp/libwebp_dsp/rescaler_mips_dsp_r2.o: cc ../../src/third_party/libwebp/src/src/dsp/rescaler_mips_dsp_r2.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = rescaler_mips_dsp_r2.c
+  source_name_part = rescaler_mips_dsp_r2
+build obj/third_party/libwebp/libwebp_dsp/rescaler_msa.o: cc ../../src/third_party/libwebp/src/src/dsp/rescaler_msa.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = rescaler_msa.c
+  source_name_part = rescaler_msa
+build obj/third_party/libwebp/libwebp_dsp/ssim.o: cc ../../src/third_party/libwebp/src/src/dsp/ssim.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = ssim.c
+  source_name_part = ssim
+build obj/third_party/libwebp/libwebp_dsp/upsampling.o: cc ../../src/third_party/libwebp/src/src/dsp/upsampling.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = upsampling.c
+  source_name_part = upsampling
+build obj/third_party/libwebp/libwebp_dsp/upsampling_mips_dsp_r2.o: cc ../../src/third_party/libwebp/src/src/dsp/upsampling_mips_dsp_r2.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = upsampling_mips_dsp_r2.c
+  source_name_part = upsampling_mips_dsp_r2
+build obj/third_party/libwebp/libwebp_dsp/upsampling_msa.o: cc ../../src/third_party/libwebp/src/src/dsp/upsampling_msa.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = upsampling_msa.c
+  source_name_part = upsampling_msa
+build obj/third_party/libwebp/libwebp_dsp/yuv.o: cc ../../src/third_party/libwebp/src/src/dsp/yuv.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = yuv.c
+  source_name_part = yuv
+build obj/third_party/libwebp/libwebp_dsp/yuv_mips32.o: cc ../../src/third_party/libwebp/src/src/dsp/yuv_mips32.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = yuv_mips32.c
+  source_name_part = yuv_mips32
+build obj/third_party/libwebp/libwebp_dsp/yuv_mips_dsp_r2.o: cc ../../src/third_party/libwebp/src/src/dsp/yuv_mips_dsp_r2.c | phony/third_party/libwebp/libwebp_dsp.inputs
+  source_file_part = yuv_mips_dsp_r2.c
+  source_name_part = yuv_mips_dsp_r2
+
+build obj/third_party/libwebp/libwebp_dsp.a: alink obj/third_party/libwebp/libwebp_dsp/alpha_processing.o obj/third_party/libwebp/libwebp_dsp/alpha_processing_mips_dsp_r2.o obj/third_party/libwebp/libwebp_dsp/cost.o obj/third_party/libwebp/libwebp_dsp/cost_mips32.o obj/third_party/libwebp/libwebp_dsp/cost_mips_dsp_r2.o obj/third_party/libwebp/libwebp_dsp/cpu.o obj/third_party/libwebp/libwebp_dsp/dec.o obj/third_party/libwebp/libwebp_dsp/dec_clip_tables.o obj/third_party/libwebp/libwebp_dsp/dec_mips32.o obj/third_party/libwebp/libwebp_dsp/dec_mips_dsp_r2.o obj/third_party/libwebp/libwebp_dsp/dec_msa.o obj/third_party/libwebp/libwebp_dsp/enc.o obj/third_party/libwebp/libwebp_dsp/enc_mips32.o obj/third_party/libwebp/libwebp_dsp/enc_mips_dsp_r2.o obj/third_party/libwebp/libwebp_dsp/enc_msa.o obj/third_party/libwebp/libwebp_dsp/filters.o obj/third_party/libwebp/libwebp_dsp/filters_mips_dsp_r2.o obj/third_party/libwebp/libwebp_dsp/filters_msa.o obj/third_party/libwebp/libwebp_dsp/lossless.o obj/third_party/libwebp/libwebp_dsp/lossless_enc.o obj/third_party/libwebp/libwebp_dsp/lossless_enc_mips32.o obj/third_party/libwebp/libwebp_dsp/lossless_enc_mips_dsp_r2.o obj/third_party/libwebp/libwebp_dsp/lossless_enc_msa.o obj/third_party/libwebp/libwebp_dsp/lossless_mips_dsp_r2.o obj/third_party/libwebp/libwebp_dsp/lossless_msa.o obj/third_party/libwebp/libwebp_dsp/rescaler.o obj/third_party/libwebp/libwebp_dsp/rescaler_mips32.o obj/third_party/libwebp/libwebp_dsp/rescaler_mips_dsp_r2.o obj/third_party/libwebp/libwebp_dsp/rescaler_msa.o obj/third_party/libwebp/libwebp_dsp/ssim.o obj/third_party/libwebp/libwebp_dsp/upsampling.o obj/third_party/libwebp/libwebp_dsp/upsampling_mips_dsp_r2.o obj/third_party/libwebp/libwebp_dsp/upsampling_msa.o obj/third_party/libwebp/libwebp_dsp/yuv.o obj/third_party/libwebp/libwebp_dsp/yuv_mips32.o obj/third_party/libwebp/libwebp_dsp/yuv_mips_dsp_r2.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a phony/third_party/libwebp/libwebp_dsp.inputs || obj/third_party/libwebp/libwebp_dec.a obj/third_party/libwebp/libwebp_dsp_sse2.a obj/third_party/libwebp/libwebp_dsp_sse41.a obj/third_party/libwebp/libwebp_enc.a obj/third_party/libwebp/libwebp_utils.a obj/third_party/libwebp/libwebp_dsp_neon.a obj/third_party/libwebp/libwebp_sharpyuv.a obj/third_party/libwebp/libwebp_sharpyuv_dsp.a obj/third_party/libwebp/libwebp_sharpyuv_sse2.a obj/third_party/libwebp/libwebp_sharpyuv_neon.a
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/third_party/libwebp

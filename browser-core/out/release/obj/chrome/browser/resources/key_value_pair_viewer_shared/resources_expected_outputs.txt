@@ -1,0 +1,4 @@
+gen/chrome/grit/key_value_pair_viewer_shared_resources.h
+gen/chrome/grit/key_value_pair_viewer_shared_resources_map.cc
+gen/chrome/grit/key_value_pair_viewer_shared_resources_map.h
+gen/chrome/key_value_pair_viewer_shared_resources.pak

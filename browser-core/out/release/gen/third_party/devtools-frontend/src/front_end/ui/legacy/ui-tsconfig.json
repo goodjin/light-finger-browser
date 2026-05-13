@@ -1,0 +1,139 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "composite": true,
+    "declaration": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": true,
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable"
+    ],
+    "module": "esnext",
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "outDir": ".",
+    "rootDir": "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "esnext",
+    "tsBuildInfoFile": "ui-tsconfig.json.tsbuildinfo",
+    "typeRoots": [],
+    "useUnknownInCatchVariables": false
+  },
+  "files": [
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/ARIAUtils.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/ActionRegistration.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/ActionRegistry.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/Context.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/ContextFlavorListener.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/ContextMenu.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/Dialog.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/DockController.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/DropTarget.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/EmptyWidget.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/FilterBar.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/FilterSuggestionBuilder.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/ForwardedInputEventHandler.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/Fragment.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/Geometry.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/GlassPane.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/Infobar.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/InplaceEditor.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/InspectorView.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/KeyboardShortcut.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/ListControl.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/ListModel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/ListWidget.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/Panel.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/PopoverHelper.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/ProgressIndicator.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/RemoteDebuggingTerminatedScreen.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/ReportView.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/ResizerWidget.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/RootView.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/SearchableView.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/SettingsUI.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/ShortcutRegistry.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/SoftContextMenu.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/SoftDropDown.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/SplitWidget.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/SuggestBox.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/TabbedPane.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/TargetCrashedScreen.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/TextPrompt.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/ThrottledWidget.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/Toolbar.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/Tooltip.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/Treeoutline.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/UIUtils.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/View.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/ViewManager.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/ViewRegistration.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/Widget.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/XElement.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/XLink.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/XWidget.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/legacy/ZoomManager.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/legacy/legacy-defs.d.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/global_typings/global_defs.d.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/node_modules/@types/filesystem/index.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../../core/common/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../core/dom_extension/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../core/host/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../core/i18n/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../core/platform/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../core/root/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../core/sdk/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../models/text_utils/bundle-tsconfig.json"
+    },
+    {
+      "path": "theme_support/bundle-tsconfig.json"
+    },
+    {
+      "path": "../components/adorners/bundle-tsconfig.json"
+    },
+    {
+      "path": "../components/buttons/bundle-tsconfig.json"
+    },
+    {
+      "path": "../components/helpers/bundle-tsconfig.json"
+    },
+    {
+      "path": "../components/icon_button/bundle-tsconfig.json"
+    },
+    {
+      "path": "../components/settings/bundle-tsconfig.json"
+    },
+    {
+      "path": "../lit/bundle-tsconfig.json"
+    },
+    {
+      "path": "../visual_logging/bundle-tsconfig.json"
+    }
+  ]
+}

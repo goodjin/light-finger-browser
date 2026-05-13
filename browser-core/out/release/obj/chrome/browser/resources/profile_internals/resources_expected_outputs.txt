@@ -1,0 +1,4 @@
+gen/chrome/grit/profile_internals_resources.h
+gen/chrome/grit/profile_internals_resources_map.cc
+gen/chrome/grit/profile_internals_resources_map.h
+gen/chrome/profile_internals_resources.pak

@@ -1,0 +1,1 @@
+module.exports = {SOURCE_ROOT: '../../../../../../../src/third_party/devtools-frontend/src/', CHECKOUT_ROOT: '../../../../../../../src/', BUILD_ROOT: '../../../../..', BUILD_WITH_CHROMIUM: true};

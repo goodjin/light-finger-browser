@@ -1,0 +1,154 @@
+defines = -DLIBCXX_BUILDING_LIBCXXABI -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -D_LIBCPP_BUILDING_LIBRARY -DLIBC_NAMESPACE=__llvm_libc_cr
+framework_dirs =
+include_dirs = -I../../src/third_party/libc++/src/src -I../../src -Iclang_arm64_with_system_allocator/gen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/llvm-libc/src
+cflags = -fvisibility-global-new-delete=force-hidden -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -fstrict-aliasing -Wundef -fPIC -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall
+cflags_cc = -std=c++20 -Wno-trigraphs -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden -std=c++20 -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness -fexceptions -frtti
+label_name = libc++
+root_out_dir = clang_arm64_with_system_allocator
+target_out_dir = clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++
+target_output_name = libc++
+
+build clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs: phony ../../src/buildtools/third_party/libc++/__assertion_handler ../../src/buildtools/third_party/libc++/__config_site ../../src/build/config/warning_suppression.txt
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/algorithm.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/algorithm.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = algorithm.cpp
+  source_name_part = algorithm
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/any.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/any.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = any.cpp
+  source_name_part = any
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/atomic.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/atomic.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = atomic.cpp
+  source_name_part = atomic
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/barrier.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/barrier.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = barrier.cpp
+  source_name_part = barrier
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/bind.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/bind.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = bind.cpp
+  source_name_part = bind
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/call_once.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/call_once.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = call_once.cpp
+  source_name_part = call_once
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/charconv.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/charconv.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = charconv.cpp
+  source_name_part = charconv
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/chrono.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/chrono.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = chrono.cpp
+  source_name_part = chrono
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/condition_variable.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/condition_variable.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = condition_variable.cpp
+  source_name_part = condition_variable
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/condition_variable_destructor.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/condition_variable_destructor.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = condition_variable_destructor.cpp
+  source_name_part = condition_variable_destructor
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/error_category.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/error_category.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = error_category.cpp
+  source_name_part = error_category
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/exception.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/exception.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = exception.cpp
+  source_name_part = exception
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/directory_iterator.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/filesystem/directory_iterator.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = directory_iterator.cpp
+  source_name_part = directory_iterator
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/filesystem_error.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/filesystem/filesystem_error.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = filesystem_error.cpp
+  source_name_part = filesystem_error
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/operations.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/filesystem/operations.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = operations.cpp
+  source_name_part = operations
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/path.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/filesystem/path.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = path.cpp
+  source_name_part = path
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/functional.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/functional.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = functional.cpp
+  source_name_part = functional
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/future.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/future.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = future.cpp
+  source_name_part = future
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/hash.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/hash.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = hash.cpp
+  source_name_part = hash
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/ios.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/ios.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = ios.cpp
+  source_name_part = ios
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/ios.instantiations.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/ios.instantiations.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = ios.instantiations.cpp
+  source_name_part = ios.instantiations
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/iostream.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/iostream.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = iostream.cpp
+  source_name_part = iostream
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/locale.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/locale.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = locale.cpp
+  source_name_part = locale
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/memory.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/memory.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = memory.cpp
+  source_name_part = memory
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/mutex.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/mutex.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = mutex.cpp
+  source_name_part = mutex
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/mutex_destructor.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/mutex_destructor.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = mutex_destructor.cpp
+  source_name_part = mutex_destructor
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/new_handler.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/new_handler.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = new_handler.cpp
+  source_name_part = new_handler
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/new_helpers.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/new_helpers.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = new_helpers.cpp
+  source_name_part = new_helpers
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/optional.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/optional.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = optional.cpp
+  source_name_part = optional
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/random.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/random.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = random.cpp
+  source_name_part = random
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/random_shuffle.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/random_shuffle.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = random_shuffle.cpp
+  source_name_part = random_shuffle
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/regex.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/regex.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = regex.cpp
+  source_name_part = regex
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/d2fixed.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/ryu/d2fixed.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = d2fixed.cpp
+  source_name_part = d2fixed
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/d2s.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/ryu/d2s.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = d2s.cpp
+  source_name_part = d2s
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/f2s.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/ryu/f2s.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = f2s.cpp
+  source_name_part = f2s
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/shared_mutex.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/shared_mutex.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = shared_mutex.cpp
+  source_name_part = shared_mutex
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/stdexcept.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/stdexcept.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = stdexcept.cpp
+  source_name_part = stdexcept
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/string.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/string.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = string.cpp
+  source_name_part = string
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/strstream.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/strstream.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = strstream.cpp
+  source_name_part = strstream
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/system_error.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/system_error.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = system_error.cpp
+  source_name_part = system_error
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/thread.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/thread.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = thread.cpp
+  source_name_part = thread
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/typeinfo.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/typeinfo.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = typeinfo.cpp
+  source_name_part = typeinfo
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/valarray.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/valarray.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = valarray.cpp
+  source_name_part = valarray
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/variant.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/variant.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = variant.cpp
+  source_name_part = variant
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/vector.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/vector.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = vector.cpp
+  source_name_part = vector
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/verbose_abort.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/verbose_abort.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = verbose_abort.cpp
+  source_name_part = verbose_abort
+build clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/new.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/libc++/src/src/new.cpp | clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = new.cpp
+  source_name_part = new
+
+build clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++/libc++: phony clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/algorithm.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/any.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/atomic.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/barrier.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/bind.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/call_once.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/charconv.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/chrono.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/condition_variable.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/condition_variable_destructor.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/error_category.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/exception.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/directory_iterator.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/filesystem_error.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/operations.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/path.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/functional.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/future.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/hash.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/ios.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/ios.instantiations.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/iostream.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/locale.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/memory.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/mutex.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/mutex_destructor.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/new_handler.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/new_helpers.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/optional.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/random.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/random_shuffle.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/regex.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/d2fixed.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/d2s.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/f2s.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/shared_mutex.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/stdexcept.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/string.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/strstream.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/system_error.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/thread.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/typeinfo.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/valarray.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/variant.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/vector.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/verbose_abort.o clang_arm64_with_system_allocator/obj/buildtools/third_party/libc++/libc++/new.o || clang_arm64_with_system_allocator/phony/buildtools/third_party/libc++abi/libc++abi

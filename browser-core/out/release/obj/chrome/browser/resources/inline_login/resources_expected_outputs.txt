@@ -1,0 +1,4 @@
+gen/chrome/grit/inline_login_resources.h
+gen/chrome/grit/inline_login_resources_map.cc
+gen/chrome/grit/inline_login_resources_map.h
+gen/chrome/inline_login_resources.pak

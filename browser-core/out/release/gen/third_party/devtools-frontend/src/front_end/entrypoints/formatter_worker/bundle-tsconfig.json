@@ -1,0 +1,1 @@
+{"compilerOptions":{"composite":true,"outDir":".","baseUrl":".","rootDir":"../../../../../../../../../src/third_party/devtools-frontend/src/front_end/entrypoints/formatter_worker"},"files":["../../../../../../../../../src/third_party/devtools-frontend/src/front_end/entrypoints/formatter_worker/formatter_worker.ts"],"references":[{"path":"./formatter_worker-tsconfig.json"}]}

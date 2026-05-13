@@ -1,0 +1,4 @@
+gen/components/grit/data_sharing_internals_resources.h
+gen/components/grit/data_sharing_internals_resources_map.cc
+gen/components/grit/data_sharing_internals_resources_map.h
+gen/components/data_sharing_internals_resources.pak

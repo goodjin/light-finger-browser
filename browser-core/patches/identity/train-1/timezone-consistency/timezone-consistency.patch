@@ -1,20 +1,21 @@
 diff --git a/third_party/blink/renderer/core/timezone/timezone_controller.cc b/third_party/blink/renderer/core/timezone/timezone_controller.cc
-index 48eb8d2fbdcf5..02e5a60ee09e7 100644
+index 8e4166b61c218..91c5da10d7d67 100644
 --- a/third_party/blink/renderer/core/timezone/timezone_controller.cc
 +++ b/third_party/blink/renderer/core/timezone/timezone_controller.cc
-@@ -4,6 +4,8 @@
- 
+@@ -4,7 +4,9 @@
+
  #include "third_party/blink/renderer/core/timezone/timezone_controller.h"
- 
+
 +#include "base/command_line.h"
  #include "base/feature_list.h"
 +#include "base/no_destructor.h"
  #include "mojo/public/cpp/bindings/pending_remote.h"
  #include "mojo/public/cpp/bindings/remote.h"
-@@ -89,6 +91,32 @@ void NotifyTimezoneChangeOnMainThread() {
-   DispatchTimeZoneChangeEventToFrames();
- }
- 
+ #include "third_party/blink/public/common/thread_safe_browser_interface_broker_proxy.h"
+@@ -105,6 +107,32 @@ bool SetIcuTimeZoneAndNotifyV8(const String& timezone_id) {
+
+ }  // namespace
+
 +std::unique_ptr<TimeZoneController::TimeZoneOverride>&
 +CommandLineTimezoneOverride() {
 +  static base::NoDestructor<std::unique_ptr<TimeZoneController::TimeZoneOverride>>
@@ -41,14 +42,14 @@ index 48eb8d2fbdcf5..02e5a60ee09e7 100644
 +  }
 +}
 +
- }  // namespace
- 
  TimeZoneController::TimeZoneController() {
-@@ -109,6 +137,7 @@ void TimeZoneController::Init() {
+   DCHECK(IsMainThread());
+   if (!base::FeatureList::IsEnabled(kLazyBlinkTimezoneInit)) {
+@@ -123,6 +151,7 @@ void TimeZoneController::Init() {
    Platform::Current()->GetBrowserInterfaceBroker()->GetInterface(
        monitor.BindNewPipeAndPassReceiver());
    monitor->AddClient(instance().receiver_.BindNewPipeAndPassRemote());
 +  ApplyCommandLineTimezoneOverride();
  }
- 
+
  // static

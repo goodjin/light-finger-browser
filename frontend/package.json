@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test:e2e": "cd /Users/jin/github/light-finger-browser && wails dev & WAITS=$!; sleep 60; npx playwright test; kill $WAITS 2>/dev/null"
+    "test:e2e": "cd /Users/jin/github/light-finger-browser && wails dev & WAITS=$!; for i in 1 2 3 4 5 6 7 8 9 10 11 12; do curl -sf http://localhost:34115 > /dev/null 2>&1 && break; sleep 10; done; npx playwright test; kill $WAITS 2>/dev/null"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.0.0",

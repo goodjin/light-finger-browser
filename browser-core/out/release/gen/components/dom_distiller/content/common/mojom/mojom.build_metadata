@@ -1,0 +1,9 @@
+{
+  "deps": [
+    "../../../core/mojom/mojom.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../src/components/dom_distiller/content/common/mojom/distillability_service.mojom",
+    "../../../../../../../../src/components/dom_distiller/content/common/mojom/distiller_javascript_service.mojom"
+  ]
+}

@@ -1,0 +1,19 @@
+[
+  {
+    "traits_headers": [
+      "services/network/public/cpp/network_isolation_partition_mojom_traits.h"
+    ],
+    "traits_public_deps": [
+      "//net"
+    ],
+    "traits_sources": [
+      "//services/network/public/cpp/network_isolation_partition_mojom_traits.cc"
+    ],
+    "types": [
+      {
+        "cpp": "::net::NetworkIsolationPartition",
+        "mojom": "network.mojom.NetworkIsolationPartition"
+      }
+    ]
+  }
+]

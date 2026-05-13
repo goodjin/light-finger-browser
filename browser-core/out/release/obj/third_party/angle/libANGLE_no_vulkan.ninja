@@ -1,0 +1,294 @@
+defines = -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=2 -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DANGLE_OUTSIDE_WEBKIT -DLIBANGLE_IMPLEMENTATION -DANGLE_PLATFORM_EXPORT= -DANGLE_ENABLE_OPENGL -DANGLE_ENABLE_GL_DESKTOP_BACKEND -DANGLE_ENABLE_OPENGL_NULL -DGL_SILENCE_DEPRECATION -DANGLE_ENABLE_CGL -DANGLE_ENABLE_METAL -DANGLE_ENABLE_VULKAN -DANGLE_ENABLE_SWIFTSHADER -DANGLE_ENABLE_VULKAN_SHARED_RING_BUFFER_CMD_ALLOC=false -DANGLE_ENABLE_CRC_FOR_PIPELINE_CACHE -DANGLE_DELEGATE_WORKERS=1 -DANGLE_USE_ABSEIL -DABSL_ALLOCATOR_NOTHROW=1
+framework_dirs =
+include_dirs = -I../../src/buildtools/third_party/libc++ -I../../src/third_party/angle/include -I../../src/third_party/angle/src -I../../src/third_party/angle/src/third_party/khronos -Igen/angle -I../../src/third_party/angle/src/common/base -I../../src/third_party/angle/src/common/third_party/xxhash -I../../src/third_party/abseil-cpp -I../../src/third_party/zlib/google -I../../src/third_party/zlib
+cflags = -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wthread-safety -Wgnu -Wno-gnu-anonymous-struct -Wno-gnu-conditional-omitted-operand -Wno-gnu-include-next -Wno-gnu-label-as-value -Wno-gnu-redeclared-enum -Wno-gnu-statement-expression -Wno-gnu-zero-variadic-macro-arguments -Wno-zero-length-array -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wshadow -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wexit-time-destructors -Wglobal-constructors -Wbad-function-cast -Wconditional-uninitialized -Wextra-semi-stmt -Wfloat-conversion -Winconsistent-missing-destructor-override -Wmissing-field-initializers -Wnewline-eof -Wnon-virtual-dtor -Wredundant-parens -Wreturn-std-move -Wshadow -Wshadow-field -Wtautological-type-limit-compare -Wundefined-reinterpret-cast -Wunneeded-internal-declaration -Wunused-but-set-variable -Wsuggest-destructor-override -Wsuggest-override -Wparentheses -Wrange-loop-analysis -Wstrict-prototypes -Wunreachable-code-aggressive -Wshorten-64-to-32 -O2 -fno-math-errno
+cflags_cc = -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden
+cflags_objcc = -Wimplicit-retain-self -Wobjc-missing-property-synthesis -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden
+label_name = libANGLE_no_vulkan
+root_out_dir = .
+target_out_dir = obj/third_party/angle
+target_output_name = libANGLE_no_vulkan
+
+build phony/third_party/angle/libANGLE_no_vulkan.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build phony/third_party/angle/libANGLE_no_vulkan.inputdeps: phony phony/build/chromeos_buildflags phony/third_party/angle/angle_commit_id phony/third_party/angle/angle_program_version_id phony/third_party/spirv-tools/src/spvtools_core_enums_unified1 phony/third_party/spirv-tools/src/spvtools_core_tables_unified1 phony/third_party/spirv-tools/src/spvtools_generators_inc phony/third_party/spirv-tools/src/spvtools_glsl_tables_glsl1-0 phony/third_party/spirv-tools/src/spvtools_language_header_cldebuginfo100 phony/third_party/spirv-tools/src/spvtools_language_header_debuginfo phony/third_party/spirv-tools/src/spvtools_language_header_vkdebuginfo100 phony/third_party/spirv-tools/src/spvtools_opencl_tables_opencl1-0 phony/third_party/spirv-tools/src/spvtools_vendor_tables_debuginfo phony/third_party/spirv-tools/src/spvtools_vendor_tables_nonsemantic.clspvreflection phony/third_party/spirv-tools/src/spvtools_vendor_tables_nonsemantic.shader.debuginfo.100 phony/third_party/spirv-tools/src/spvtools_vendor_tables_nonsemantic.vkspreflection phony/third_party/spirv-tools/src/spvtools_vendor_tables_opencl.debuginfo.100 phony/third_party/spirv-tools/src/spvtools_vendor_tables_spv-amd-gcn-shader phony/third_party/spirv-tools/src/spvtools_vendor_tables_spv-amd-shader-ballot phony/third_party/spirv-tools/src/spvtools_vendor_tables_spv-amd-shader-explicit-vertex-parameter phony/third_party/spirv-tools/src/spvtools_vendor_tables_spv-amd-shader-trinary-minmax
+build obj/third_party/angle/libANGLE_no_vulkan/AttributeMap.o: cxx ../../src/third_party/angle/src/libANGLE/AttributeMap.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = AttributeMap.cpp
+  source_name_part = AttributeMap
+build obj/third_party/angle/libANGLE_no_vulkan/BlobCache.o: cxx ../../src/third_party/angle/src/libANGLE/BlobCache.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = BlobCache.cpp
+  source_name_part = BlobCache
+build obj/third_party/angle/libANGLE_no_vulkan/Buffer.o: cxx ../../src/third_party/angle/src/libANGLE/Buffer.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Buffer.cpp
+  source_name_part = Buffer
+build obj/third_party/angle/libANGLE_no_vulkan/Caps.o: cxx ../../src/third_party/angle/src/libANGLE/Caps.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Caps.cpp
+  source_name_part = Caps
+build obj/third_party/angle/libANGLE_no_vulkan/Compiler.o: cxx ../../src/third_party/angle/src/libANGLE/Compiler.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Compiler.cpp
+  source_name_part = Compiler
+build obj/third_party/angle/libANGLE_no_vulkan/Config.o: cxx ../../src/third_party/angle/src/libANGLE/Config.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Config.cpp
+  source_name_part = Config
+build obj/third_party/angle/libANGLE_no_vulkan/Context.o: cxx ../../src/third_party/angle/src/libANGLE/Context.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Context.cpp
+  source_name_part = Context
+build obj/third_party/angle/libANGLE_no_vulkan/ContextMutex.o: cxx ../../src/third_party/angle/src/libANGLE/ContextMutex.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = ContextMutex.cpp
+  source_name_part = ContextMutex
+build obj/third_party/angle/libANGLE_no_vulkan/Context_gles_1_0.o: cxx ../../src/third_party/angle/src/libANGLE/Context_gles_1_0.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Context_gles_1_0.cpp
+  source_name_part = Context_gles_1_0
+build obj/third_party/angle/libANGLE_no_vulkan/Debug.o: cxx ../../src/third_party/angle/src/libANGLE/Debug.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Debug.cpp
+  source_name_part = Debug
+build obj/third_party/angle/libANGLE_no_vulkan/Device.o: cxx ../../src/third_party/angle/src/libANGLE/Device.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Device.cpp
+  source_name_part = Device
+build obj/third_party/angle/libANGLE_no_vulkan/Display.o: cxx ../../src/third_party/angle/src/libANGLE/Display.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Display.cpp
+  source_name_part = Display
+build obj/third_party/angle/libANGLE_no_vulkan/EGLSync.o: cxx ../../src/third_party/angle/src/libANGLE/EGLSync.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = EGLSync.cpp
+  source_name_part = EGLSync
+build obj/third_party/angle/libANGLE_no_vulkan/Error.o: cxx ../../src/third_party/angle/src/libANGLE/Error.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Error.cpp
+  source_name_part = Error
+build obj/third_party/angle/libANGLE_no_vulkan/Fence.o: cxx ../../src/third_party/angle/src/libANGLE/Fence.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Fence.cpp
+  source_name_part = Fence
+build obj/third_party/angle/libANGLE_no_vulkan/Framebuffer.o: cxx ../../src/third_party/angle/src/libANGLE/Framebuffer.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Framebuffer.cpp
+  source_name_part = Framebuffer
+build obj/third_party/angle/libANGLE_no_vulkan/FramebufferAttachment.o: cxx ../../src/third_party/angle/src/libANGLE/FramebufferAttachment.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = FramebufferAttachment.cpp
+  source_name_part = FramebufferAttachment
+build obj/third_party/angle/libANGLE_no_vulkan/GLES1Renderer.o: cxx ../../src/third_party/angle/src/libANGLE/GLES1Renderer.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = GLES1Renderer.cpp
+  source_name_part = GLES1Renderer
+build obj/third_party/angle/libANGLE_no_vulkan/GLES1State.o: cxx ../../src/third_party/angle/src/libANGLE/GLES1State.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = GLES1State.cpp
+  source_name_part = GLES1State
+build obj/third_party/angle/libANGLE_no_vulkan/GlobalMutex.o: cxx ../../src/third_party/angle/src/libANGLE/GlobalMutex.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = GlobalMutex.cpp
+  source_name_part = GlobalMutex
+build obj/third_party/angle/libANGLE_no_vulkan/HandleAllocator.o: cxx ../../src/third_party/angle/src/libANGLE/HandleAllocator.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = HandleAllocator.cpp
+  source_name_part = HandleAllocator
+build obj/third_party/angle/libANGLE_no_vulkan/Image.o: cxx ../../src/third_party/angle/src/libANGLE/Image.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Image.cpp
+  source_name_part = Image
+build obj/third_party/angle/libANGLE_no_vulkan/ImageIndex.o: cxx ../../src/third_party/angle/src/libANGLE/ImageIndex.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = ImageIndex.cpp
+  source_name_part = ImageIndex
+build obj/third_party/angle/libANGLE_no_vulkan/IndexRangeCache.o: cxx ../../src/third_party/angle/src/libANGLE/IndexRangeCache.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = IndexRangeCache.cpp
+  source_name_part = IndexRangeCache
+build obj/third_party/angle/libANGLE_no_vulkan/LoggingAnnotator.o: cxx ../../src/third_party/angle/src/libANGLE/LoggingAnnotator.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = LoggingAnnotator.cpp
+  source_name_part = LoggingAnnotator
+build obj/third_party/angle/libANGLE_no_vulkan/MemoryObject.o: cxx ../../src/third_party/angle/src/libANGLE/MemoryObject.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = MemoryObject.cpp
+  source_name_part = MemoryObject
+build obj/third_party/angle/libANGLE_no_vulkan/MemoryProgramCache.o: cxx ../../src/third_party/angle/src/libANGLE/MemoryProgramCache.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = MemoryProgramCache.cpp
+  source_name_part = MemoryProgramCache
+build obj/third_party/angle/libANGLE_no_vulkan/MemoryShaderCache.o: cxx ../../src/third_party/angle/src/libANGLE/MemoryShaderCache.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = MemoryShaderCache.cpp
+  source_name_part = MemoryShaderCache
+build obj/third_party/angle/libANGLE_no_vulkan/Observer.o: cxx ../../src/third_party/angle/src/libANGLE/Observer.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Observer.cpp
+  source_name_part = Observer
+build obj/third_party/angle/libANGLE_no_vulkan/Overlay.o: cxx ../../src/third_party/angle/src/libANGLE/Overlay.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Overlay.cpp
+  source_name_part = Overlay
+build obj/third_party/angle/libANGLE_no_vulkan/OverlayWidgets.o: cxx ../../src/third_party/angle/src/libANGLE/OverlayWidgets.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = OverlayWidgets.cpp
+  source_name_part = OverlayWidgets
+build obj/third_party/angle/libANGLE_no_vulkan/Overlay_autogen.o: cxx ../../src/third_party/angle/src/libANGLE/Overlay_autogen.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Overlay_autogen.cpp
+  source_name_part = Overlay_autogen
+build obj/third_party/angle/libANGLE_no_vulkan/Overlay_font_autogen.o: cxx ../../src/third_party/angle/src/libANGLE/Overlay_font_autogen.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Overlay_font_autogen.cpp
+  source_name_part = Overlay_font_autogen
+build obj/third_party/angle/libANGLE_no_vulkan/PixelLocalStorage.o: cxx ../../src/third_party/angle/src/libANGLE/PixelLocalStorage.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = PixelLocalStorage.cpp
+  source_name_part = PixelLocalStorage
+build obj/third_party/angle/libANGLE_no_vulkan/Platform.o: cxx ../../src/third_party/angle/src/libANGLE/Platform.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Platform.cpp
+  source_name_part = Platform
+build obj/third_party/angle/libANGLE_no_vulkan/Program.o: cxx ../../src/third_party/angle/src/libANGLE/Program.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Program.cpp
+  source_name_part = Program
+build obj/third_party/angle/libANGLE_no_vulkan/ProgramExecutable.o: cxx ../../src/third_party/angle/src/libANGLE/ProgramExecutable.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = ProgramExecutable.cpp
+  source_name_part = ProgramExecutable
+build obj/third_party/angle/libANGLE_no_vulkan/ProgramLinkedResources.o: cxx ../../src/third_party/angle/src/libANGLE/ProgramLinkedResources.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = ProgramLinkedResources.cpp
+  source_name_part = ProgramLinkedResources
+build obj/third_party/angle/libANGLE_no_vulkan/ProgramPipeline.o: cxx ../../src/third_party/angle/src/libANGLE/ProgramPipeline.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = ProgramPipeline.cpp
+  source_name_part = ProgramPipeline
+build obj/third_party/angle/libANGLE_no_vulkan/Query.o: cxx ../../src/third_party/angle/src/libANGLE/Query.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Query.cpp
+  source_name_part = Query
+build obj/third_party/angle/libANGLE_no_vulkan/Renderbuffer.o: cxx ../../src/third_party/angle/src/libANGLE/Renderbuffer.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Renderbuffer.cpp
+  source_name_part = Renderbuffer
+build obj/third_party/angle/libANGLE_no_vulkan/ResourceManager.o: cxx ../../src/third_party/angle/src/libANGLE/ResourceManager.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = ResourceManager.cpp
+  source_name_part = ResourceManager
+build obj/third_party/angle/libANGLE_no_vulkan/Sampler.o: cxx ../../src/third_party/angle/src/libANGLE/Sampler.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Sampler.cpp
+  source_name_part = Sampler
+build obj/third_party/angle/libANGLE_no_vulkan/Semaphore.o: cxx ../../src/third_party/angle/src/libANGLE/Semaphore.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Semaphore.cpp
+  source_name_part = Semaphore
+build obj/third_party/angle/libANGLE_no_vulkan/Shader.o: cxx ../../src/third_party/angle/src/libANGLE/Shader.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Shader.cpp
+  source_name_part = Shader
+build obj/third_party/angle/libANGLE_no_vulkan/ShareGroup.o: cxx ../../src/third_party/angle/src/libANGLE/ShareGroup.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = ShareGroup.cpp
+  source_name_part = ShareGroup
+build obj/third_party/angle/libANGLE_no_vulkan/State.o: cxx ../../src/third_party/angle/src/libANGLE/State.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = State.cpp
+  source_name_part = State
+build obj/third_party/angle/libANGLE_no_vulkan/Stream.o: cxx ../../src/third_party/angle/src/libANGLE/Stream.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Stream.cpp
+  source_name_part = Stream
+build obj/third_party/angle/libANGLE_no_vulkan/Surface.o: cxx ../../src/third_party/angle/src/libANGLE/Surface.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Surface.cpp
+  source_name_part = Surface
+build obj/third_party/angle/libANGLE_no_vulkan/Texture.o: cxx ../../src/third_party/angle/src/libANGLE/Texture.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Texture.cpp
+  source_name_part = Texture
+build obj/third_party/angle/libANGLE_no_vulkan/Thread.o: cxx ../../src/third_party/angle/src/libANGLE/Thread.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Thread.cpp
+  source_name_part = Thread
+build obj/third_party/angle/libANGLE_no_vulkan/TransformFeedback.o: cxx ../../src/third_party/angle/src/libANGLE/TransformFeedback.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = TransformFeedback.cpp
+  source_name_part = TransformFeedback
+build obj/third_party/angle/libANGLE_no_vulkan/Uniform.o: cxx ../../src/third_party/angle/src/libANGLE/Uniform.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Uniform.cpp
+  source_name_part = Uniform
+build obj/third_party/angle/libANGLE_no_vulkan/VaryingPacking.o: cxx ../../src/third_party/angle/src/libANGLE/VaryingPacking.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = VaryingPacking.cpp
+  source_name_part = VaryingPacking
+build obj/third_party/angle/libANGLE_no_vulkan/VertexArray.o: cxx ../../src/third_party/angle/src/libANGLE/VertexArray.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = VertexArray.cpp
+  source_name_part = VertexArray
+build obj/third_party/angle/libANGLE_no_vulkan/VertexAttribute.o: cxx ../../src/third_party/angle/src/libANGLE/VertexAttribute.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = VertexAttribute.cpp
+  source_name_part = VertexAttribute
+build obj/third_party/angle/libANGLE_no_vulkan/angletypes.o: cxx ../../src/third_party/angle/src/libANGLE/angletypes.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = angletypes.cpp
+  source_name_part = angletypes
+build obj/third_party/angle/libANGLE_no_vulkan/es3_copy_conversion_table_autogen.o: cxx ../../src/third_party/angle/src/libANGLE/es3_copy_conversion_table_autogen.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = es3_copy_conversion_table_autogen.cpp
+  source_name_part = es3_copy_conversion_table_autogen
+build obj/third_party/angle/libANGLE_no_vulkan/format_map_autogen.o: cxx ../../src/third_party/angle/src/libANGLE/format_map_autogen.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = format_map_autogen.cpp
+  source_name_part = format_map_autogen
+build obj/third_party/angle/libANGLE_no_vulkan/formatutils.o: cxx ../../src/third_party/angle/src/libANGLE/formatutils.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = formatutils.cpp
+  source_name_part = formatutils
+build obj/third_party/angle/libANGLE_no_vulkan/gles_extensions_autogen.o: cxx ../../src/third_party/angle/src/libANGLE/gles_extensions_autogen.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = gles_extensions_autogen.cpp
+  source_name_part = gles_extensions_autogen
+build obj/third_party/angle/libANGLE_no_vulkan/queryconversions.o: cxx ../../src/third_party/angle/src/libANGLE/queryconversions.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = queryconversions.cpp
+  source_name_part = queryconversions
+build obj/third_party/angle/libANGLE_no_vulkan/queryutils.o: cxx ../../src/third_party/angle/src/libANGLE/queryutils.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = queryutils.cpp
+  source_name_part = queryutils
+build obj/third_party/angle/libANGLE_no_vulkan/BufferImpl.o: cxx ../../src/third_party/angle/src/libANGLE/renderer/BufferImpl.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = BufferImpl.cpp
+  source_name_part = BufferImpl
+build obj/third_party/angle/libANGLE_no_vulkan/ContextImpl.o: cxx ../../src/third_party/angle/src/libANGLE/renderer/ContextImpl.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = ContextImpl.cpp
+  source_name_part = ContextImpl
+build obj/third_party/angle/libANGLE_no_vulkan/DeviceImpl.o: cxx ../../src/third_party/angle/src/libANGLE/renderer/DeviceImpl.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = DeviceImpl.cpp
+  source_name_part = DeviceImpl
+build obj/third_party/angle/libANGLE_no_vulkan/DisplayImpl.o: cxx ../../src/third_party/angle/src/libANGLE/renderer/DisplayImpl.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = DisplayImpl.cpp
+  source_name_part = DisplayImpl
+build obj/third_party/angle/libANGLE_no_vulkan/EGLReusableSync.o: cxx ../../src/third_party/angle/src/libANGLE/renderer/EGLReusableSync.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = EGLReusableSync.cpp
+  source_name_part = EGLReusableSync
+build obj/third_party/angle/libANGLE_no_vulkan/EGLSyncImpl.o: cxx ../../src/third_party/angle/src/libANGLE/renderer/EGLSyncImpl.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = EGLSyncImpl.cpp
+  source_name_part = EGLSyncImpl
+build obj/third_party/angle/libANGLE_no_vulkan/Format_table_autogen.o: cxx ../../src/third_party/angle/src/libANGLE/renderer/Format_table_autogen.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = Format_table_autogen.cpp
+  source_name_part = Format_table_autogen
+build obj/third_party/angle/libANGLE_no_vulkan/FramebufferImpl.o: cxx ../../src/third_party/angle/src/libANGLE/renderer/FramebufferImpl.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = FramebufferImpl.cpp
+  source_name_part = FramebufferImpl
+build obj/third_party/angle/libANGLE_no_vulkan/ImageImpl.o: cxx ../../src/third_party/angle/src/libANGLE/renderer/ImageImpl.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = ImageImpl.cpp
+  source_name_part = ImageImpl
+build obj/third_party/angle/libANGLE_no_vulkan/ProgramImpl.o: cxx ../../src/third_party/angle/src/libANGLE/renderer/ProgramImpl.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = ProgramImpl.cpp
+  source_name_part = ProgramImpl
+build obj/third_party/angle/libANGLE_no_vulkan/ProgramPipelineImpl.o: cxx ../../src/third_party/angle/src/libANGLE/renderer/ProgramPipelineImpl.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = ProgramPipelineImpl.cpp
+  source_name_part = ProgramPipelineImpl
+build obj/third_party/angle/libANGLE_no_vulkan/QueryImpl.o: cxx ../../src/third_party/angle/src/libANGLE/renderer/QueryImpl.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = QueryImpl.cpp
+  source_name_part = QueryImpl
+build obj/third_party/angle/libANGLE_no_vulkan/RenderbufferImpl.o: cxx ../../src/third_party/angle/src/libANGLE/renderer/RenderbufferImpl.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = RenderbufferImpl.cpp
+  source_name_part = RenderbufferImpl
+build obj/third_party/angle/libANGLE_no_vulkan/ShaderImpl.o: cxx ../../src/third_party/angle/src/libANGLE/renderer/ShaderImpl.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = ShaderImpl.cpp
+  source_name_part = ShaderImpl
+build obj/third_party/angle/libANGLE_no_vulkan/SurfaceImpl.o: cxx ../../src/third_party/angle/src/libANGLE/renderer/SurfaceImpl.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = SurfaceImpl.cpp
+  source_name_part = SurfaceImpl
+build obj/third_party/angle/libANGLE_no_vulkan/TextureImpl.o: cxx ../../src/third_party/angle/src/libANGLE/renderer/TextureImpl.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = TextureImpl.cpp
+  source_name_part = TextureImpl
+build obj/third_party/angle/libANGLE_no_vulkan/TransformFeedbackImpl.o: cxx ../../src/third_party/angle/src/libANGLE/renderer/TransformFeedbackImpl.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = TransformFeedbackImpl.cpp
+  source_name_part = TransformFeedbackImpl
+build obj/third_party/angle/libANGLE_no_vulkan/VertexArrayImpl.o: cxx ../../src/third_party/angle/src/libANGLE/renderer/VertexArrayImpl.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = VertexArrayImpl.cpp
+  source_name_part = VertexArrayImpl
+build obj/third_party/angle/libANGLE_no_vulkan/driver_utils.o: cxx ../../src/third_party/angle/src/libANGLE/renderer/driver_utils.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = driver_utils.cpp
+  source_name_part = driver_utils
+build obj/third_party/angle/libANGLE_no_vulkan/load_functions_table_autogen.o: cxx ../../src/third_party/angle/src/libANGLE/renderer/load_functions_table_autogen.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = load_functions_table_autogen.cpp
+  source_name_part = load_functions_table_autogen
+build obj/third_party/angle/libANGLE_no_vulkan/renderer_utils.o: cxx ../../src/third_party/angle/src/libANGLE/renderer/renderer_utils.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = renderer_utils.cpp
+  source_name_part = renderer_utils
+build obj/third_party/angle/libANGLE_no_vulkan/validationEGL.o: cxx ../../src/third_party/angle/src/libANGLE/validationEGL.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = validationEGL.cpp
+  source_name_part = validationEGL
+build obj/third_party/angle/libANGLE_no_vulkan/validationES.o: cxx ../../src/third_party/angle/src/libANGLE/validationES.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = validationES.cpp
+  source_name_part = validationES
+build obj/third_party/angle/libANGLE_no_vulkan/validationES1.o: cxx ../../src/third_party/angle/src/libANGLE/validationES1.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = validationES1.cpp
+  source_name_part = validationES1
+build obj/third_party/angle/libANGLE_no_vulkan/validationES2.o: cxx ../../src/third_party/angle/src/libANGLE/validationES2.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = validationES2.cpp
+  source_name_part = validationES2
+build obj/third_party/angle/libANGLE_no_vulkan/validationES3.o: cxx ../../src/third_party/angle/src/libANGLE/validationES3.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = validationES3.cpp
+  source_name_part = validationES3
+build obj/third_party/angle/libANGLE_no_vulkan/validationES31.o: cxx ../../src/third_party/angle/src/libANGLE/validationES31.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = validationES31.cpp
+  source_name_part = validationES31
+build obj/third_party/angle/libANGLE_no_vulkan/validationES32.o: cxx ../../src/third_party/angle/src/libANGLE/validationES32.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = validationES32.cpp
+  source_name_part = validationES32
+build obj/third_party/angle/libANGLE_no_vulkan/validationESEXT.o: cxx ../../src/third_party/angle/src/libANGLE/validationESEXT.cpp | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = validationESEXT.cpp
+  source_name_part = validationESEXT
+build obj/third_party/angle/libANGLE_no_vulkan/driver_utils_mac.o: objcxx ../../src/third_party/angle/src/libANGLE/renderer/driver_utils_mac.mm | phony/third_party/angle/libANGLE_no_vulkan.inputs || phony/third_party/angle/libANGLE_no_vulkan.inputdeps
+  source_file_part = driver_utils_mac.mm
+  source_name_part = driver_utils_mac
+
+build phony/third_party/angle/libANGLE_no_vulkan: phony obj/third_party/angle/libANGLE_no_vulkan/AttributeMap.o obj/third_party/angle/libANGLE_no_vulkan/BlobCache.o obj/third_party/angle/libANGLE_no_vulkan/Buffer.o obj/third_party/angle/libANGLE_no_vulkan/Caps.o obj/third_party/angle/libANGLE_no_vulkan/Compiler.o obj/third_party/angle/libANGLE_no_vulkan/Config.o obj/third_party/angle/libANGLE_no_vulkan/Context.o obj/third_party/angle/libANGLE_no_vulkan/ContextMutex.o obj/third_party/angle/libANGLE_no_vulkan/Context_gles_1_0.o obj/third_party/angle/libANGLE_no_vulkan/Debug.o obj/third_party/angle/libANGLE_no_vulkan/Device.o obj/third_party/angle/libANGLE_no_vulkan/Display.o obj/third_party/angle/libANGLE_no_vulkan/EGLSync.o obj/third_party/angle/libANGLE_no_vulkan/Error.o obj/third_party/angle/libANGLE_no_vulkan/Fence.o obj/third_party/angle/libANGLE_no_vulkan/Framebuffer.o obj/third_party/angle/libANGLE_no_vulkan/FramebufferAttachment.o obj/third_party/angle/libANGLE_no_vulkan/GLES1Renderer.o obj/third_party/angle/libANGLE_no_vulkan/GLES1State.o obj/third_party/angle/libANGLE_no_vulkan/GlobalMutex.o obj/third_party/angle/libANGLE_no_vulkan/HandleAllocator.o obj/third_party/angle/libANGLE_no_vulkan/Image.o obj/third_party/angle/libANGLE_no_vulkan/ImageIndex.o obj/third_party/angle/libANGLE_no_vulkan/IndexRangeCache.o obj/third_party/angle/libANGLE_no_vulkan/LoggingAnnotator.o obj/third_party/angle/libANGLE_no_vulkan/MemoryObject.o obj/third_party/angle/libANGLE_no_vulkan/MemoryProgramCache.o obj/third_party/angle/libANGLE_no_vulkan/MemoryShaderCache.o obj/third_party/angle/libANGLE_no_vulkan/Observer.o obj/third_party/angle/libANGLE_no_vulkan/Overlay.o obj/third_party/angle/libANGLE_no_vulkan/OverlayWidgets.o obj/third_party/angle/libANGLE_no_vulkan/Overlay_autogen.o obj/third_party/angle/libANGLE_no_vulkan/Overlay_font_autogen.o obj/third_party/angle/libANGLE_no_vulkan/PixelLocalStorage.o obj/third_party/angle/libANGLE_no_vulkan/Platform.o obj/third_party/angle/libANGLE_no_vulkan/Program.o obj/third_party/angle/libANGLE_no_vulkan/ProgramExecutable.o obj/third_party/angle/libANGLE_no_vulkan/ProgramLinkedResources.o obj/third_party/angle/libANGLE_no_vulkan/ProgramPipeline.o obj/third_party/angle/libANGLE_no_vulkan/Query.o obj/third_party/angle/libANGLE_no_vulkan/Renderbuffer.o obj/third_party/angle/libANGLE_no_vulkan/ResourceManager.o obj/third_party/angle/libANGLE_no_vulkan/Sampler.o obj/third_party/angle/libANGLE_no_vulkan/Semaphore.o obj/third_party/angle/libANGLE_no_vulkan/Shader.o obj/third_party/angle/libANGLE_no_vulkan/ShareGroup.o obj/third_party/angle/libANGLE_no_vulkan/State.o obj/third_party/angle/libANGLE_no_vulkan/Stream.o obj/third_party/angle/libANGLE_no_vulkan/Surface.o obj/third_party/angle/libANGLE_no_vulkan/Texture.o obj/third_party/angle/libANGLE_no_vulkan/Thread.o obj/third_party/angle/libANGLE_no_vulkan/TransformFeedback.o obj/third_party/angle/libANGLE_no_vulkan/Uniform.o obj/third_party/angle/libANGLE_no_vulkan/VaryingPacking.o obj/third_party/angle/libANGLE_no_vulkan/VertexArray.o obj/third_party/angle/libANGLE_no_vulkan/VertexAttribute.o obj/third_party/angle/libANGLE_no_vulkan/angletypes.o obj/third_party/angle/libANGLE_no_vulkan/es3_copy_conversion_table_autogen.o obj/third_party/angle/libANGLE_no_vulkan/format_map_autogen.o obj/third_party/angle/libANGLE_no_vulkan/formatutils.o obj/third_party/angle/libANGLE_no_vulkan/gles_extensions_autogen.o obj/third_party/angle/libANGLE_no_vulkan/queryconversions.o obj/third_party/angle/libANGLE_no_vulkan/queryutils.o obj/third_party/angle/libANGLE_no_vulkan/BufferImpl.o obj/third_party/angle/libANGLE_no_vulkan/ContextImpl.o obj/third_party/angle/libANGLE_no_vulkan/DeviceImpl.o obj/third_party/angle/libANGLE_no_vulkan/DisplayImpl.o obj/third_party/angle/libANGLE_no_vulkan/EGLReusableSync.o obj/third_party/angle/libANGLE_no_vulkan/EGLSyncImpl.o obj/third_party/angle/libANGLE_no_vulkan/Format_table_autogen.o obj/third_party/angle/libANGLE_no_vulkan/FramebufferImpl.o obj/third_party/angle/libANGLE_no_vulkan/ImageImpl.o obj/third_party/angle/libANGLE_no_vulkan/ProgramImpl.o obj/third_party/angle/libANGLE_no_vulkan/ProgramPipelineImpl.o obj/third_party/angle/libANGLE_no_vulkan/QueryImpl.o obj/third_party/angle/libANGLE_no_vulkan/RenderbufferImpl.o obj/third_party/angle/libANGLE_no_vulkan/ShaderImpl.o obj/third_party/angle/libANGLE_no_vulkan/SurfaceImpl.o obj/third_party/angle/libANGLE_no_vulkan/TextureImpl.o obj/third_party/angle/libANGLE_no_vulkan/TransformFeedbackImpl.o obj/third_party/angle/libANGLE_no_vulkan/VertexArrayImpl.o obj/third_party/angle/libANGLE_no_vulkan/driver_utils.o obj/third_party/angle/libANGLE_no_vulkan/load_functions_table_autogen.o obj/third_party/angle/libANGLE_no_vulkan/renderer_utils.o obj/third_party/angle/libANGLE_no_vulkan/validationEGL.o obj/third_party/angle/libANGLE_no_vulkan/validationES.o obj/third_party/angle/libANGLE_no_vulkan/validationES1.o obj/third_party/angle/libANGLE_no_vulkan/validationES2.o obj/third_party/angle/libANGLE_no_vulkan/validationES3.o obj/third_party/angle/libANGLE_no_vulkan/validationES31.o obj/third_party/angle/libANGLE_no_vulkan/validationES32.o obj/third_party/angle/libANGLE_no_vulkan/validationESEXT.o obj/third_party/angle/libANGLE_no_vulkan/driver_utils_mac.o || obj/third_party/angle/libangle_common.a obj/third_party/angle/libangle_common_shader_state.a obj/third_party/angle/libangle_gpu_info_util.a obj/third_party/angle/libangle_image_util.a phony/third_party/angle/angle_version_info phony/third_party/angle/libANGLE_headers obj/third_party/angle/libtranslator.a phony/third_party/angle/src/libANGLE/renderer/gl/angle_gl_backend phony/third_party/angle/src/libANGLE/renderer/metal/angle_metal_backend phony/third_party/angle/angle_compression phony/third_party/abseil-cpp/absl phony/third_party/abseil-cpp/absl/base/base phony/third_party/abseil-cpp/absl/base/log_severity phony/third_party/abseil-cpp/absl/base/raw_logging_internal phony/third_party/abseil-cpp/absl/base/spinlock_wait phony/third_party/abseil-cpp/absl/container/btree phony/third_party/abseil-cpp/absl/container/layout phony/third_party/abseil-cpp/absl/debugging/demangle_internal phony/third_party/abseil-cpp/absl/debugging/demangle_rust phony/third_party/abseil-cpp/absl/debugging/decode_rust_punycode phony/third_party/abseil-cpp/absl/debugging/bounded_utf8_length_sequence phony/third_party/abseil-cpp/absl/numeric/bits phony/third_party/abseil-cpp/absl/base/endian phony/third_party/abseil-cpp/absl/debugging/utf8_for_code_point phony/third_party/abseil-cpp/absl/strings/strings phony/third_party/abseil-cpp/absl/strings/string_view phony/third_party/abseil-cpp/absl/base/throw_delegate phony/third_party/abseil-cpp/absl/strings/charset phony/third_party/abseil-cpp/absl/strings/internal phony/third_party/abseil-cpp/absl/numeric/int128 phony/third_party/abseil-cpp/absl/types/span phony/third_party/abseil-cpp/absl/strings/cord phony/third_party/abseil-cpp/absl/strings/cord_internal phony/third_party/abseil-cpp/absl/container/inlined_vector phony/third_party/abseil-cpp/absl/container/inlined_vector_internal phony/third_party/abseil-cpp/absl/crc/crc_cord_state phony/third_party/abseil-cpp/absl/crc/crc32c phony/third_party/abseil-cpp/absl/crc/cpu_detect phony/third_party/abseil-cpp/absl/crc/crc_internal phony/third_party/abseil-cpp/absl/strings/str_format phony/third_party/abseil-cpp/absl/strings/str_format_internal phony/third_party/abseil-cpp/absl/container/fixed_array phony/third_party/abseil-cpp/absl/strings/cordz_info phony/third_party/abseil-cpp/absl/strings/cordz_functions phony/third_party/abseil-cpp/absl/profiling/exponential_biased phony/third_party/abseil-cpp/absl/strings/cordz_handle phony/third_party/abseil-cpp/absl/synchronization/synchronization phony/third_party/abseil-cpp/absl/synchronization/graphcycles_internal phony/third_party/abseil-cpp/absl/base/malloc_internal phony/third_party/abseil-cpp/absl/synchronization/kernel_timeout_internal phony/third_party/abseil-cpp/absl/time/time phony/third_party/abseil-cpp/absl/time/internal/cctz/civil_time phony/third_party/abseil-cpp/absl/time/internal/cctz/time_zone phony/third_party/abseil-cpp/absl/base/tracing_internal phony/third_party/abseil-cpp/absl/debugging/stacktrace phony/third_party/abseil-cpp/absl/debugging/debugging_internal phony/third_party/abseil-cpp/absl/debugging/symbolize phony/third_party/abseil-cpp/absl/strings/cordz_update_scope phony/third_party/abseil-cpp/absl/container/flat_hash_map phony/third_party/abseil-cpp/absl/container/hash_container_defaults phony/third_party/abseil-cpp/absl/container/hash_function_defaults phony/third_party/abseil-cpp/absl/hash/hash phony/third_party/abseil-cpp/absl/hash/city phony/third_party/abseil-cpp/absl/hash/low_level_hash phony/third_party/abseil-cpp/absl/container/raw_hash_map phony/third_party/abseil-cpp/absl/container/raw_hash_set phony/third_party/abseil-cpp/absl/container/hashtable_control_bytes phony/third_party/abseil-cpp/absl/container/hashtablez_sampler phony/third_party/abseil-cpp/absl/profiling/sample_recorder phony/third_party/abseil-cpp/absl/container/flat_hash_set phony/third_party/abseil-cpp/absl/container/node_hash_map phony/third_party/abseil-cpp/absl/container/node_hash_set phony/third_party/abseil-cpp/absl/debugging/failure_signal_handler phony/third_party/abseil-cpp/absl/debugging/examine_stack phony/third_party/abseil-cpp/absl/log/absl_check phony/third_party/abseil-cpp/absl/log/internal/check_impl phony/third_party/abseil-cpp/absl/log/internal/check_op phony/third_party/abseil-cpp/absl/log/internal/nullguard phony/third_party/abseil-cpp/absl/log/internal/nullstream phony/third_party/abseil-cpp/absl/log/internal/strip phony/third_party/abseil-cpp/absl/log/internal/log_message phony/third_party/abseil-cpp/absl/log/internal/append_truncated phony/third_party/abseil-cpp/absl/log/internal/format phony/third_party/abseil-cpp/absl/log/internal/globals phony/third_party/abseil-cpp/absl/log/internal/log_sink_set phony/third_party/abseil-cpp/absl/log/globals phony/third_party/abseil-cpp/absl/log/internal/vlog_config phony/third_party/abseil-cpp/absl/log/internal/fnmatch phony/third_party/abseil-cpp/absl/log/log_entry phony/third_party/abseil-cpp/absl/log/log_sink phony/third_party/abseil-cpp/absl/log/internal/proto phony/third_party/abseil-cpp/absl/log/internal/structured_proto phony/third_party/abseil-cpp/absl/base/strerror phony/third_party/abseil-cpp/absl/log/log_sink_registry phony/third_party/abseil-cpp/absl/debugging/leak_check phony/third_party/abseil-cpp/absl/log/internal/conditions phony/third_party/abseil-cpp/absl/log/absl_log phony/third_party/abseil-cpp/absl/log/internal/log_impl phony/third_party/abseil-cpp/absl/log/absl_vlog_is_on phony/third_party/abseil-cpp/absl/log/die_if_null phony/third_party/abseil-cpp/absl/log/log phony/third_party/abseil-cpp/absl/log/vlog_is_on phony/third_party/abseil-cpp/absl/log/initialize phony/third_party/abseil-cpp/absl/random/random phony/third_party/abseil-cpp/absl/random/distributions phony/third_party/abseil-cpp/absl/random/internal/fast_uniform_bits phony/third_party/abseil-cpp/absl/random/internal/traits phony/third_party/abseil-cpp/absl/random/internal/fastmath phony/third_party/abseil-cpp/absl/random/internal/generate_real phony/third_party/abseil-cpp/absl/random/internal/iostream_state_saver phony/third_party/abseil-cpp/absl/random/internal/uniform_helper phony/third_party/abseil-cpp/absl/random/internal/wide_multiply phony/third_party/abseil-cpp/absl/random/seed_sequences phony/third_party/abseil-cpp/absl/random/seed_gen_exception phony/third_party/abseil-cpp/absl/random/internal/entropy_pool phony/third_party/abseil-cpp/absl/random/internal/platform phony/third_party/abseil-cpp/absl/random/internal/randen phony/third_party/abseil-cpp/absl/random/internal/randen_hwaes phony/third_party/abseil-cpp/absl/random/internal/randen_hwaes_impl phony/third_party/abseil-cpp/absl/random/internal/randen_slow phony/third_party/abseil-cpp/absl/random/internal/seed_material phony/third_party/abseil-cpp/absl/random/internal/salted_seed_seq phony/third_party/abseil-cpp/absl/random/internal/nonsecure_base phony/third_party/abseil-cpp/absl/random/internal/pcg_engine phony/third_party/abseil-cpp/absl/random/internal/randen_engine phony/third_party/abseil-cpp/absl/random/bit_gen_ref phony/third_party/abseil-cpp/absl/status/status phony/third_party/abseil-cpp/absl/status/statusor phony/third_party/angle/xxhash phony/third_party/angle/src/common/vulkan/angle_libvulkan_loader phony/third_party/angle/src/common/vulkan/angle_vulkan_icd phony/third_party/angle/angle_image_util_headers phony/third_party/angle/angle_version obj/third_party/angle/libpreprocessor.a phony/third_party/angle/src/common/spirv/angle_spirv_headers phony/third_party/angle/src/common/spirv/angle_spirv_base phony/third_party/angle/src/common/spirv/angle_spirv_builder obj/third_party/spirv-tools/src/libspvtools_val.a obj/third_party/spirv-tools/src/libspvtools.a obj/third_party/zlib/google/libcompression_utils_portable.a obj/third_party/zlib/libchrome_zlib.a phony/third_party/zlib/zlib_adler32_simd phony/third_party/zlib/zlib_inflate_chunk_simd phony/third_party/zlib/zlib_arm_crc32

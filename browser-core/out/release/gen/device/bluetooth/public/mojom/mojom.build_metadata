@@ -1,0 +1,11 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../../../src/device/bluetooth/public/mojom/gatt_characteristic_permissions.mojom",
+    "../../../../../../../src/device/bluetooth/public/mojom/gatt_characteristic_properties.mojom",
+    "../../../../../../../src/device/bluetooth/public/mojom/gatt_service_error_code.mojom",
+    "../../../../../../../src/device/bluetooth/public/mojom/uuid.mojom"
+  ]
+}

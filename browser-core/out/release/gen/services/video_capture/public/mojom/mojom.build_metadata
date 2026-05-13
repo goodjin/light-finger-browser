@@ -1,0 +1,22 @@
+{
+  "deps": [
+    "../../../../media/capture/mojom/image_capture.build_metadata",
+    "../../../../media/capture/mojom/video_capture.build_metadata",
+    "../../../../media/mojo/mojom/mojom.build_metadata",
+    "../../../video_effects/public/mojom/mojom.build_metadata",
+    "../../../../ui/gfx/geometry/mojom/mojom.build_metadata",
+    "../../../../media/capture/mojom/video_effects_manager.build_metadata",
+    "../../../../sandbox/policy/mojom/mojom.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../src/services/video_capture/public/mojom/device.mojom",
+    "../../../../../../../src/services/video_capture/public/mojom/devices_changed_observer.mojom",
+    "../../../../../../../src/services/video_capture/public/mojom/producer.mojom",
+    "../../../../../../../src/services/video_capture/public/mojom/testing_controls.mojom",
+    "../../../../../../../src/services/video_capture/public/mojom/video_capture_service.mojom",
+    "../../../../../../../src/services/video_capture/public/mojom/video_frame_handler.mojom",
+    "../../../../../../../src/services/video_capture/public/mojom/video_source.mojom",
+    "../../../../../../../src/services/video_capture/public/mojom/video_source_provider.mojom",
+    "../../../../../../../src/services/video_capture/public/mojom/virtual_device.mojom"
+  ]
+}

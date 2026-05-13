@@ -1,0 +1,44 @@
+[
+  {
+    "traits_headers": [
+      "components/ip_protection/mojom/data_types_mojom_traits.h"
+    ],
+    "traits_public_deps": [
+      "//components/ip_protection/common:ip_protection_data_types",
+      "//mojo/public/cpp/base"
+    ],
+    "traits_sources": [
+      "//components/ip_protection/mojom/data_types_mojom_traits.cc"
+    ],
+    "types": [
+      {
+        "cpp": "::ip_protection::ProxyLayer",
+        "mojom": "ip_protection.mojom.ProxyLayer"
+      },
+      {
+        "cpp": "::ip_protection::BlindSignedAuthToken",
+        "mojom": "ip_protection.mojom.BlindSignedAuthToken"
+      },
+      {
+        "cpp": "::ip_protection::GeoHint",
+        "mojom": "ip_protection.mojom.GeoHint"
+      },
+      {
+        "cpp": "::ip_protection::TryGetProbabilisticRevealTokensStatus",
+        "mojom": "ip_protection.mojom.TryGetProbabilisticRevealTokensStatus"
+      },
+      {
+        "cpp": "::ip_protection::TryGetProbabilisticRevealTokensResult",
+        "mojom": "ip_protection.mojom.TryGetProbabilisticRevealTokensResult"
+      },
+      {
+        "cpp": "::ip_protection::ProbabilisticRevealToken",
+        "mojom": "ip_protection.mojom.ProbabilisticRevealToken"
+      },
+      {
+        "cpp": "::ip_protection::TryGetProbabilisticRevealTokensOutcome",
+        "mojom": "ip_protection.mojom.TryGetProbabilisticRevealTokensOutcome"
+      }
+    ]
+  }
+]

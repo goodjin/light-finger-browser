@@ -1,0 +1,493 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DCHROMIUM -DVPX_MAX_ALLOCABLE_MEMORY=\(\(1ULL\$ \<\<\$ 31\)\$ -\$ \(1\$ \<\<\$ 21\)\)
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/libvpx/source/config -I../../src/third_party/libvpx/source/libvpx -I../../src/third_party/libvpx/source/config/linux/arm64-highbd
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wno-conversion -Wno-parentheses-equality -Wno-unused-function
+cflags_c = -std=c11
+label_name = libvpx
+root_out_dir = .
+target_out_dir = obj/third_party/libvpx
+target_output_name = libvpx
+
+build phony/third_party/libvpx/libvpx.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/libvpx/libvpx/alloccommon.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/alloccommon.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = alloccommon.c
+  source_name_part = alloccommon
+build obj/third_party/libvpx/libvpx/loopfilter_arm.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/arm/loopfilter_arm.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = loopfilter_arm.c
+  source_name_part = loopfilter_arm
+build obj/third_party/libvpx/libvpx/blockd.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/blockd.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = blockd.c
+  source_name_part = blockd
+build obj/third_party/libvpx/libvpx/dequantize.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/dequantize.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = dequantize.c
+  source_name_part = dequantize
+build obj/third_party/libvpx/libvpx/entropy.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/entropy.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = entropy.c
+  source_name_part = entropy
+build obj/third_party/libvpx/libvpx/entropymode.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/entropymode.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = entropymode.c
+  source_name_part = entropymode
+build obj/third_party/libvpx/libvpx/entropymv.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/entropymv.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = entropymv.c
+  source_name_part = entropymv
+build obj/third_party/libvpx/libvpx/extend.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/extend.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = extend.c
+  source_name_part = extend
+build obj/third_party/libvpx/libvpx/filter.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/filter.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = filter.c
+  source_name_part = filter
+build obj/third_party/libvpx/libvpx/findnearmv.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/findnearmv.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = findnearmv.c
+  source_name_part = findnearmv
+build obj/third_party/libvpx/libvpx/systemdependent.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/generic/systemdependent.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = systemdependent.c
+  source_name_part = systemdependent
+build obj/third_party/libvpx/libvpx/idct_blk.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/idct_blk.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = idct_blk.c
+  source_name_part = idct_blk
+build obj/third_party/libvpx/libvpx/idctllm.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/idctllm.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = idctllm.c
+  source_name_part = idctllm
+build obj/third_party/libvpx/libvpx/loopfilter_filters.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/loopfilter_filters.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = loopfilter_filters.c
+  source_name_part = loopfilter_filters
+build obj/third_party/libvpx/libvpx/mbpitch.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/mbpitch.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = mbpitch.c
+  source_name_part = mbpitch
+build obj/third_party/libvpx/libvpx/mfqe.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/mfqe.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = mfqe.c
+  source_name_part = mfqe
+build obj/third_party/libvpx/libvpx/modecont.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/modecont.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = modecont.c
+  source_name_part = modecont
+build obj/third_party/libvpx/libvpx/postproc.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/postproc.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = postproc.c
+  source_name_part = postproc
+build obj/third_party/libvpx/libvpx/quant_common.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/quant_common.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = quant_common.c
+  source_name_part = quant_common
+build obj/third_party/libvpx/libvpx/reconinter.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/reconinter.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = reconinter.c
+  source_name_part = reconinter
+build obj/third_party/libvpx/libvpx/reconintra.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/reconintra.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = reconintra.c
+  source_name_part = reconintra
+build obj/third_party/libvpx/libvpx/reconintra4x4.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/reconintra4x4.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = reconintra4x4.c
+  source_name_part = reconintra4x4
+build obj/third_party/libvpx/libvpx/rtcd.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/rtcd.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = rtcd.c
+  source_name_part = rtcd
+build obj/third_party/libvpx/libvpx/setupintrarecon.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/setupintrarecon.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = setupintrarecon.c
+  source_name_part = setupintrarecon
+build obj/third_party/libvpx/libvpx/swapyv12buffer.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/swapyv12buffer.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = swapyv12buffer.c
+  source_name_part = swapyv12buffer
+build obj/third_party/libvpx/libvpx/treecoder.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/treecoder.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = treecoder.c
+  source_name_part = treecoder
+build obj/third_party/libvpx/libvpx/vp8_loopfilter.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/vp8_loopfilter.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp8_loopfilter.c
+  source_name_part = vp8_loopfilter
+build obj/third_party/libvpx/libvpx/vp8_skin_detection.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/common/vp8_skin_detection.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp8_skin_detection.c
+  source_name_part = vp8_skin_detection
+build obj/third_party/libvpx/libvpx/dboolhuff.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/decoder/dboolhuff.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = dboolhuff.c
+  source_name_part = dboolhuff
+build obj/third_party/libvpx/libvpx/decodeframe.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/decoder/decodeframe.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = decodeframe.c
+  source_name_part = decodeframe
+build obj/third_party/libvpx/libvpx/decodemv.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/decoder/decodemv.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = decodemv.c
+  source_name_part = decodemv
+build obj/third_party/libvpx/libvpx/detokenize.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/decoder/detokenize.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = detokenize.c
+  source_name_part = detokenize
+build obj/third_party/libvpx/libvpx/onyxd_if.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/decoder/onyxd_if.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = onyxd_if.c
+  source_name_part = onyxd_if
+build obj/third_party/libvpx/libvpx/threading.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/decoder/threading.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = threading.c
+  source_name_part = threading
+build obj/third_party/libvpx/libvpx/bitstream.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/bitstream.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = bitstream.c
+  source_name_part = bitstream
+build obj/third_party/libvpx/libvpx/boolhuff.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/boolhuff.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = boolhuff.c
+  source_name_part = boolhuff
+build obj/third_party/libvpx/libvpx/copy_c.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/copy_c.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = copy_c.c
+  source_name_part = copy_c
+build obj/third_party/libvpx/libvpx/dct.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/dct.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = dct.c
+  source_name_part = dct
+build obj/third_party/libvpx/libvpx/denoising.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/denoising.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = denoising.c
+  source_name_part = denoising
+build obj/third_party/libvpx/libvpx/encodeframe.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/encodeframe.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = encodeframe.c
+  source_name_part = encodeframe
+build obj/third_party/libvpx/libvpx/encodeintra.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/encodeintra.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = encodeintra.c
+  source_name_part = encodeintra
+build obj/third_party/libvpx/libvpx/encodemb.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/encodemb.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = encodemb.c
+  source_name_part = encodemb
+build obj/third_party/libvpx/libvpx/encodemv.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/encodemv.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = encodemv.c
+  source_name_part = encodemv
+build obj/third_party/libvpx/libvpx/ethreading.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/ethreading.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = ethreading.c
+  source_name_part = ethreading
+build obj/third_party/libvpx/libvpx/lookahead.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/lookahead.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = lookahead.c
+  source_name_part = lookahead
+build obj/third_party/libvpx/libvpx/mcomp.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/mcomp.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = mcomp.c
+  source_name_part = mcomp
+build obj/third_party/libvpx/libvpx/modecosts.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/modecosts.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = modecosts.c
+  source_name_part = modecosts
+build obj/third_party/libvpx/libvpx/mr_dissim.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/mr_dissim.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = mr_dissim.c
+  source_name_part = mr_dissim
+build obj/third_party/libvpx/libvpx/onyx_if.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/onyx_if.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = onyx_if.c
+  source_name_part = onyx_if
+build obj/third_party/libvpx/libvpx/pickinter.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/pickinter.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = pickinter.c
+  source_name_part = pickinter
+build obj/third_party/libvpx/libvpx/picklpf.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/picklpf.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = picklpf.c
+  source_name_part = picklpf
+build obj/third_party/libvpx/libvpx/ratectrl.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/ratectrl.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = ratectrl.c
+  source_name_part = ratectrl
+build obj/third_party/libvpx/libvpx/rdopt.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/rdopt.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = rdopt.c
+  source_name_part = rdopt
+build obj/third_party/libvpx/libvpx/segmentation.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/segmentation.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = segmentation.c
+  source_name_part = segmentation
+build obj/third_party/libvpx/libvpx/tokenize.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/tokenize.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = tokenize.c
+  source_name_part = tokenize
+build obj/third_party/libvpx/libvpx/treewriter.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/treewriter.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = treewriter.c
+  source_name_part = treewriter
+build obj/third_party/libvpx/libvpx/vp8_quantize.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/encoder/vp8_quantize.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp8_quantize.c
+  source_name_part = vp8_quantize
+build obj/third_party/libvpx/libvpx/vp8_cx_iface.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/vp8_cx_iface.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp8_cx_iface.c
+  source_name_part = vp8_cx_iface
+build obj/third_party/libvpx/libvpx/vp8_dx_iface.o: cc ../../src/third_party/libvpx/source/libvpx/vp8/vp8_dx_iface.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp8_dx_iface.c
+  source_name_part = vp8_dx_iface
+build obj/third_party/libvpx/libvpx/vp9_alloccommon.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/vp9_alloccommon.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_alloccommon.c
+  source_name_part = vp9_alloccommon
+build obj/third_party/libvpx/libvpx/vp9_blockd.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/vp9_blockd.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_blockd.c
+  source_name_part = vp9_blockd
+build obj/third_party/libvpx/libvpx/vp9_common_data.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/vp9_common_data.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_common_data.c
+  source_name_part = vp9_common_data
+build obj/third_party/libvpx/libvpx/vp9_entropy.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/vp9_entropy.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_entropy.c
+  source_name_part = vp9_entropy
+build obj/third_party/libvpx/libvpx/vp9_entropymode.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/vp9_entropymode.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_entropymode.c
+  source_name_part = vp9_entropymode
+build obj/third_party/libvpx/libvpx/vp9_entropymv.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/vp9_entropymv.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_entropymv.c
+  source_name_part = vp9_entropymv
+build obj/third_party/libvpx/libvpx/vp9_filter.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/vp9_filter.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_filter.c
+  source_name_part = vp9_filter
+build obj/third_party/libvpx/libvpx/vp9_frame_buffers.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/vp9_frame_buffers.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_frame_buffers.c
+  source_name_part = vp9_frame_buffers
+build obj/third_party/libvpx/libvpx/vp9_idct.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/vp9_idct.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_idct.c
+  source_name_part = vp9_idct
+build obj/third_party/libvpx/libvpx/vp9_loopfilter.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/vp9_loopfilter.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_loopfilter.c
+  source_name_part = vp9_loopfilter
+build obj/third_party/libvpx/libvpx/vp9_mfqe.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/vp9_mfqe.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_mfqe.c
+  source_name_part = vp9_mfqe
+build obj/third_party/libvpx/libvpx/vp9_mvref_common.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/vp9_mvref_common.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_mvref_common.c
+  source_name_part = vp9_mvref_common
+build obj/third_party/libvpx/libvpx/vp9_postproc.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/vp9_postproc.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_postproc.c
+  source_name_part = vp9_postproc
+build obj/third_party/libvpx/libvpx/vp9_pred_common.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/vp9_pred_common.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_pred_common.c
+  source_name_part = vp9_pred_common
+build obj/third_party/libvpx/libvpx/vp9_quant_common.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/vp9_quant_common.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_quant_common.c
+  source_name_part = vp9_quant_common
+build obj/third_party/libvpx/libvpx/vp9_reconinter.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/vp9_reconinter.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_reconinter.c
+  source_name_part = vp9_reconinter
+build obj/third_party/libvpx/libvpx/vp9_reconintra.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/vp9_reconintra.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_reconintra.c
+  source_name_part = vp9_reconintra
+build obj/third_party/libvpx/libvpx/vp9_rtcd.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/vp9_rtcd.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_rtcd.c
+  source_name_part = vp9_rtcd
+build obj/third_party/libvpx/libvpx/vp9_scale.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/vp9_scale.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_scale.c
+  source_name_part = vp9_scale
+build obj/third_party/libvpx/libvpx/vp9_scan.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/vp9_scan.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_scan.c
+  source_name_part = vp9_scan
+build obj/third_party/libvpx/libvpx/vp9_seg_common.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/vp9_seg_common.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_seg_common.c
+  source_name_part = vp9_seg_common
+build obj/third_party/libvpx/libvpx/vp9_thread_common.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/vp9_thread_common.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_thread_common.c
+  source_name_part = vp9_thread_common
+build obj/third_party/libvpx/libvpx/vp9_tile_common.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/common/vp9_tile_common.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_tile_common.c
+  source_name_part = vp9_tile_common
+build obj/third_party/libvpx/libvpx/vp9_decodeframe.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/decoder/vp9_decodeframe.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_decodeframe.c
+  source_name_part = vp9_decodeframe
+build obj/third_party/libvpx/libvpx/vp9_decodemv.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/decoder/vp9_decodemv.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_decodemv.c
+  source_name_part = vp9_decodemv
+build obj/third_party/libvpx/libvpx/vp9_decoder.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/decoder/vp9_decoder.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_decoder.c
+  source_name_part = vp9_decoder
+build obj/third_party/libvpx/libvpx/vp9_detokenize.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/decoder/vp9_detokenize.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_detokenize.c
+  source_name_part = vp9_detokenize
+build obj/third_party/libvpx/libvpx/vp9_dsubexp.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/decoder/vp9_dsubexp.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_dsubexp.c
+  source_name_part = vp9_dsubexp
+build obj/third_party/libvpx/libvpx/vp9_job_queue.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/decoder/vp9_job_queue.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_job_queue.c
+  source_name_part = vp9_job_queue
+build obj/third_party/libvpx/libvpx/vp9_aq_cyclicrefresh.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_aq_cyclicrefresh.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_aq_cyclicrefresh.c
+  source_name_part = vp9_aq_cyclicrefresh
+build obj/third_party/libvpx/libvpx/vp9_bitstream.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_bitstream.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_bitstream.c
+  source_name_part = vp9_bitstream
+build obj/third_party/libvpx/libvpx/vp9_context_tree.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_context_tree.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_context_tree.c
+  source_name_part = vp9_context_tree
+build obj/third_party/libvpx/libvpx/vp9_cost.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_cost.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_cost.c
+  source_name_part = vp9_cost
+build obj/third_party/libvpx/libvpx/vp9_dct.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_dct.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_dct.c
+  source_name_part = vp9_dct
+build obj/third_party/libvpx/libvpx/vp9_denoiser.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_denoiser.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_denoiser.c
+  source_name_part = vp9_denoiser
+build obj/third_party/libvpx/libvpx/vp9_encodeframe.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_encodeframe.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_encodeframe.c
+  source_name_part = vp9_encodeframe
+build obj/third_party/libvpx/libvpx/vp9_encodemb.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_encodemb.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_encodemb.c
+  source_name_part = vp9_encodemb
+build obj/third_party/libvpx/libvpx/vp9_encodemv.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_encodemv.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_encodemv.c
+  source_name_part = vp9_encodemv
+build obj/third_party/libvpx/libvpx/vp9_encoder.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_encoder.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_encoder.c
+  source_name_part = vp9_encoder
+build obj/third_party/libvpx/libvpx/vp9_ethread.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_ethread.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_ethread.c
+  source_name_part = vp9_ethread
+build obj/third_party/libvpx/libvpx/vp9_ext_ratectrl.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_ext_ratectrl.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_ext_ratectrl.c
+  source_name_part = vp9_ext_ratectrl
+build obj/third_party/libvpx/libvpx/vp9_extend.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_extend.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_extend.c
+  source_name_part = vp9_extend
+build obj/third_party/libvpx/libvpx/vp9_frame_scale.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_frame_scale.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_frame_scale.c
+  source_name_part = vp9_frame_scale
+build obj/third_party/libvpx/libvpx/vp9_lookahead.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_lookahead.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_lookahead.c
+  source_name_part = vp9_lookahead
+build obj/third_party/libvpx/libvpx/vp9_mcomp.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_mcomp.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_mcomp.c
+  source_name_part = vp9_mcomp
+build obj/third_party/libvpx/libvpx/vp9_multi_thread.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_multi_thread.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_multi_thread.c
+  source_name_part = vp9_multi_thread
+build obj/third_party/libvpx/libvpx/vp9_noise_estimate.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_noise_estimate.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_noise_estimate.c
+  source_name_part = vp9_noise_estimate
+build obj/third_party/libvpx/libvpx/vp9_picklpf.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_picklpf.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_picklpf.c
+  source_name_part = vp9_picklpf
+build obj/third_party/libvpx/libvpx/vp9_pickmode.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_pickmode.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_pickmode.c
+  source_name_part = vp9_pickmode
+build obj/third_party/libvpx/libvpx/vp9_quantize.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_quantize.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_quantize.c
+  source_name_part = vp9_quantize
+build obj/third_party/libvpx/libvpx/vp9_ratectrl.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_ratectrl.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_ratectrl.c
+  source_name_part = vp9_ratectrl
+build obj/third_party/libvpx/libvpx/vp9_rd.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_rd.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_rd.c
+  source_name_part = vp9_rd
+build obj/third_party/libvpx/libvpx/vp9_rdopt.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_rdopt.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_rdopt.c
+  source_name_part = vp9_rdopt
+build obj/third_party/libvpx/libvpx/vp9_resize.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_resize.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_resize.c
+  source_name_part = vp9_resize
+build obj/third_party/libvpx/libvpx/vp9_segmentation.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_segmentation.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_segmentation.c
+  source_name_part = vp9_segmentation
+build obj/third_party/libvpx/libvpx/vp9_skin_detection.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_skin_detection.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_skin_detection.c
+  source_name_part = vp9_skin_detection
+build obj/third_party/libvpx/libvpx/vp9_speed_features.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_speed_features.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_speed_features.c
+  source_name_part = vp9_speed_features
+build obj/third_party/libvpx/libvpx/vp9_subexp.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_subexp.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_subexp.c
+  source_name_part = vp9_subexp
+build obj/third_party/libvpx/libvpx/vp9_svc_layercontext.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_svc_layercontext.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_svc_layercontext.c
+  source_name_part = vp9_svc_layercontext
+build obj/third_party/libvpx/libvpx/vp9_tokenize.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_tokenize.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_tokenize.c
+  source_name_part = vp9_tokenize
+build obj/third_party/libvpx/libvpx/vp9_tpl_model.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_tpl_model.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_tpl_model.c
+  source_name_part = vp9_tpl_model
+build obj/third_party/libvpx/libvpx/vp9_treewriter.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/encoder/vp9_treewriter.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_treewriter.c
+  source_name_part = vp9_treewriter
+build obj/third_party/libvpx/libvpx/vp9_cx_iface.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/vp9_cx_iface.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_cx_iface.c
+  source_name_part = vp9_cx_iface
+build obj/third_party/libvpx/libvpx/vp9_dx_iface.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/vp9_dx_iface.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_dx_iface.c
+  source_name_part = vp9_dx_iface
+build obj/third_party/libvpx/libvpx/vp9_iface_common.o: cc ../../src/third_party/libvpx/source/libvpx/vp9/vp9_iface_common.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vp9_iface_common.c
+  source_name_part = vp9_iface_common
+build obj/third_party/libvpx/libvpx/vpx_codec.o: cc ../../src/third_party/libvpx/source/libvpx/vpx/src/vpx_codec.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vpx_codec.c
+  source_name_part = vpx_codec
+build obj/third_party/libvpx/libvpx/vpx_decoder.o: cc ../../src/third_party/libvpx/source/libvpx/vpx/src/vpx_decoder.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vpx_decoder.c
+  source_name_part = vpx_decoder
+build obj/third_party/libvpx/libvpx/vpx_encoder.o: cc ../../src/third_party/libvpx/source/libvpx/vpx/src/vpx_encoder.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vpx_encoder.c
+  source_name_part = vpx_encoder
+build obj/third_party/libvpx/libvpx/vpx_image.o: cc ../../src/third_party/libvpx/source/libvpx/vpx/src/vpx_image.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vpx_image.c
+  source_name_part = vpx_image
+build obj/third_party/libvpx/libvpx/add_noise.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/add_noise.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = add_noise.c
+  source_name_part = add_noise
+build obj/third_party/libvpx/libvpx/avg.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/avg.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = avg.c
+  source_name_part = avg
+build obj/third_party/libvpx/libvpx/bitreader.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/bitreader.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = bitreader.c
+  source_name_part = bitreader
+build obj/third_party/libvpx/libvpx/bitreader_buffer.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/bitreader_buffer.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = bitreader_buffer.c
+  source_name_part = bitreader_buffer
+build obj/third_party/libvpx/libvpx/bitwriter.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/bitwriter.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = bitwriter.c
+  source_name_part = bitwriter
+build obj/third_party/libvpx/libvpx/bitwriter_buffer.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/bitwriter_buffer.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = bitwriter_buffer.c
+  source_name_part = bitwriter_buffer
+build obj/third_party/libvpx/libvpx/deblock.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/deblock.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = deblock.c
+  source_name_part = deblock
+build obj/third_party/libvpx/libvpx/fwd_txfm.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/fwd_txfm.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = fwd_txfm.c
+  source_name_part = fwd_txfm
+build obj/third_party/libvpx/libvpx/intrapred.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/intrapred.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = intrapred.c
+  source_name_part = intrapred
+build obj/third_party/libvpx/libvpx/inv_txfm.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/inv_txfm.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = inv_txfm.c
+  source_name_part = inv_txfm
+build obj/third_party/libvpx/libvpx/loopfilter.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/loopfilter.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = loopfilter.c
+  source_name_part = loopfilter
+build obj/third_party/libvpx/libvpx/prob.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/prob.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = prob.c
+  source_name_part = prob
+build obj/third_party/libvpx/libvpx/psnr.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/psnr.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = psnr.c
+  source_name_part = psnr
+build obj/third_party/libvpx/libvpx/quantize.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/quantize.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = quantize.c
+  source_name_part = quantize
+build obj/third_party/libvpx/libvpx/sad.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/sad.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = sad.c
+  source_name_part = sad
+build obj/third_party/libvpx/libvpx/skin_detection.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/skin_detection.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = skin_detection.c
+  source_name_part = skin_detection
+build obj/third_party/libvpx/libvpx/sse.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/sse.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = sse.c
+  source_name_part = sse
+build obj/third_party/libvpx/libvpx/subtract.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/subtract.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = subtract.c
+  source_name_part = subtract
+build obj/third_party/libvpx/libvpx/sum_squares.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/sum_squares.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = sum_squares.c
+  source_name_part = sum_squares
+build obj/third_party/libvpx/libvpx/variance.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/variance.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = variance.c
+  source_name_part = variance
+build obj/third_party/libvpx/libvpx/vpx_convolve.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/vpx_convolve.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vpx_convolve.c
+  source_name_part = vpx_convolve
+build obj/third_party/libvpx/libvpx/vpx_dsp_rtcd.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_dsp/vpx_dsp_rtcd.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vpx_dsp_rtcd.c
+  source_name_part = vpx_dsp_rtcd
+build obj/third_party/libvpx/libvpx/vpx_mem.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_mem/vpx_mem.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vpx_mem.c
+  source_name_part = vpx_mem
+build obj/third_party/libvpx/libvpx/aarch64_cpudetect.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_ports/aarch64_cpudetect.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = aarch64_cpudetect.c
+  source_name_part = aarch64_cpudetect
+build obj/third_party/libvpx/libvpx/gen_scalers.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_scale/generic/gen_scalers.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = gen_scalers.c
+  source_name_part = gen_scalers
+build obj/third_party/libvpx/libvpx/vpx_scale.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_scale/generic/vpx_scale.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vpx_scale.c
+  source_name_part = vpx_scale
+build obj/third_party/libvpx/libvpx/yv12config.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_scale/generic/yv12config.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = yv12config.c
+  source_name_part = yv12config
+build obj/third_party/libvpx/libvpx/yv12extend.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_scale/generic/yv12extend.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = yv12extend.c
+  source_name_part = yv12extend
+build obj/third_party/libvpx/libvpx/vpx_scale_rtcd.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_scale/vpx_scale_rtcd.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vpx_scale_rtcd.c
+  source_name_part = vpx_scale_rtcd
+build obj/third_party/libvpx/libvpx/vpx_thread.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_util/vpx_thread.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vpx_thread.c
+  source_name_part = vpx_thread
+build obj/third_party/libvpx/libvpx/vpx_write_yuv_frame.o: cc ../../src/third_party/libvpx/source/libvpx/vpx_util/vpx_write_yuv_frame.c | phony/third_party/libvpx/libvpx.inputs
+  source_file_part = vpx_write_yuv_frame.c
+  source_name_part = vpx_write_yuv_frame
+
+build obj/third_party/libvpx/libvpx.a: alink obj/third_party/libvpx/libvpx/alloccommon.o obj/third_party/libvpx/libvpx/loopfilter_arm.o obj/third_party/libvpx/libvpx/blockd.o obj/third_party/libvpx/libvpx/dequantize.o obj/third_party/libvpx/libvpx/entropy.o obj/third_party/libvpx/libvpx/entropymode.o obj/third_party/libvpx/libvpx/entropymv.o obj/third_party/libvpx/libvpx/extend.o obj/third_party/libvpx/libvpx/filter.o obj/third_party/libvpx/libvpx/findnearmv.o obj/third_party/libvpx/libvpx/systemdependent.o obj/third_party/libvpx/libvpx/idct_blk.o obj/third_party/libvpx/libvpx/idctllm.o obj/third_party/libvpx/libvpx/loopfilter_filters.o obj/third_party/libvpx/libvpx/mbpitch.o obj/third_party/libvpx/libvpx/mfqe.o obj/third_party/libvpx/libvpx/modecont.o obj/third_party/libvpx/libvpx/postproc.o obj/third_party/libvpx/libvpx/quant_common.o obj/third_party/libvpx/libvpx/reconinter.o obj/third_party/libvpx/libvpx/reconintra.o obj/third_party/libvpx/libvpx/reconintra4x4.o obj/third_party/libvpx/libvpx/rtcd.o obj/third_party/libvpx/libvpx/setupintrarecon.o obj/third_party/libvpx/libvpx/swapyv12buffer.o obj/third_party/libvpx/libvpx/treecoder.o obj/third_party/libvpx/libvpx/vp8_loopfilter.o obj/third_party/libvpx/libvpx/vp8_skin_detection.o obj/third_party/libvpx/libvpx/dboolhuff.o obj/third_party/libvpx/libvpx/decodeframe.o obj/third_party/libvpx/libvpx/decodemv.o obj/third_party/libvpx/libvpx/detokenize.o obj/third_party/libvpx/libvpx/onyxd_if.o obj/third_party/libvpx/libvpx/threading.o obj/third_party/libvpx/libvpx/bitstream.o obj/third_party/libvpx/libvpx/boolhuff.o obj/third_party/libvpx/libvpx/copy_c.o obj/third_party/libvpx/libvpx/dct.o obj/third_party/libvpx/libvpx/denoising.o obj/third_party/libvpx/libvpx/encodeframe.o obj/third_party/libvpx/libvpx/encodeintra.o obj/third_party/libvpx/libvpx/encodemb.o obj/third_party/libvpx/libvpx/encodemv.o obj/third_party/libvpx/libvpx/ethreading.o obj/third_party/libvpx/libvpx/lookahead.o obj/third_party/libvpx/libvpx/mcomp.o obj/third_party/libvpx/libvpx/modecosts.o obj/third_party/libvpx/libvpx/mr_dissim.o obj/third_party/libvpx/libvpx/onyx_if.o obj/third_party/libvpx/libvpx/pickinter.o obj/third_party/libvpx/libvpx/picklpf.o obj/third_party/libvpx/libvpx/ratectrl.o obj/third_party/libvpx/libvpx/rdopt.o obj/third_party/libvpx/libvpx/segmentation.o obj/third_party/libvpx/libvpx/tokenize.o obj/third_party/libvpx/libvpx/treewriter.o obj/third_party/libvpx/libvpx/vp8_quantize.o obj/third_party/libvpx/libvpx/vp8_cx_iface.o obj/third_party/libvpx/libvpx/vp8_dx_iface.o obj/third_party/libvpx/libvpx/vp9_alloccommon.o obj/third_party/libvpx/libvpx/vp9_blockd.o obj/third_party/libvpx/libvpx/vp9_common_data.o obj/third_party/libvpx/libvpx/vp9_entropy.o obj/third_party/libvpx/libvpx/vp9_entropymode.o obj/third_party/libvpx/libvpx/vp9_entropymv.o obj/third_party/libvpx/libvpx/vp9_filter.o obj/third_party/libvpx/libvpx/vp9_frame_buffers.o obj/third_party/libvpx/libvpx/vp9_idct.o obj/third_party/libvpx/libvpx/vp9_loopfilter.o obj/third_party/libvpx/libvpx/vp9_mfqe.o obj/third_party/libvpx/libvpx/vp9_mvref_common.o obj/third_party/libvpx/libvpx/vp9_postproc.o obj/third_party/libvpx/libvpx/vp9_pred_common.o obj/third_party/libvpx/libvpx/vp9_quant_common.o obj/third_party/libvpx/libvpx/vp9_reconinter.o obj/third_party/libvpx/libvpx/vp9_reconintra.o obj/third_party/libvpx/libvpx/vp9_rtcd.o obj/third_party/libvpx/libvpx/vp9_scale.o obj/third_party/libvpx/libvpx/vp9_scan.o obj/third_party/libvpx/libvpx/vp9_seg_common.o obj/third_party/libvpx/libvpx/vp9_thread_common.o obj/third_party/libvpx/libvpx/vp9_tile_common.o obj/third_party/libvpx/libvpx/vp9_decodeframe.o obj/third_party/libvpx/libvpx/vp9_decodemv.o obj/third_party/libvpx/libvpx/vp9_decoder.o obj/third_party/libvpx/libvpx/vp9_detokenize.o obj/third_party/libvpx/libvpx/vp9_dsubexp.o obj/third_party/libvpx/libvpx/vp9_job_queue.o obj/third_party/libvpx/libvpx/vp9_aq_cyclicrefresh.o obj/third_party/libvpx/libvpx/vp9_bitstream.o obj/third_party/libvpx/libvpx/vp9_context_tree.o obj/third_party/libvpx/libvpx/vp9_cost.o obj/third_party/libvpx/libvpx/vp9_dct.o obj/third_party/libvpx/libvpx/vp9_denoiser.o obj/third_party/libvpx/libvpx/vp9_encodeframe.o obj/third_party/libvpx/libvpx/vp9_encodemb.o obj/third_party/libvpx/libvpx/vp9_encodemv.o obj/third_party/libvpx/libvpx/vp9_encoder.o obj/third_party/libvpx/libvpx/vp9_ethread.o obj/third_party/libvpx/libvpx/vp9_ext_ratectrl.o obj/third_party/libvpx/libvpx/vp9_extend.o obj/third_party/libvpx/libvpx/vp9_frame_scale.o obj/third_party/libvpx/libvpx/vp9_lookahead.o obj/third_party/libvpx/libvpx/vp9_mcomp.o obj/third_party/libvpx/libvpx/vp9_multi_thread.o obj/third_party/libvpx/libvpx/vp9_noise_estimate.o obj/third_party/libvpx/libvpx/vp9_picklpf.o obj/third_party/libvpx/libvpx/vp9_pickmode.o obj/third_party/libvpx/libvpx/vp9_quantize.o obj/third_party/libvpx/libvpx/vp9_ratectrl.o obj/third_party/libvpx/libvpx/vp9_rd.o obj/third_party/libvpx/libvpx/vp9_rdopt.o obj/third_party/libvpx/libvpx/vp9_resize.o obj/third_party/libvpx/libvpx/vp9_segmentation.o obj/third_party/libvpx/libvpx/vp9_skin_detection.o obj/third_party/libvpx/libvpx/vp9_speed_features.o obj/third_party/libvpx/libvpx/vp9_subexp.o obj/third_party/libvpx/libvpx/vp9_svc_layercontext.o obj/third_party/libvpx/libvpx/vp9_tokenize.o obj/third_party/libvpx/libvpx/vp9_tpl_model.o obj/third_party/libvpx/libvpx/vp9_treewriter.o obj/third_party/libvpx/libvpx/vp9_cx_iface.o obj/third_party/libvpx/libvpx/vp9_dx_iface.o obj/third_party/libvpx/libvpx/vp9_iface_common.o obj/third_party/libvpx/libvpx/vpx_codec.o obj/third_party/libvpx/libvpx/vpx_decoder.o obj/third_party/libvpx/libvpx/vpx_encoder.o obj/third_party/libvpx/libvpx/vpx_image.o obj/third_party/libvpx/libvpx/add_noise.o obj/third_party/libvpx/libvpx/avg.o obj/third_party/libvpx/libvpx/bitreader.o obj/third_party/libvpx/libvpx/bitreader_buffer.o obj/third_party/libvpx/libvpx/bitwriter.o obj/third_party/libvpx/libvpx/bitwriter_buffer.o obj/third_party/libvpx/libvpx/deblock.o obj/third_party/libvpx/libvpx/fwd_txfm.o obj/third_party/libvpx/libvpx/intrapred.o obj/third_party/libvpx/libvpx/inv_txfm.o obj/third_party/libvpx/libvpx/loopfilter.o obj/third_party/libvpx/libvpx/prob.o obj/third_party/libvpx/libvpx/psnr.o obj/third_party/libvpx/libvpx/quantize.o obj/third_party/libvpx/libvpx/sad.o obj/third_party/libvpx/libvpx/skin_detection.o obj/third_party/libvpx/libvpx/sse.o obj/third_party/libvpx/libvpx/subtract.o obj/third_party/libvpx/libvpx/sum_squares.o obj/third_party/libvpx/libvpx/variance.o obj/third_party/libvpx/libvpx/vpx_convolve.o obj/third_party/libvpx/libvpx/vpx_dsp_rtcd.o obj/third_party/libvpx/libvpx/vpx_mem.o obj/third_party/libvpx/libvpx/aarch64_cpudetect.o obj/third_party/libvpx/libvpx/gen_scalers.o obj/third_party/libvpx/libvpx/vpx_scale.o obj/third_party/libvpx/libvpx/yv12config.o obj/third_party/libvpx/libvpx/yv12extend.o obj/third_party/libvpx/libvpx/vpx_scale_rtcd.o obj/third_party/libvpx/libvpx/vpx_thread.o obj/third_party/libvpx/libvpx/vpx_write_yuv_frame.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a phony/third_party/libvpx/libvpx.inputs || phony/third_party/libvpx/libvpx_intrinsics_neon phony/third_party/libvpx/libvpx_intrinsics_neon_dotprod phony/third_party/libvpx/libvpx_intrinsics_neon_i8mm phony/third_party/libvpx/libvpx_intrinsics_sve phony/third_party/libvpx/libvpx_intrinsics_sve2
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/third_party/libvpx

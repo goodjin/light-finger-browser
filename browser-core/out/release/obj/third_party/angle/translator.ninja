@@ -1,0 +1,508 @@
+defines = -DANGLE_ENABLE_ESSL -DANGLE_ENABLE_GLSL -DANGLE_ENABLE_VULKAN -DANGLE_ENABLE_METAL -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=2 -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DANGLE_OUTSIDE_WEBKIT -DANGLE_DELEGATE_WORKERS=1 -DANGLE_USE_ABSEIL -DABSL_ALLOCATOR_NOTHROW=1
+framework_dirs =
+include_dirs = -I../../src/buildtools/third_party/libc++ -I../../src/third_party/angle/include -I../../src/third_party/angle/src -I../../src/third_party/angle/src/common/base -I../../src/third_party/angle/src/common/third_party/xxhash -I../../src/third_party/abseil-cpp -I../../src/third_party/spirv-headers/src/include -I../../src/third_party/spirv-tools/src/include
+cflags = -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wthread-safety -Wgnu -Wno-gnu-anonymous-struct -Wno-gnu-conditional-omitted-operand -Wno-gnu-include-next -Wno-gnu-label-as-value -Wno-gnu-redeclared-enum -Wno-gnu-statement-expression -Wno-gnu-zero-variadic-macro-arguments -Wno-zero-length-array -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wshadow -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wexit-time-destructors -Wglobal-constructors -Wbad-function-cast -Wconditional-uninitialized -Wextra-semi-stmt -Wfloat-conversion -Winconsistent-missing-destructor-override -Wmissing-field-initializers -Wnewline-eof -Wnon-virtual-dtor -Wredundant-parens -Wreturn-std-move -Wshadow -Wshadow-field -Wtautological-type-limit-compare -Wundefined-reinterpret-cast -Wunneeded-internal-declaration -Wunused-but-set-variable -Wsuggest-destructor-override -Wsuggest-override -Wparentheses -Wrange-loop-analysis -Wstrict-prototypes -Wunreachable-code-aggressive -Wshorten-64-to-32 -O2 -fno-math-errno
+cflags_cc = -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden
+label_name = translator
+root_out_dir = .
+target_out_dir = obj/third_party/angle
+target_output_name = libtranslator
+
+build phony/third_party/angle/translator.inputdeps: phony phony/build/chromeos_buildflags phony/third_party/angle/angle_commit_id phony/third_party/angle/angle_program_version_id phony/third_party/spirv-tools/src/spvtools_core_enums_unified1 phony/third_party/spirv-tools/src/spvtools_core_tables_unified1 phony/third_party/spirv-tools/src/spvtools_generators_inc phony/third_party/spirv-tools/src/spvtools_glsl_tables_glsl1-0 phony/third_party/spirv-tools/src/spvtools_language_header_cldebuginfo100 phony/third_party/spirv-tools/src/spvtools_language_header_debuginfo phony/third_party/spirv-tools/src/spvtools_language_header_vkdebuginfo100 phony/third_party/spirv-tools/src/spvtools_opencl_tables_opencl1-0 phony/third_party/spirv-tools/src/spvtools_vendor_tables_debuginfo phony/third_party/spirv-tools/src/spvtools_vendor_tables_nonsemantic.clspvreflection phony/third_party/spirv-tools/src/spvtools_vendor_tables_nonsemantic.shader.debuginfo.100 phony/third_party/spirv-tools/src/spvtools_vendor_tables_nonsemantic.vkspreflection phony/third_party/spirv-tools/src/spvtools_vendor_tables_opencl.debuginfo.100 phony/third_party/spirv-tools/src/spvtools_vendor_tables_spv-amd-gcn-shader phony/third_party/spirv-tools/src/spvtools_vendor_tables_spv-amd-shader-ballot phony/third_party/spirv-tools/src/spvtools_vendor_tables_spv-amd-shader-explicit-vertex-parameter phony/third_party/spirv-tools/src/spvtools_vendor_tables_spv-amd-shader-trinary-minmax
+build obj/third_party/angle/translator/BaseTypes.o: cxx ../../src/third_party/angle/src/compiler/translator/BaseTypes.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = BaseTypes.cpp
+  source_name_part = BaseTypes
+build obj/third_party/angle/translator/BuiltInFunctionEmulator.o: cxx ../../src/third_party/angle/src/compiler/translator/BuiltInFunctionEmulator.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = BuiltInFunctionEmulator.cpp
+  source_name_part = BuiltInFunctionEmulator
+build obj/third_party/angle/translator/CallDAG.o: cxx ../../src/third_party/angle/src/compiler/translator/CallDAG.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = CallDAG.cpp
+  source_name_part = CallDAG
+build obj/third_party/angle/translator/CodeGen.o: cxx ../../src/third_party/angle/src/compiler/translator/CodeGen.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = CodeGen.cpp
+  source_name_part = CodeGen
+build obj/third_party/angle/translator/CollectVariables.o: cxx ../../src/third_party/angle/src/compiler/translator/CollectVariables.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = CollectVariables.cpp
+  source_name_part = CollectVariables
+build obj/third_party/angle/translator/Compiler.o: cxx ../../src/third_party/angle/src/compiler/translator/Compiler.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = Compiler.cpp
+  source_name_part = Compiler
+build obj/third_party/angle/translator/ConstantUnion.o: cxx ../../src/third_party/angle/src/compiler/translator/ConstantUnion.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ConstantUnion.cpp
+  source_name_part = ConstantUnion
+build obj/third_party/angle/translator/Declarator.o: cxx ../../src/third_party/angle/src/compiler/translator/Declarator.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = Declarator.cpp
+  source_name_part = Declarator
+build obj/third_party/angle/translator/Diagnostics.o: cxx ../../src/third_party/angle/src/compiler/translator/Diagnostics.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = Diagnostics.cpp
+  source_name_part = Diagnostics
+build obj/third_party/angle/translator/DirectiveHandler.o: cxx ../../src/third_party/angle/src/compiler/translator/DirectiveHandler.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = DirectiveHandler.cpp
+  source_name_part = DirectiveHandler
+build obj/third_party/angle/translator/ExtensionBehavior.o: cxx ../../src/third_party/angle/src/compiler/translator/ExtensionBehavior.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ExtensionBehavior.cpp
+  source_name_part = ExtensionBehavior
+build obj/third_party/angle/translator/FlagStd140Structs.o: cxx ../../src/third_party/angle/src/compiler/translator/FlagStd140Structs.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = FlagStd140Structs.cpp
+  source_name_part = FlagStd140Structs
+build obj/third_party/angle/translator/FunctionLookup.o: cxx ../../src/third_party/angle/src/compiler/translator/FunctionLookup.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = FunctionLookup.cpp
+  source_name_part = FunctionLookup
+build obj/third_party/angle/translator/HashNames.o: cxx ../../src/third_party/angle/src/compiler/translator/HashNames.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = HashNames.cpp
+  source_name_part = HashNames
+build obj/third_party/angle/translator/ImmutableStringBuilder.o: cxx ../../src/third_party/angle/src/compiler/translator/ImmutableStringBuilder.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ImmutableStringBuilder.cpp
+  source_name_part = ImmutableStringBuilder
+build obj/third_party/angle/translator/InfoSink.o: cxx ../../src/third_party/angle/src/compiler/translator/InfoSink.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = InfoSink.cpp
+  source_name_part = InfoSink
+build obj/third_party/angle/translator/Initialize.o: cxx ../../src/third_party/angle/src/compiler/translator/Initialize.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = Initialize.cpp
+  source_name_part = Initialize
+build obj/third_party/angle/translator/InitializeDll.o: cxx ../../src/third_party/angle/src/compiler/translator/InitializeDll.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = InitializeDll.cpp
+  source_name_part = InitializeDll
+build obj/third_party/angle/translator/IntermNode.o: cxx ../../src/third_party/angle/src/compiler/translator/IntermNode.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = IntermNode.cpp
+  source_name_part = IntermNode
+build obj/third_party/angle/translator/IntermRebuild.o: cxx ../../src/third_party/angle/src/compiler/translator/IntermRebuild.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = IntermRebuild.cpp
+  source_name_part = IntermRebuild
+build obj/third_party/angle/translator/IsASTDepthBelowLimit.o: cxx ../../src/third_party/angle/src/compiler/translator/IsASTDepthBelowLimit.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = IsASTDepthBelowLimit.cpp
+  source_name_part = IsASTDepthBelowLimit
+build obj/third_party/angle/translator/Name.o: cxx ../../src/third_party/angle/src/compiler/translator/Name.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = Name.cpp
+  source_name_part = Name
+build obj/third_party/angle/translator/Operator.o: cxx ../../src/third_party/angle/src/compiler/translator/Operator.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = Operator.cpp
+  source_name_part = Operator
+build obj/third_party/angle/translator/OutputTree.o: cxx ../../src/third_party/angle/src/compiler/translator/OutputTree.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = OutputTree.cpp
+  source_name_part = OutputTree
+build obj/third_party/angle/translator/ParseContext.o: cxx ../../src/third_party/angle/src/compiler/translator/ParseContext.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ParseContext.cpp
+  source_name_part = ParseContext
+build obj/third_party/angle/translator/PoolAlloc.o: cxx ../../src/third_party/angle/src/compiler/translator/PoolAlloc.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = PoolAlloc.cpp
+  source_name_part = PoolAlloc
+build obj/third_party/angle/translator/QualifierTypes.o: cxx ../../src/third_party/angle/src/compiler/translator/QualifierTypes.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = QualifierTypes.cpp
+  source_name_part = QualifierTypes
+build obj/third_party/angle/translator/ShaderLang.o: cxx ../../src/third_party/angle/src/compiler/translator/ShaderLang.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ShaderLang.cpp
+  source_name_part = ShaderLang
+build obj/third_party/angle/translator/ShaderVars.o: cxx ../../src/third_party/angle/src/compiler/translator/ShaderVars.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ShaderVars.cpp
+  source_name_part = ShaderVars
+build obj/third_party/angle/translator/Symbol.o: cxx ../../src/third_party/angle/src/compiler/translator/Symbol.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = Symbol.cpp
+  source_name_part = Symbol
+build obj/third_party/angle/translator/SymbolTable.o: cxx ../../src/third_party/angle/src/compiler/translator/SymbolTable.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = SymbolTable.cpp
+  source_name_part = SymbolTable
+build obj/third_party/angle/translator/SymbolUniqueId.o: cxx ../../src/third_party/angle/src/compiler/translator/SymbolUniqueId.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = SymbolUniqueId.cpp
+  source_name_part = SymbolUniqueId
+build obj/third_party/angle/translator/Types.o: cxx ../../src/third_party/angle/src/compiler/translator/Types.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = Types.cpp
+  source_name_part = Types
+build obj/third_party/angle/translator/ValidateAST.o: cxx ../../src/third_party/angle/src/compiler/translator/ValidateAST.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ValidateAST.cpp
+  source_name_part = ValidateAST
+build obj/third_party/angle/translator/ValidateBarrierFunctionCall.o: cxx ../../src/third_party/angle/src/compiler/translator/ValidateBarrierFunctionCall.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ValidateBarrierFunctionCall.cpp
+  source_name_part = ValidateBarrierFunctionCall
+build obj/third_party/angle/translator/ValidateClipCullDistance.o: cxx ../../src/third_party/angle/src/compiler/translator/ValidateClipCullDistance.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ValidateClipCullDistance.cpp
+  source_name_part = ValidateClipCullDistance
+build obj/third_party/angle/translator/ValidateGlobalInitializer.o: cxx ../../src/third_party/angle/src/compiler/translator/ValidateGlobalInitializer.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ValidateGlobalInitializer.cpp
+  source_name_part = ValidateGlobalInitializer
+build obj/third_party/angle/translator/ValidateLimitations.o: cxx ../../src/third_party/angle/src/compiler/translator/ValidateLimitations.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ValidateLimitations.cpp
+  source_name_part = ValidateLimitations
+build obj/third_party/angle/translator/ValidateMaxParameters.o: cxx ../../src/third_party/angle/src/compiler/translator/ValidateMaxParameters.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ValidateMaxParameters.cpp
+  source_name_part = ValidateMaxParameters
+build obj/third_party/angle/translator/ValidateOutputs.o: cxx ../../src/third_party/angle/src/compiler/translator/ValidateOutputs.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ValidateOutputs.cpp
+  source_name_part = ValidateOutputs
+build obj/third_party/angle/translator/ValidateSwitch.o: cxx ../../src/third_party/angle/src/compiler/translator/ValidateSwitch.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ValidateSwitch.cpp
+  source_name_part = ValidateSwitch
+build obj/third_party/angle/translator/ValidateTypeSizeLimitations.o: cxx ../../src/third_party/angle/src/compiler/translator/ValidateTypeSizeLimitations.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ValidateTypeSizeLimitations.cpp
+  source_name_part = ValidateTypeSizeLimitations
+build obj/third_party/angle/translator/ValidateVaryingLocations.o: cxx ../../src/third_party/angle/src/compiler/translator/ValidateVaryingLocations.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ValidateVaryingLocations.cpp
+  source_name_part = ValidateVaryingLocations
+build obj/third_party/angle/translator/VariablePacker.o: cxx ../../src/third_party/angle/src/compiler/translator/VariablePacker.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = VariablePacker.cpp
+  source_name_part = VariablePacker
+build obj/third_party/angle/translator/blocklayout.o: cxx ../../src/third_party/angle/src/compiler/translator/blocklayout.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = blocklayout.cpp
+  source_name_part = blocklayout
+build obj/third_party/angle/translator/glslang_lex_autogen.o: cxx ../../src/third_party/angle/src/compiler/translator/glslang_lex_autogen.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = glslang_lex_autogen.cpp
+  source_name_part = glslang_lex_autogen
+build obj/third_party/angle/translator/glslang_tab_autogen.o: cxx ../../src/third_party/angle/src/compiler/translator/glslang_tab_autogen.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = glslang_tab_autogen.cpp
+  source_name_part = glslang_tab_autogen
+build obj/third_party/angle/translator/ClampFragDepth.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/ClampFragDepth.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ClampFragDepth.cpp
+  source_name_part = ClampFragDepth
+build obj/third_party/angle/translator/ClampIndirectIndices.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/ClampIndirectIndices.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ClampIndirectIndices.cpp
+  source_name_part = ClampIndirectIndices
+build obj/third_party/angle/translator/ClampPointSize.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/ClampPointSize.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ClampPointSize.cpp
+  source_name_part = ClampPointSize
+build obj/third_party/angle/translator/DeclareAndInitBuiltinsForInstancedMultiview.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/DeclareAndInitBuiltinsForInstancedMultiview.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = DeclareAndInitBuiltinsForInstancedMultiview.cpp
+  source_name_part = DeclareAndInitBuiltinsForInstancedMultiview
+build obj/third_party/angle/translator/DeclarePerVertexBlocks.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/DeclarePerVertexBlocks.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = DeclarePerVertexBlocks.cpp
+  source_name_part = DeclarePerVertexBlocks
+build obj/third_party/angle/translator/DeferGlobalInitializers.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/DeferGlobalInitializers.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = DeferGlobalInitializers.cpp
+  source_name_part = DeferGlobalInitializers
+build obj/third_party/angle/translator/EmulateGLFragColorBroadcast.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/EmulateGLFragColorBroadcast.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = EmulateGLFragColorBroadcast.cpp
+  source_name_part = EmulateGLFragColorBroadcast
+build obj/third_party/angle/translator/EmulateMultiDrawShaderBuiltins.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/EmulateMultiDrawShaderBuiltins.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = EmulateMultiDrawShaderBuiltins.cpp
+  source_name_part = EmulateMultiDrawShaderBuiltins
+build obj/third_party/angle/translator/FoldExpressions.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/FoldExpressions.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = FoldExpressions.cpp
+  source_name_part = FoldExpressions
+build obj/third_party/angle/translator/ForcePrecisionQualifier.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/ForcePrecisionQualifier.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ForcePrecisionQualifier.cpp
+  source_name_part = ForcePrecisionQualifier
+build obj/third_party/angle/translator/InitializeVariables.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/InitializeVariables.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = InitializeVariables.cpp
+  source_name_part = InitializeVariables
+build obj/third_party/angle/translator/MonomorphizeUnsupportedFunctions.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/MonomorphizeUnsupportedFunctions.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = MonomorphizeUnsupportedFunctions.cpp
+  source_name_part = MonomorphizeUnsupportedFunctions
+build obj/third_party/angle/translator/PreTransformTextureCubeGradDerivatives.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/PreTransformTextureCubeGradDerivatives.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = PreTransformTextureCubeGradDerivatives.cpp
+  source_name_part = PreTransformTextureCubeGradDerivatives
+build obj/third_party/angle/translator/PruneEmptyCases.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/PruneEmptyCases.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = PruneEmptyCases.cpp
+  source_name_part = PruneEmptyCases
+build obj/third_party/angle/translator/PruneInfiniteLoops.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/PruneInfiniteLoops.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = PruneInfiniteLoops.cpp
+  source_name_part = PruneInfiniteLoops
+build obj/third_party/angle/translator/PruneNoOps.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/PruneNoOps.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = PruneNoOps.cpp
+  source_name_part = PruneNoOps
+build obj/third_party/angle/translator/RecordConstantPrecision.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/RecordConstantPrecision.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RecordConstantPrecision.cpp
+  source_name_part = RecordConstantPrecision
+build obj/third_party/angle/translator/RemoveArrayLengthMethod.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/RemoveArrayLengthMethod.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RemoveArrayLengthMethod.cpp
+  source_name_part = RemoveArrayLengthMethod
+build obj/third_party/angle/translator/RemoveAtomicCounterBuiltins.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/RemoveAtomicCounterBuiltins.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RemoveAtomicCounterBuiltins.cpp
+  source_name_part = RemoveAtomicCounterBuiltins
+build obj/third_party/angle/translator/RemoveDynamicIndexing.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/RemoveDynamicIndexing.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RemoveDynamicIndexing.cpp
+  source_name_part = RemoveDynamicIndexing
+build obj/third_party/angle/translator/RemoveInactiveInterfaceVariables.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/RemoveInactiveInterfaceVariables.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RemoveInactiveInterfaceVariables.cpp
+  source_name_part = RemoveInactiveInterfaceVariables
+build obj/third_party/angle/translator/RemoveInvariantDeclaration.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/RemoveInvariantDeclaration.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RemoveInvariantDeclaration.cpp
+  source_name_part = RemoveInvariantDeclaration
+build obj/third_party/angle/translator/RemoveUnreferencedVariables.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/RemoveUnreferencedVariables.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RemoveUnreferencedVariables.cpp
+  source_name_part = RemoveUnreferencedVariables
+build obj/third_party/angle/translator/RemoveUnusedFramebufferFetch.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/RemoveUnusedFramebufferFetch.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RemoveUnusedFramebufferFetch.cpp
+  source_name_part = RemoveUnusedFramebufferFetch
+build obj/third_party/angle/translator/RescopeGlobalVariables.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/RescopeGlobalVariables.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RescopeGlobalVariables.cpp
+  source_name_part = RescopeGlobalVariables
+build obj/third_party/angle/translator/RewriteArrayOfArrayOfOpaqueUniforms.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/RewriteArrayOfArrayOfOpaqueUniforms.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RewriteArrayOfArrayOfOpaqueUniforms.cpp
+  source_name_part = RewriteArrayOfArrayOfOpaqueUniforms
+build obj/third_party/angle/translator/RewriteAtomicCounters.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/RewriteAtomicCounters.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RewriteAtomicCounters.cpp
+  source_name_part = RewriteAtomicCounters
+build obj/third_party/angle/translator/RewriteDfdy.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/RewriteDfdy.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RewriteDfdy.cpp
+  source_name_part = RewriteDfdy
+build obj/third_party/angle/translator/RewritePixelLocalStorage.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/RewritePixelLocalStorage.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RewritePixelLocalStorage.cpp
+  source_name_part = RewritePixelLocalStorage
+build obj/third_party/angle/translator/RewriteStructSamplers.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/RewriteStructSamplers.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RewriteStructSamplers.cpp
+  source_name_part = RewriteStructSamplers
+build obj/third_party/angle/translator/RewriteTexelFetchOffset.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/RewriteTexelFetchOffset.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RewriteTexelFetchOffset.cpp
+  source_name_part = RewriteTexelFetchOffset
+build obj/third_party/angle/translator/SeparateDeclarations.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/SeparateDeclarations.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = SeparateDeclarations.cpp
+  source_name_part = SeparateDeclarations
+build obj/third_party/angle/translator/SeparateStructFromUniformDeclarations.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/SeparateStructFromUniformDeclarations.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = SeparateStructFromUniformDeclarations.cpp
+  source_name_part = SeparateStructFromUniformDeclarations
+build obj/third_party/angle/translator/SimplifyLoopConditions.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/SimplifyLoopConditions.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = SimplifyLoopConditions.cpp
+  source_name_part = SimplifyLoopConditions
+build obj/third_party/angle/translator/SplitSequenceOperator.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/SplitSequenceOperator.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = SplitSequenceOperator.cpp
+  source_name_part = SplitSequenceOperator
+build obj/third_party/angle/translator/DriverUniform.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_util/DriverUniform.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = DriverUniform.cpp
+  source_name_part = DriverUniform
+build obj/third_party/angle/translator/FindFunction.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_util/FindFunction.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = FindFunction.cpp
+  source_name_part = FindFunction
+build obj/third_party/angle/translator/FindMain.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_util/FindMain.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = FindMain.cpp
+  source_name_part = FindMain
+build obj/third_party/angle/translator/FindPreciseNodes.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_util/FindPreciseNodes.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = FindPreciseNodes.cpp
+  source_name_part = FindPreciseNodes
+build obj/third_party/angle/translator/FindSymbolNode.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_util/FindSymbolNode.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = FindSymbolNode.cpp
+  source_name_part = FindSymbolNode
+build obj/third_party/angle/translator/IntermNodePatternMatcher.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_util/IntermNodePatternMatcher.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = IntermNodePatternMatcher.cpp
+  source_name_part = IntermNodePatternMatcher
+build obj/third_party/angle/translator/IntermNode_util.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_util/IntermNode_util.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = IntermNode_util.cpp
+  source_name_part = IntermNode_util
+build obj/third_party/angle/translator/IntermTraverse.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_util/IntermTraverse.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = IntermTraverse.cpp
+  source_name_part = IntermTraverse
+build obj/third_party/angle/translator/ReplaceArrayOfMatrixVarying.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_util/ReplaceArrayOfMatrixVarying.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ReplaceArrayOfMatrixVarying.cpp
+  source_name_part = ReplaceArrayOfMatrixVarying
+build obj/third_party/angle/translator/ReplaceClipCullDistanceVariable.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_util/ReplaceClipCullDistanceVariable.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ReplaceClipCullDistanceVariable.cpp
+  source_name_part = ReplaceClipCullDistanceVariable
+build obj/third_party/angle/translator/ReplaceShadowingVariables.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_util/ReplaceShadowingVariables.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ReplaceShadowingVariables.cpp
+  source_name_part = ReplaceShadowingVariables
+build obj/third_party/angle/translator/ReplaceVariable.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_util/ReplaceVariable.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ReplaceVariable.cpp
+  source_name_part = ReplaceVariable
+build obj/third_party/angle/translator/RewriteSampleMaskVariable.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_util/RewriteSampleMaskVariable.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RewriteSampleMaskVariable.cpp
+  source_name_part = RewriteSampleMaskVariable
+build obj/third_party/angle/translator/RunAtTheBeginningOfShader.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_util/RunAtTheBeginningOfShader.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RunAtTheBeginningOfShader.cpp
+  source_name_part = RunAtTheBeginningOfShader
+build obj/third_party/angle/translator/RunAtTheEndOfShader.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_util/RunAtTheEndOfShader.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RunAtTheEndOfShader.cpp
+  source_name_part = RunAtTheEndOfShader
+build obj/third_party/angle/translator/SpecializationConstant.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_util/SpecializationConstant.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = SpecializationConstant.cpp
+  source_name_part = SpecializationConstant
+build obj/third_party/angle/translator/util.o: cxx ../../src/third_party/angle/src/compiler/translator/util.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = util.cpp
+  source_name_part = util
+build obj/third_party/angle/translator/ImmutableString_autogen.o: cxx ../../src/third_party/angle/src/compiler/translator/ImmutableString_autogen.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ImmutableString_autogen.cpp
+  source_name_part = ImmutableString_autogen
+build obj/third_party/angle/translator/SymbolTable_autogen.o: cxx ../../src/third_party/angle/src/compiler/translator/SymbolTable_autogen.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = SymbolTable_autogen.cpp
+  source_name_part = SymbolTable_autogen
+build obj/third_party/angle/translator/OutputESSL.o: cxx ../../src/third_party/angle/src/compiler/translator/glsl/OutputESSL.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = OutputESSL.cpp
+  source_name_part = OutputESSL
+build obj/third_party/angle/translator/TranslatorESSL.o: cxx ../../src/third_party/angle/src/compiler/translator/glsl/TranslatorESSL.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = TranslatorESSL.cpp
+  source_name_part = TranslatorESSL
+build obj/third_party/angle/translator/BuiltInFunctionEmulatorGLSL.o: cxx ../../src/third_party/angle/src/compiler/translator/glsl/BuiltInFunctionEmulatorGLSL.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = BuiltInFunctionEmulatorGLSL.cpp
+  source_name_part = BuiltInFunctionEmulatorGLSL
+build obj/third_party/angle/translator/ExtensionGLSL.o: cxx ../../src/third_party/angle/src/compiler/translator/glsl/ExtensionGLSL.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ExtensionGLSL.cpp
+  source_name_part = ExtensionGLSL
+build obj/third_party/angle/translator/TranslatorGLSL.o: cxx ../../src/third_party/angle/src/compiler/translator/glsl/TranslatorGLSL.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = TranslatorGLSL.cpp
+  source_name_part = TranslatorGLSL
+build obj/third_party/angle/translator/VersionGLSL.o: cxx ../../src/third_party/angle/src/compiler/translator/glsl/VersionGLSL.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = VersionGLSL.cpp
+  source_name_part = VersionGLSL
+build obj/third_party/angle/translator/RegenerateStructNames.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/glsl/RegenerateStructNames.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RegenerateStructNames.cpp
+  source_name_part = RegenerateStructNames
+build obj/third_party/angle/translator/RewriteRepeatedAssignToSwizzled.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/glsl/RewriteRepeatedAssignToSwizzled.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RewriteRepeatedAssignToSwizzled.cpp
+  source_name_part = RewriteRepeatedAssignToSwizzled
+build obj/third_party/angle/translator/ScalarizeVecAndMatConstructorArgs.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/glsl/ScalarizeVecAndMatConstructorArgs.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ScalarizeVecAndMatConstructorArgs.cpp
+  source_name_part = ScalarizeVecAndMatConstructorArgs
+build obj/third_party/angle/translator/UseInterfaceBlockFields.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/glsl/UseInterfaceBlockFields.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = UseInterfaceBlockFields.cpp
+  source_name_part = UseInterfaceBlockFields
+build obj/third_party/angle/translator/AddAndTrueToLoopCondition.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/glsl/apple/AddAndTrueToLoopCondition.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = AddAndTrueToLoopCondition.cpp
+  source_name_part = AddAndTrueToLoopCondition
+build obj/third_party/angle/translator/RewriteDoWhile.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/glsl/apple/RewriteDoWhile.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RewriteDoWhile.cpp
+  source_name_part = RewriteDoWhile
+build obj/third_party/angle/translator/RewriteRowMajorMatrices.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/glsl/apple/RewriteRowMajorMatrices.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RewriteRowMajorMatrices.cpp
+  source_name_part = RewriteRowMajorMatrices
+build obj/third_party/angle/translator/RewriteUnaryMinusOperatorFloat.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/glsl/apple/RewriteUnaryMinusOperatorFloat.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RewriteUnaryMinusOperatorFloat.cpp
+  source_name_part = RewriteUnaryMinusOperatorFloat
+build obj/third_party/angle/translator/UnfoldShortCircuitAST.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/glsl/apple/UnfoldShortCircuitAST.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = UnfoldShortCircuitAST.cpp
+  source_name_part = UnfoldShortCircuitAST
+build obj/third_party/angle/translator/BuildSPIRV.o: cxx ../../src/third_party/angle/src/compiler/translator/spirv/BuildSPIRV.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = BuildSPIRV.cpp
+  source_name_part = BuildSPIRV
+build obj/third_party/angle/translator/BuiltinsWorkaround.o: cxx ../../src/third_party/angle/src/compiler/translator/spirv/BuiltinsWorkaround.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = BuiltinsWorkaround.cpp
+  source_name_part = BuiltinsWorkaround
+build obj/third_party/angle/translator/OutputSPIRV.o: cxx ../../src/third_party/angle/src/compiler/translator/spirv/OutputSPIRV.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = OutputSPIRV.cpp
+  source_name_part = OutputSPIRV
+build obj/third_party/angle/translator/TranslatorSPIRV.o: cxx ../../src/third_party/angle/src/compiler/translator/spirv/TranslatorSPIRV.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = TranslatorSPIRV.cpp
+  source_name_part = TranslatorSPIRV
+build obj/third_party/angle/translator/ClampGLLayer.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/spirv/ClampGLLayer.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ClampGLLayer.cpp
+  source_name_part = ClampGLLayer
+build obj/third_party/angle/translator/EmulateAdvancedBlendEquations.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/spirv/EmulateAdvancedBlendEquations.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = EmulateAdvancedBlendEquations.cpp
+  source_name_part = EmulateAdvancedBlendEquations
+build obj/third_party/angle/translator/EmulateDithering.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/spirv/EmulateDithering.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = EmulateDithering.cpp
+  source_name_part = EmulateDithering
+build obj/third_party/angle/translator/EmulateFragColorData.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/spirv/EmulateFragColorData.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = EmulateFragColorData.cpp
+  source_name_part = EmulateFragColorData
+build obj/third_party/angle/translator/EmulateFramebufferFetch.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/spirv/EmulateFramebufferFetch.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = EmulateFramebufferFetch.cpp
+  source_name_part = EmulateFramebufferFetch
+build obj/third_party/angle/translator/EmulateYUVBuiltIns.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/spirv/EmulateYUVBuiltIns.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = EmulateYUVBuiltIns.cpp
+  source_name_part = EmulateYUVBuiltIns
+build obj/third_party/angle/translator/FlagSamplersWithTexelFetch.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/spirv/FlagSamplersWithTexelFetch.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = FlagSamplersWithTexelFetch.cpp
+  source_name_part = FlagSamplersWithTexelFetch
+build obj/third_party/angle/translator/ReswizzleYUVOps.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/spirv/ReswizzleYUVOps.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ReswizzleYUVOps.cpp
+  source_name_part = ReswizzleYUVOps
+build obj/third_party/angle/translator/RewriteInterpolateAtOffset.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/spirv/RewriteInterpolateAtOffset.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RewriteInterpolateAtOffset.cpp
+  source_name_part = RewriteInterpolateAtOffset
+build obj/third_party/angle/translator/RewriteR32fImages.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/spirv/RewriteR32fImages.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RewriteR32fImages.cpp
+  source_name_part = RewriteR32fImages
+build obj/third_party/angle/translator/AstHelpers.o: cxx ../../src/third_party/angle/src/compiler/translator/msl/AstHelpers.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = AstHelpers.cpp
+  source_name_part = AstHelpers
+build obj/third_party/angle/translator/ConstantNames.o: cxx ../../src/third_party/angle/src/compiler/translator/msl/ConstantNames.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ConstantNames.cpp
+  source_name_part = ConstantNames
+build obj/third_party/angle/translator/DiscoverDependentFunctions.o: cxx ../../src/third_party/angle/src/compiler/translator/msl/DiscoverDependentFunctions.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = DiscoverDependentFunctions.cpp
+  source_name_part = DiscoverDependentFunctions
+build obj/third_party/angle/translator/DiscoverEnclosingFunctionTraverser.o: cxx ../../src/third_party/angle/src/compiler/translator/msl/DiscoverEnclosingFunctionTraverser.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = DiscoverEnclosingFunctionTraverser.cpp
+  source_name_part = DiscoverEnclosingFunctionTraverser
+build obj/third_party/angle/translator/DriverUniformMetal.o: cxx ../../src/third_party/angle/src/compiler/translator/msl/DriverUniformMetal.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = DriverUniformMetal.cpp
+  source_name_part = DriverUniformMetal
+build obj/third_party/angle/translator/EmitMetal.o: cxx ../../src/third_party/angle/src/compiler/translator/msl/EmitMetal.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = EmitMetal.cpp
+  source_name_part = EmitMetal
+build obj/third_party/angle/translator/IdGen.o: cxx ../../src/third_party/angle/src/compiler/translator/msl/IdGen.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = IdGen.cpp
+  source_name_part = IdGen
+build obj/third_party/angle/translator/Layout.o: cxx ../../src/third_party/angle/src/compiler/translator/msl/Layout.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = Layout.cpp
+  source_name_part = Layout
+build obj/third_party/angle/translator/MapFunctionsToDefinitions.o: cxx ../../src/third_party/angle/src/compiler/translator/msl/MapFunctionsToDefinitions.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = MapFunctionsToDefinitions.cpp
+  source_name_part = MapFunctionsToDefinitions
+build obj/third_party/angle/translator/MapSymbols.o: cxx ../../src/third_party/angle/src/compiler/translator/msl/MapSymbols.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = MapSymbols.cpp
+  source_name_part = MapSymbols
+build obj/third_party/angle/translator/ModifyStruct.o: cxx ../../src/third_party/angle/src/compiler/translator/msl/ModifyStruct.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ModifyStruct.cpp
+  source_name_part = ModifyStruct
+build obj/third_party/angle/translator/Pipeline.o: cxx ../../src/third_party/angle/src/compiler/translator/msl/Pipeline.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = Pipeline.cpp
+  source_name_part = Pipeline
+build obj/third_party/angle/translator/ProgramPrelude.o: cxx ../../src/third_party/angle/src/compiler/translator/msl/ProgramPrelude.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ProgramPrelude.cpp
+  source_name_part = ProgramPrelude
+build obj/third_party/angle/translator/RewritePipelines.o: cxx ../../src/third_party/angle/src/compiler/translator/msl/RewritePipelines.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RewritePipelines.cpp
+  source_name_part = RewritePipelines
+build obj/third_party/angle/translator/SymbolEnv.o: cxx ../../src/third_party/angle/src/compiler/translator/msl/SymbolEnv.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = SymbolEnv.cpp
+  source_name_part = SymbolEnv
+build obj/third_party/angle/translator/ToposortStructs.o: cxx ../../src/third_party/angle/src/compiler/translator/msl/ToposortStructs.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ToposortStructs.cpp
+  source_name_part = ToposortStructs
+build obj/third_party/angle/translator/TranslatorMSL.o: cxx ../../src/third_party/angle/src/compiler/translator/msl/TranslatorMSL.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = TranslatorMSL.cpp
+  source_name_part = TranslatorMSL
+build obj/third_party/angle/translator/UtilsMSL.o: cxx ../../src/third_party/angle/src/compiler/translator/msl/UtilsMSL.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = UtilsMSL.cpp
+  source_name_part = UtilsMSL
+build obj/third_party/angle/translator/AddExplicitTypeCasts.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/msl/AddExplicitTypeCasts.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = AddExplicitTypeCasts.cpp
+  source_name_part = AddExplicitTypeCasts
+build obj/third_party/angle/translator/ConvertUnsupportedConstructorsToFunctionCalls.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/msl/ConvertUnsupportedConstructorsToFunctionCalls.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ConvertUnsupportedConstructorsToFunctionCalls.cpp
+  source_name_part = ConvertUnsupportedConstructorsToFunctionCalls
+build obj/third_party/angle/translator/FixTypeConstructors.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/msl/FixTypeConstructors.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = FixTypeConstructors.cpp
+  source_name_part = FixTypeConstructors
+build obj/third_party/angle/translator/GuardFragDepthWrite.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/msl/GuardFragDepthWrite.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = GuardFragDepthWrite.cpp
+  source_name_part = GuardFragDepthWrite
+build obj/third_party/angle/translator/HoistConstants.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/msl/HoistConstants.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = HoistConstants.cpp
+  source_name_part = HoistConstants
+build obj/third_party/angle/translator/IntroduceVertexIndexID.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/msl/IntroduceVertexIndexID.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = IntroduceVertexIndexID.cpp
+  source_name_part = IntroduceVertexIndexID
+build obj/third_party/angle/translator/ReduceInterfaceBlocks.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/msl/ReduceInterfaceBlocks.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = ReduceInterfaceBlocks.cpp
+  source_name_part = ReduceInterfaceBlocks
+build obj/third_party/angle/translator/RewriteCaseDeclarations.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/msl/RewriteCaseDeclarations.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RewriteCaseDeclarations.cpp
+  source_name_part = RewriteCaseDeclarations
+build obj/third_party/angle/translator/RewriteInterpolants.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/msl/RewriteInterpolants.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RewriteInterpolants.cpp
+  source_name_part = RewriteInterpolants
+build obj/third_party/angle/translator/RewriteOutArgs.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/msl/RewriteOutArgs.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RewriteOutArgs.cpp
+  source_name_part = RewriteOutArgs
+build obj/third_party/angle/translator/RewriteUnaddressableReferences.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/msl/RewriteUnaddressableReferences.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = RewriteUnaddressableReferences.cpp
+  source_name_part = RewriteUnaddressableReferences
+build obj/third_party/angle/translator/SeparateCompoundExpressions.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/msl/SeparateCompoundExpressions.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = SeparateCompoundExpressions.cpp
+  source_name_part = SeparateCompoundExpressions
+build obj/third_party/angle/translator/TransposeRowMajorMatrices.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/msl/TransposeRowMajorMatrices.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = TransposeRowMajorMatrices.cpp
+  source_name_part = TransposeRowMajorMatrices
+build obj/third_party/angle/translator/WrapMain.o: cxx ../../src/third_party/angle/src/compiler/translator/tree_ops/msl/WrapMain.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = WrapMain.cpp
+  source_name_part = WrapMain
+build obj/third_party/angle/translator/OutputGLSLBase.o: cxx ../../src/third_party/angle/src/compiler/translator/glsl/OutputGLSLBase.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = OutputGLSLBase.cpp
+  source_name_part = OutputGLSLBase
+build obj/third_party/angle/translator/OutputGLSL.o: cxx ../../src/third_party/angle/src/compiler/translator/glsl/OutputGLSL.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/angle/translator.inputdeps
+  source_file_part = OutputGLSL.cpp
+  source_name_part = OutputGLSL
+
+build obj/third_party/angle/libtranslator.a: alink obj/third_party/angle/translator/BaseTypes.o obj/third_party/angle/translator/BuiltInFunctionEmulator.o obj/third_party/angle/translator/CallDAG.o obj/third_party/angle/translator/CodeGen.o obj/third_party/angle/translator/CollectVariables.o obj/third_party/angle/translator/Compiler.o obj/third_party/angle/translator/ConstantUnion.o obj/third_party/angle/translator/Declarator.o obj/third_party/angle/translator/Diagnostics.o obj/third_party/angle/translator/DirectiveHandler.o obj/third_party/angle/translator/ExtensionBehavior.o obj/third_party/angle/translator/FlagStd140Structs.o obj/third_party/angle/translator/FunctionLookup.o obj/third_party/angle/translator/HashNames.o obj/third_party/angle/translator/ImmutableStringBuilder.o obj/third_party/angle/translator/InfoSink.o obj/third_party/angle/translator/Initialize.o obj/third_party/angle/translator/InitializeDll.o obj/third_party/angle/translator/IntermNode.o obj/third_party/angle/translator/IntermRebuild.o obj/third_party/angle/translator/IsASTDepthBelowLimit.o obj/third_party/angle/translator/Name.o obj/third_party/angle/translator/Operator.o obj/third_party/angle/translator/OutputTree.o obj/third_party/angle/translator/ParseContext.o obj/third_party/angle/translator/PoolAlloc.o obj/third_party/angle/translator/QualifierTypes.o obj/third_party/angle/translator/ShaderLang.o obj/third_party/angle/translator/ShaderVars.o obj/third_party/angle/translator/Symbol.o obj/third_party/angle/translator/SymbolTable.o obj/third_party/angle/translator/SymbolUniqueId.o obj/third_party/angle/translator/Types.o obj/third_party/angle/translator/ValidateAST.o obj/third_party/angle/translator/ValidateBarrierFunctionCall.o obj/third_party/angle/translator/ValidateClipCullDistance.o obj/third_party/angle/translator/ValidateGlobalInitializer.o obj/third_party/angle/translator/ValidateLimitations.o obj/third_party/angle/translator/ValidateMaxParameters.o obj/third_party/angle/translator/ValidateOutputs.o obj/third_party/angle/translator/ValidateSwitch.o obj/third_party/angle/translator/ValidateTypeSizeLimitations.o obj/third_party/angle/translator/ValidateVaryingLocations.o obj/third_party/angle/translator/VariablePacker.o obj/third_party/angle/translator/blocklayout.o obj/third_party/angle/translator/glslang_lex_autogen.o obj/third_party/angle/translator/glslang_tab_autogen.o obj/third_party/angle/translator/ClampFragDepth.o obj/third_party/angle/translator/ClampIndirectIndices.o obj/third_party/angle/translator/ClampPointSize.o obj/third_party/angle/translator/DeclareAndInitBuiltinsForInstancedMultiview.o obj/third_party/angle/translator/DeclarePerVertexBlocks.o obj/third_party/angle/translator/DeferGlobalInitializers.o obj/third_party/angle/translator/EmulateGLFragColorBroadcast.o obj/third_party/angle/translator/EmulateMultiDrawShaderBuiltins.o obj/third_party/angle/translator/FoldExpressions.o obj/third_party/angle/translator/ForcePrecisionQualifier.o obj/third_party/angle/translator/InitializeVariables.o obj/third_party/angle/translator/MonomorphizeUnsupportedFunctions.o obj/third_party/angle/translator/PreTransformTextureCubeGradDerivatives.o obj/third_party/angle/translator/PruneEmptyCases.o obj/third_party/angle/translator/PruneInfiniteLoops.o obj/third_party/angle/translator/PruneNoOps.o obj/third_party/angle/translator/RecordConstantPrecision.o obj/third_party/angle/translator/RemoveArrayLengthMethod.o obj/third_party/angle/translator/RemoveAtomicCounterBuiltins.o obj/third_party/angle/translator/RemoveDynamicIndexing.o obj/third_party/angle/translator/RemoveInactiveInterfaceVariables.o obj/third_party/angle/translator/RemoveInvariantDeclaration.o obj/third_party/angle/translator/RemoveUnreferencedVariables.o obj/third_party/angle/translator/RemoveUnusedFramebufferFetch.o obj/third_party/angle/translator/RescopeGlobalVariables.o obj/third_party/angle/translator/RewriteArrayOfArrayOfOpaqueUniforms.o obj/third_party/angle/translator/RewriteAtomicCounters.o obj/third_party/angle/translator/RewriteDfdy.o obj/third_party/angle/translator/RewritePixelLocalStorage.o obj/third_party/angle/translator/RewriteStructSamplers.o obj/third_party/angle/translator/RewriteTexelFetchOffset.o obj/third_party/angle/translator/SeparateDeclarations.o obj/third_party/angle/translator/SeparateStructFromUniformDeclarations.o obj/third_party/angle/translator/SimplifyLoopConditions.o obj/third_party/angle/translator/SplitSequenceOperator.o obj/third_party/angle/translator/DriverUniform.o obj/third_party/angle/translator/FindFunction.o obj/third_party/angle/translator/FindMain.o obj/third_party/angle/translator/FindPreciseNodes.o obj/third_party/angle/translator/FindSymbolNode.o obj/third_party/angle/translator/IntermNodePatternMatcher.o obj/third_party/angle/translator/IntermNode_util.o obj/third_party/angle/translator/IntermTraverse.o obj/third_party/angle/translator/ReplaceArrayOfMatrixVarying.o obj/third_party/angle/translator/ReplaceClipCullDistanceVariable.o obj/third_party/angle/translator/ReplaceShadowingVariables.o obj/third_party/angle/translator/ReplaceVariable.o obj/third_party/angle/translator/RewriteSampleMaskVariable.o obj/third_party/angle/translator/RunAtTheBeginningOfShader.o obj/third_party/angle/translator/RunAtTheEndOfShader.o obj/third_party/angle/translator/SpecializationConstant.o obj/third_party/angle/translator/util.o obj/third_party/angle/translator/ImmutableString_autogen.o obj/third_party/angle/translator/SymbolTable_autogen.o obj/third_party/angle/translator/OutputESSL.o obj/third_party/angle/translator/TranslatorESSL.o obj/third_party/angle/translator/BuiltInFunctionEmulatorGLSL.o obj/third_party/angle/translator/ExtensionGLSL.o obj/third_party/angle/translator/TranslatorGLSL.o obj/third_party/angle/translator/VersionGLSL.o obj/third_party/angle/translator/RegenerateStructNames.o obj/third_party/angle/translator/RewriteRepeatedAssignToSwizzled.o obj/third_party/angle/translator/ScalarizeVecAndMatConstructorArgs.o obj/third_party/angle/translator/UseInterfaceBlockFields.o obj/third_party/angle/translator/AddAndTrueToLoopCondition.o obj/third_party/angle/translator/RewriteDoWhile.o obj/third_party/angle/translator/RewriteRowMajorMatrices.o obj/third_party/angle/translator/RewriteUnaryMinusOperatorFloat.o obj/third_party/angle/translator/UnfoldShortCircuitAST.o obj/third_party/angle/translator/BuildSPIRV.o obj/third_party/angle/translator/BuiltinsWorkaround.o obj/third_party/angle/translator/OutputSPIRV.o obj/third_party/angle/translator/TranslatorSPIRV.o obj/third_party/angle/translator/ClampGLLayer.o obj/third_party/angle/translator/EmulateAdvancedBlendEquations.o obj/third_party/angle/translator/EmulateDithering.o obj/third_party/angle/translator/EmulateFragColorData.o obj/third_party/angle/translator/EmulateFramebufferFetch.o obj/third_party/angle/translator/EmulateYUVBuiltIns.o obj/third_party/angle/translator/FlagSamplersWithTexelFetch.o obj/third_party/angle/translator/ReswizzleYUVOps.o obj/third_party/angle/translator/RewriteInterpolateAtOffset.o obj/third_party/angle/translator/RewriteR32fImages.o obj/third_party/angle/translator/AstHelpers.o obj/third_party/angle/translator/ConstantNames.o obj/third_party/angle/translator/DiscoverDependentFunctions.o obj/third_party/angle/translator/DiscoverEnclosingFunctionTraverser.o obj/third_party/angle/translator/DriverUniformMetal.o obj/third_party/angle/translator/EmitMetal.o obj/third_party/angle/translator/IdGen.o obj/third_party/angle/translator/Layout.o obj/third_party/angle/translator/MapFunctionsToDefinitions.o obj/third_party/angle/translator/MapSymbols.o obj/third_party/angle/translator/ModifyStruct.o obj/third_party/angle/translator/Pipeline.o obj/third_party/angle/translator/ProgramPrelude.o obj/third_party/angle/translator/RewritePipelines.o obj/third_party/angle/translator/SymbolEnv.o obj/third_party/angle/translator/ToposortStructs.o obj/third_party/angle/translator/TranslatorMSL.o obj/third_party/angle/translator/UtilsMSL.o obj/third_party/angle/translator/AddExplicitTypeCasts.o obj/third_party/angle/translator/ConvertUnsupportedConstructorsToFunctionCalls.o obj/third_party/angle/translator/FixTypeConstructors.o obj/third_party/angle/translator/GuardFragDepthWrite.o obj/third_party/angle/translator/HoistConstants.o obj/third_party/angle/translator/IntroduceVertexIndexID.o obj/third_party/angle/translator/ReduceInterfaceBlocks.o obj/third_party/angle/translator/RewriteCaseDeclarations.o obj/third_party/angle/translator/RewriteInterpolants.o obj/third_party/angle/translator/RewriteOutArgs.o obj/third_party/angle/translator/RewriteUnaddressableReferences.o obj/third_party/angle/translator/SeparateCompoundExpressions.o obj/third_party/angle/translator/TransposeRowMajorMatrices.o obj/third_party/angle/translator/WrapMain.o obj/third_party/angle/translator/OutputGLSLBase.o obj/third_party/angle/translator/OutputGLSL.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a ../../src/build/config/warning_suppression.txt || obj/third_party/angle/libangle_common.a phony/third_party/angle/angle_version_info obj/third_party/angle/libangle_common_shader_state.a obj/third_party/angle/libpreprocessor.a phony/third_party/angle/src/common/spirv/angle_spirv_headers phony/third_party/angle/src/common/spirv/angle_spirv_base phony/third_party/angle/src/common/spirv/angle_spirv_builder obj/third_party/spirv-tools/src/libspvtools_val.a phony/third_party/abseil-cpp/absl phony/third_party/abseil-cpp/absl/base/base phony/third_party/abseil-cpp/absl/base/log_severity phony/third_party/abseil-cpp/absl/base/raw_logging_internal phony/third_party/abseil-cpp/absl/base/spinlock_wait phony/third_party/abseil-cpp/absl/container/btree phony/third_party/abseil-cpp/absl/container/layout phony/third_party/abseil-cpp/absl/debugging/demangle_internal phony/third_party/abseil-cpp/absl/debugging/demangle_rust phony/third_party/abseil-cpp/absl/debugging/decode_rust_punycode phony/third_party/abseil-cpp/absl/debugging/bounded_utf8_length_sequence phony/third_party/abseil-cpp/absl/numeric/bits phony/third_party/abseil-cpp/absl/base/endian phony/third_party/abseil-cpp/absl/debugging/utf8_for_code_point phony/third_party/abseil-cpp/absl/strings/strings phony/third_party/abseil-cpp/absl/strings/string_view phony/third_party/abseil-cpp/absl/base/throw_delegate phony/third_party/abseil-cpp/absl/strings/charset phony/third_party/abseil-cpp/absl/strings/internal phony/third_party/abseil-cpp/absl/numeric/int128 phony/third_party/abseil-cpp/absl/types/span phony/third_party/abseil-cpp/absl/strings/cord phony/third_party/abseil-cpp/absl/strings/cord_internal phony/third_party/abseil-cpp/absl/container/inlined_vector phony/third_party/abseil-cpp/absl/container/inlined_vector_internal phony/third_party/abseil-cpp/absl/crc/crc_cord_state phony/third_party/abseil-cpp/absl/crc/crc32c phony/third_party/abseil-cpp/absl/crc/cpu_detect phony/third_party/abseil-cpp/absl/crc/crc_internal phony/third_party/abseil-cpp/absl/strings/str_format phony/third_party/abseil-cpp/absl/strings/str_format_internal phony/third_party/abseil-cpp/absl/container/fixed_array phony/third_party/abseil-cpp/absl/strings/cordz_info phony/third_party/abseil-cpp/absl/strings/cordz_functions phony/third_party/abseil-cpp/absl/profiling/exponential_biased phony/third_party/abseil-cpp/absl/strings/cordz_handle phony/third_party/abseil-cpp/absl/synchronization/synchronization phony/third_party/abseil-cpp/absl/synchronization/graphcycles_internal phony/third_party/abseil-cpp/absl/base/malloc_internal phony/third_party/abseil-cpp/absl/synchronization/kernel_timeout_internal phony/third_party/abseil-cpp/absl/time/time phony/third_party/abseil-cpp/absl/time/internal/cctz/civil_time phony/third_party/abseil-cpp/absl/time/internal/cctz/time_zone phony/third_party/abseil-cpp/absl/base/tracing_internal phony/third_party/abseil-cpp/absl/debugging/stacktrace phony/third_party/abseil-cpp/absl/debugging/debugging_internal phony/third_party/abseil-cpp/absl/debugging/symbolize phony/third_party/abseil-cpp/absl/strings/cordz_update_scope phony/third_party/abseil-cpp/absl/container/flat_hash_map phony/third_party/abseil-cpp/absl/container/hash_container_defaults phony/third_party/abseil-cpp/absl/container/hash_function_defaults phony/third_party/abseil-cpp/absl/hash/hash phony/third_party/abseil-cpp/absl/hash/city phony/third_party/abseil-cpp/absl/hash/low_level_hash phony/third_party/abseil-cpp/absl/container/raw_hash_map phony/third_party/abseil-cpp/absl/container/raw_hash_set phony/third_party/abseil-cpp/absl/container/hashtable_control_bytes phony/third_party/abseil-cpp/absl/container/hashtablez_sampler phony/third_party/abseil-cpp/absl/profiling/sample_recorder phony/third_party/abseil-cpp/absl/container/flat_hash_set phony/third_party/abseil-cpp/absl/container/node_hash_map phony/third_party/abseil-cpp/absl/container/node_hash_set phony/third_party/abseil-cpp/absl/debugging/failure_signal_handler phony/third_party/abseil-cpp/absl/debugging/examine_stack phony/third_party/abseil-cpp/absl/log/absl_check phony/third_party/abseil-cpp/absl/log/internal/check_impl phony/third_party/abseil-cpp/absl/log/internal/check_op phony/third_party/abseil-cpp/absl/log/internal/nullguard phony/third_party/abseil-cpp/absl/log/internal/nullstream phony/third_party/abseil-cpp/absl/log/internal/strip phony/third_party/abseil-cpp/absl/log/internal/log_message phony/third_party/abseil-cpp/absl/log/internal/append_truncated phony/third_party/abseil-cpp/absl/log/internal/format phony/third_party/abseil-cpp/absl/log/internal/globals phony/third_party/abseil-cpp/absl/log/internal/log_sink_set phony/third_party/abseil-cpp/absl/log/globals phony/third_party/abseil-cpp/absl/log/internal/vlog_config phony/third_party/abseil-cpp/absl/log/internal/fnmatch phony/third_party/abseil-cpp/absl/log/log_entry phony/third_party/abseil-cpp/absl/log/log_sink phony/third_party/abseil-cpp/absl/log/internal/proto phony/third_party/abseil-cpp/absl/log/internal/structured_proto phony/third_party/abseil-cpp/absl/base/strerror phony/third_party/abseil-cpp/absl/log/log_sink_registry phony/third_party/abseil-cpp/absl/debugging/leak_check phony/third_party/abseil-cpp/absl/log/internal/conditions phony/third_party/abseil-cpp/absl/log/absl_log phony/third_party/abseil-cpp/absl/log/internal/log_impl phony/third_party/abseil-cpp/absl/log/absl_vlog_is_on phony/third_party/abseil-cpp/absl/log/die_if_null phony/third_party/abseil-cpp/absl/log/log phony/third_party/abseil-cpp/absl/log/vlog_is_on phony/third_party/abseil-cpp/absl/log/initialize phony/third_party/abseil-cpp/absl/random/random phony/third_party/abseil-cpp/absl/random/distributions phony/third_party/abseil-cpp/absl/random/internal/fast_uniform_bits phony/third_party/abseil-cpp/absl/random/internal/traits phony/third_party/abseil-cpp/absl/random/internal/fastmath phony/third_party/abseil-cpp/absl/random/internal/generate_real phony/third_party/abseil-cpp/absl/random/internal/iostream_state_saver phony/third_party/abseil-cpp/absl/random/internal/uniform_helper phony/third_party/abseil-cpp/absl/random/internal/wide_multiply phony/third_party/abseil-cpp/absl/random/seed_sequences phony/third_party/abseil-cpp/absl/random/seed_gen_exception phony/third_party/abseil-cpp/absl/random/internal/entropy_pool phony/third_party/abseil-cpp/absl/random/internal/platform phony/third_party/abseil-cpp/absl/random/internal/randen phony/third_party/abseil-cpp/absl/random/internal/randen_hwaes phony/third_party/abseil-cpp/absl/random/internal/randen_hwaes_impl phony/third_party/abseil-cpp/absl/random/internal/randen_slow phony/third_party/abseil-cpp/absl/random/internal/seed_material phony/third_party/abseil-cpp/absl/random/internal/salted_seed_seq phony/third_party/abseil-cpp/absl/random/internal/nonsecure_base phony/third_party/abseil-cpp/absl/random/internal/pcg_engine phony/third_party/abseil-cpp/absl/random/internal/randen_engine phony/third_party/abseil-cpp/absl/random/bit_gen_ref phony/third_party/abseil-cpp/absl/status/status phony/third_party/abseil-cpp/absl/status/statusor phony/third_party/angle/xxhash phony/third_party/angle/angle_version obj/third_party/spirv-tools/src/libspvtools.a
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/third_party/angle

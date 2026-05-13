@@ -1,0 +1,76 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DZ7_LZMA_PROB32 -DZ7_NO_METHODS_FILTERS -DZ7_ST -D_LZMA_PROB32
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/lzma_sdk -I../../src/third_party/lzma_sdk/C
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wno-self-assign
+cflags_c = -std=c11
+label_name = lzma_sdk
+root_out_dir = .
+target_out_dir = obj/third_party/lzma_sdk
+target_output_name = liblzma_sdk
+
+build phony/third_party/lzma_sdk/lzma_sdk.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/lzma_sdk/lzma_sdk/7zAlloc.o: cc ../../src/third_party/lzma_sdk/C/7zAlloc.c | phony/third_party/lzma_sdk/lzma_sdk.inputs
+  source_file_part = 7zAlloc.c
+  source_name_part = 7zAlloc
+build obj/third_party/lzma_sdk/lzma_sdk/7zArcIn.o: cc ../../src/third_party/lzma_sdk/C/7zArcIn.c | phony/third_party/lzma_sdk/lzma_sdk.inputs
+  source_file_part = 7zArcIn.c
+  source_name_part = 7zArcIn
+build obj/third_party/lzma_sdk/lzma_sdk/7zBuf.o: cc ../../src/third_party/lzma_sdk/C/7zBuf.c | phony/third_party/lzma_sdk/lzma_sdk.inputs
+  source_file_part = 7zBuf.c
+  source_name_part = 7zBuf
+build obj/third_party/lzma_sdk/lzma_sdk/7zCrc.o: cc ../../src/third_party/lzma_sdk/C/7zCrc.c | phony/third_party/lzma_sdk/lzma_sdk.inputs
+  source_file_part = 7zCrc.c
+  source_name_part = 7zCrc
+build obj/third_party/lzma_sdk/lzma_sdk/7zCrcOpt.o: cc ../../src/third_party/lzma_sdk/C/7zCrcOpt.c | phony/third_party/lzma_sdk/lzma_sdk.inputs
+  source_file_part = 7zCrcOpt.c
+  source_name_part = 7zCrcOpt
+build obj/third_party/lzma_sdk/lzma_sdk/7zDec.o: cc ../../src/third_party/lzma_sdk/C/7zDec.c | phony/third_party/lzma_sdk/lzma_sdk.inputs
+  source_file_part = 7zDec.c
+  source_name_part = 7zDec
+build obj/third_party/lzma_sdk/lzma_sdk/7zFile.o: cc ../../src/third_party/lzma_sdk/C/7zFile.c | phony/third_party/lzma_sdk/lzma_sdk.inputs
+  source_file_part = 7zFile.c
+  source_name_part = 7zFile
+build obj/third_party/lzma_sdk/lzma_sdk/7zStream.o: cc ../../src/third_party/lzma_sdk/C/7zStream.c | phony/third_party/lzma_sdk/lzma_sdk.inputs
+  source_file_part = 7zStream.c
+  source_name_part = 7zStream
+build obj/third_party/lzma_sdk/lzma_sdk/Alloc.o: cc ../../src/third_party/lzma_sdk/C/Alloc.c | phony/third_party/lzma_sdk/lzma_sdk.inputs
+  source_file_part = Alloc.c
+  source_name_part = Alloc
+build obj/third_party/lzma_sdk/lzma_sdk/Bcj2.o: cc ../../src/third_party/lzma_sdk/C/Bcj2.c | phony/third_party/lzma_sdk/lzma_sdk.inputs
+  source_file_part = Bcj2.c
+  source_name_part = Bcj2
+build obj/third_party/lzma_sdk/lzma_sdk/Bra.o: cc ../../src/third_party/lzma_sdk/C/Bra.c | phony/third_party/lzma_sdk/lzma_sdk.inputs
+  source_file_part = Bra.c
+  source_name_part = Bra
+build obj/third_party/lzma_sdk/lzma_sdk/Bra86.o: cc ../../src/third_party/lzma_sdk/C/Bra86.c | phony/third_party/lzma_sdk/lzma_sdk.inputs
+  source_file_part = Bra86.c
+  source_name_part = Bra86
+build obj/third_party/lzma_sdk/lzma_sdk/CpuArch.o: cc ../../src/third_party/lzma_sdk/C/CpuArch.c | phony/third_party/lzma_sdk/lzma_sdk.inputs
+  source_file_part = CpuArch.c
+  source_name_part = CpuArch
+build obj/third_party/lzma_sdk/lzma_sdk/Delta.o: cc ../../src/third_party/lzma_sdk/C/Delta.c | phony/third_party/lzma_sdk/lzma_sdk.inputs
+  source_file_part = Delta.c
+  source_name_part = Delta
+build obj/third_party/lzma_sdk/lzma_sdk/DllSecur.o: cc ../../src/third_party/lzma_sdk/C/DllSecur.c | phony/third_party/lzma_sdk/lzma_sdk.inputs
+  source_file_part = DllSecur.c
+  source_name_part = DllSecur
+build obj/third_party/lzma_sdk/lzma_sdk/LzFind.o: cc ../../src/third_party/lzma_sdk/C/LzFind.c | phony/third_party/lzma_sdk/lzma_sdk.inputs
+  source_file_part = LzFind.c
+  source_name_part = LzFind
+build obj/third_party/lzma_sdk/lzma_sdk/Lzma2Dec.o: cc ../../src/third_party/lzma_sdk/C/Lzma2Dec.c | phony/third_party/lzma_sdk/lzma_sdk.inputs
+  source_file_part = Lzma2Dec.c
+  source_name_part = Lzma2Dec
+build obj/third_party/lzma_sdk/lzma_sdk/LzmaDec.o: cc ../../src/third_party/lzma_sdk/C/LzmaDec.c | phony/third_party/lzma_sdk/lzma_sdk.inputs
+  source_file_part = LzmaDec.c
+  source_name_part = LzmaDec
+build obj/third_party/lzma_sdk/lzma_sdk/LzmaEnc.o: cc ../../src/third_party/lzma_sdk/C/LzmaEnc.c | phony/third_party/lzma_sdk/lzma_sdk.inputs
+  source_file_part = LzmaEnc.c
+  source_name_part = LzmaEnc
+build obj/third_party/lzma_sdk/lzma_sdk/LzmaLib.o: cc ../../src/third_party/lzma_sdk/C/LzmaLib.c | phony/third_party/lzma_sdk/lzma_sdk.inputs
+  source_file_part = LzmaLib.c
+  source_name_part = LzmaLib
+
+build obj/third_party/lzma_sdk/liblzma_sdk.a: alink obj/third_party/lzma_sdk/lzma_sdk/7zAlloc.o obj/third_party/lzma_sdk/lzma_sdk/7zArcIn.o obj/third_party/lzma_sdk/lzma_sdk/7zBuf.o obj/third_party/lzma_sdk/lzma_sdk/7zCrc.o obj/third_party/lzma_sdk/lzma_sdk/7zCrcOpt.o obj/third_party/lzma_sdk/lzma_sdk/7zDec.o obj/third_party/lzma_sdk/lzma_sdk/7zFile.o obj/third_party/lzma_sdk/lzma_sdk/7zStream.o obj/third_party/lzma_sdk/lzma_sdk/Alloc.o obj/third_party/lzma_sdk/lzma_sdk/Bcj2.o obj/third_party/lzma_sdk/lzma_sdk/Bra.o obj/third_party/lzma_sdk/lzma_sdk/Bra86.o obj/third_party/lzma_sdk/lzma_sdk/CpuArch.o obj/third_party/lzma_sdk/lzma_sdk/Delta.o obj/third_party/lzma_sdk/lzma_sdk/DllSecur.o obj/third_party/lzma_sdk/lzma_sdk/LzFind.o obj/third_party/lzma_sdk/lzma_sdk/Lzma2Dec.o obj/third_party/lzma_sdk/lzma_sdk/LzmaDec.o obj/third_party/lzma_sdk/lzma_sdk/LzmaEnc.o obj/third_party/lzma_sdk/lzma_sdk/LzmaLib.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a phony/third_party/lzma_sdk/lzma_sdk.inputs
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/third_party/lzma_sdk

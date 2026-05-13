@@ -1,0 +1,601 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DVK_ENABLE_BETA_EXTENSIONS -DVK_USE_PLATFORM_METAL_EXT -DVK_USE_PLATFORM_MACOS_MVK
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/vulkan-validation-layers/src/layers -I../../src/third_party/vulkan-validation-layers/src/layers/external -I../../src/third_party/vulkan-validation-layers/src/layers/vulkan -I../../src/third_party/vulkan-headers/src/include -I../../src/third_party/vulkan-utility-libraries/src/include -I../../src/third_party/glslang/src -I../../src/third_party/spirv-tools/src/include -I../../src/third_party/spirv-headers/src/include
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wno-conversion -Wno-deprecated-copy -Wno-extra-semi -Wno-implicit-fallthrough -Wno-missing-field-initializers -Wno-newline-eof -Wno-sign-compare -Wno-unused-const-variable -Wno-extra-semi -Wno-unused-function -Wno-unguarded-availability-new -Wno-extra-semi -Wno-redundant-parens
+cflags_cc = -std=c++20 -Wno-trigraphs -fno-exceptions -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness -frtti -Wno-nullability-completeness
+label_name = VkLayer_khronos_validation
+root_out_dir = .
+target_out_dir = obj/third_party/vulkan-validation-layers/src
+target_output_name = libVkLayer_khronos_validation
+
+build phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps: phony phony/third_party/spirv-tools/src/spvtools_core_enums_unified1 phony/third_party/spirv-tools/src/spvtools_core_tables_unified1 phony/third_party/spirv-tools/src/spvtools_generators_inc phony/third_party/spirv-tools/src/spvtools_glsl_tables_glsl1-0 phony/third_party/spirv-tools/src/spvtools_language_header_cldebuginfo100 phony/third_party/spirv-tools/src/spvtools_language_header_debuginfo phony/third_party/spirv-tools/src/spvtools_language_header_vkdebuginfo100 phony/third_party/spirv-tools/src/spvtools_opencl_tables_opencl1-0 phony/third_party/spirv-tools/src/spvtools_vendor_tables_debuginfo phony/third_party/spirv-tools/src/spvtools_vendor_tables_nonsemantic.clspvreflection phony/third_party/spirv-tools/src/spvtools_vendor_tables_nonsemantic.shader.debuginfo.100 phony/third_party/spirv-tools/src/spvtools_vendor_tables_nonsemantic.vkspreflection phony/third_party/spirv-tools/src/spvtools_vendor_tables_opencl.debuginfo.100 phony/third_party/spirv-tools/src/spvtools_vendor_tables_spv-amd-gcn-shader phony/third_party/spirv-tools/src/spvtools_vendor_tables_spv-amd-shader-ballot phony/third_party/spirv-tools/src/spvtools_vendor_tables_spv-amd-shader-explicit-vertex-parameter phony/third_party/spirv-tools/src/spvtools_vendor_tables_spv-amd-shader-trinary-minmax
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/best_practices_utils.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/best_practices/best_practices_utils.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = best_practices_utils.cpp
+  source_name_part = best_practices_utils
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_buffer.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/best_practices/bp_buffer.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = bp_buffer.cpp
+  source_name_part = bp_buffer
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_cmd_buffer.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/best_practices/bp_cmd_buffer.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = bp_cmd_buffer.cpp
+  source_name_part = bp_cmd_buffer
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_cmd_buffer_nv.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/best_practices/bp_cmd_buffer_nv.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = bp_cmd_buffer_nv.cpp
+  source_name_part = bp_cmd_buffer_nv
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_copy_blit_resolve.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/best_practices/bp_copy_blit_resolve.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = bp_copy_blit_resolve.cpp
+  source_name_part = bp_copy_blit_resolve
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_descriptor.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/best_practices/bp_descriptor.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = bp_descriptor.cpp
+  source_name_part = bp_descriptor
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_device_memory.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/best_practices/bp_device_memory.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = bp_device_memory.cpp
+  source_name_part = bp_device_memory
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_drawdispatch.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/best_practices/bp_drawdispatch.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = bp_drawdispatch.cpp
+  source_name_part = bp_drawdispatch
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_framebuffer.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/best_practices/bp_framebuffer.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = bp_framebuffer.cpp
+  source_name_part = bp_framebuffer
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_image.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/best_practices/bp_image.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = bp_image.cpp
+  source_name_part = bp_image
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_instance_device.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/best_practices/bp_instance_device.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = bp_instance_device.cpp
+  source_name_part = bp_instance_device
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_pipeline.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/best_practices/bp_pipeline.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = bp_pipeline.cpp
+  source_name_part = bp_pipeline
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_ray_tracing.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/best_practices/bp_ray_tracing.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = bp_ray_tracing.cpp
+  source_name_part = bp_ray_tracing
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_render_pass.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/best_practices/bp_render_pass.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = bp_render_pass.cpp
+  source_name_part = bp_render_pass
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_synchronization.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/best_practices/bp_synchronization.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = bp_synchronization.cpp
+  source_name_part = bp_synchronization
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_video.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/best_practices/bp_video.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = bp_video.cpp
+  source_name_part = bp_video
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_wsi.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/best_practices/bp_wsi.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = bp_wsi.cpp
+  source_name_part = bp_wsi
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/chassis_manual.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/chassis/chassis_manual.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = chassis_manual.cpp
+  source_name_part = chassis_manual
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/dispatch_object_manual.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/chassis/dispatch_object_manual.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = dispatch_object_manual.cpp
+  source_name_part = dispatch_object_manual
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/subresource_adapter.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/containers/subresource_adapter.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = subresource_adapter.cpp
+  source_name_part = subresource_adapter
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_android.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_android.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_android.cpp
+  source_name_part = cc_android
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_buffer.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_buffer.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_buffer.cpp
+  source_name_part = cc_buffer
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_cmd_buffer.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_cmd_buffer.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_cmd_buffer.cpp
+  source_name_part = cc_cmd_buffer
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_cmd_buffer_dynamic.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_cmd_buffer_dynamic.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_cmd_buffer_dynamic.cpp
+  source_name_part = cc_cmd_buffer_dynamic
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_copy_blit_resolve.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_copy_blit_resolve.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_copy_blit_resolve.cpp
+  source_name_part = cc_copy_blit_resolve
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_descriptor.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_descriptor.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_descriptor.cpp
+  source_name_part = cc_descriptor
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_device.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_device.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_device.cpp
+  source_name_part = cc_device
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_device_memory.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_device_memory.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_device_memory.cpp
+  source_name_part = cc_device_memory
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_device_generated_commands.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_device_generated_commands.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_device_generated_commands.cpp
+  source_name_part = cc_device_generated_commands
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_drawdispatch.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_drawdispatch.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_drawdispatch.cpp
+  source_name_part = cc_drawdispatch
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_external_object.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_external_object.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_external_object.cpp
+  source_name_part = cc_external_object
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_image.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_image.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_image.cpp
+  source_name_part = cc_image
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_image_layout.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_image_layout.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_image_layout.cpp
+  source_name_part = cc_image_layout
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_pipeline.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_pipeline.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_pipeline.cpp
+  source_name_part = cc_pipeline
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_pipeline_compute.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_pipeline_compute.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_pipeline_compute.cpp
+  source_name_part = cc_pipeline_compute
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_pipeline_graphics.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_pipeline_graphics.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_pipeline_graphics.cpp
+  source_name_part = cc_pipeline_graphics
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_pipeline_ray_tracing.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_pipeline_ray_tracing.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_pipeline_ray_tracing.cpp
+  source_name_part = cc_pipeline_ray_tracing
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_query.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_query.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_query.cpp
+  source_name_part = cc_query
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_queue.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_queue.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_queue.cpp
+  source_name_part = cc_queue
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_ray_tracing.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_ray_tracing.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_ray_tracing.cpp
+  source_name_part = cc_ray_tracing
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_render_pass.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_render_pass.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_render_pass.cpp
+  source_name_part = cc_render_pass
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_shader_interface.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_shader_interface.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_shader_interface.cpp
+  source_name_part = cc_shader_interface
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_shader_object.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_shader_object.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_shader_object.cpp
+  source_name_part = cc_shader_object
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_spirv.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_spirv.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_spirv.cpp
+  source_name_part = cc_spirv
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_state_tracker.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_state_tracker.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_state_tracker.cpp
+  source_name_part = cc_state_tracker
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_submit.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_submit.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_submit.cpp
+  source_name_part = cc_submit
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_synchronization.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_synchronization.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_synchronization.cpp
+  source_name_part = cc_synchronization
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_video.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_video.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_video.cpp
+  source_name_part = cc_video
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_vuid_maps.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_vuid_maps.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_vuid_maps.cpp
+  source_name_part = cc_vuid_maps
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_wsi.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_wsi.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_wsi.cpp
+  source_name_part = cc_wsi
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_ycbcr.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/core_checks/cc_ycbcr.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cc_ycbcr.cpp
+  source_name_part = cc_ycbcr
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/descriptor_validator.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/drawdispatch/descriptor_validator.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = descriptor_validator.cpp
+  source_name_part = descriptor_validator
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/drawdispatch_vuids.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/drawdispatch/drawdispatch_vuids.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = drawdispatch_vuids.cpp
+  source_name_part = drawdispatch_vuids
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/error_location.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/error_message/error_location.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = error_location.cpp
+  source_name_part = error_location
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/logging.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/error_message/logging.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = logging.cpp
+  source_name_part = logging
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/spirv_logging.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/error_message/spirv_logging.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = spirv_logging.cpp
+  source_name_part = spirv_logging
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/vma.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/external/vma/vma.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = vma.cpp
+  source_name_part = vma
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_validation_cmd_common.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/validation_cmd/gpuav_validation_cmd_common.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = gpuav_validation_cmd_common.cpp
+  source_name_part = gpuav_validation_cmd_common
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_copy_buffer_to_image.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/validation_cmd/gpuav_copy_buffer_to_image.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = gpuav_copy_buffer_to_image.cpp
+  source_name_part = gpuav_copy_buffer_to_image
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_dispatch.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/validation_cmd/gpuav_dispatch.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = gpuav_dispatch.cpp
+  source_name_part = gpuav_dispatch
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_draw.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/validation_cmd/gpuav_draw.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = gpuav_draw.cpp
+  source_name_part = gpuav_draw
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_trace_rays.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/validation_cmd/gpuav_trace_rays.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = gpuav_trace_rays.cpp
+  source_name_part = gpuav_trace_rays
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_record.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/core/gpuav_record.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = gpuav_record.cpp
+  source_name_part = gpuav_record
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_setup.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/core/gpuav_setup.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = gpuav_setup.cpp
+  source_name_part = gpuav_setup
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_features.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/core/gpuav_features.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = gpuav_features.cpp
+  source_name_part = gpuav_features
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/debug_printf.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/debug_printf/debug_printf.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = debug_printf.cpp
+  source_name_part = debug_printf
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_descriptor_set.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/descriptor_validation/gpuav_descriptor_set.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = gpuav_descriptor_set.cpp
+  source_name_part = gpuav_descriptor_set
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_descriptor_validation.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/descriptor_validation/gpuav_descriptor_validation.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = gpuav_descriptor_validation.cpp
+  source_name_part = gpuav_descriptor_validation
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_image_layout.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/descriptor_validation/gpuav_image_layout.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = gpuav_image_layout.cpp
+  source_name_part = gpuav_image_layout
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_vuids.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/error_message/gpuav_vuids.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = gpuav_vuids.cpp
+  source_name_part = gpuav_vuids
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_shader_instrumentor.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/instrumentation/gpuav_shader_instrumentor.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = gpuav_shader_instrumentor.cpp
+  source_name_part = gpuav_shader_instrumentor
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_instrumentation.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/instrumentation/gpuav_instrumentation.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = gpuav_instrumentation.cpp
+  source_name_part = gpuav_instrumentation
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_vulkan_objects.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/resources/gpuav_vulkan_objects.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = gpuav_vulkan_objects.cpp
+  source_name_part = gpuav_vulkan_objects
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_state_trackers.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/resources/gpuav_state_trackers.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = gpuav_state_trackers.cpp
+  source_name_part = gpuav_state_trackers
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/descriptor_indexing_oob_pass.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/spirv/descriptor_indexing_oob_pass.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = descriptor_indexing_oob_pass.cpp
+  source_name_part = descriptor_indexing_oob_pass
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/descriptor_class_general_buffer_pass.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/spirv/descriptor_class_general_buffer_pass.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = descriptor_class_general_buffer_pass.cpp
+  source_name_part = descriptor_class_general_buffer_pass
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/descriptor_class_texel_buffer_pass.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/spirv/descriptor_class_texel_buffer_pass.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = descriptor_class_texel_buffer_pass.cpp
+  source_name_part = descriptor_class_texel_buffer_pass
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/buffer_device_address_pass.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/spirv/buffer_device_address_pass.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = buffer_device_address_pass.cpp
+  source_name_part = buffer_device_address_pass
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/post_process_descriptor_indexing_pass.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/spirv/post_process_descriptor_indexing_pass.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = post_process_descriptor_indexing_pass.cpp
+  source_name_part = post_process_descriptor_indexing_pass
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/vertex_attribute_fetch_oob.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/spirv/vertex_attribute_fetch_oob.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = vertex_attribute_fetch_oob.cpp
+  source_name_part = vertex_attribute_fetch_oob
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/function_basic_block.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/spirv/function_basic_block.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = function_basic_block.cpp
+  source_name_part = function_basic_block
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/module.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/spirv/module.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = module.cpp
+  source_name_part = module
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/pass.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/spirv/pass.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = pass.cpp
+  source_name_part = pass
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/ray_query_pass.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/spirv/ray_query_pass.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = ray_query_pass.cpp
+  source_name_part = ray_query_pass
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/debug_printf_pass.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/spirv/debug_printf_pass.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = debug_printf_pass.cpp
+  source_name_part = debug_printf_pass
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/type_manager.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/gpuav/spirv/type_manager.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = type_manager.cpp
+  source_name_part = type_manager
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/layer_options.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/layer_options.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = layer_options.cpp
+  source_name_part = layer_options
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/object_tracker_utils.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/object_tracker/object_tracker_utils.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = object_tracker_utils.cpp
+  source_name_part = object_tracker_utils
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/buffer_state.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/state_tracker/buffer_state.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = buffer_state.cpp
+  source_name_part = buffer_state
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cmd_buffer_state.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/state_tracker/cmd_buffer_state.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = cmd_buffer_state.cpp
+  source_name_part = cmd_buffer_state
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/descriptor_sets.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/state_tracker/descriptor_sets.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = descriptor_sets.cpp
+  source_name_part = descriptor_sets
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/device_generated_commands_state.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/state_tracker/device_generated_commands_state.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = device_generated_commands_state.cpp
+  source_name_part = device_generated_commands_state
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/device_memory_state.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/state_tracker/device_memory_state.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = device_memory_state.cpp
+  source_name_part = device_memory_state
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/device_state.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/state_tracker/device_state.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = device_state.cpp
+  source_name_part = device_state
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/fence_state.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/state_tracker/fence_state.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = fence_state.cpp
+  source_name_part = fence_state
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/image_layout_map.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/state_tracker/image_layout_map.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = image_layout_map.cpp
+  source_name_part = image_layout_map
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/image_state.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/state_tracker/image_state.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = image_state.cpp
+  source_name_part = image_state
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/pipeline_layout_state.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/state_tracker/pipeline_layout_state.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = pipeline_layout_state.cpp
+  source_name_part = pipeline_layout_state
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/pipeline_state.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/state_tracker/pipeline_state.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = pipeline_state.cpp
+  source_name_part = pipeline_state
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/pipeline_sub_state.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/state_tracker/pipeline_sub_state.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = pipeline_sub_state.cpp
+  source_name_part = pipeline_sub_state
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/queue_state.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/state_tracker/queue_state.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = queue_state.cpp
+  source_name_part = queue_state
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/render_pass_state.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/state_tracker/render_pass_state.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = render_pass_state.cpp
+  source_name_part = render_pass_state
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/semaphore_state.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/state_tracker/semaphore_state.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = semaphore_state.cpp
+  source_name_part = semaphore_state
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/shader_instruction.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/state_tracker/shader_instruction.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = shader_instruction.cpp
+  source_name_part = shader_instruction
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/shader_module.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/state_tracker/shader_module.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = shader_module.cpp
+  source_name_part = shader_module
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/shader_object_state.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/state_tracker/shader_object_state.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = shader_object_state.cpp
+  source_name_part = shader_object_state
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/shader_stage_state.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/state_tracker/shader_stage_state.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = shader_stage_state.cpp
+  source_name_part = shader_stage_state
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/state_object.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/state_tracker/state_object.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = state_object.cpp
+  source_name_part = state_object
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/state_tracker.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/state_tracker/state_tracker.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = state_tracker.cpp
+  source_name_part = state_tracker
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/video_session_state.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/state_tracker/video_session_state.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = video_session_state.cpp
+  source_name_part = video_session_state
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_buffer.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/stateless/sl_buffer.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sl_buffer.cpp
+  source_name_part = sl_buffer
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_cmd_buffer.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/stateless/sl_cmd_buffer.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sl_cmd_buffer.cpp
+  source_name_part = sl_cmd_buffer
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_cmd_buffer_dynamic.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/stateless/sl_cmd_buffer_dynamic.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sl_cmd_buffer_dynamic.cpp
+  source_name_part = sl_cmd_buffer_dynamic
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_descriptor.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/stateless/sl_descriptor.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sl_descriptor.cpp
+  source_name_part = sl_descriptor
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_device_generated_commands.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/stateless/sl_device_generated_commands.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sl_device_generated_commands.cpp
+  source_name_part = sl_device_generated_commands
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_device_memory.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/stateless/sl_device_memory.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sl_device_memory.cpp
+  source_name_part = sl_device_memory
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_external_object.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/stateless/sl_external_object.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sl_external_object.cpp
+  source_name_part = sl_external_object
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_framebuffer.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/stateless/sl_framebuffer.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sl_framebuffer.cpp
+  source_name_part = sl_framebuffer
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_image.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/stateless/sl_image.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sl_image.cpp
+  source_name_part = sl_image
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_instance_device.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/stateless/sl_instance_device.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sl_instance_device.cpp
+  source_name_part = sl_instance_device
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_pipeline.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/stateless/sl_pipeline.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sl_pipeline.cpp
+  source_name_part = sl_pipeline
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_ray_tracing.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/stateless/sl_ray_tracing.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sl_ray_tracing.cpp
+  source_name_part = sl_ray_tracing
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_render_pass.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/stateless/sl_render_pass.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sl_render_pass.cpp
+  source_name_part = sl_render_pass
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_shader_object.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/stateless/sl_shader_object.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sl_shader_object.cpp
+  source_name_part = sl_shader_object
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_spirv.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/stateless/sl_spirv.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sl_spirv.cpp
+  source_name_part = sl_spirv
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_synchronization.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/stateless/sl_synchronization.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sl_synchronization.cpp
+  source_name_part = sl_synchronization
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_utils.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/stateless/sl_utils.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sl_utils.cpp
+  source_name_part = sl_utils
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_vuid_maps.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/stateless/sl_vuid_maps.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sl_vuid_maps.cpp
+  source_name_part = sl_vuid_maps
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_wsi.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/stateless/sl_wsi.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sl_wsi.cpp
+  source_name_part = sl_wsi
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_access_context.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/sync/sync_access_context.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sync_access_context.cpp
+  source_name_part = sync_access_context
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_access_state.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/sync/sync_access_state.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sync_access_state.cpp
+  source_name_part = sync_access_state
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_commandbuffer.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/sync/sync_commandbuffer.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sync_commandbuffer.cpp
+  source_name_part = sync_commandbuffer
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_common.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/sync/sync_common.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sync_common.cpp
+  source_name_part = sync_common
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_error_messages.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/sync/sync_error_messages.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sync_error_messages.cpp
+  source_name_part = sync_error_messages
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_image.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/sync/sync_image.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sync_image.cpp
+  source_name_part = sync_image
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_op.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/sync/sync_op.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sync_op.cpp
+  source_name_part = sync_op
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_renderpass.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/sync/sync_renderpass.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sync_renderpass.cpp
+  source_name_part = sync_renderpass
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_reporting.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/sync/sync_reporting.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sync_reporting.cpp
+  source_name_part = sync_reporting
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_stats.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/sync/sync_stats.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sync_stats.cpp
+  source_name_part = sync_stats
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_submit.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/sync/sync_submit.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sync_submit.cpp
+  source_name_part = sync_submit
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_utils.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/sync/sync_utils.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sync_utils.cpp
+  source_name_part = sync_utils
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_validation.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/sync/sync_validation.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sync_validation.cpp
+  source_name_part = sync_validation
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_vuid_maps.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/sync/sync_vuid_maps.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sync_vuid_maps.cpp
+  source_name_part = sync_vuid_maps
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/thread_safety_validation.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/thread_tracker/thread_safety_validation.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = thread_safety_validation.cpp
+  source_name_part = thread_safety_validation
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/convert_utils.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/utils/convert_utils.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = convert_utils.cpp
+  source_name_part = convert_utils
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/hash_util.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/utils/hash_util.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = hash_util.cpp
+  source_name_part = hash_util
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/image_layout_utils.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/utils/image_layout_utils.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = image_layout_utils.cpp
+  source_name_part = image_layout_utils
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/ray_tracing_utils.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/utils/ray_tracing_utils.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = ray_tracing_utils.cpp
+  source_name_part = ray_tracing_utils
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/shader_utils.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/utils/shader_utils.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = shader_utils.cpp
+  source_name_part = shader_utils
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/text_utils.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/utils/text_utils.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = text_utils.cpp
+  source_name_part = text_utils
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/vk_layer_extension_utils.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/utils/vk_layer_extension_utils.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = vk_layer_extension_utils.cpp
+  source_name_part = vk_layer_extension_utils
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/vk_layer_utils.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/utils/vk_layer_utils.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = vk_layer_utils.cpp
+  source_name_part = vk_layer_utils
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/vk_struct_compare.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/utils/vk_struct_compare.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = vk_struct_compare.cpp
+  source_name_part = vk_struct_compare
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/vk_layer_config.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vk_layer_config.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = vk_layer_config.cpp
+  source_name_part = vk_layer_config
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/best_practices.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/best_practices.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = best_practices.cpp
+  source_name_part = best_practices
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/chassis.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/chassis.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = chassis.cpp
+  source_name_part = chassis
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/validation_cmd_copy_buffer_to_image_comp.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/validation_cmd_copy_buffer_to_image_comp.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = validation_cmd_copy_buffer_to_image_comp.cpp
+  source_name_part = validation_cmd_copy_buffer_to_image_comp
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/validation_cmd_dispatch_comp.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/validation_cmd_dispatch_comp.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = validation_cmd_dispatch_comp.cpp
+  source_name_part = validation_cmd_dispatch_comp
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/validation_cmd_count_buffer_comp.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/validation_cmd_count_buffer_comp.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = validation_cmd_count_buffer_comp.cpp
+  source_name_part = validation_cmd_count_buffer_comp
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/validation_cmd_first_instance_comp.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/validation_cmd_first_instance_comp.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = validation_cmd_first_instance_comp.cpp
+  source_name_part = validation_cmd_first_instance_comp
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/validation_cmd_draw_indexed_indirect_index_buffer_comp.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/validation_cmd_draw_indexed_indirect_index_buffer_comp.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = validation_cmd_draw_indexed_indirect_index_buffer_comp.cpp
+  source_name_part = validation_cmd_draw_indexed_indirect_index_buffer_comp
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/validation_cmd_setup_draw_indexed_indirect_index_buffer_comp.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/validation_cmd_setup_draw_indexed_indirect_index_buffer_comp.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = validation_cmd_setup_draw_indexed_indirect_index_buffer_comp.cpp
+  source_name_part = validation_cmd_setup_draw_indexed_indirect_index_buffer_comp
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/validation_cmd_draw_mesh_indirect_comp.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/validation_cmd_draw_mesh_indirect_comp.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = validation_cmd_draw_mesh_indirect_comp.cpp
+  source_name_part = validation_cmd_draw_mesh_indirect_comp
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/validation_cmd_trace_rays_rgen.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/validation_cmd_trace_rays_rgen.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = validation_cmd_trace_rays_rgen.cpp
+  source_name_part = validation_cmd_trace_rays_rgen
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/command_validation.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/command_validation.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = command_validation.cpp
+  source_name_part = command_validation
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/device_features.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/device_features.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = device_features.cpp
+  source_name_part = device_features
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/dispatch_object.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/dispatch_object.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = dispatch_object.cpp
+  source_name_part = dispatch_object
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/dispatch_vector.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/dispatch_vector.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = dispatch_vector.cpp
+  source_name_part = dispatch_vector
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/dynamic_state_helper.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/dynamic_state_helper.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = dynamic_state_helper.cpp
+  source_name_part = dynamic_state_helper
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/error_location_helper.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/error_location_helper.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = error_location_helper.cpp
+  source_name_part = error_location_helper
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/feature_requirements_helper.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/feature_requirements_helper.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = feature_requirements_helper.cpp
+  source_name_part = feature_requirements_helper
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/instrumentation_descriptor_indexing_oob_bindless_comp.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/instrumentation_descriptor_indexing_oob_bindless_comp.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = instrumentation_descriptor_indexing_oob_bindless_comp.cpp
+  source_name_part = instrumentation_descriptor_indexing_oob_bindless_comp
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/instrumentation_descriptor_indexing_oob_bindless_combined_image_sampler_comp.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/instrumentation_descriptor_indexing_oob_bindless_combined_image_sampler_comp.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = instrumentation_descriptor_indexing_oob_bindless_combined_image_sampler_comp.cpp
+  source_name_part = instrumentation_descriptor_indexing_oob_bindless_combined_image_sampler_comp
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/instrumentation_descriptor_indexing_oob_non_bindless_comp.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/instrumentation_descriptor_indexing_oob_non_bindless_comp.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = instrumentation_descriptor_indexing_oob_non_bindless_comp.cpp
+  source_name_part = instrumentation_descriptor_indexing_oob_non_bindless_comp
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/instrumentation_descriptor_class_general_buffer_comp.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/instrumentation_descriptor_class_general_buffer_comp.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = instrumentation_descriptor_class_general_buffer_comp.cpp
+  source_name_part = instrumentation_descriptor_class_general_buffer_comp
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/instrumentation_descriptor_class_texel_buffer_comp.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/instrumentation_descriptor_class_texel_buffer_comp.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = instrumentation_descriptor_class_texel_buffer_comp.cpp
+  source_name_part = instrumentation_descriptor_class_texel_buffer_comp
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/instrumentation_buffer_device_address_comp.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/instrumentation_buffer_device_address_comp.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = instrumentation_buffer_device_address_comp.cpp
+  source_name_part = instrumentation_buffer_device_address_comp
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/instrumentation_ray_query_comp.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/instrumentation_ray_query_comp.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = instrumentation_ray_query_comp.cpp
+  source_name_part = instrumentation_ray_query_comp
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/instrumentation_post_process_descriptor_index_comp.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/instrumentation_post_process_descriptor_index_comp.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = instrumentation_post_process_descriptor_index_comp.cpp
+  source_name_part = instrumentation_post_process_descriptor_index_comp
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/instrumentation_vertex_attribute_fetch_oob_vert.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/instrumentation_vertex_attribute_fetch_oob_vert.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = instrumentation_vertex_attribute_fetch_oob_vert.cpp
+  source_name_part = instrumentation_vertex_attribute_fetch_oob_vert
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/object_tracker.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/object_tracker.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = object_tracker.cpp
+  source_name_part = object_tracker
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/pnext_chain_extraction.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/pnext_chain_extraction.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = pnext_chain_extraction.cpp
+  source_name_part = pnext_chain_extraction
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/spirv_grammar_helper.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/spirv_grammar_helper.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = spirv_grammar_helper.cpp
+  source_name_part = spirv_grammar_helper
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/spirv_validation_helper.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/spirv_validation_helper.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = spirv_validation_helper.cpp
+  source_name_part = spirv_validation_helper
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/stateless_validation_helper.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/stateless_validation_helper.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = stateless_validation_helper.cpp
+  source_name_part = stateless_validation_helper
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_validation_types.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/sync_validation_types.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = sync_validation_types.cpp
+  source_name_part = sync_validation_types
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/thread_safety.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/thread_safety.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = thread_safety.cpp
+  source_name_part = thread_safety
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/valid_enum_values.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/valid_enum_values.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = valid_enum_values.cpp
+  source_name_part = valid_enum_values
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/valid_flag_values.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/valid_flag_values.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = valid_flag_values.cpp
+  source_name_part = valid_flag_values
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/validation_object.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/validation_object.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = validation_object.cpp
+  source_name_part = validation_object
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/vk_dispatch_table_helper.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/vk_dispatch_table_helper.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = vk_dispatch_table_helper.cpp
+  source_name_part = vk_dispatch_table_helper
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/vk_extension_helper.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/vk_extension_helper.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = vk_extension_helper.cpp
+  source_name_part = vk_extension_helper
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/vk_function_pointers.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/vk_function_pointers.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = vk_function_pointers.cpp
+  source_name_part = vk_function_pointers
+build obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/vk_object_types.o: cxx ../../src/third_party/vulkan-validation-layers/src/layers/vulkan/generated/vk_object_types.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation.inputdeps
+  source_file_part = vk_object_types.cpp
+  source_name_part = vk_object_types
+
+build ./libVkLayer_khronos_validation.dylib ./libVkLayer_khronos_validation.dylib.TOC ./libVkLayer_khronos_validation.dylib.dSYM/Contents/Info.plist ./libVkLayer_khronos_validation.dylib.dSYM/Contents/Resources/DWARF/libVkLayer_khronos_validation.dylib: solink obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/best_practices_utils.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_buffer.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_cmd_buffer.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_cmd_buffer_nv.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_copy_blit_resolve.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_descriptor.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_device_memory.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_drawdispatch.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_framebuffer.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_image.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_instance_device.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_pipeline.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_ray_tracing.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_render_pass.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_synchronization.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_video.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/bp_wsi.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/chassis_manual.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/dispatch_object_manual.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/subresource_adapter.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_android.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_buffer.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_cmd_buffer.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_cmd_buffer_dynamic.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_copy_blit_resolve.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_descriptor.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_device.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_device_memory.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_device_generated_commands.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_drawdispatch.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_external_object.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_image.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_image_layout.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_pipeline.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_pipeline_compute.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_pipeline_graphics.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_pipeline_ray_tracing.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_query.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_queue.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_ray_tracing.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_render_pass.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_shader_interface.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_shader_object.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_spirv.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_state_tracker.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_submit.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_synchronization.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_video.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_vuid_maps.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_wsi.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cc_ycbcr.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/descriptor_validator.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/drawdispatch_vuids.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/error_location.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/logging.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/spirv_logging.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/vma.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_validation_cmd_common.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_copy_buffer_to_image.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_dispatch.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_draw.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_trace_rays.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_record.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_setup.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_features.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/debug_printf.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_descriptor_set.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_descriptor_validation.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_image_layout.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_vuids.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_shader_instrumentor.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_instrumentation.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_vulkan_objects.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/gpuav_state_trackers.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/descriptor_indexing_oob_pass.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/descriptor_class_general_buffer_pass.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/descriptor_class_texel_buffer_pass.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/buffer_device_address_pass.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/post_process_descriptor_indexing_pass.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/vertex_attribute_fetch_oob.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/function_basic_block.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/module.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/pass.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/ray_query_pass.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/debug_printf_pass.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/type_manager.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/layer_options.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/object_tracker_utils.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/buffer_state.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/cmd_buffer_state.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/descriptor_sets.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/device_generated_commands_state.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/device_memory_state.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/device_state.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/fence_state.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/image_layout_map.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/image_state.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/pipeline_layout_state.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/pipeline_state.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/pipeline_sub_state.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/queue_state.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/render_pass_state.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/semaphore_state.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/shader_instruction.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/shader_module.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/shader_object_state.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/shader_stage_state.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/state_object.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/state_tracker.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/video_session_state.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_buffer.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_cmd_buffer.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_cmd_buffer_dynamic.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_descriptor.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_device_generated_commands.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_device_memory.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_external_object.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_framebuffer.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_image.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_instance_device.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_pipeline.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_ray_tracing.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_render_pass.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_shader_object.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_spirv.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_synchronization.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_utils.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_vuid_maps.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sl_wsi.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_access_context.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_access_state.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_commandbuffer.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_common.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_error_messages.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_image.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_op.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_renderpass.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_reporting.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_stats.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_submit.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_utils.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_validation.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_vuid_maps.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/thread_safety_validation.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/convert_utils.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/hash_util.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/image_layout_utils.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/ray_tracing_utils.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/shader_utils.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/text_utils.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/vk_layer_extension_utils.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/vk_layer_utils.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/vk_struct_compare.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/vk_layer_config.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/best_practices.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/chassis.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/validation_cmd_copy_buffer_to_image_comp.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/validation_cmd_dispatch_comp.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/validation_cmd_count_buffer_comp.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/validation_cmd_first_instance_comp.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/validation_cmd_draw_indexed_indirect_index_buffer_comp.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/validation_cmd_setup_draw_indexed_indirect_index_buffer_comp.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/validation_cmd_draw_mesh_indirect_comp.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/validation_cmd_trace_rays_rgen.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/command_validation.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/device_features.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/dispatch_object.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/dispatch_vector.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/dynamic_state_helper.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/error_location_helper.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/feature_requirements_helper.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/instrumentation_descriptor_indexing_oob_bindless_comp.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/instrumentation_descriptor_indexing_oob_bindless_combined_image_sampler_comp.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/instrumentation_descriptor_indexing_oob_non_bindless_comp.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/instrumentation_descriptor_class_general_buffer_comp.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/instrumentation_descriptor_class_texel_buffer_comp.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/instrumentation_buffer_device_address_comp.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/instrumentation_ray_query_comp.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/instrumentation_post_process_descriptor_index_comp.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/instrumentation_vertex_attribute_fetch_oob_vert.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/object_tracker.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/pnext_chain_extraction.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/spirv_grammar_helper.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/spirv_validation_helper.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/stateless_validation_helper.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/sync_validation_types.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/thread_safety.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/valid_enum_values.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/valid_flag_values.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/validation_object.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/vk_dispatch_table_helper.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/vk_extension_helper.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/vk_function_pointers.o obj/third_party/vulkan-validation-layers/src/VkLayer_khronos_validation/vk_object_types.o obj/buildtools/third_party/libc++/libc++/algorithm.o obj/buildtools/third_party/libc++/libc++/any.o obj/buildtools/third_party/libc++/libc++/atomic.o obj/buildtools/third_party/libc++/libc++/barrier.o obj/buildtools/third_party/libc++/libc++/bind.o obj/buildtools/third_party/libc++/libc++/call_once.o obj/buildtools/third_party/libc++/libc++/charconv.o obj/buildtools/third_party/libc++/libc++/chrono.o obj/buildtools/third_party/libc++/libc++/condition_variable.o obj/buildtools/third_party/libc++/libc++/condition_variable_destructor.o obj/buildtools/third_party/libc++/libc++/error_category.o obj/buildtools/third_party/libc++/libc++/exception.o obj/buildtools/third_party/libc++/libc++/directory_iterator.o obj/buildtools/third_party/libc++/libc++/filesystem_error.o obj/buildtools/third_party/libc++/libc++/operations.o obj/buildtools/third_party/libc++/libc++/path.o obj/buildtools/third_party/libc++/libc++/functional.o obj/buildtools/third_party/libc++/libc++/future.o obj/buildtools/third_party/libc++/libc++/hash.o obj/buildtools/third_party/libc++/libc++/ios.o obj/buildtools/third_party/libc++/libc++/ios.instantiations.o obj/buildtools/third_party/libc++/libc++/iostream.o obj/buildtools/third_party/libc++/libc++/locale.o obj/buildtools/third_party/libc++/libc++/memory.o obj/buildtools/third_party/libc++/libc++/mutex.o obj/buildtools/third_party/libc++/libc++/mutex_destructor.o obj/buildtools/third_party/libc++/libc++/new_handler.o obj/buildtools/third_party/libc++/libc++/new_helpers.o obj/buildtools/third_party/libc++/libc++/optional.o obj/buildtools/third_party/libc++/libc++/random.o obj/buildtools/third_party/libc++/libc++/random_shuffle.o obj/buildtools/third_party/libc++/libc++/regex.o obj/buildtools/third_party/libc++/libc++/d2fixed.o obj/buildtools/third_party/libc++/libc++/d2s.o obj/buildtools/third_party/libc++/libc++/f2s.o obj/buildtools/third_party/libc++/libc++/shared_mutex.o obj/buildtools/third_party/libc++/libc++/stdexcept.o obj/buildtools/third_party/libc++/libc++/string.o obj/buildtools/third_party/libc++/libc++/strstream.o obj/buildtools/third_party/libc++/libc++/system_error.o obj/buildtools/third_party/libc++/libc++/thread.o obj/buildtools/third_party/libc++/libc++/typeinfo.o obj/buildtools/third_party/libc++/libc++/valarray.o obj/buildtools/third_party/libc++/libc++/variant.o obj/buildtools/third_party/libc++/libc++/vector.o obj/buildtools/third_party/libc++/libc++/verbose_abort.o obj/buildtools/third_party/libc++/libc++/new.o obj/buildtools/third_party/libc++abi/libc++abi/abort_message.o obj/buildtools/third_party/libc++abi/libc++abi/cxa_aux_runtime.o obj/buildtools/third_party/libc++abi/libc++abi/cxa_default_handlers.o obj/buildtools/third_party/libc++abi/libc++abi/cxa_exception.o obj/buildtools/third_party/libc++abi/libc++abi/cxa_exception_storage.o obj/buildtools/third_party/libc++abi/libc++abi/cxa_handlers.o obj/buildtools/third_party/libc++abi/libc++abi/cxa_personality.o obj/buildtools/third_party/libc++abi/libc++abi/cxa_vector.o obj/buildtools/third_party/libc++abi/libc++abi/cxa_virtual.o obj/buildtools/third_party/libc++abi/libc++abi/fallback_malloc.o obj/buildtools/third_party/libc++abi/libc++abi/private_typeinfo.o obj/buildtools/third_party/libc++abi/libc++abi/stdlib_exception.o obj/buildtools/third_party/libc++abi/libc++abi/stdlib_stdexcept.o obj/buildtools/third_party/libc++abi/libc++abi/stdlib_typeinfo.o obj/buildtools/third_party/libc++abi/libc++abi/cxa_guard.o obj/buildtools/third_party/libc++abi/libc++abi/cxa_demangle.o obj/third_party/vulkan-utility-libraries/src/libvulkan_layer_settings.a obj/third_party/spirv-tools/src/libspvtools.a obj/third_party/spirv-tools/src/libspvtools_link.a obj/third_party/spirv-tools/src/libspvtools_opt.a obj/third_party/spirv-tools/src/libspvtools_val.a | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a ../../src/build/config/warning_suppression.txt || phony/third_party/vulkan-validation-layers/src/vulkan_layer_utils phony/third_party/vulkan-validation-layers/src/vulkan_core_validation_glslang phony/build/config/shared_library_deps phony/buildtools/third_party/libc++/libc++ phony/buildtools/third_party/libc++abi/libc++abi
+  ldflags = -fuse-ld=lld -Wl,-fatal_warnings -Wl,--icf=all -Wl,--color-diagnostics -Wl,--strict-auto-link -Wl,--no-call-graph-profile-sort --target=arm64-apple-macos -Wl,-mllvm,-enable-machine-outliner=never -no-canonical-prefixes -Wl,-dead_strip -Wl,-no_data_in_code_info -Wl,-no_function_starts -nostdlib++ -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -Wl,-ObjC -Wcrl,strip,-x,-S -Wl,--no-warn-duplicate-rpath -Wl,-no_warn_duplicate_libraries
+  libs = ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a
+  frameworks =
+  swiftmodules =
+  output_extension = .dylib
+  output_dir = .

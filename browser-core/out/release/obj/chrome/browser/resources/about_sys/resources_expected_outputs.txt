@@ -1,0 +1,4 @@
+gen/chrome/grit/about_sys_resources.h
+gen/chrome/grit/about_sys_resources_map.cc
+gen/chrome/grit/about_sys_resources_map.h
+gen/chrome/about_sys_resources.pak

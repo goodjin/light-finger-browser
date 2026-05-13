@@ -1,0 +1,73 @@
+defines = -Dbenchmark_EXPORTS=1 -DHAVE_STD_REGEX=1 -DBENCHMARK_VERSION=\"1.9.0\" -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DBENCHMARK_STATIC_DEFINE
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/google_benchmark/src/include
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall
+cflags_cc = -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness
+label_name = google_benchmark
+root_out_dir = .
+target_out_dir = obj/third_party/google_benchmark
+target_output_name = libgoogle_benchmark
+
+build phony/third_party/google_benchmark/google_benchmark.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/google_benchmark/google_benchmark/benchmark.o: cxx ../../src/third_party/google_benchmark/src/src/benchmark.cc | phony/third_party/google_benchmark/google_benchmark.inputs
+  source_file_part = benchmark.cc
+  source_name_part = benchmark
+build obj/third_party/google_benchmark/google_benchmark/benchmark_api_internal.o: cxx ../../src/third_party/google_benchmark/src/src/benchmark_api_internal.cc | phony/third_party/google_benchmark/google_benchmark.inputs
+  source_file_part = benchmark_api_internal.cc
+  source_name_part = benchmark_api_internal
+build obj/third_party/google_benchmark/google_benchmark/benchmark_name.o: cxx ../../src/third_party/google_benchmark/src/src/benchmark_name.cc | phony/third_party/google_benchmark/google_benchmark.inputs
+  source_file_part = benchmark_name.cc
+  source_name_part = benchmark_name
+build obj/third_party/google_benchmark/google_benchmark/benchmark_register.o: cxx ../../src/third_party/google_benchmark/src/src/benchmark_register.cc | phony/third_party/google_benchmark/google_benchmark.inputs
+  source_file_part = benchmark_register.cc
+  source_name_part = benchmark_register
+build obj/third_party/google_benchmark/google_benchmark/benchmark_runner.o: cxx ../../src/third_party/google_benchmark/src/src/benchmark_runner.cc | phony/third_party/google_benchmark/google_benchmark.inputs
+  source_file_part = benchmark_runner.cc
+  source_name_part = benchmark_runner
+build obj/third_party/google_benchmark/google_benchmark/check.o: cxx ../../src/third_party/google_benchmark/src/src/check.cc | phony/third_party/google_benchmark/google_benchmark.inputs
+  source_file_part = check.cc
+  source_name_part = check
+build obj/third_party/google_benchmark/google_benchmark/colorprint.o: cxx ../../src/third_party/google_benchmark/src/src/colorprint.cc | phony/third_party/google_benchmark/google_benchmark.inputs
+  source_file_part = colorprint.cc
+  source_name_part = colorprint
+build obj/third_party/google_benchmark/google_benchmark/commandlineflags.o: cxx ../../src/third_party/google_benchmark/src/src/commandlineflags.cc | phony/third_party/google_benchmark/google_benchmark.inputs
+  source_file_part = commandlineflags.cc
+  source_name_part = commandlineflags
+build obj/third_party/google_benchmark/google_benchmark/complexity.o: cxx ../../src/third_party/google_benchmark/src/src/complexity.cc | phony/third_party/google_benchmark/google_benchmark.inputs
+  source_file_part = complexity.cc
+  source_name_part = complexity
+build obj/third_party/google_benchmark/google_benchmark/console_reporter.o: cxx ../../src/third_party/google_benchmark/src/src/console_reporter.cc | phony/third_party/google_benchmark/google_benchmark.inputs
+  source_file_part = console_reporter.cc
+  source_name_part = console_reporter
+build obj/third_party/google_benchmark/google_benchmark/counter.o: cxx ../../src/third_party/google_benchmark/src/src/counter.cc | phony/third_party/google_benchmark/google_benchmark.inputs
+  source_file_part = counter.cc
+  source_name_part = counter
+build obj/third_party/google_benchmark/google_benchmark/csv_reporter.o: cxx ../../src/third_party/google_benchmark/src/src/csv_reporter.cc | phony/third_party/google_benchmark/google_benchmark.inputs
+  source_file_part = csv_reporter.cc
+  source_name_part = csv_reporter
+build obj/third_party/google_benchmark/google_benchmark/json_reporter.o: cxx ../../src/third_party/google_benchmark/src/src/json_reporter.cc | phony/third_party/google_benchmark/google_benchmark.inputs
+  source_file_part = json_reporter.cc
+  source_name_part = json_reporter
+build obj/third_party/google_benchmark/google_benchmark/perf_counters.o: cxx ../../src/third_party/google_benchmark/src/src/perf_counters.cc | phony/third_party/google_benchmark/google_benchmark.inputs
+  source_file_part = perf_counters.cc
+  source_name_part = perf_counters
+build obj/third_party/google_benchmark/google_benchmark/reporter.o: cxx ../../src/third_party/google_benchmark/src/src/reporter.cc | phony/third_party/google_benchmark/google_benchmark.inputs
+  source_file_part = reporter.cc
+  source_name_part = reporter
+build obj/third_party/google_benchmark/google_benchmark/statistics.o: cxx ../../src/third_party/google_benchmark/src/src/statistics.cc | phony/third_party/google_benchmark/google_benchmark.inputs
+  source_file_part = statistics.cc
+  source_name_part = statistics
+build obj/third_party/google_benchmark/google_benchmark/string_util.o: cxx ../../src/third_party/google_benchmark/src/src/string_util.cc | phony/third_party/google_benchmark/google_benchmark.inputs
+  source_file_part = string_util.cc
+  source_name_part = string_util
+build obj/third_party/google_benchmark/google_benchmark/sysinfo.o: cxx ../../src/third_party/google_benchmark/src/src/sysinfo.cc | phony/third_party/google_benchmark/google_benchmark.inputs
+  source_file_part = sysinfo.cc
+  source_name_part = sysinfo
+build obj/third_party/google_benchmark/google_benchmark/timers.o: cxx ../../src/third_party/google_benchmark/src/src/timers.cc | phony/third_party/google_benchmark/google_benchmark.inputs
+  source_file_part = timers.cc
+  source_name_part = timers
+
+build obj/third_party/google_benchmark/libgoogle_benchmark.a: alink obj/third_party/google_benchmark/google_benchmark/benchmark.o obj/third_party/google_benchmark/google_benchmark/benchmark_api_internal.o obj/third_party/google_benchmark/google_benchmark/benchmark_name.o obj/third_party/google_benchmark/google_benchmark/benchmark_register.o obj/third_party/google_benchmark/google_benchmark/benchmark_runner.o obj/third_party/google_benchmark/google_benchmark/check.o obj/third_party/google_benchmark/google_benchmark/colorprint.o obj/third_party/google_benchmark/google_benchmark/commandlineflags.o obj/third_party/google_benchmark/google_benchmark/complexity.o obj/third_party/google_benchmark/google_benchmark/console_reporter.o obj/third_party/google_benchmark/google_benchmark/counter.o obj/third_party/google_benchmark/google_benchmark/csv_reporter.o obj/third_party/google_benchmark/google_benchmark/json_reporter.o obj/third_party/google_benchmark/google_benchmark/perf_counters.o obj/third_party/google_benchmark/google_benchmark/reporter.o obj/third_party/google_benchmark/google_benchmark/statistics.o obj/third_party/google_benchmark/google_benchmark/string_util.o obj/third_party/google_benchmark/google_benchmark/sysinfo.o obj/third_party/google_benchmark/google_benchmark/timers.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a phony/third_party/google_benchmark/google_benchmark.inputs ||
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/third_party/google_benchmark

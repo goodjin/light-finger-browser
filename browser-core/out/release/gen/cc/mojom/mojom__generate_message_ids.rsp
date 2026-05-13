@@ -1,0 +1,6 @@
+../../src/cc/mojom/browser_controls_offset_tag_modifications.mojom
+../../src/cc/mojom/browser_controls_params.mojom
+../../src/cc/mojom/browser_controls_state.mojom
+../../src/cc/mojom/overscroll_behavior.mojom
+../../src/cc/mojom/render_frame_metadata.mojom
+../../src/cc/mojom/touch_action.mojom

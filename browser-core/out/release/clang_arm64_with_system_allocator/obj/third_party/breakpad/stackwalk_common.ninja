@@ -1,0 +1,149 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DBPLOG_MINIMUM_SEVERITY=SEVERITY_ERROR
+framework_dirs =
+include_dirs = -I../../src -Iclang_arm64_with_system_allocator/gen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/breakpad/breakpad/src -I../../src/third_party/breakpad/breakpad/src/third_party
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -O2 -fno-math-errno -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wno-tautological-constant-out-of-range-compare
+cflags_c = -std=c11
+cflags_cc = -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness
+label_name = stackwalk_common
+root_out_dir = clang_arm64_with_system_allocator
+target_out_dir = clang_arm64_with_system_allocator/obj/third_party/breakpad
+target_output_name = libstackwalk_common
+
+build clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/path_helper.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/common/path_helper.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = path_helper.cc
+  source_name_part = path_helper
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/basic_code_modules.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/basic_code_modules.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = basic_code_modules.cc
+  source_name_part = basic_code_modules
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/basic_source_line_resolver.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/basic_source_line_resolver.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = basic_source_line_resolver.cc
+  source_name_part = basic_source_line_resolver
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/call_stack.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/call_stack.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = call_stack.cc
+  source_name_part = call_stack
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/cfi_frame_info.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/cfi_frame_info.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = cfi_frame_info.cc
+  source_name_part = cfi_frame_info
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/convert_old_arm64_context.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/convert_old_arm64_context.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = convert_old_arm64_context.cc
+  source_name_part = convert_old_arm64_context
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/disassembler_x86.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/disassembler_x86.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = disassembler_x86.cc
+  source_name_part = disassembler_x86
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/dump_context.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/dump_context.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = dump_context.cc
+  source_name_part = dump_context
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/dump_object.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/dump_object.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = dump_object.cc
+  source_name_part = dump_object
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/logging.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/logging.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = logging.cc
+  source_name_part = logging
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/pathname_stripper.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/pathname_stripper.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = pathname_stripper.cc
+  source_name_part = pathname_stripper
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/proc_maps_linux.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/proc_maps_linux.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = proc_maps_linux.cc
+  source_name_part = proc_maps_linux
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/process_state.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/process_state.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = process_state.cc
+  source_name_part = process_state
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/simple_symbol_supplier.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/simple_symbol_supplier.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = simple_symbol_supplier.cc
+  source_name_part = simple_symbol_supplier
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/source_line_resolver_base.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/source_line_resolver_base.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = source_line_resolver_base.cc
+  source_name_part = source_line_resolver_base
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stack_frame_cpu.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/stack_frame_cpu.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = stack_frame_cpu.cc
+  source_name_part = stack_frame_cpu
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stack_frame_symbolizer.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/stack_frame_symbolizer.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = stack_frame_symbolizer.cc
+  source_name_part = stack_frame_symbolizer
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stackwalk_common.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/stackwalk_common.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = stackwalk_common.cc
+  source_name_part = stackwalk_common
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stackwalker.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/stackwalker.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = stackwalker.cc
+  source_name_part = stackwalker
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stackwalker_amd64.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/stackwalker_amd64.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = stackwalker_amd64.cc
+  source_name_part = stackwalker_amd64
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stackwalker_arm.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/stackwalker_arm.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = stackwalker_arm.cc
+  source_name_part = stackwalker_arm
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stackwalker_arm64.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/stackwalker_arm64.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = stackwalker_arm64.cc
+  source_name_part = stackwalker_arm64
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stackwalker_mips.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/stackwalker_mips.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = stackwalker_mips.cc
+  source_name_part = stackwalker_mips
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stackwalker_ppc.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/stackwalker_ppc.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = stackwalker_ppc.cc
+  source_name_part = stackwalker_ppc
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stackwalker_ppc64.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/stackwalker_ppc64.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = stackwalker_ppc64.cc
+  source_name_part = stackwalker_ppc64
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stackwalker_riscv.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/stackwalker_riscv.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = stackwalker_riscv.cc
+  source_name_part = stackwalker_riscv
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stackwalker_riscv64.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/stackwalker_riscv64.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = stackwalker_riscv64.cc
+  source_name_part = stackwalker_riscv64
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stackwalker_sparc.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/stackwalker_sparc.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = stackwalker_sparc.cc
+  source_name_part = stackwalker_sparc
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stackwalker_x86.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/stackwalker_x86.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = stackwalker_x86.cc
+  source_name_part = stackwalker_x86
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/tokenize.o: clang_arm64_with_system_allocator_cxx ../../src/third_party/breakpad/breakpad/src/processor/tokenize.cc | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = tokenize.cc
+  source_name_part = tokenize
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/ia32_implicit.o: clang_arm64_with_system_allocator_cc ../../src/third_party/breakpad/breakpad/src/third_party/libdisasm/ia32_implicit.c | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = ia32_implicit.c
+  source_name_part = ia32_implicit
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/ia32_insn.o: clang_arm64_with_system_allocator_cc ../../src/third_party/breakpad/breakpad/src/third_party/libdisasm/ia32_insn.c | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = ia32_insn.c
+  source_name_part = ia32_insn
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/ia32_invariant.o: clang_arm64_with_system_allocator_cc ../../src/third_party/breakpad/breakpad/src/third_party/libdisasm/ia32_invariant.c | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = ia32_invariant.c
+  source_name_part = ia32_invariant
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/ia32_modrm.o: clang_arm64_with_system_allocator_cc ../../src/third_party/breakpad/breakpad/src/third_party/libdisasm/ia32_modrm.c | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = ia32_modrm.c
+  source_name_part = ia32_modrm
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/ia32_opcode_tables.o: clang_arm64_with_system_allocator_cc ../../src/third_party/breakpad/breakpad/src/third_party/libdisasm/ia32_opcode_tables.c | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = ia32_opcode_tables.c
+  source_name_part = ia32_opcode_tables
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/ia32_operand.o: clang_arm64_with_system_allocator_cc ../../src/third_party/breakpad/breakpad/src/third_party/libdisasm/ia32_operand.c | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = ia32_operand.c
+  source_name_part = ia32_operand
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/ia32_reg.o: clang_arm64_with_system_allocator_cc ../../src/third_party/breakpad/breakpad/src/third_party/libdisasm/ia32_reg.c | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = ia32_reg.c
+  source_name_part = ia32_reg
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/ia32_settings.o: clang_arm64_with_system_allocator_cc ../../src/third_party/breakpad/breakpad/src/third_party/libdisasm/ia32_settings.c | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = ia32_settings.c
+  source_name_part = ia32_settings
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/x86_disasm.o: clang_arm64_with_system_allocator_cc ../../src/third_party/breakpad/breakpad/src/third_party/libdisasm/x86_disasm.c | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = x86_disasm.c
+  source_name_part = x86_disasm
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/x86_format.o: clang_arm64_with_system_allocator_cc ../../src/third_party/breakpad/breakpad/src/third_party/libdisasm/x86_format.c | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = x86_format.c
+  source_name_part = x86_format
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/x86_imm.o: clang_arm64_with_system_allocator_cc ../../src/third_party/breakpad/breakpad/src/third_party/libdisasm/x86_imm.c | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = x86_imm.c
+  source_name_part = x86_imm
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/x86_insn.o: clang_arm64_with_system_allocator_cc ../../src/third_party/breakpad/breakpad/src/third_party/libdisasm/x86_insn.c | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = x86_insn.c
+  source_name_part = x86_insn
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/x86_misc.o: clang_arm64_with_system_allocator_cc ../../src/third_party/breakpad/breakpad/src/third_party/libdisasm/x86_misc.c | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = x86_misc.c
+  source_name_part = x86_misc
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/x86_operand_list.o: clang_arm64_with_system_allocator_cc ../../src/third_party/breakpad/breakpad/src/third_party/libdisasm/x86_operand_list.c | clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  source_file_part = x86_operand_list.c
+  source_name_part = x86_operand_list
+
+build clang_arm64_with_system_allocator/obj/third_party/breakpad/libstackwalk_common.a: clang_arm64_with_system_allocator_alink clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/path_helper.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/basic_code_modules.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/basic_source_line_resolver.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/call_stack.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/cfi_frame_info.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/convert_old_arm64_context.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/disassembler_x86.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/dump_context.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/dump_object.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/logging.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/pathname_stripper.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/proc_maps_linux.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/process_state.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/simple_symbol_supplier.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/source_line_resolver_base.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stack_frame_cpu.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stack_frame_symbolizer.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stackwalk_common.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stackwalker.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stackwalker_amd64.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stackwalker_arm.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stackwalker_arm64.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stackwalker_mips.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stackwalker_ppc.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stackwalker_ppc64.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stackwalker_riscv.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stackwalker_riscv64.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stackwalker_sparc.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/stackwalker_x86.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/tokenize.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/ia32_implicit.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/ia32_insn.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/ia32_invariant.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/ia32_modrm.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/ia32_opcode_tables.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/ia32_operand.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/ia32_reg.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/ia32_settings.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/x86_disasm.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/x86_format.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/x86_imm.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/x86_insn.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/x86_misc.o clang_arm64_with_system_allocator/obj/third_party/breakpad/stackwalk_common/x86_operand_list.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a clang_arm64_with_system_allocator/phony/third_party/breakpad/stackwalk_common.inputs
+  arflags = -T -s
+  output_extension = .a
+  output_dir = clang_arm64_with_system_allocator/obj/third_party/breakpad

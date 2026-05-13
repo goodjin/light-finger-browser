@@ -1,0 +1,4 @@
+../../src/ui/events/mojom/event.mojom
+../../src/ui/events/mojom/event_constants.mojom
+../../src/ui/events/mojom/keyboard_codes.mojom
+../../src/ui/events/mojom/scroll_granularity.mojom

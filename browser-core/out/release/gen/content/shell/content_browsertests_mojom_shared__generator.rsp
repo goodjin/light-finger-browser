@@ -1,0 +1,3 @@
+../../src/content/shell/common/main_frame_counter_test.mojom
+../../src/content/shell/common/power_monitor_test.mojom
+../../src/content/shell/common/render_frame_test_helper.mojom

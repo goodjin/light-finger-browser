@@ -1,0 +1,9 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../../../../src/mojo/public/interfaces/bindings/tests/echo.test-mojom",
+    "../../../../../../../../src/mojo/public/interfaces/bindings/tests/echo_import/echo_import.test-mojom"
+  ]
+}

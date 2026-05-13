@@ -1,0 +1,60 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "composite": true,
+    "declaration": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": true,
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable"
+    ],
+    "module": "esnext",
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "outDir": ".",
+    "rootDir": "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/models/text_utils",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "esnext",
+    "tsBuildInfoFile": "text_utils-tsconfig.json.tsbuildinfo",
+    "typeRoots": [],
+    "useUnknownInCatchVariables": false
+  },
+  "files": [
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/models/text_utils/CodeMirrorUtils.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/models/text_utils/ContentData.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/models/text_utils/ContentProvider.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/models/text_utils/StaticContentProvider.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/models/text_utils/StreamingContentData.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/models/text_utils/Text.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/models/text_utils/TextCursor.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/models/text_utils/TextRange.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/models/text_utils/TextUtils.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/models/text_utils/WasmDisassembly.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/legacy/legacy-defs.d.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/global_typings/global_defs.d.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/node_modules/@types/filesystem/index.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../../core/common/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../core/platform/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../core/root/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../third_party/codemirror.next/bundle-tsconfig.json"
+    }
+  ]
+}

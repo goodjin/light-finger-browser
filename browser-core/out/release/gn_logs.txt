@@ -1,0 +1,17 @@
+Generated during 'gn gen' by //BUILD.gn.
+
+### rbe.gni ###
+use_remoteexec=false
+use_reclient=false
+
+### compiler.gni ###
+clang_need_input_root_absolute_path=true
+clang_need_input_root_absolute_path_for_objc=true
+
+### mac_sdk.gni ###
+mac_sdk_path=../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk
+
+#### get_concurrent_links.py ####
+per_link_gb=12 reserve_gb=0 secondary_per_link_gb=0
+cpu_count=14 cpu_cap=14 mem_total_gb=64.0GiB adjusted_mem_total_gb=64.0GiB
+concurrent_links=5  (reason: RAM)

@@ -1,0 +1,40 @@
+defines = -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=2 -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DOPENSCREEN_TEST_DATA_DIR=\"third_party/openscreen/src//test/data/\"
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/openscreen/src -Igen/third_party/openscreen/src
+cflags = -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wthread-safety -Wgnu -Wno-gnu-anonymous-struct -Wno-gnu-conditional-omitted-operand -Wno-gnu-include-next -Wno-gnu-label-as-value -Wno-gnu-redeclared-enum -Wno-gnu-statement-expression -Wno-gnu-zero-variadic-macro-arguments -Wno-zero-length-array -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wshadow -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -O3 -fno-math-errno
+cflags_cc = -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden
+label_name = base
+root_out_dir = .
+target_out_dir = obj/third_party/openscreen/src/platform
+target_output_name = base
+
+build phony/third_party/openscreen/src/platform/base.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/openscreen/src/platform/base/error.o: cxx ../../src/third_party/openscreen/src/platform/base/error.cc | phony/third_party/openscreen/src/platform/base.inputs
+  source_file_part = error.cc
+  source_name_part = error
+build obj/third_party/openscreen/src/platform/base/interface_info.o: cxx ../../src/third_party/openscreen/src/platform/base/interface_info.cc | phony/third_party/openscreen/src/platform/base.inputs
+  source_file_part = interface_info.cc
+  source_name_part = interface_info
+build obj/third_party/openscreen/src/platform/base/ip_address.o: cxx ../../src/third_party/openscreen/src/platform/base/ip_address.cc | phony/third_party/openscreen/src/platform/base.inputs
+  source_file_part = ip_address.cc
+  source_name_part = ip_address
+build obj/third_party/openscreen/src/platform/base/location.o: cxx ../../src/third_party/openscreen/src/platform/base/location.cc | phony/third_party/openscreen/src/platform/base.inputs
+  source_file_part = location.cc
+  source_name_part = location
+build obj/third_party/openscreen/src/platform/base/tls_credentials.o: cxx ../../src/third_party/openscreen/src/platform/base/tls_credentials.cc | phony/third_party/openscreen/src/platform/base.inputs
+  source_file_part = tls_credentials.cc
+  source_name_part = tls_credentials
+build obj/third_party/openscreen/src/platform/base/trace_logging_activation.o: cxx ../../src/third_party/openscreen/src/platform/base/trace_logging_activation.cc | phony/third_party/openscreen/src/platform/base.inputs
+  source_file_part = trace_logging_activation.cc
+  source_name_part = trace_logging_activation
+build obj/third_party/openscreen/src/platform/base/trace_logging_types.o: cxx ../../src/third_party/openscreen/src/platform/base/trace_logging_types.cc | phony/third_party/openscreen/src/platform/base.inputs
+  source_file_part = trace_logging_types.cc
+  source_name_part = trace_logging_types
+build obj/third_party/openscreen/src/platform/base/trivial_clock_traits.o: cxx ../../src/third_party/openscreen/src/platform/base/trivial_clock_traits.cc | phony/third_party/openscreen/src/platform/base.inputs
+  source_file_part = trivial_clock_traits.cc
+  source_name_part = trivial_clock_traits
+build obj/third_party/openscreen/src/platform/base/udp_packet.o: cxx ../../src/third_party/openscreen/src/platform/base/udp_packet.cc | phony/third_party/openscreen/src/platform/base.inputs
+  source_file_part = udp_packet.cc
+  source_name_part = udp_packet
+
+build phony/third_party/openscreen/src/platform/base: phony obj/third_party/openscreen/src/platform/base/error.o obj/third_party/openscreen/src/platform/base/interface_info.o obj/third_party/openscreen/src/platform/base/ip_address.o obj/third_party/openscreen/src/platform/base/location.o obj/third_party/openscreen/src/platform/base/tls_credentials.o obj/third_party/openscreen/src/platform/base/trace_logging_activation.o obj/third_party/openscreen/src/platform/base/trace_logging_types.o obj/third_party/openscreen/src/platform/base/trivial_clock_traits.o obj/third_party/openscreen/src/platform/base/udp_packet.o

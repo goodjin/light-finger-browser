@@ -1,0 +1,10 @@
+{
+  "deps": [
+    "../../../../../components/optimization_guide/optimization_guide_internals/webui/mojo_bindings.build_metadata",
+    "../../../../../mojo/public/mojom/base/base.build_metadata",
+    "../../../../../services/on_device_model/public/mojom/mojom.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../src/chrome/browser/ui/webui/on_device_internals/on_device_internals_page.mojom"
+  ]
+}

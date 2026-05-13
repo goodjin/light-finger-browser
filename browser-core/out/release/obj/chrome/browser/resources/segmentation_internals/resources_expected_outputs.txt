@@ -1,0 +1,4 @@
+gen/chrome/grit/segmentation_internals_resources.h
+gen/chrome/grit/segmentation_internals_resources_map.cc
+gen/chrome/grit/segmentation_internals_resources_map.h
+gen/chrome/segmentation_internals_resources.pak

@@ -1,0 +1,8 @@
+{
+  "deps": [
+    "../../../../mojo/public/mojom/base/base.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../src/chrome/browser/web_applications/mojom/web_app_shortcut_copier.mojom"
+  ]
+}

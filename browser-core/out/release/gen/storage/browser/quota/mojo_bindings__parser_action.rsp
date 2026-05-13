@@ -1,0 +1,2 @@
+../../src/storage/browser/quota/quota_internals.mojom
+../../src/storage/browser/quota/quota_manager_observer.mojom

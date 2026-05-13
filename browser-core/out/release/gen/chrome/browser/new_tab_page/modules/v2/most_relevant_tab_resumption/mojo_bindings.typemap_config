@@ -1,0 +1,17 @@
+[
+  {
+    "traits_headers": [
+      "components/sync_device_info/device_info.h",
+      "chrome/browser/new_tab_page/modules/v2/most_relevant_tab_resumption/url_visit_types_mojom_traits.h"
+    ],
+    "traits_public_deps": [
+      "//components/sync_device_info"
+    ],
+    "types": [
+      {
+        "cpp": "::syncer::DeviceInfo::FormFactor",
+        "mojom": "ntp.most_relevant_tab_resumption.mojom.FormFactor"
+      }
+    ]
+  }
+]

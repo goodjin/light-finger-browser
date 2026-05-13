@@ -1,0 +1,13 @@
+is_debug = false
+is_official_build = true
+is_component_build = false
+proprietary_codecs = true
+ffmpeg_branding = "Chrome"
+chrome_pgo_phase = 0
+use_thin_lto = false
+enable_nacl = false
+treat_warnings_as_errors = false
+fieldtrial_testing_like_official_build = true
+target_cpu = "arm64"
+target_os = "mac"
+mac_sdk_min = "10.15"

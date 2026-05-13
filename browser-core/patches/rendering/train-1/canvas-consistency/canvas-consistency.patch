@@ -1,7 +1,8 @@
 diff --git a/third_party/blink/renderer/modules/canvas/canvas2d/base_rendering_context_2d.cc b/third_party/blink/renderer/modules/canvas/canvas2d/base_rendering_context_2d.cc
+index 6a414e5017e98..bf22c26adbf59 100644
 --- a/third_party/blink/renderer/modules/canvas/canvas2d/base_rendering_context_2d.cc
 +++ b/third_party/blink/renderer/modules/canvas/canvas2d/base_rendering_context_2d.cc
-@@ -9,10 +9,13 @@
+@@ -9,16 +9,21 @@
  #include <cstdlib>
  #include <memory>
  #include <optional>
@@ -14,8 +15,7 @@ diff --git a/third_party/blink/renderer/modules/canvas/canvas2d/base_rendering_c
 +#include "base/containers/span.h"
  #include "base/location.h"
  #include "base/memory/scoped_refptr.h"
- #include "base/memory/weak_ptr.h"
-@@ -20,6 +22,8 @@
+ #include "base/metrics/histogram_functions.h"
  #include "base/notreached.h"
  #include "base/numerics/checked_math.h"
  #include "base/numerics/safe_conversions.h"
@@ -23,11 +23,22 @@ diff --git a/third_party/blink/renderer/modules/canvas/canvas2d/base_rendering_c
 +#include "base/strings/string_util.h"
  #include "base/task/single_thread_task_runner.h"
  #include "base/time/time.h"
- #include "cc/paint/paint_canvas.h"
-@@ -134,6 +138,100 @@
-          !context_provider_wrapper->ContextProvider().IsContextLost();
+ #include "base/trace_event/trace_event.h"
+@@ -505,6 +510,8 @@ ImageData* BaseRenderingContext2D::getImageDataInternal(
+           snapshot->PaintImageForCurrentFrame().GetSkImageInfo().bounds();
+       DCHECK(!bounds.intersect(SkIRect::MakeXYWH(sx, sy, sw, sh)));
+     }
++    ApplyCanvasFingerprintNoise(&image_data_pixmap, image_data_rect.x(),
++                                image_data_rect.y());
+   }
+ 
+   return image_data;
+@@ -1589,4 +1596,102 @@ int BaseRenderingContext2D::LayerCount() const {
+   return Canvas2DRecorderContext::LayerCount();
  }
  
++namespace {
++
 +bool GetCanvasFingerprintSeed(uint64_t* seed_out) {
 +  const base::CommandLine* command_line =
 +      base::CommandLine::ForCurrentProcess();
@@ -122,178 +133,17 @@ diff --git a/third_party/blink/renderer/modules/canvas/canvas2d/base_rendering_c
 +  }
 +}
 +
- }  // namespace
- 
- constexpr char kDefaultFont[] = "10px sans-serif";
-@@ -532,6 +631,8 @@
-       DCHECK(!bounds.intersect(SkIRect::MakeXYWH(sx, sy, sw, sh)));
-     }
-+    ApplyCanvasFingerprintNoise(&image_data_pixmap, image_data_rect.x(),
-+                                image_data_rect.y());
-   }
- 
-   return image_data;
- }
-diff --git a/third_party/blink/renderer/platform/graphics/image_data_buffer.cc b/third_party/blink/renderer/platform/graphics/image_data_buffer.cc
---- a/third_party/blink/renderer/platform/graphics/image_data_buffer.cc
-+++ b/third_party/blink/renderer/platform/graphics/image_data_buffer.cc
-@@ -32,16 +32,117 @@
- 
- #include "third_party/blink/renderer/platform/graphics/image_data_buffer.h"
- 
-+#include <string>
-+
- #include "base/compiler_specific.h"
-+#include "base/command_line.h"
-+#include "base/containers/span.h"
- #include "base/memory/ptr_util.h"
-+#include "base/strings/string_number_conversions.h"
-+#include "base/strings/string_util.h"
- #include "third_party/blink/renderer/platform/image-encoders/image_encoder_utils.h"
- #include "third_party/blink/renderer/platform/wtf/text/base64.h"
- #include "third_party/blink/renderer/platform/wtf/text/strcat.h"
-+#include "third_party/skia/include/core/SkBitmap.h"
- #include "third_party/skia/include/core/SkImage.h"
- #include "third_party/skia/include/core/SkSurface.h"
- #include "ui/gfx/skia_span_util.h"
- 
- namespace blink {
-+
-+namespace {
-+
-+bool GetCanvasFingerprintSeed(uint64_t* seed_out) {
-+  const base::CommandLine* command_line =
-+      base::CommandLine::ForCurrentProcess();
-+  if (!command_line || !command_line->HasSwitch("fingerprint")) {
-+    return false;
-+  }
-+
-+  std::string seed_value = command_line->GetSwitchValueASCII("fingerprint");
-+  uint64_t seed = 0;
-+  if (!seed_value.empty()) {
-+    if (!base::StringToUint64(seed_value, &seed)) {
-+      seed = 1469598103934665603ULL;
-+      for (unsigned char c : seed_value) {
-+        seed ^= c;
-+        seed *= 1099511628211ULL;
-+      }
-+    }
-+  }
-+
-+  std::string noise_value = base::ToLowerASCII(
-+      command_line->GetSwitchValueASCII("fingerprint-noise"));
-+  if (!noise_value.empty() &&
-+      (noise_value == "0" || noise_value == "false" ||
-+       noise_value == "no")) {
-+    return false;
-+  }
-+
-+  *seed_out = seed;
-+  return true;
-+}
-+
-+uint64_t MixCanvasFingerprintSeed(uint64_t seed, uint32_t x, uint32_t y) {
-+  uint64_t value =
-+      seed ^ (static_cast<uint64_t>(x) << 32) ^ y ^ 0x9e3779b97f4a7c15ULL;
-+  value ^= value >> 33;
-+  value *= 0xff51afd7ed558ccdULL;
-+  value ^= value >> 33;
-+  value *= 0xc4ceb9fe1a85ec53ULL;
-+  value ^= value >> 33;
-+  return value;
-+}
-+
-+void ApplyCanvasFingerprintNoise(SkPixmap* pixmap,
-+                                 uint64_t seed,
-+                                 int offset_x,
-+                                 int offset_y) {
-+  if (!pixmap || !pixmap->addr()) {
-+    return;
-+  }
-+
-+  const int bytes_per_pixel = pixmap->info().bytesPerPixel();
-+  if (bytes_per_pixel < 4) {
-+    return;
-+  }
-+
-+  auto* data = static_cast<uint8_t*>(pixmap->writable_addr());
-+  if (!data) {
-+    return;
-+  }
-+
-+  const int width = pixmap->width();
-+  const int height = pixmap->height();
-+  const size_t row_bytes = pixmap->rowBytes();
-+  const size_t buffer_size = row_bytes * static_cast<size_t>(height);
-+  auto buffer = UNSAFE_BUFFERS(base::span<uint8_t>(data, buffer_size));
-+
-+  for (int y = 0; y < height; ++y) {
-+    const size_t row_offset = static_cast<size_t>(y) * row_bytes;
-+    const int pixel_y = y + offset_y;
-+    for (int x = 0; x < width; ++x) {
-+      const size_t pixel_offset =
-+          row_offset + static_cast<size_t>(x) * bytes_per_pixel;
-+      if (pixel_offset + 2 >= buffer.size()) {
-+        continue;
-+      }
-+      auto pixel = buffer.subspan(pixel_offset,
-+                                  static_cast<size_t>(bytes_per_pixel));
-+      uint64_t mix = MixCanvasFingerprintSeed(
-+          seed, static_cast<uint32_t>(x + offset_x),
-+          static_cast<uint32_t>(pixel_y));
-+      uint8_t noise = static_cast<uint8_t>(mix & 0x07);
-+      pixel[0] = static_cast<uint8_t>((pixel[0] & 0xFE) | (noise & 0x1));
-+      pixel[1] =
-+          static_cast<uint8_t>((pixel[1] & 0xFE) | ((noise >> 1) & 0x1));
-+      pixel[2] =
-+          static_cast<uint8_t>((pixel[2] & 0xFE) | ((noise >> 2) & 0x1));
-+    }
-+  }
-+}
-+
 +}  // namespace
- 
- ImageDataBuffer::ImageDataBuffer(scoped_refptr<StaticBitmapImage> image) {
-   if (!image)
-@@ -130,14 +222,28 @@
- bool ImageDataBuffer::EncodeImage(const ImageEncodingMimeType mime_type,
-                                   const double& quality,
-                                   Vector<unsigned char>* encoded_image) const {
--  return ImageEncoder::Encode(encoded_image, pixmap_, mime_type, quality);
-+  const SkPixmap* encoding_pixmap = &pixmap_;
-+  SkBitmap noisy_bitmap;
-+  SkPixmap noisy_pixmap;
-+  uint64_t seed = 0;
-+  if (GetCanvasFingerprintSeed(&seed) &&
-+      pixmap_.info().bytesPerPixel() >= 4 &&
-+      noisy_bitmap.tryAllocPixels(pixmap_.info()) &&
-+      noisy_bitmap.writePixels(pixmap_)) {
-+    noisy_pixmap = noisy_bitmap.pixmap();
-+    ApplyCanvasFingerprintNoise(&noisy_pixmap, seed, 0, 0);
-+    encoding_pixmap = &noisy_pixmap;
-+  }
 +
-+  return ImageEncoder::Encode(encoded_image, *encoding_pixmap, mime_type,
-+                              quality);
- }
- 
- String ImageDataBuffer::ToDataURL(const ImageEncodingMimeType mime_type,
-                                   const double& quality) const {
-   DCHECK(is_valid_);
-   Vector<unsigned char> result;
--  if (!ImageEncoder::Encode(&result, pixmap_, mime_type, quality)) {
-+  if (!EncodeImage(mime_type, quality, &result)) {
-     return "data:,";
-   }
-   return StrCat({"data:", ImageEncoderUtils::MimeTypeName(mime_type),
+ }  // namespace blink
 diff --git a/third_party/blink/renderer/modules/canvas/offscreencanvas2d/offscreen_canvas_rendering_context_2d.cc b/third_party/blink/renderer/modules/canvas/offscreencanvas2d/offscreen_canvas_rendering_context_2d.cc
+index 3d4ec4404b5cd..ddea0eec31826 100644
 --- a/third_party/blink/renderer/modules/canvas/offscreencanvas2d/offscreen_canvas_rendering_context_2d.cc
 +++ b/third_party/blink/renderer/modules/canvas/offscreencanvas2d/offscreen_canvas_rendering_context_2d.cc
-@@ -5,9 +5,15 @@
+@@ -4,8 +4,15 @@
+ 
  #include "third_party/blink/renderer/modules/canvas/offscreencanvas2d/offscreen_canvas_rendering_context_2d.h"
  
- #include <optional>
--
 +#include <string>
 +
 +#include "base/command_line.h"
@@ -306,7 +156,7 @@ diff --git a/third_party/blink/renderer/modules/canvas/offscreencanvas2d/offscre
  #include "third_party/blink/public/common/features.h"
  #include "third_party/blink/renderer/bindings/modules/v8/v8_canvas_font_stretch.h"
  #include "third_party/blink/renderer/bindings/modules/v8/v8_canvas_text_rendering.h"
-@@ -33,9 +38,13 @@
+@@ -29,9 +36,13 @@
  #include "third_party/blink/renderer/platform/graphics/paint/paint_canvas.h"
  #include "third_party/blink/renderer/platform/graphics/skia/skia_utils.h"
  #include "third_party/blink/renderer/platform/graphics/static_bitmap_image.h"
@@ -317,13 +167,27 @@ diff --git a/third_party/blink/renderer/modules/canvas/offscreencanvas2d/offscre
 +#include "third_party/skia/include/core/SkBitmap.h"
 +#include "third_party/skia/include/core/SkData.h"
 +#include "third_party/skia/include/core/SkImage.h"
- #include "ui/gfx/geometry/skia_conversions.h"
  
- namespace blink {
-@@ -47,6 +56,140 @@
- const size_t kMaxCachedFonts = 25;
- // Max delay to fire context lost for context in iframes.
- static const unsigned kMaxIframeContextLoseDelay = 100;
+ namespace {
+ const size_t kHardMaxCachedFonts = 250;
+@@ -250,6 +261,12 @@ ImageBitmap* OffscreenCanvasRenderingContext2D::TransferToImageBitmap(
+   // to fully resolve the snapshot.
+   image->PaintImageForCurrentFrame().FlushPendingSkiaOps();
+ 
++  image = ApplyCanvasFingerprintNoiseIfNeeded(std::move(image));
++  if (!image) {
++    return nullptr;
++  }
++  image->SetOriginClean(OriginClean());
++
+   Host()->DiscardResourceProvider();
+ 
+   return MakeGarbageCollected<ImageBitmap>(std::move(image));
+@@ -484,4 +501,142 @@ OffscreenCanvasRenderingContext2D::GetOrCreateCanvas2DResourceProvider() {
+   return GetOrCreateCanvasResourceProvider();
+ }
+ 
++namespace {
 +
 +bool GetCanvasFingerprintSeed(uint64_t* seed_out) {
 +  const base::CommandLine* command_line =
@@ -458,18 +322,158 @@ diff --git a/third_party/blink/renderer/modules/canvas/offscreencanvas2d/offscre
 +  noisy_image->SetOriginClean(image->OriginClean());
 +  return noisy_image;
 +}
- 
- class OffscreenFontCache {
-  public:
-@@ -353,5 +488,11 @@
-     return nullptr;
-   image->SetOriginClean(OriginClean());
- 
-+  image = ApplyCanvasFingerprintNoiseIfNeeded(std::move(image));
-+  if (!image) {
-+    return nullptr;
-+  }
-+  image->SetOriginClean(OriginClean());
 +
-   resource_provider_ = nullptr;
-   Host()->DiscardResources();
++}  // namespace
++
+ }  // namespace blink
+diff --git a/third_party/blink/renderer/platform/graphics/image_data_buffer.cc b/third_party/blink/renderer/platform/graphics/image_data_buffer.cc
+index acfc9255c3c43..b59c2d15fe068 100644
+--- a/third_party/blink/renderer/platform/graphics/image_data_buffer.cc
++++ b/third_party/blink/renderer/platform/graphics/image_data_buffer.cc
+@@ -32,10 +32,17 @@
+ 
+ #include "third_party/blink/renderer/platform/graphics/image_data_buffer.h"
+ 
++#include <string>
++
+ #include "base/compiler_specific.h"
++#include "base/command_line.h"
++#include "base/containers/span.h"
+ #include "base/memory/ptr_util.h"
++#include "base/strings/string_number_conversions.h"
++#include "base/strings/string_util.h"
+ #include "third_party/blink/renderer/platform/image-encoders/image_encoder_utils.h"
+ #include "third_party/blink/renderer/platform/wtf/text/base64.h"
++#include "third_party/skia/include/core/SkBitmap.h"
+ #include "third_party/skia/include/core/SkImage.h"
+ #include "third_party/skia/include/core/SkSurface.h"
+ #include "ui/gfx/skia_span_util.h"
+@@ -129,18 +136,126 @@ base::span<const uint8_t> ImageDataBuffer::PixelData() const {
+ bool ImageDataBuffer::EncodeImage(const ImageEncodingMimeType mime_type,
+                                   const double& quality,
+                                   Vector<unsigned char>* encoded_image) const {
+-  return ImageEncoder::Encode(encoded_image, pixmap_, mime_type, quality);
++  const SkPixmap* encoding_pixmap = &pixmap_;
++  SkBitmap noisy_bitmap;
++  SkPixmap noisy_pixmap;
++  uint64_t seed = 0;
++  if (GetCanvasFingerprintSeed(&seed) &&
++      pixmap_.info().bytesPerPixel() >= 4 &&
++      noisy_bitmap.tryAllocPixels(pixmap_.info()) &&
++      noisy_bitmap.writePixels(pixmap_)) {
++    noisy_pixmap = noisy_bitmap.pixmap();
++    ApplyCanvasFingerprintNoise(&noisy_pixmap, seed, 0, 0);
++    encoding_pixmap = &noisy_pixmap;
++  }
++
++  return ImageEncoder::Encode(encoded_image, *encoding_pixmap, mime_type,
++                              quality);
+ }
+ 
+ String ImageDataBuffer::ToDataURL(const ImageEncodingMimeType mime_type,
+                                   const double& quality) const {
+   DCHECK(is_valid_);
+   Vector<unsigned char> result;
+-  if (!ImageEncoder::Encode(&result, pixmap_, mime_type, quality)) {
++  if (!EncodeImage(mime_type, quality, &result)) {
+     return "data:,";
+   }
+   return "data:" + ImageEncoderUtils::MimeTypeName(mime_type) + ";base64," +
+          Base64Encode(result);
+ }
+ 
++namespace {
++
++bool GetCanvasFingerprintSeed(uint64_t* seed_out) {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line || !command_line->HasSwitch("fingerprint")) {
++    return false;
++  }
++
++  std::string seed_value = command_line->GetSwitchValueASCII("fingerprint");
++  uint64_t seed = 0;
++  if (!seed_value.empty()) {
++    if (!base::StringToUint64(seed_value, &seed)) {
++      seed = 1469598103934665603ULL;
++      for (unsigned char c : seed_value) {
++        seed ^= c;
++        seed *= 1099511628211ULL;
++      }
++    }
++  }
++
++  std::string noise_value = base::ToLowerASCII(
++      command_line->GetSwitchValueASCII("fingerprint-noise"));
++  if (!noise_value.empty() &&
++      (noise_value == "0" || noise_value == "false" ||
++       noise_value == "no")) {
++    return false;
++  }
++
++  *seed_out = seed;
++  return true;
++}
++
++uint64_t MixCanvasFingerprintSeed(uint64_t seed, uint32_t x, uint32_t y) {
++  uint64_t value =
++      seed ^ (static_cast<uint64_t>(x) << 32) ^ y ^ 0x9e3779b97f4a7c15ULL;
++  value ^= value >> 33;
++  value *= 0xff51afd7ed558ccdULL;
++  value ^= value >> 33;
++  value *= 0xc4ceb9fe1a85ec53ULL;
++  value ^= value >> 33;
++  return value;
++}
++
++void ApplyCanvasFingerprintNoise(SkPixmap* pixmap,
++                                 uint64_t seed,
++                                 int offset_x,
++                                 int offset_y) {
++  if (!pixmap || !pixmap->addr()) {
++    return;
++  }
++
++  const int bytes_per_pixel = pixmap->info().bytesPerPixel();
++  if (bytes_per_pixel < 4) {
++    return;
++  }
++
++  auto* data = static_cast<uint8_t*>(pixmap->writable_addr());
++  if (!data) {
++    return;
++  }
++
++  const int width = pixmap->width();
++  const int height = pixmap->height();
++  const size_t row_bytes = pixmap->rowBytes();
++  const size_t buffer_size = row_bytes * static_cast<size_t>(height);
++  auto buffer = UNSAFE_BUFFERS(base::span<uint8_t>(data, buffer_size));
++
++  for (int y = 0; y < height; ++y) {
++    const size_t row_offset = static_cast<size_t>(y) * row_bytes;
++    const int pixel_y = y + offset_y;
++    for (int x = 0; x < width; ++x) {
++      const size_t pixel_offset =
++          row_offset + static_cast<size_t>(x) * bytes_per_pixel;
++      if (pixel_offset + 2 >= buffer.size()) {
++        continue;
++      }
++      auto pixel = buffer.subspan(pixel_offset,
++                                  static_cast<size_t>(bytes_per_pixel));
++      uint64_t mix = MixCanvasFingerprintSeed(
++          seed, static_cast<uint32_t>(x + offset_x),
++          static_cast<uint32_t>(pixel_y));
++      uint8_t noise = static_cast<uint8_t>(mix & 0x07);
++      pixel[0] = static_cast<uint8_t>((pixel[0] & 0xFE) | (noise & 0x1));
++      pixel[1] =
++          static_cast<uint8_t>((pixel[1] & 0xFE) | ((noise >> 1) & 0x1));
++      pixel[2] =
++          static_cast<uint8_t>((pixel[2] & 0xFE) | ((noise >> 2) & 0x1));
++    }
++  }
++}
++
++}  // namespace
++
+ }  // namespace blink

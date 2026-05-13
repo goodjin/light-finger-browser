@@ -1,0 +1,78 @@
+defines = -DSWIFTSHADER_LEGACY_PRECISION=true -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DMARL_USE_PTHREAD_THREAD_LOCAL=1
+framework_dirs =
+include_dirs = -I../../src/third_party/swiftshader/src -I../../src/third_party/swiftshader/include -I../../src/third_party/swiftshader/third_party/SPIRV-Headers/include -I../../src/third_party/swiftshader/third_party/SPIRV-Tools/include -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/swiftshader/third_party/marl/include
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wno-shadow -Os
+cflags_cc = -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness
+label_name = Pipeline
+root_out_dir = .
+target_out_dir = obj/third_party/swiftshader/src/Pipeline
+target_output_name = Pipeline
+
+build obj/third_party/swiftshader/src/Pipeline/Pipeline/ComputeProgram.o: cxx ../../src/third_party/swiftshader/src/Pipeline/ComputeProgram.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = ComputeProgram.cpp
+  source_name_part = ComputeProgram
+build obj/third_party/swiftshader/src/Pipeline/Pipeline/Constants.o: cxx ../../src/third_party/swiftshader/src/Pipeline/Constants.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = Constants.cpp
+  source_name_part = Constants
+build obj/third_party/swiftshader/src/Pipeline/Pipeline/PixelProgram.o: cxx ../../src/third_party/swiftshader/src/Pipeline/PixelProgram.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PixelProgram.cpp
+  source_name_part = PixelProgram
+build obj/third_party/swiftshader/src/Pipeline/Pipeline/PixelRoutine.o: cxx ../../src/third_party/swiftshader/src/Pipeline/PixelRoutine.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PixelRoutine.cpp
+  source_name_part = PixelRoutine
+build obj/third_party/swiftshader/src/Pipeline/Pipeline/SamplerCore.o: cxx ../../src/third_party/swiftshader/src/Pipeline/SamplerCore.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = SamplerCore.cpp
+  source_name_part = SamplerCore
+build obj/third_party/swiftshader/src/Pipeline/Pipeline/SetupRoutine.o: cxx ../../src/third_party/swiftshader/src/Pipeline/SetupRoutine.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = SetupRoutine.cpp
+  source_name_part = SetupRoutine
+build obj/third_party/swiftshader/src/Pipeline/Pipeline/ShaderCore.o: cxx ../../src/third_party/swiftshader/src/Pipeline/ShaderCore.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = ShaderCore.cpp
+  source_name_part = ShaderCore
+build obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvBinary.o: cxx ../../src/third_party/swiftshader/src/Pipeline/SpirvBinary.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = SpirvBinary.cpp
+  source_name_part = SpirvBinary
+build obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvProfiler.o: cxx ../../src/third_party/swiftshader/src/Pipeline/SpirvProfiler.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = SpirvProfiler.cpp
+  source_name_part = SpirvProfiler
+build obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvShader.o: cxx ../../src/third_party/swiftshader/src/Pipeline/SpirvShader.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = SpirvShader.cpp
+  source_name_part = SpirvShader
+build obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvShaderArithmetic.o: cxx ../../src/third_party/swiftshader/src/Pipeline/SpirvShaderArithmetic.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = SpirvShaderArithmetic.cpp
+  source_name_part = SpirvShaderArithmetic
+build obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvShaderControlFlow.o: cxx ../../src/third_party/swiftshader/src/Pipeline/SpirvShaderControlFlow.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = SpirvShaderControlFlow.cpp
+  source_name_part = SpirvShaderControlFlow
+build obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvShaderDebugger.o: cxx ../../src/third_party/swiftshader/src/Pipeline/SpirvShaderDebugger.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = SpirvShaderDebugger.cpp
+  source_name_part = SpirvShaderDebugger
+build obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvShaderGLSLstd450.o: cxx ../../src/third_party/swiftshader/src/Pipeline/SpirvShaderGLSLstd450.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = SpirvShaderGLSLstd450.cpp
+  source_name_part = SpirvShaderGLSLstd450
+build obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvShaderGroup.o: cxx ../../src/third_party/swiftshader/src/Pipeline/SpirvShaderGroup.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = SpirvShaderGroup.cpp
+  source_name_part = SpirvShaderGroup
+build obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvShaderImage.o: cxx ../../src/third_party/swiftshader/src/Pipeline/SpirvShaderImage.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = SpirvShaderImage.cpp
+  source_name_part = SpirvShaderImage
+build obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvShaderInstructions.o: cxx ../../src/third_party/swiftshader/src/Pipeline/SpirvShaderInstructions.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = SpirvShaderInstructions.cpp
+  source_name_part = SpirvShaderInstructions
+build obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvShaderMemory.o: cxx ../../src/third_party/swiftshader/src/Pipeline/SpirvShaderMemory.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = SpirvShaderMemory.cpp
+  source_name_part = SpirvShaderMemory
+build obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvShaderSampling.o: cxx ../../src/third_party/swiftshader/src/Pipeline/SpirvShaderSampling.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = SpirvShaderSampling.cpp
+  source_name_part = SpirvShaderSampling
+build obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvShaderSpec.o: cxx ../../src/third_party/swiftshader/src/Pipeline/SpirvShaderSpec.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = SpirvShaderSpec.cpp
+  source_name_part = SpirvShaderSpec
+build obj/third_party/swiftshader/src/Pipeline/Pipeline/VertexProgram.o: cxx ../../src/third_party/swiftshader/src/Pipeline/VertexProgram.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = VertexProgram.cpp
+  source_name_part = VertexProgram
+build obj/third_party/swiftshader/src/Pipeline/Pipeline/VertexRoutine.o: cxx ../../src/third_party/swiftshader/src/Pipeline/VertexRoutine.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = VertexRoutine.cpp
+  source_name_part = VertexRoutine
+
+build phony/third_party/swiftshader/src/Pipeline/Pipeline: phony obj/third_party/swiftshader/src/Pipeline/Pipeline/ComputeProgram.o obj/third_party/swiftshader/src/Pipeline/Pipeline/Constants.o obj/third_party/swiftshader/src/Pipeline/Pipeline/PixelProgram.o obj/third_party/swiftshader/src/Pipeline/Pipeline/PixelRoutine.o obj/third_party/swiftshader/src/Pipeline/Pipeline/SamplerCore.o obj/third_party/swiftshader/src/Pipeline/Pipeline/SetupRoutine.o obj/third_party/swiftshader/src/Pipeline/Pipeline/ShaderCore.o obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvBinary.o obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvProfiler.o obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvShader.o obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvShaderArithmetic.o obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvShaderControlFlow.o obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvShaderDebugger.o obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvShaderGLSLstd450.o obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvShaderGroup.o obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvShaderImage.o obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvShaderInstructions.o obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvShaderMemory.o obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvShaderSampling.o obj/third_party/swiftshader/src/Pipeline/Pipeline/SpirvShaderSpec.o obj/third_party/swiftshader/src/Pipeline/Pipeline/VertexProgram.o obj/third_party/swiftshader/src/Pipeline/Pipeline/VertexRoutine.o || phony/third_party/swiftshader/src/System/System_headers

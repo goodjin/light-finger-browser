@@ -1,0 +1,3 @@
+../../src/chrome/browser/ui/webui/side_panel/customize_chrome/customize_chrome.mojom
+../../src/chrome/browser/ui/webui/side_panel/customize_chrome/customize_toolbar/customize_toolbar.mojom
+../../src/chrome/browser/ui/webui/side_panel/customize_chrome/wallpaper_search/wallpaper_search.mojom

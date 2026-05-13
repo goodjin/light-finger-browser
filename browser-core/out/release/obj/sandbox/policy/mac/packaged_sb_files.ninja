@@ -1,0 +1,59 @@
+defines = -DSANDBOX_POLICY_IMPL -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=2 -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++
+cflags = -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wthread-safety -Wgnu -Wno-gnu-anonymous-struct -Wno-gnu-conditional-omitted-operand -Wno-gnu-include-next -Wno-gnu-label-as-value -Wno-gnu-redeclared-enum -Wno-gnu-statement-expression -Wno-gnu-zero-variadic-macro-arguments -Wno-zero-length-array -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wshadow -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt
+cflags_cc = -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden
+label_name = packaged_sb_files
+root_out_dir = .
+target_out_dir = obj/sandbox/policy/mac
+target_output_name = packaged_sb_files
+
+build phony/sandbox/policy/mac/packaged_sb_files.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build phony/sandbox/policy/mac/packaged_sb_files.inputdeps: phony phony/sandbox/policy/mac/generate_params phony/sandbox/policy/mac/package_sb_files
+build obj/sandbox/policy/mac/packaged_sb_files/audio.sb.o: cxx gen/sandbox/policy/mac/audio.sb.cc | phony/sandbox/policy/mac/packaged_sb_files.inputs || phony/sandbox/policy/mac/packaged_sb_files.inputdeps
+  source_file_part = audio.sb.cc
+  source_name_part = audio.sb
+build obj/sandbox/policy/mac/packaged_sb_files/cdm.sb.o: cxx gen/sandbox/policy/mac/cdm.sb.cc | phony/sandbox/policy/mac/packaged_sb_files.inputs || phony/sandbox/policy/mac/packaged_sb_files.inputdeps
+  source_file_part = cdm.sb.cc
+  source_name_part = cdm.sb
+build obj/sandbox/policy/mac/packaged_sb_files/common.sb.o: cxx gen/sandbox/policy/mac/common.sb.cc | phony/sandbox/policy/mac/packaged_sb_files.inputs || phony/sandbox/policy/mac/packaged_sb_files.inputdeps
+  source_file_part = common.sb.cc
+  source_name_part = common.sb
+build obj/sandbox/policy/mac/packaged_sb_files/gpu.sb.o: cxx gen/sandbox/policy/mac/gpu.sb.cc | phony/sandbox/policy/mac/packaged_sb_files.inputs || phony/sandbox/policy/mac/packaged_sb_files.inputdeps
+  source_file_part = gpu.sb.cc
+  source_name_part = gpu.sb
+build obj/sandbox/policy/mac/packaged_sb_files/mirroring.sb.o: cxx gen/sandbox/policy/mac/mirroring.sb.cc | phony/sandbox/policy/mac/packaged_sb_files.inputs || phony/sandbox/policy/mac/packaged_sb_files.inputdeps
+  source_file_part = mirroring.sb.cc
+  source_name_part = mirroring.sb
+build obj/sandbox/policy/mac/packaged_sb_files/network.sb.o: cxx gen/sandbox/policy/mac/network.sb.cc | phony/sandbox/policy/mac/packaged_sb_files.inputs || phony/sandbox/policy/mac/packaged_sb_files.inputdeps
+  source_file_part = network.sb.cc
+  source_name_part = network.sb
+build obj/sandbox/policy/mac/packaged_sb_files/on_device_model_execution.sb.o: cxx gen/sandbox/policy/mac/on_device_model_execution.sb.cc | phony/sandbox/policy/mac/packaged_sb_files.inputs || phony/sandbox/policy/mac/packaged_sb_files.inputdeps
+  source_file_part = on_device_model_execution.sb.cc
+  source_name_part = on_device_model_execution.sb
+build obj/sandbox/policy/mac/packaged_sb_files/print_backend.sb.o: cxx gen/sandbox/policy/mac/print_backend.sb.cc | phony/sandbox/policy/mac/packaged_sb_files.inputs || phony/sandbox/policy/mac/packaged_sb_files.inputdeps
+  source_file_part = print_backend.sb.cc
+  source_name_part = print_backend.sb
+build obj/sandbox/policy/mac/packaged_sb_files/print_compositor.sb.o: cxx gen/sandbox/policy/mac/print_compositor.sb.cc | phony/sandbox/policy/mac/packaged_sb_files.inputs || phony/sandbox/policy/mac/packaged_sb_files.inputdeps
+  source_file_part = print_compositor.sb.cc
+  source_name_part = print_compositor.sb
+build obj/sandbox/policy/mac/packaged_sb_files/renderer.sb.o: cxx gen/sandbox/policy/mac/renderer.sb.cc | phony/sandbox/policy/mac/packaged_sb_files.inputs || phony/sandbox/policy/mac/packaged_sb_files.inputdeps
+  source_file_part = renderer.sb.cc
+  source_name_part = renderer.sb
+build obj/sandbox/policy/mac/packaged_sb_files/screen_ai.sb.o: cxx gen/sandbox/policy/mac/screen_ai.sb.cc | phony/sandbox/policy/mac/packaged_sb_files.inputs || phony/sandbox/policy/mac/packaged_sb_files.inputdeps
+  source_file_part = screen_ai.sb.cc
+  source_name_part = screen_ai.sb
+build obj/sandbox/policy/mac/packaged_sb_files/speech_recognition.sb.o: cxx gen/sandbox/policy/mac/speech_recognition.sb.cc | phony/sandbox/policy/mac/packaged_sb_files.inputs || phony/sandbox/policy/mac/packaged_sb_files.inputdeps
+  source_file_part = speech_recognition.sb.cc
+  source_name_part = speech_recognition.sb
+build obj/sandbox/policy/mac/packaged_sb_files/on_device_translation.sb.o: cxx gen/sandbox/policy/mac/on_device_translation.sb.cc | phony/sandbox/policy/mac/packaged_sb_files.inputs || phony/sandbox/policy/mac/packaged_sb_files.inputdeps
+  source_file_part = on_device_translation.sb.cc
+  source_name_part = on_device_translation.sb
+build obj/sandbox/policy/mac/packaged_sb_files/utility.sb.o: cxx gen/sandbox/policy/mac/utility.sb.cc | phony/sandbox/policy/mac/packaged_sb_files.inputs || phony/sandbox/policy/mac/packaged_sb_files.inputdeps
+  source_file_part = utility.sb.cc
+  source_name_part = utility.sb
+build obj/sandbox/policy/mac/packaged_sb_files/params.o: cxx gen/sandbox/policy/mac/params.cc | phony/sandbox/policy/mac/packaged_sb_files.inputs || phony/sandbox/policy/mac/packaged_sb_files.inputdeps
+  source_file_part = params.cc
+  source_name_part = params
+
+build phony/sandbox/policy/mac/packaged_sb_files: phony obj/sandbox/policy/mac/packaged_sb_files/audio.sb.o obj/sandbox/policy/mac/packaged_sb_files/cdm.sb.o obj/sandbox/policy/mac/packaged_sb_files/common.sb.o obj/sandbox/policy/mac/packaged_sb_files/gpu.sb.o obj/sandbox/policy/mac/packaged_sb_files/mirroring.sb.o obj/sandbox/policy/mac/packaged_sb_files/network.sb.o obj/sandbox/policy/mac/packaged_sb_files/on_device_model_execution.sb.o obj/sandbox/policy/mac/packaged_sb_files/print_backend.sb.o obj/sandbox/policy/mac/packaged_sb_files/print_compositor.sb.o obj/sandbox/policy/mac/packaged_sb_files/renderer.sb.o obj/sandbox/policy/mac/packaged_sb_files/screen_ai.sb.o obj/sandbox/policy/mac/packaged_sb_files/speech_recognition.sb.o obj/sandbox/policy/mac/packaged_sb_files/on_device_translation.sb.o obj/sandbox/policy/mac/packaged_sb_files/utility.sb.o obj/sandbox/policy/mac/packaged_sb_files/params.o || phony/sandbox/policy/mac/generate_params phony/sandbox/policy/mac/package_sb_files

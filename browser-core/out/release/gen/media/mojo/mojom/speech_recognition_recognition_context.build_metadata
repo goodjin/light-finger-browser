@@ -1,0 +1,8 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../../src/media/mojo/mojom/speech_recognition_recognition_context.mojom"
+  ]
+}

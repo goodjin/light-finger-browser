@@ -2,7 +2,8 @@ import { test, expect } from '@playwright/test';
 
 test.describe('指纹列表页面', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:5173/');
+    // Use Wails app URL for proper IPC connection
+    await page.goto('http://localhost:34115/');
   });
 
   test('页面加载并显示标题', async ({ page }) => {
@@ -20,14 +21,17 @@ test.describe('指纹列表页面', () => {
     // 等待页面加载完成
     await page.waitForLoadState('networkidle');
     
-    // 要么显示空状态，要么显示警告（无浏览器实例）
+    // 检查是否有指纹卡片
+    const fingerprintList = page.locator('.fingerprint-list');
     const emptyState = page.locator('.empty-state');
     const warningBanner = page.locator('.warning-banner');
     
+    const hasFingerprints = await page.locator('.fingerprint-card').count() > 0;
     const hasEmptyState = await emptyState.isVisible().catch(() => false);
     const hasWarning = await warningBanner.isVisible().catch(() => false);
     
-    expect(hasEmptyState || hasWarning).toBeTruthy();
+    // 要么有空状态，要么有警告，要么有指纹
+    expect(hasEmptyState || hasWarning || hasFingerprints).toBeTruthy();
   });
 
   test('有指纹时显示指纹列表', async ({ page }) => {

@@ -1,0 +1,1 @@
+{"compilerOptions":{"composite":true,"outDir":".","baseUrl":".","rootDir":"../../../../../../../../../src/third_party/devtools-frontend/src/front_end/models/emulation"},"files":["../../../../../../../../../src/third_party/devtools-frontend/src/front_end/models/emulation/emulation.ts"],"references":[{"path":"./emulation-tsconfig.json"}]}

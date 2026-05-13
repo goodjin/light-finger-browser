@@ -1,0 +1,8 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../../src/content/browser/attribution_reporting/attribution_reporting.mojom"
+  ]
+}

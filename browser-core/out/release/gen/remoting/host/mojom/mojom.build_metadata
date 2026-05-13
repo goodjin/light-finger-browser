@@ -1,0 +1,21 @@
+{
+  "deps": [
+    "../../../mojo/public/mojom/base/base.build_metadata",
+    "../../../services/network/public/mojom/mojom_ip_address.build_metadata",
+    "../../../ui/gfx/geometry/mojom/mojom.build_metadata",
+    "../../../url/mojom/url_mojom_gurl.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../src/remoting/host/mojom/agent_process_broker.mojom",
+    "../../../../../../src/remoting/host/mojom/chromoting_host_services.mojom",
+    "../../../../../../src/remoting/host/mojom/desktop_session.mojom",
+    "../../../../../../src/remoting/host/mojom/keyboard_layout.mojom",
+    "../../../../../../src/remoting/host/mojom/remote_security_key.mojom",
+    "../../../../../../src/remoting/host/mojom/remote_support.mojom",
+    "../../../../../../src/remoting/host/mojom/remote_url_opener.mojom",
+    "../../../../../../src/remoting/host/mojom/remoting_host.mojom",
+    "../../../../../../src/remoting/host/mojom/webauthn_proxy.mojom",
+    "../../../../../../src/remoting/host/mojom/webrtc_types.mojom",
+    "../../../../../../src/remoting/host/mojom/wrapped_primitives.mojom"
+  ]
+}

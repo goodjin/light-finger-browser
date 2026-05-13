@@ -1,0 +1,75 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0
+framework_dirs =
+include_dirs = -I../../src/third_party/openh264/src/codec/api/wels -I../../src/third_party/openh264/src/codec/common/arm -I../../src/third_party/openh264/src/codec/common/inc -I../../src/third_party/openh264/src/codec/common/src -I../../src/third_party/openh264/src/codec/common/x86 -I../../src/third_party/openh264/src/codec/decoder/core/inc -I../../src/third_party/openh264/src/codec/decoder/core/src -I../../src/third_party/openh264/src/codec/decoder/plus/inc -I../../src/third_party/openh264/src/codec/decoder/plus/src -I../../src/third_party/openh264/src/codec/processing/interface -I../../src -Igen -I../../src/buildtools/third_party/libc++
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wno-format -Wno-format-security -Wno-header-hygiene -Wno-unused-function -Wno-unused-value
+cflags_cc = -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness
+label_name = decoder
+root_out_dir = .
+target_out_dir = obj/third_party/openh264
+target_output_name = decoder
+
+build obj/third_party/openh264/decoder/au_parser.o: cxx ../../src/third_party/openh264/src/codec/decoder/core/src/au_parser.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = au_parser.cpp
+  source_name_part = au_parser
+build obj/third_party/openh264/decoder/bit_stream.o: cxx ../../src/third_party/openh264/src/codec/decoder/core/src/bit_stream.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = bit_stream.cpp
+  source_name_part = bit_stream
+build obj/third_party/openh264/decoder/cabac_decoder.o: cxx ../../src/third_party/openh264/src/codec/decoder/core/src/cabac_decoder.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = cabac_decoder.cpp
+  source_name_part = cabac_decoder
+build obj/third_party/openh264/decoder/deblocking.o: cxx ../../src/third_party/openh264/src/codec/decoder/core/src/deblocking.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = deblocking.cpp
+  source_name_part = deblocking
+build obj/third_party/openh264/decoder/decode_mb_aux.o: cxx ../../src/third_party/openh264/src/codec/decoder/core/src/decode_mb_aux.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = decode_mb_aux.cpp
+  source_name_part = decode_mb_aux
+build obj/third_party/openh264/decoder/decode_slice.o: cxx ../../src/third_party/openh264/src/codec/decoder/core/src/decode_slice.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = decode_slice.cpp
+  source_name_part = decode_slice
+build obj/third_party/openh264/decoder/decoder.o: cxx ../../src/third_party/openh264/src/codec/decoder/core/src/decoder.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = decoder.cpp
+  source_name_part = decoder
+build obj/third_party/openh264/decoder/decoder_core.o: cxx ../../src/third_party/openh264/src/codec/decoder/core/src/decoder_core.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = decoder_core.cpp
+  source_name_part = decoder_core
+build obj/third_party/openh264/decoder/decoder_data_tables.o: cxx ../../src/third_party/openh264/src/codec/decoder/core/src/decoder_data_tables.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = decoder_data_tables.cpp
+  source_name_part = decoder_data_tables
+build obj/third_party/openh264/decoder/error_concealment.o: cxx ../../src/third_party/openh264/src/codec/decoder/core/src/error_concealment.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = error_concealment.cpp
+  source_name_part = error_concealment
+build obj/third_party/openh264/decoder/fmo.o: cxx ../../src/third_party/openh264/src/codec/decoder/core/src/fmo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = fmo.cpp
+  source_name_part = fmo
+build obj/third_party/openh264/decoder/get_intra_predictor.o: cxx ../../src/third_party/openh264/src/codec/decoder/core/src/get_intra_predictor.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = get_intra_predictor.cpp
+  source_name_part = get_intra_predictor
+build obj/third_party/openh264/decoder/manage_dec_ref.o: cxx ../../src/third_party/openh264/src/codec/decoder/core/src/manage_dec_ref.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = manage_dec_ref.cpp
+  source_name_part = manage_dec_ref
+build obj/third_party/openh264/decoder/memmgr_nal_unit.o: cxx ../../src/third_party/openh264/src/codec/decoder/core/src/memmgr_nal_unit.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = memmgr_nal_unit.cpp
+  source_name_part = memmgr_nal_unit
+build obj/third_party/openh264/decoder/mv_pred.o: cxx ../../src/third_party/openh264/src/codec/decoder/core/src/mv_pred.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = mv_pred.cpp
+  source_name_part = mv_pred
+build obj/third_party/openh264/decoder/parse_mb_syn_cabac.o: cxx ../../src/third_party/openh264/src/codec/decoder/core/src/parse_mb_syn_cabac.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = parse_mb_syn_cabac.cpp
+  source_name_part = parse_mb_syn_cabac
+build obj/third_party/openh264/decoder/parse_mb_syn_cavlc.o: cxx ../../src/third_party/openh264/src/codec/decoder/core/src/parse_mb_syn_cavlc.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = parse_mb_syn_cavlc.cpp
+  source_name_part = parse_mb_syn_cavlc
+build obj/third_party/openh264/decoder/pic_queue.o: cxx ../../src/third_party/openh264/src/codec/decoder/core/src/pic_queue.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = pic_queue.cpp
+  source_name_part = pic_queue
+build obj/third_party/openh264/decoder/rec_mb.o: cxx ../../src/third_party/openh264/src/codec/decoder/core/src/rec_mb.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = rec_mb.cpp
+  source_name_part = rec_mb
+build obj/third_party/openh264/decoder/wels_decoder_thread.o: cxx ../../src/third_party/openh264/src/codec/decoder/core/src/wels_decoder_thread.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = wels_decoder_thread.cpp
+  source_name_part = wels_decoder_thread
+build obj/third_party/openh264/decoder/welsDecoderExt.o: cxx ../../src/third_party/openh264/src/codec/decoder/plus/src/welsDecoderExt.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = welsDecoderExt.cpp
+  source_name_part = welsDecoderExt
+
+build phony/third_party/openh264/decoder: phony obj/third_party/openh264/decoder/au_parser.o obj/third_party/openh264/decoder/bit_stream.o obj/third_party/openh264/decoder/cabac_decoder.o obj/third_party/openh264/decoder/deblocking.o obj/third_party/openh264/decoder/decode_mb_aux.o obj/third_party/openh264/decoder/decode_slice.o obj/third_party/openh264/decoder/decoder.o obj/third_party/openh264/decoder/decoder_core.o obj/third_party/openh264/decoder/decoder_data_tables.o obj/third_party/openh264/decoder/error_concealment.o obj/third_party/openh264/decoder/fmo.o obj/third_party/openh264/decoder/get_intra_predictor.o obj/third_party/openh264/decoder/manage_dec_ref.o obj/third_party/openh264/decoder/memmgr_nal_unit.o obj/third_party/openh264/decoder/mv_pred.o obj/third_party/openh264/decoder/parse_mb_syn_cabac.o obj/third_party/openh264/decoder/parse_mb_syn_cavlc.o obj/third_party/openh264/decoder/pic_queue.o obj/third_party/openh264/decoder/rec_mb.o obj/third_party/openh264/decoder/wels_decoder_thread.o obj/third_party/openh264/decoder/welsDecoderExt.o || phony/third_party/openh264/common phony/third_party/openh264/processing

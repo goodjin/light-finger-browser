@@ -1,0 +1,621 @@
+defines = -DU_COMMON_IMPLEMENTATION -DU_ICUDATAENTRY_IN_COMMON -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DHAVE_DLOPEN=0 -DUCONFIG_ONLY_HTML_CONVERSION=1 -DUCONFIG_USE_ML_PHRASE_BREAKING=1 -DUCONFIG_USE_WINDOWS_LCID_MAPPING_API=0 -DU_CHARSET_IS_UTF8=1 -DU_USING_ICU_NAMESPACE=0 -DU_ENABLE_DYLOAD=0 -DUSE_CHROMIUM_ICU=1 -DU_ENABLE_TRACING=1 -DU_ENABLE_RESOURCE_TRACING=0 -DU_STATIC_IMPLEMENTATION -DICU_UTIL_DATA_IMPL=ICU_UTIL_DATA_FILE
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/icu/source/common -I../../src/third_party/icu/source/i18n
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wno-parentheses -Wno-unused-function -Wno-unused-variable -Wno-ambiguous-reversed-operator -Wno-deprecated-declarations -fvisibility=hidden
+cflags_cc = -std=c++20 -Wno-trigraphs -fno-exceptions -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden -frtti -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness
+label_name = icuuc_private_hidden_visibility
+root_out_dir = .
+target_out_dir = obj/third_party/icu
+target_output_name = libicuuc_hidden_visibility
+
+build obj/third_party/icu/icuuc_private_hidden_visibility/appendable.o: cxx ../../src/third_party/icu/source/common/appendable.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = appendable.cpp
+  source_name_part = appendable
+build obj/third_party/icu/icuuc_private_hidden_visibility/bmpset.o: cxx ../../src/third_party/icu/source/common/bmpset.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = bmpset.cpp
+  source_name_part = bmpset
+build obj/third_party/icu/icuuc_private_hidden_visibility/brkeng.o: cxx ../../src/third_party/icu/source/common/brkeng.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = brkeng.cpp
+  source_name_part = brkeng
+build obj/third_party/icu/icuuc_private_hidden_visibility/brkiter.o: cxx ../../src/third_party/icu/source/common/brkiter.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = brkiter.cpp
+  source_name_part = brkiter
+build obj/third_party/icu/icuuc_private_hidden_visibility/bytesinkutil.o: cxx ../../src/third_party/icu/source/common/bytesinkutil.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = bytesinkutil.cpp
+  source_name_part = bytesinkutil
+build obj/third_party/icu/icuuc_private_hidden_visibility/bytestream.o: cxx ../../src/third_party/icu/source/common/bytestream.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = bytestream.cpp
+  source_name_part = bytestream
+build obj/third_party/icu/icuuc_private_hidden_visibility/bytestriebuilder.o: cxx ../../src/third_party/icu/source/common/bytestriebuilder.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = bytestriebuilder.cpp
+  source_name_part = bytestriebuilder
+build obj/third_party/icu/icuuc_private_hidden_visibility/bytestrie.o: cxx ../../src/third_party/icu/source/common/bytestrie.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = bytestrie.cpp
+  source_name_part = bytestrie
+build obj/third_party/icu/icuuc_private_hidden_visibility/bytestrieiterator.o: cxx ../../src/third_party/icu/source/common/bytestrieiterator.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = bytestrieiterator.cpp
+  source_name_part = bytestrieiterator
+build obj/third_party/icu/icuuc_private_hidden_visibility/caniter.o: cxx ../../src/third_party/icu/source/common/caniter.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = caniter.cpp
+  source_name_part = caniter
+build obj/third_party/icu/icuuc_private_hidden_visibility/characterproperties.o: cxx ../../src/third_party/icu/source/common/characterproperties.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = characterproperties.cpp
+  source_name_part = characterproperties
+build obj/third_party/icu/icuuc_private_hidden_visibility/chariter.o: cxx ../../src/third_party/icu/source/common/chariter.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = chariter.cpp
+  source_name_part = chariter
+build obj/third_party/icu/icuuc_private_hidden_visibility/charstr.o: cxx ../../src/third_party/icu/source/common/charstr.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = charstr.cpp
+  source_name_part = charstr
+build obj/third_party/icu/icuuc_private_hidden_visibility/cmemory.o: cxx ../../src/third_party/icu/source/common/cmemory.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = cmemory.cpp
+  source_name_part = cmemory
+build obj/third_party/icu/icuuc_private_hidden_visibility/cstr.o: cxx ../../src/third_party/icu/source/common/cstr.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = cstr.cpp
+  source_name_part = cstr
+build obj/third_party/icu/icuuc_private_hidden_visibility/cstring.o: cxx ../../src/third_party/icu/source/common/cstring.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = cstring.cpp
+  source_name_part = cstring
+build obj/third_party/icu/icuuc_private_hidden_visibility/cwchar.o: cxx ../../src/third_party/icu/source/common/cwchar.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = cwchar.cpp
+  source_name_part = cwchar
+build obj/third_party/icu/icuuc_private_hidden_visibility/dictbe.o: cxx ../../src/third_party/icu/source/common/dictbe.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = dictbe.cpp
+  source_name_part = dictbe
+build obj/third_party/icu/icuuc_private_hidden_visibility/dictionarydata.o: cxx ../../src/third_party/icu/source/common/dictionarydata.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = dictionarydata.cpp
+  source_name_part = dictionarydata
+build obj/third_party/icu/icuuc_private_hidden_visibility/dtintrv.o: cxx ../../src/third_party/icu/source/common/dtintrv.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = dtintrv.cpp
+  source_name_part = dtintrv
+build obj/third_party/icu/icuuc_private_hidden_visibility/edits.o: cxx ../../src/third_party/icu/source/common/edits.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = edits.cpp
+  source_name_part = edits
+build obj/third_party/icu/icuuc_private_hidden_visibility/emojiprops.o: cxx ../../src/third_party/icu/source/common/emojiprops.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = emojiprops.cpp
+  source_name_part = emojiprops
+build obj/third_party/icu/icuuc_private_hidden_visibility/errorcode.o: cxx ../../src/third_party/icu/source/common/errorcode.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = errorcode.cpp
+  source_name_part = errorcode
+build obj/third_party/icu/icuuc_private_hidden_visibility/filteredbrk.o: cxx ../../src/third_party/icu/source/common/filteredbrk.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = filteredbrk.cpp
+  source_name_part = filteredbrk
+build obj/third_party/icu/icuuc_private_hidden_visibility/filterednormalizer2.o: cxx ../../src/third_party/icu/source/common/filterednormalizer2.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = filterednormalizer2.cpp
+  source_name_part = filterednormalizer2
+build obj/third_party/icu/icuuc_private_hidden_visibility/icudataver.o: cxx ../../src/third_party/icu/source/common/icudataver.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = icudataver.cpp
+  source_name_part = icudataver
+build obj/third_party/icu/icuuc_private_hidden_visibility/icuplug.o: cxx ../../src/third_party/icu/source/common/icuplug.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = icuplug.cpp
+  source_name_part = icuplug
+build obj/third_party/icu/icuuc_private_hidden_visibility/loadednormalizer2impl.o: cxx ../../src/third_party/icu/source/common/loadednormalizer2impl.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = loadednormalizer2impl.cpp
+  source_name_part = loadednormalizer2impl
+build obj/third_party/icu/icuuc_private_hidden_visibility/localebuilder.o: cxx ../../src/third_party/icu/source/common/localebuilder.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = localebuilder.cpp
+  source_name_part = localebuilder
+build obj/third_party/icu/icuuc_private_hidden_visibility/localematcher.o: cxx ../../src/third_party/icu/source/common/localematcher.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = localematcher.cpp
+  source_name_part = localematcher
+build obj/third_party/icu/icuuc_private_hidden_visibility/localeprioritylist.o: cxx ../../src/third_party/icu/source/common/localeprioritylist.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = localeprioritylist.cpp
+  source_name_part = localeprioritylist
+build obj/third_party/icu/icuuc_private_hidden_visibility/locavailable.o: cxx ../../src/third_party/icu/source/common/locavailable.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = locavailable.cpp
+  source_name_part = locavailable
+build obj/third_party/icu/icuuc_private_hidden_visibility/locbased.o: cxx ../../src/third_party/icu/source/common/locbased.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = locbased.cpp
+  source_name_part = locbased
+build obj/third_party/icu/icuuc_private_hidden_visibility/locdispnames.o: cxx ../../src/third_party/icu/source/common/locdispnames.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = locdispnames.cpp
+  source_name_part = locdispnames
+build obj/third_party/icu/icuuc_private_hidden_visibility/locdistance.o: cxx ../../src/third_party/icu/source/common/locdistance.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = locdistance.cpp
+  source_name_part = locdistance
+build obj/third_party/icu/icuuc_private_hidden_visibility/locdspnm.o: cxx ../../src/third_party/icu/source/common/locdspnm.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = locdspnm.cpp
+  source_name_part = locdspnm
+build obj/third_party/icu/icuuc_private_hidden_visibility/locid.o: cxx ../../src/third_party/icu/source/common/locid.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = locid.cpp
+  source_name_part = locid
+build obj/third_party/icu/icuuc_private_hidden_visibility/loclikely.o: cxx ../../src/third_party/icu/source/common/loclikely.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = loclikely.cpp
+  source_name_part = loclikely
+build obj/third_party/icu/icuuc_private_hidden_visibility/loclikelysubtags.o: cxx ../../src/third_party/icu/source/common/loclikelysubtags.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = loclikelysubtags.cpp
+  source_name_part = loclikelysubtags
+build obj/third_party/icu/icuuc_private_hidden_visibility/locmap.o: cxx ../../src/third_party/icu/source/common/locmap.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = locmap.cpp
+  source_name_part = locmap
+build obj/third_party/icu/icuuc_private_hidden_visibility/locresdata.o: cxx ../../src/third_party/icu/source/common/locresdata.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = locresdata.cpp
+  source_name_part = locresdata
+build obj/third_party/icu/icuuc_private_hidden_visibility/locutil.o: cxx ../../src/third_party/icu/source/common/locutil.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = locutil.cpp
+  source_name_part = locutil
+build obj/third_party/icu/icuuc_private_hidden_visibility/lsr.o: cxx ../../src/third_party/icu/source/common/lsr.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = lsr.cpp
+  source_name_part = lsr
+build obj/third_party/icu/icuuc_private_hidden_visibility/lstmbe.o: cxx ../../src/third_party/icu/source/common/lstmbe.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = lstmbe.cpp
+  source_name_part = lstmbe
+build obj/third_party/icu/icuuc_private_hidden_visibility/messagepattern.o: cxx ../../src/third_party/icu/source/common/messagepattern.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = messagepattern.cpp
+  source_name_part = messagepattern
+build obj/third_party/icu/icuuc_private_hidden_visibility/mlbe.o: cxx ../../src/third_party/icu/source/common/mlbe.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = mlbe.cpp
+  source_name_part = mlbe
+build obj/third_party/icu/icuuc_private_hidden_visibility/normalizer2.o: cxx ../../src/third_party/icu/source/common/normalizer2.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = normalizer2.cpp
+  source_name_part = normalizer2
+build obj/third_party/icu/icuuc_private_hidden_visibility/normalizer2impl.o: cxx ../../src/third_party/icu/source/common/normalizer2impl.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = normalizer2impl.cpp
+  source_name_part = normalizer2impl
+build obj/third_party/icu/icuuc_private_hidden_visibility/normlzr.o: cxx ../../src/third_party/icu/source/common/normlzr.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = normlzr.cpp
+  source_name_part = normlzr
+build obj/third_party/icu/icuuc_private_hidden_visibility/parsepos.o: cxx ../../src/third_party/icu/source/common/parsepos.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = parsepos.cpp
+  source_name_part = parsepos
+build obj/third_party/icu/icuuc_private_hidden_visibility/patternprops.o: cxx ../../src/third_party/icu/source/common/patternprops.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = patternprops.cpp
+  source_name_part = patternprops
+build obj/third_party/icu/icuuc_private_hidden_visibility/pluralmap.o: cxx ../../src/third_party/icu/source/common/pluralmap.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = pluralmap.cpp
+  source_name_part = pluralmap
+build obj/third_party/icu/icuuc_private_hidden_visibility/propname.o: cxx ../../src/third_party/icu/source/common/propname.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = propname.cpp
+  source_name_part = propname
+build obj/third_party/icu/icuuc_private_hidden_visibility/propsvec.o: cxx ../../src/third_party/icu/source/common/propsvec.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = propsvec.cpp
+  source_name_part = propsvec
+build obj/third_party/icu/icuuc_private_hidden_visibility/punycode.o: cxx ../../src/third_party/icu/source/common/punycode.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = punycode.cpp
+  source_name_part = punycode
+build obj/third_party/icu/icuuc_private_hidden_visibility/putil.o: cxx ../../src/third_party/icu/source/common/putil.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = putil.cpp
+  source_name_part = putil
+build obj/third_party/icu/icuuc_private_hidden_visibility/rbbi_cache.o: cxx ../../src/third_party/icu/source/common/rbbi_cache.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = rbbi_cache.cpp
+  source_name_part = rbbi_cache
+build obj/third_party/icu/icuuc_private_hidden_visibility/rbbi.o: cxx ../../src/third_party/icu/source/common/rbbi.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = rbbi.cpp
+  source_name_part = rbbi
+build obj/third_party/icu/icuuc_private_hidden_visibility/rbbidata.o: cxx ../../src/third_party/icu/source/common/rbbidata.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = rbbidata.cpp
+  source_name_part = rbbidata
+build obj/third_party/icu/icuuc_private_hidden_visibility/rbbinode.o: cxx ../../src/third_party/icu/source/common/rbbinode.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = rbbinode.cpp
+  source_name_part = rbbinode
+build obj/third_party/icu/icuuc_private_hidden_visibility/rbbirb.o: cxx ../../src/third_party/icu/source/common/rbbirb.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = rbbirb.cpp
+  source_name_part = rbbirb
+build obj/third_party/icu/icuuc_private_hidden_visibility/rbbiscan.o: cxx ../../src/third_party/icu/source/common/rbbiscan.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = rbbiscan.cpp
+  source_name_part = rbbiscan
+build obj/third_party/icu/icuuc_private_hidden_visibility/rbbisetb.o: cxx ../../src/third_party/icu/source/common/rbbisetb.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = rbbisetb.cpp
+  source_name_part = rbbisetb
+build obj/third_party/icu/icuuc_private_hidden_visibility/rbbistbl.o: cxx ../../src/third_party/icu/source/common/rbbistbl.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = rbbistbl.cpp
+  source_name_part = rbbistbl
+build obj/third_party/icu/icuuc_private_hidden_visibility/rbbitblb.o: cxx ../../src/third_party/icu/source/common/rbbitblb.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = rbbitblb.cpp
+  source_name_part = rbbitblb
+build obj/third_party/icu/icuuc_private_hidden_visibility/resbund_cnv.o: cxx ../../src/third_party/icu/source/common/resbund_cnv.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = resbund_cnv.cpp
+  source_name_part = resbund_cnv
+build obj/third_party/icu/icuuc_private_hidden_visibility/resbund.o: cxx ../../src/third_party/icu/source/common/resbund.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = resbund.cpp
+  source_name_part = resbund
+build obj/third_party/icu/icuuc_private_hidden_visibility/resource.o: cxx ../../src/third_party/icu/source/common/resource.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = resource.cpp
+  source_name_part = resource
+build obj/third_party/icu/icuuc_private_hidden_visibility/restrace.o: cxx ../../src/third_party/icu/source/common/restrace.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = restrace.cpp
+  source_name_part = restrace
+build obj/third_party/icu/icuuc_private_hidden_visibility/ruleiter.o: cxx ../../src/third_party/icu/source/common/ruleiter.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ruleiter.cpp
+  source_name_part = ruleiter
+build obj/third_party/icu/icuuc_private_hidden_visibility/schriter.o: cxx ../../src/third_party/icu/source/common/schriter.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = schriter.cpp
+  source_name_part = schriter
+build obj/third_party/icu/icuuc_private_hidden_visibility/serv.o: cxx ../../src/third_party/icu/source/common/serv.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = serv.cpp
+  source_name_part = serv
+build obj/third_party/icu/icuuc_private_hidden_visibility/servlk.o: cxx ../../src/third_party/icu/source/common/servlk.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = servlk.cpp
+  source_name_part = servlk
+build obj/third_party/icu/icuuc_private_hidden_visibility/servlkf.o: cxx ../../src/third_party/icu/source/common/servlkf.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = servlkf.cpp
+  source_name_part = servlkf
+build obj/third_party/icu/icuuc_private_hidden_visibility/servls.o: cxx ../../src/third_party/icu/source/common/servls.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = servls.cpp
+  source_name_part = servls
+build obj/third_party/icu/icuuc_private_hidden_visibility/servnotf.o: cxx ../../src/third_party/icu/source/common/servnotf.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = servnotf.cpp
+  source_name_part = servnotf
+build obj/third_party/icu/icuuc_private_hidden_visibility/servrbf.o: cxx ../../src/third_party/icu/source/common/servrbf.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = servrbf.cpp
+  source_name_part = servrbf
+build obj/third_party/icu/icuuc_private_hidden_visibility/servslkf.o: cxx ../../src/third_party/icu/source/common/servslkf.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = servslkf.cpp
+  source_name_part = servslkf
+build obj/third_party/icu/icuuc_private_hidden_visibility/sharedobject.o: cxx ../../src/third_party/icu/source/common/sharedobject.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = sharedobject.cpp
+  source_name_part = sharedobject
+build obj/third_party/icu/icuuc_private_hidden_visibility/simpleformatter.o: cxx ../../src/third_party/icu/source/common/simpleformatter.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = simpleformatter.cpp
+  source_name_part = simpleformatter
+build obj/third_party/icu/icuuc_private_hidden_visibility/static_unicode_sets.o: cxx ../../src/third_party/icu/source/common/static_unicode_sets.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = static_unicode_sets.cpp
+  source_name_part = static_unicode_sets
+build obj/third_party/icu/icuuc_private_hidden_visibility/stringpiece.o: cxx ../../src/third_party/icu/source/common/stringpiece.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = stringpiece.cpp
+  source_name_part = stringpiece
+build obj/third_party/icu/icuuc_private_hidden_visibility/stringtriebuilder.o: cxx ../../src/third_party/icu/source/common/stringtriebuilder.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = stringtriebuilder.cpp
+  source_name_part = stringtriebuilder
+build obj/third_party/icu/icuuc_private_hidden_visibility/uarrsort.o: cxx ../../src/third_party/icu/source/common/uarrsort.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uarrsort.cpp
+  source_name_part = uarrsort
+build obj/third_party/icu/icuuc_private_hidden_visibility/ubidi.o: cxx ../../src/third_party/icu/source/common/ubidi.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ubidi.cpp
+  source_name_part = ubidi
+build obj/third_party/icu/icuuc_private_hidden_visibility/ubidiln.o: cxx ../../src/third_party/icu/source/common/ubidiln.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ubidiln.cpp
+  source_name_part = ubidiln
+build obj/third_party/icu/icuuc_private_hidden_visibility/ubidi_props.o: cxx ../../src/third_party/icu/source/common/ubidi_props.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ubidi_props.cpp
+  source_name_part = ubidi_props
+build obj/third_party/icu/icuuc_private_hidden_visibility/ubiditransform.o: cxx ../../src/third_party/icu/source/common/ubiditransform.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ubiditransform.cpp
+  source_name_part = ubiditransform
+build obj/third_party/icu/icuuc_private_hidden_visibility/ubidiwrt.o: cxx ../../src/third_party/icu/source/common/ubidiwrt.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ubidiwrt.cpp
+  source_name_part = ubidiwrt
+build obj/third_party/icu/icuuc_private_hidden_visibility/ubrk.o: cxx ../../src/third_party/icu/source/common/ubrk.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ubrk.cpp
+  source_name_part = ubrk
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucase.o: cxx ../../src/third_party/icu/source/common/ucase.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucase.cpp
+  source_name_part = ucase
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucasemap.o: cxx ../../src/third_party/icu/source/common/ucasemap.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucasemap.cpp
+  source_name_part = ucasemap
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucasemap_titlecase_brkiter.o: cxx ../../src/third_party/icu/source/common/ucasemap_titlecase_brkiter.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucasemap_titlecase_brkiter.cpp
+  source_name_part = ucasemap_titlecase_brkiter
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucat.o: cxx ../../src/third_party/icu/source/common/ucat.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucat.cpp
+  source_name_part = ucat
+build obj/third_party/icu/icuuc_private_hidden_visibility/uchar.o: cxx ../../src/third_party/icu/source/common/uchar.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uchar.cpp
+  source_name_part = uchar
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucharstriebuilder.o: cxx ../../src/third_party/icu/source/common/ucharstriebuilder.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucharstriebuilder.cpp
+  source_name_part = ucharstriebuilder
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucharstrie.o: cxx ../../src/third_party/icu/source/common/ucharstrie.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucharstrie.cpp
+  source_name_part = ucharstrie
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucharstrieiterator.o: cxx ../../src/third_party/icu/source/common/ucharstrieiterator.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucharstrieiterator.cpp
+  source_name_part = ucharstrieiterator
+build obj/third_party/icu/icuuc_private_hidden_visibility/uchriter.o: cxx ../../src/third_party/icu/source/common/uchriter.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uchriter.cpp
+  source_name_part = uchriter
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucln_cmn.o: cxx ../../src/third_party/icu/source/common/ucln_cmn.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucln_cmn.cpp
+  source_name_part = ucln_cmn
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucmndata.o: cxx ../../src/third_party/icu/source/common/ucmndata.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucmndata.cpp
+  source_name_part = ucmndata
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucnv2022.o: cxx ../../src/third_party/icu/source/common/ucnv2022.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucnv2022.cpp
+  source_name_part = ucnv2022
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_bld.o: cxx ../../src/third_party/icu/source/common/ucnv_bld.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucnv_bld.cpp
+  source_name_part = ucnv_bld
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucnvbocu.o: cxx ../../src/third_party/icu/source/common/ucnvbocu.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucnvbocu.cpp
+  source_name_part = ucnvbocu
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_cb.o: cxx ../../src/third_party/icu/source/common/ucnv_cb.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucnv_cb.cpp
+  source_name_part = ucnv_cb
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_cnv.o: cxx ../../src/third_party/icu/source/common/ucnv_cnv.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucnv_cnv.cpp
+  source_name_part = ucnv_cnv
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucnv.o: cxx ../../src/third_party/icu/source/common/ucnv.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucnv.cpp
+  source_name_part = ucnv
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_ct.o: cxx ../../src/third_party/icu/source/common/ucnv_ct.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucnv_ct.cpp
+  source_name_part = ucnv_ct
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucnvdisp.o: cxx ../../src/third_party/icu/source/common/ucnvdisp.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucnvdisp.cpp
+  source_name_part = ucnvdisp
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_err.o: cxx ../../src/third_party/icu/source/common/ucnv_err.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucnv_err.cpp
+  source_name_part = ucnv_err
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_ext.o: cxx ../../src/third_party/icu/source/common/ucnv_ext.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucnv_ext.cpp
+  source_name_part = ucnv_ext
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucnvhz.o: cxx ../../src/third_party/icu/source/common/ucnvhz.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucnvhz.cpp
+  source_name_part = ucnvhz
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_io.o: cxx ../../src/third_party/icu/source/common/ucnv_io.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucnv_io.cpp
+  source_name_part = ucnv_io
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucnvisci.o: cxx ../../src/third_party/icu/source/common/ucnvisci.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucnvisci.cpp
+  source_name_part = ucnvisci
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucnvlat1.o: cxx ../../src/third_party/icu/source/common/ucnvlat1.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucnvlat1.cpp
+  source_name_part = ucnvlat1
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_lmb.o: cxx ../../src/third_party/icu/source/common/ucnv_lmb.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucnv_lmb.cpp
+  source_name_part = ucnv_lmb
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucnvmbcs.o: cxx ../../src/third_party/icu/source/common/ucnvmbcs.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucnvmbcs.cpp
+  source_name_part = ucnvmbcs
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucnvscsu.o: cxx ../../src/third_party/icu/source/common/ucnvscsu.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucnvscsu.cpp
+  source_name_part = ucnvscsu
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucnvsel.o: cxx ../../src/third_party/icu/source/common/ucnvsel.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucnvsel.cpp
+  source_name_part = ucnvsel
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_set.o: cxx ../../src/third_party/icu/source/common/ucnv_set.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucnv_set.cpp
+  source_name_part = ucnv_set
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_u16.o: cxx ../../src/third_party/icu/source/common/ucnv_u16.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucnv_u16.cpp
+  source_name_part = ucnv_u16
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_u32.o: cxx ../../src/third_party/icu/source/common/ucnv_u32.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucnv_u32.cpp
+  source_name_part = ucnv_u32
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_u7.o: cxx ../../src/third_party/icu/source/common/ucnv_u7.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucnv_u7.cpp
+  source_name_part = ucnv_u7
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_u8.o: cxx ../../src/third_party/icu/source/common/ucnv_u8.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucnv_u8.cpp
+  source_name_part = ucnv_u8
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucol_swp.o: cxx ../../src/third_party/icu/source/common/ucol_swp.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucol_swp.cpp
+  source_name_part = ucol_swp
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucptrie.o: cxx ../../src/third_party/icu/source/common/ucptrie.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucptrie.cpp
+  source_name_part = ucptrie
+build obj/third_party/icu/icuuc_private_hidden_visibility/ucurr.o: cxx ../../src/third_party/icu/source/common/ucurr.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ucurr.cpp
+  source_name_part = ucurr
+build obj/third_party/icu/icuuc_private_hidden_visibility/udata.o: cxx ../../src/third_party/icu/source/common/udata.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = udata.cpp
+  source_name_part = udata
+build obj/third_party/icu/icuuc_private_hidden_visibility/udatamem.o: cxx ../../src/third_party/icu/source/common/udatamem.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = udatamem.cpp
+  source_name_part = udatamem
+build obj/third_party/icu/icuuc_private_hidden_visibility/udataswp.o: cxx ../../src/third_party/icu/source/common/udataswp.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = udataswp.cpp
+  source_name_part = udataswp
+build obj/third_party/icu/icuuc_private_hidden_visibility/uenum.o: cxx ../../src/third_party/icu/source/common/uenum.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uenum.cpp
+  source_name_part = uenum
+build obj/third_party/icu/icuuc_private_hidden_visibility/uhash.o: cxx ../../src/third_party/icu/source/common/uhash.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uhash.cpp
+  source_name_part = uhash
+build obj/third_party/icu/icuuc_private_hidden_visibility/uhash_us.o: cxx ../../src/third_party/icu/source/common/uhash_us.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uhash_us.cpp
+  source_name_part = uhash_us
+build obj/third_party/icu/icuuc_private_hidden_visibility/uidna.o: cxx ../../src/third_party/icu/source/common/uidna.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uidna.cpp
+  source_name_part = uidna
+build obj/third_party/icu/icuuc_private_hidden_visibility/uinit.o: cxx ../../src/third_party/icu/source/common/uinit.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uinit.cpp
+  source_name_part = uinit
+build obj/third_party/icu/icuuc_private_hidden_visibility/uinvchar.o: cxx ../../src/third_party/icu/source/common/uinvchar.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uinvchar.cpp
+  source_name_part = uinvchar
+build obj/third_party/icu/icuuc_private_hidden_visibility/uiter.o: cxx ../../src/third_party/icu/source/common/uiter.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uiter.cpp
+  source_name_part = uiter
+build obj/third_party/icu/icuuc_private_hidden_visibility/ulist.o: cxx ../../src/third_party/icu/source/common/ulist.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ulist.cpp
+  source_name_part = ulist
+build obj/third_party/icu/icuuc_private_hidden_visibility/ulocale.o: cxx ../../src/third_party/icu/source/common/ulocale.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ulocale.cpp
+  source_name_part = ulocale
+build obj/third_party/icu/icuuc_private_hidden_visibility/ulocbuilder.o: cxx ../../src/third_party/icu/source/common/ulocbuilder.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ulocbuilder.cpp
+  source_name_part = ulocbuilder
+build obj/third_party/icu/icuuc_private_hidden_visibility/uloc.o: cxx ../../src/third_party/icu/source/common/uloc.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uloc.cpp
+  source_name_part = uloc
+build obj/third_party/icu/icuuc_private_hidden_visibility/uloc_keytype.o: cxx ../../src/third_party/icu/source/common/uloc_keytype.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uloc_keytype.cpp
+  source_name_part = uloc_keytype
+build obj/third_party/icu/icuuc_private_hidden_visibility/uloc_tag.o: cxx ../../src/third_party/icu/source/common/uloc_tag.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uloc_tag.cpp
+  source_name_part = uloc_tag
+build obj/third_party/icu/icuuc_private_hidden_visibility/umapfile.o: cxx ../../src/third_party/icu/source/common/umapfile.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = umapfile.cpp
+  source_name_part = umapfile
+build obj/third_party/icu/icuuc_private_hidden_visibility/umath.o: cxx ../../src/third_party/icu/source/common/umath.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = umath.cpp
+  source_name_part = umath
+build obj/third_party/icu/icuuc_private_hidden_visibility/umutablecptrie.o: cxx ../../src/third_party/icu/source/common/umutablecptrie.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = umutablecptrie.cpp
+  source_name_part = umutablecptrie
+build obj/third_party/icu/icuuc_private_hidden_visibility/umutex.o: cxx ../../src/third_party/icu/source/common/umutex.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = umutex.cpp
+  source_name_part = umutex
+build obj/third_party/icu/icuuc_private_hidden_visibility/unames.o: cxx ../../src/third_party/icu/source/common/unames.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = unames.cpp
+  source_name_part = unames
+build obj/third_party/icu/icuuc_private_hidden_visibility/unifiedcache.o: cxx ../../src/third_party/icu/source/common/unifiedcache.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = unifiedcache.cpp
+  source_name_part = unifiedcache
+build obj/third_party/icu/icuuc_private_hidden_visibility/unifilt.o: cxx ../../src/third_party/icu/source/common/unifilt.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = unifilt.cpp
+  source_name_part = unifilt
+build obj/third_party/icu/icuuc_private_hidden_visibility/unifunct.o: cxx ../../src/third_party/icu/source/common/unifunct.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = unifunct.cpp
+  source_name_part = unifunct
+build obj/third_party/icu/icuuc_private_hidden_visibility/uniset_closure.o: cxx ../../src/third_party/icu/source/common/uniset_closure.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uniset_closure.cpp
+  source_name_part = uniset_closure
+build obj/third_party/icu/icuuc_private_hidden_visibility/uniset.o: cxx ../../src/third_party/icu/source/common/uniset.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uniset.cpp
+  source_name_part = uniset
+build obj/third_party/icu/icuuc_private_hidden_visibility/uniset_props.o: cxx ../../src/third_party/icu/source/common/uniset_props.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uniset_props.cpp
+  source_name_part = uniset_props
+build obj/third_party/icu/icuuc_private_hidden_visibility/unisetspan.o: cxx ../../src/third_party/icu/source/common/unisetspan.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = unisetspan.cpp
+  source_name_part = unisetspan
+build obj/third_party/icu/icuuc_private_hidden_visibility/unistr_case.o: cxx ../../src/third_party/icu/source/common/unistr_case.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = unistr_case.cpp
+  source_name_part = unistr_case
+build obj/third_party/icu/icuuc_private_hidden_visibility/unistr_case_locale.o: cxx ../../src/third_party/icu/source/common/unistr_case_locale.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = unistr_case_locale.cpp
+  source_name_part = unistr_case_locale
+build obj/third_party/icu/icuuc_private_hidden_visibility/unistr_cnv.o: cxx ../../src/third_party/icu/source/common/unistr_cnv.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = unistr_cnv.cpp
+  source_name_part = unistr_cnv
+build obj/third_party/icu/icuuc_private_hidden_visibility/unistr.o: cxx ../../src/third_party/icu/source/common/unistr.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = unistr.cpp
+  source_name_part = unistr
+build obj/third_party/icu/icuuc_private_hidden_visibility/unistr_props.o: cxx ../../src/third_party/icu/source/common/unistr_props.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = unistr_props.cpp
+  source_name_part = unistr_props
+build obj/third_party/icu/icuuc_private_hidden_visibility/unistr_titlecase_brkiter.o: cxx ../../src/third_party/icu/source/common/unistr_titlecase_brkiter.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = unistr_titlecase_brkiter.cpp
+  source_name_part = unistr_titlecase_brkiter
+build obj/third_party/icu/icuuc_private_hidden_visibility/unormcmp.o: cxx ../../src/third_party/icu/source/common/unormcmp.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = unormcmp.cpp
+  source_name_part = unormcmp
+build obj/third_party/icu/icuuc_private_hidden_visibility/unorm.o: cxx ../../src/third_party/icu/source/common/unorm.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = unorm.cpp
+  source_name_part = unorm
+build obj/third_party/icu/icuuc_private_hidden_visibility/uobject.o: cxx ../../src/third_party/icu/source/common/uobject.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uobject.cpp
+  source_name_part = uobject
+build obj/third_party/icu/icuuc_private_hidden_visibility/uprops.o: cxx ../../src/third_party/icu/source/common/uprops.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uprops.cpp
+  source_name_part = uprops
+build obj/third_party/icu/icuuc_private_hidden_visibility/uresbund.o: cxx ../../src/third_party/icu/source/common/uresbund.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uresbund.cpp
+  source_name_part = uresbund
+build obj/third_party/icu/icuuc_private_hidden_visibility/ures_cnv.o: cxx ../../src/third_party/icu/source/common/ures_cnv.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ures_cnv.cpp
+  source_name_part = ures_cnv
+build obj/third_party/icu/icuuc_private_hidden_visibility/uresdata.o: cxx ../../src/third_party/icu/source/common/uresdata.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uresdata.cpp
+  source_name_part = uresdata
+build obj/third_party/icu/icuuc_private_hidden_visibility/usc_impl.o: cxx ../../src/third_party/icu/source/common/usc_impl.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = usc_impl.cpp
+  source_name_part = usc_impl
+build obj/third_party/icu/icuuc_private_hidden_visibility/uscript.o: cxx ../../src/third_party/icu/source/common/uscript.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uscript.cpp
+  source_name_part = uscript
+build obj/third_party/icu/icuuc_private_hidden_visibility/uscript_props.o: cxx ../../src/third_party/icu/source/common/uscript_props.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uscript_props.cpp
+  source_name_part = uscript_props
+build obj/third_party/icu/icuuc_private_hidden_visibility/uset.o: cxx ../../src/third_party/icu/source/common/uset.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uset.cpp
+  source_name_part = uset
+build obj/third_party/icu/icuuc_private_hidden_visibility/usetiter.o: cxx ../../src/third_party/icu/source/common/usetiter.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = usetiter.cpp
+  source_name_part = usetiter
+build obj/third_party/icu/icuuc_private_hidden_visibility/uset_props.o: cxx ../../src/third_party/icu/source/common/uset_props.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uset_props.cpp
+  source_name_part = uset_props
+build obj/third_party/icu/icuuc_private_hidden_visibility/ushape.o: cxx ../../src/third_party/icu/source/common/ushape.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ushape.cpp
+  source_name_part = ushape
+build obj/third_party/icu/icuuc_private_hidden_visibility/usprep.o: cxx ../../src/third_party/icu/source/common/usprep.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = usprep.cpp
+  source_name_part = usprep
+build obj/third_party/icu/icuuc_private_hidden_visibility/ustack.o: cxx ../../src/third_party/icu/source/common/ustack.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ustack.cpp
+  source_name_part = ustack
+build obj/third_party/icu/icuuc_private_hidden_visibility/ustrcase.o: cxx ../../src/third_party/icu/source/common/ustrcase.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ustrcase.cpp
+  source_name_part = ustrcase
+build obj/third_party/icu/icuuc_private_hidden_visibility/ustrcase_locale.o: cxx ../../src/third_party/icu/source/common/ustrcase_locale.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ustrcase_locale.cpp
+  source_name_part = ustrcase_locale
+build obj/third_party/icu/icuuc_private_hidden_visibility/ustr_cnv.o: cxx ../../src/third_party/icu/source/common/ustr_cnv.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ustr_cnv.cpp
+  source_name_part = ustr_cnv
+build obj/third_party/icu/icuuc_private_hidden_visibility/ustrenum.o: cxx ../../src/third_party/icu/source/common/ustrenum.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ustrenum.cpp
+  source_name_part = ustrenum
+build obj/third_party/icu/icuuc_private_hidden_visibility/ustrfmt.o: cxx ../../src/third_party/icu/source/common/ustrfmt.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ustrfmt.cpp
+  source_name_part = ustrfmt
+build obj/third_party/icu/icuuc_private_hidden_visibility/ustring.o: cxx ../../src/third_party/icu/source/common/ustring.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ustring.cpp
+  source_name_part = ustring
+build obj/third_party/icu/icuuc_private_hidden_visibility/ustr_titlecase_brkiter.o: cxx ../../src/third_party/icu/source/common/ustr_titlecase_brkiter.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ustr_titlecase_brkiter.cpp
+  source_name_part = ustr_titlecase_brkiter
+build obj/third_party/icu/icuuc_private_hidden_visibility/ustrtrns.o: cxx ../../src/third_party/icu/source/common/ustrtrns.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ustrtrns.cpp
+  source_name_part = ustrtrns
+build obj/third_party/icu/icuuc_private_hidden_visibility/ustr_wcs.o: cxx ../../src/third_party/icu/source/common/ustr_wcs.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = ustr_wcs.cpp
+  source_name_part = ustr_wcs
+build obj/third_party/icu/icuuc_private_hidden_visibility/utext.o: cxx ../../src/third_party/icu/source/common/utext.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = utext.cpp
+  source_name_part = utext
+build obj/third_party/icu/icuuc_private_hidden_visibility/utf_impl.o: cxx ../../src/third_party/icu/source/common/utf_impl.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = utf_impl.cpp
+  source_name_part = utf_impl
+build obj/third_party/icu/icuuc_private_hidden_visibility/util.o: cxx ../../src/third_party/icu/source/common/util.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = util.cpp
+  source_name_part = util
+build obj/third_party/icu/icuuc_private_hidden_visibility/util_props.o: cxx ../../src/third_party/icu/source/common/util_props.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = util_props.cpp
+  source_name_part = util_props
+build obj/third_party/icu/icuuc_private_hidden_visibility/utrace.o: cxx ../../src/third_party/icu/source/common/utrace.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = utrace.cpp
+  source_name_part = utrace
+build obj/third_party/icu/icuuc_private_hidden_visibility/utrie2_builder.o: cxx ../../src/third_party/icu/source/common/utrie2_builder.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = utrie2_builder.cpp
+  source_name_part = utrie2_builder
+build obj/third_party/icu/icuuc_private_hidden_visibility/utrie2.o: cxx ../../src/third_party/icu/source/common/utrie2.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = utrie2.cpp
+  source_name_part = utrie2
+build obj/third_party/icu/icuuc_private_hidden_visibility/utrie.o: cxx ../../src/third_party/icu/source/common/utrie.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = utrie.cpp
+  source_name_part = utrie
+build obj/third_party/icu/icuuc_private_hidden_visibility/utrie_swap.o: cxx ../../src/third_party/icu/source/common/utrie_swap.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = utrie_swap.cpp
+  source_name_part = utrie_swap
+build obj/third_party/icu/icuuc_private_hidden_visibility/uts46.o: cxx ../../src/third_party/icu/source/common/uts46.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uts46.cpp
+  source_name_part = uts46
+build obj/third_party/icu/icuuc_private_hidden_visibility/utypes.o: cxx ../../src/third_party/icu/source/common/utypes.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = utypes.cpp
+  source_name_part = utypes
+build obj/third_party/icu/icuuc_private_hidden_visibility/uvector.o: cxx ../../src/third_party/icu/source/common/uvector.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uvector.cpp
+  source_name_part = uvector
+build obj/third_party/icu/icuuc_private_hidden_visibility/uvectr32.o: cxx ../../src/third_party/icu/source/common/uvectr32.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uvectr32.cpp
+  source_name_part = uvectr32
+build obj/third_party/icu/icuuc_private_hidden_visibility/uvectr64.o: cxx ../../src/third_party/icu/source/common/uvectr64.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = uvectr64.cpp
+  source_name_part = uvectr64
+build obj/third_party/icu/icuuc_private_hidden_visibility/wintz.o: cxx ../../src/third_party/icu/source/common/wintz.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = wintz.cpp
+  source_name_part = wintz
+build obj/third_party/icu/icuuc_private_hidden_visibility/stubdata.o: cxx ../../src/third_party/icu/source/stubdata/stubdata.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/icu/copy_icudata
+  source_file_part = stubdata.cpp
+  source_name_part = stubdata
+
+build obj/third_party/icu/libicuuc_hidden_visibility.a: alink obj/third_party/icu/icuuc_private_hidden_visibility/appendable.o obj/third_party/icu/icuuc_private_hidden_visibility/bmpset.o obj/third_party/icu/icuuc_private_hidden_visibility/brkeng.o obj/third_party/icu/icuuc_private_hidden_visibility/brkiter.o obj/third_party/icu/icuuc_private_hidden_visibility/bytesinkutil.o obj/third_party/icu/icuuc_private_hidden_visibility/bytestream.o obj/third_party/icu/icuuc_private_hidden_visibility/bytestriebuilder.o obj/third_party/icu/icuuc_private_hidden_visibility/bytestrie.o obj/third_party/icu/icuuc_private_hidden_visibility/bytestrieiterator.o obj/third_party/icu/icuuc_private_hidden_visibility/caniter.o obj/third_party/icu/icuuc_private_hidden_visibility/characterproperties.o obj/third_party/icu/icuuc_private_hidden_visibility/chariter.o obj/third_party/icu/icuuc_private_hidden_visibility/charstr.o obj/third_party/icu/icuuc_private_hidden_visibility/cmemory.o obj/third_party/icu/icuuc_private_hidden_visibility/cstr.o obj/third_party/icu/icuuc_private_hidden_visibility/cstring.o obj/third_party/icu/icuuc_private_hidden_visibility/cwchar.o obj/third_party/icu/icuuc_private_hidden_visibility/dictbe.o obj/third_party/icu/icuuc_private_hidden_visibility/dictionarydata.o obj/third_party/icu/icuuc_private_hidden_visibility/dtintrv.o obj/third_party/icu/icuuc_private_hidden_visibility/edits.o obj/third_party/icu/icuuc_private_hidden_visibility/emojiprops.o obj/third_party/icu/icuuc_private_hidden_visibility/errorcode.o obj/third_party/icu/icuuc_private_hidden_visibility/filteredbrk.o obj/third_party/icu/icuuc_private_hidden_visibility/filterednormalizer2.o obj/third_party/icu/icuuc_private_hidden_visibility/icudataver.o obj/third_party/icu/icuuc_private_hidden_visibility/icuplug.o obj/third_party/icu/icuuc_private_hidden_visibility/loadednormalizer2impl.o obj/third_party/icu/icuuc_private_hidden_visibility/localebuilder.o obj/third_party/icu/icuuc_private_hidden_visibility/localematcher.o obj/third_party/icu/icuuc_private_hidden_visibility/localeprioritylist.o obj/third_party/icu/icuuc_private_hidden_visibility/locavailable.o obj/third_party/icu/icuuc_private_hidden_visibility/locbased.o obj/third_party/icu/icuuc_private_hidden_visibility/locdispnames.o obj/third_party/icu/icuuc_private_hidden_visibility/locdistance.o obj/third_party/icu/icuuc_private_hidden_visibility/locdspnm.o obj/third_party/icu/icuuc_private_hidden_visibility/locid.o obj/third_party/icu/icuuc_private_hidden_visibility/loclikely.o obj/third_party/icu/icuuc_private_hidden_visibility/loclikelysubtags.o obj/third_party/icu/icuuc_private_hidden_visibility/locmap.o obj/third_party/icu/icuuc_private_hidden_visibility/locresdata.o obj/third_party/icu/icuuc_private_hidden_visibility/locutil.o obj/third_party/icu/icuuc_private_hidden_visibility/lsr.o obj/third_party/icu/icuuc_private_hidden_visibility/lstmbe.o obj/third_party/icu/icuuc_private_hidden_visibility/messagepattern.o obj/third_party/icu/icuuc_private_hidden_visibility/mlbe.o obj/third_party/icu/icuuc_private_hidden_visibility/normalizer2.o obj/third_party/icu/icuuc_private_hidden_visibility/normalizer2impl.o obj/third_party/icu/icuuc_private_hidden_visibility/normlzr.o obj/third_party/icu/icuuc_private_hidden_visibility/parsepos.o obj/third_party/icu/icuuc_private_hidden_visibility/patternprops.o obj/third_party/icu/icuuc_private_hidden_visibility/pluralmap.o obj/third_party/icu/icuuc_private_hidden_visibility/propname.o obj/third_party/icu/icuuc_private_hidden_visibility/propsvec.o obj/third_party/icu/icuuc_private_hidden_visibility/punycode.o obj/third_party/icu/icuuc_private_hidden_visibility/putil.o obj/third_party/icu/icuuc_private_hidden_visibility/rbbi_cache.o obj/third_party/icu/icuuc_private_hidden_visibility/rbbi.o obj/third_party/icu/icuuc_private_hidden_visibility/rbbidata.o obj/third_party/icu/icuuc_private_hidden_visibility/rbbinode.o obj/third_party/icu/icuuc_private_hidden_visibility/rbbirb.o obj/third_party/icu/icuuc_private_hidden_visibility/rbbiscan.o obj/third_party/icu/icuuc_private_hidden_visibility/rbbisetb.o obj/third_party/icu/icuuc_private_hidden_visibility/rbbistbl.o obj/third_party/icu/icuuc_private_hidden_visibility/rbbitblb.o obj/third_party/icu/icuuc_private_hidden_visibility/resbund_cnv.o obj/third_party/icu/icuuc_private_hidden_visibility/resbund.o obj/third_party/icu/icuuc_private_hidden_visibility/resource.o obj/third_party/icu/icuuc_private_hidden_visibility/restrace.o obj/third_party/icu/icuuc_private_hidden_visibility/ruleiter.o obj/third_party/icu/icuuc_private_hidden_visibility/schriter.o obj/third_party/icu/icuuc_private_hidden_visibility/serv.o obj/third_party/icu/icuuc_private_hidden_visibility/servlk.o obj/third_party/icu/icuuc_private_hidden_visibility/servlkf.o obj/third_party/icu/icuuc_private_hidden_visibility/servls.o obj/third_party/icu/icuuc_private_hidden_visibility/servnotf.o obj/third_party/icu/icuuc_private_hidden_visibility/servrbf.o obj/third_party/icu/icuuc_private_hidden_visibility/servslkf.o obj/third_party/icu/icuuc_private_hidden_visibility/sharedobject.o obj/third_party/icu/icuuc_private_hidden_visibility/simpleformatter.o obj/third_party/icu/icuuc_private_hidden_visibility/static_unicode_sets.o obj/third_party/icu/icuuc_private_hidden_visibility/stringpiece.o obj/third_party/icu/icuuc_private_hidden_visibility/stringtriebuilder.o obj/third_party/icu/icuuc_private_hidden_visibility/uarrsort.o obj/third_party/icu/icuuc_private_hidden_visibility/ubidi.o obj/third_party/icu/icuuc_private_hidden_visibility/ubidiln.o obj/third_party/icu/icuuc_private_hidden_visibility/ubidi_props.o obj/third_party/icu/icuuc_private_hidden_visibility/ubiditransform.o obj/third_party/icu/icuuc_private_hidden_visibility/ubidiwrt.o obj/third_party/icu/icuuc_private_hidden_visibility/ubrk.o obj/third_party/icu/icuuc_private_hidden_visibility/ucase.o obj/third_party/icu/icuuc_private_hidden_visibility/ucasemap.o obj/third_party/icu/icuuc_private_hidden_visibility/ucasemap_titlecase_brkiter.o obj/third_party/icu/icuuc_private_hidden_visibility/ucat.o obj/third_party/icu/icuuc_private_hidden_visibility/uchar.o obj/third_party/icu/icuuc_private_hidden_visibility/ucharstriebuilder.o obj/third_party/icu/icuuc_private_hidden_visibility/ucharstrie.o obj/third_party/icu/icuuc_private_hidden_visibility/ucharstrieiterator.o obj/third_party/icu/icuuc_private_hidden_visibility/uchriter.o obj/third_party/icu/icuuc_private_hidden_visibility/ucln_cmn.o obj/third_party/icu/icuuc_private_hidden_visibility/ucmndata.o obj/third_party/icu/icuuc_private_hidden_visibility/ucnv2022.o obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_bld.o obj/third_party/icu/icuuc_private_hidden_visibility/ucnvbocu.o obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_cb.o obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_cnv.o obj/third_party/icu/icuuc_private_hidden_visibility/ucnv.o obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_ct.o obj/third_party/icu/icuuc_private_hidden_visibility/ucnvdisp.o obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_err.o obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_ext.o obj/third_party/icu/icuuc_private_hidden_visibility/ucnvhz.o obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_io.o obj/third_party/icu/icuuc_private_hidden_visibility/ucnvisci.o obj/third_party/icu/icuuc_private_hidden_visibility/ucnvlat1.o obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_lmb.o obj/third_party/icu/icuuc_private_hidden_visibility/ucnvmbcs.o obj/third_party/icu/icuuc_private_hidden_visibility/ucnvscsu.o obj/third_party/icu/icuuc_private_hidden_visibility/ucnvsel.o obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_set.o obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_u16.o obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_u32.o obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_u7.o obj/third_party/icu/icuuc_private_hidden_visibility/ucnv_u8.o obj/third_party/icu/icuuc_private_hidden_visibility/ucol_swp.o obj/third_party/icu/icuuc_private_hidden_visibility/ucptrie.o obj/third_party/icu/icuuc_private_hidden_visibility/ucurr.o obj/third_party/icu/icuuc_private_hidden_visibility/udata.o obj/third_party/icu/icuuc_private_hidden_visibility/udatamem.o obj/third_party/icu/icuuc_private_hidden_visibility/udataswp.o obj/third_party/icu/icuuc_private_hidden_visibility/uenum.o obj/third_party/icu/icuuc_private_hidden_visibility/uhash.o obj/third_party/icu/icuuc_private_hidden_visibility/uhash_us.o obj/third_party/icu/icuuc_private_hidden_visibility/uidna.o obj/third_party/icu/icuuc_private_hidden_visibility/uinit.o obj/third_party/icu/icuuc_private_hidden_visibility/uinvchar.o obj/third_party/icu/icuuc_private_hidden_visibility/uiter.o obj/third_party/icu/icuuc_private_hidden_visibility/ulist.o obj/third_party/icu/icuuc_private_hidden_visibility/ulocale.o obj/third_party/icu/icuuc_private_hidden_visibility/ulocbuilder.o obj/third_party/icu/icuuc_private_hidden_visibility/uloc.o obj/third_party/icu/icuuc_private_hidden_visibility/uloc_keytype.o obj/third_party/icu/icuuc_private_hidden_visibility/uloc_tag.o obj/third_party/icu/icuuc_private_hidden_visibility/umapfile.o obj/third_party/icu/icuuc_private_hidden_visibility/umath.o obj/third_party/icu/icuuc_private_hidden_visibility/umutablecptrie.o obj/third_party/icu/icuuc_private_hidden_visibility/umutex.o obj/third_party/icu/icuuc_private_hidden_visibility/unames.o obj/third_party/icu/icuuc_private_hidden_visibility/unifiedcache.o obj/third_party/icu/icuuc_private_hidden_visibility/unifilt.o obj/third_party/icu/icuuc_private_hidden_visibility/unifunct.o obj/third_party/icu/icuuc_private_hidden_visibility/uniset_closure.o obj/third_party/icu/icuuc_private_hidden_visibility/uniset.o obj/third_party/icu/icuuc_private_hidden_visibility/uniset_props.o obj/third_party/icu/icuuc_private_hidden_visibility/unisetspan.o obj/third_party/icu/icuuc_private_hidden_visibility/unistr_case.o obj/third_party/icu/icuuc_private_hidden_visibility/unistr_case_locale.o obj/third_party/icu/icuuc_private_hidden_visibility/unistr_cnv.o obj/third_party/icu/icuuc_private_hidden_visibility/unistr.o obj/third_party/icu/icuuc_private_hidden_visibility/unistr_props.o obj/third_party/icu/icuuc_private_hidden_visibility/unistr_titlecase_brkiter.o obj/third_party/icu/icuuc_private_hidden_visibility/unormcmp.o obj/third_party/icu/icuuc_private_hidden_visibility/unorm.o obj/third_party/icu/icuuc_private_hidden_visibility/uobject.o obj/third_party/icu/icuuc_private_hidden_visibility/uprops.o obj/third_party/icu/icuuc_private_hidden_visibility/uresbund.o obj/third_party/icu/icuuc_private_hidden_visibility/ures_cnv.o obj/third_party/icu/icuuc_private_hidden_visibility/uresdata.o obj/third_party/icu/icuuc_private_hidden_visibility/usc_impl.o obj/third_party/icu/icuuc_private_hidden_visibility/uscript.o obj/third_party/icu/icuuc_private_hidden_visibility/uscript_props.o obj/third_party/icu/icuuc_private_hidden_visibility/uset.o obj/third_party/icu/icuuc_private_hidden_visibility/usetiter.o obj/third_party/icu/icuuc_private_hidden_visibility/uset_props.o obj/third_party/icu/icuuc_private_hidden_visibility/ushape.o obj/third_party/icu/icuuc_private_hidden_visibility/usprep.o obj/third_party/icu/icuuc_private_hidden_visibility/ustack.o obj/third_party/icu/icuuc_private_hidden_visibility/ustrcase.o obj/third_party/icu/icuuc_private_hidden_visibility/ustrcase_locale.o obj/third_party/icu/icuuc_private_hidden_visibility/ustr_cnv.o obj/third_party/icu/icuuc_private_hidden_visibility/ustrenum.o obj/third_party/icu/icuuc_private_hidden_visibility/ustrfmt.o obj/third_party/icu/icuuc_private_hidden_visibility/ustring.o obj/third_party/icu/icuuc_private_hidden_visibility/ustr_titlecase_brkiter.o obj/third_party/icu/icuuc_private_hidden_visibility/ustrtrns.o obj/third_party/icu/icuuc_private_hidden_visibility/ustr_wcs.o obj/third_party/icu/icuuc_private_hidden_visibility/utext.o obj/third_party/icu/icuuc_private_hidden_visibility/utf_impl.o obj/third_party/icu/icuuc_private_hidden_visibility/util.o obj/third_party/icu/icuuc_private_hidden_visibility/util_props.o obj/third_party/icu/icuuc_private_hidden_visibility/utrace.o obj/third_party/icu/icuuc_private_hidden_visibility/utrie2_builder.o obj/third_party/icu/icuuc_private_hidden_visibility/utrie2.o obj/third_party/icu/icuuc_private_hidden_visibility/utrie.o obj/third_party/icu/icuuc_private_hidden_visibility/utrie_swap.o obj/third_party/icu/icuuc_private_hidden_visibility/uts46.o obj/third_party/icu/icuuc_private_hidden_visibility/utypes.o obj/third_party/icu/icuuc_private_hidden_visibility/uvector.o obj/third_party/icu/icuuc_private_hidden_visibility/uvectr32.o obj/third_party/icu/icuuc_private_hidden_visibility/uvectr64.o obj/third_party/icu/icuuc_private_hidden_visibility/wintz.o obj/third_party/icu/icuuc_private_hidden_visibility/stubdata.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a ../../src/build/config/warning_suppression.txt || phony/third_party/icu/icudata
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/third_party/icu

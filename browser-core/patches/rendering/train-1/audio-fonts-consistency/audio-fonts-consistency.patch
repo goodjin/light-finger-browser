@@ -1,5 +1,5 @@
 diff --git a/third_party/blink/renderer/core/css/font_face_set.cc b/third_party/blink/renderer/core/css/font_face_set.cc
-index 09f36a9f11607..547bcd30a8f40 100644
+index d9baa53099538..8d1cc78be1af1 100644
 --- a/third_party/blink/renderer/core/css/font_face_set.cc
 +++ b/third_party/blink/renderer/core/css/font_face_set.cc
 @@ -4,6 +4,9 @@
@@ -9,12 +9,23 @@ index 09f36a9f11607..547bcd30a8f40 100644
 +#include "base/command_line.h"
 +#include "base/strings/string_split.h"
 +#include "base/strings/string_util.h"
- #include "base/task/single_thread_task_runner.h"
  #include "third_party/blink/renderer/bindings/core/v8/script_promise_resolver.h"
  #include "third_party/blink/renderer/bindings/core/v8/v8_font_face_set_load_status.h"
-@@ -20,6 +24,56 @@ namespace blink {
+ #include "third_party/blink/renderer/core/css/font_face_cache.h"
+@@ -242,6 +245,10 @@ bool FontFaceSet::check(const String& font_string,
+     return false;
+   }
  
- const int FontFaceSet::kDefaultFontSize = 10;
++  if (!IsFontAllowedByCommandLine(*font)) {
++    return false;
++  }
++
+   FontSelector* font_selector = GetFontSelector();
+   FontFaceCache* font_face_cache = font_selector->GetFontFaceCache();
+ 
+@@ -353,4 +360,54 @@ FontFaceSetIterable::IterationSource* FontFaceSet::CreateIterationSource(
+   return MakeGarbageCollected<IterationSource>(std::move(font_faces));
+ }
  
 +namespace {
 +
@@ -66,145 +77,12 @@ index 09f36a9f11607..547bcd30a8f40 100644
 +
 +}  // namespace
 +
- // static
- const AtomicString& FontFaceSet::DefaultFontFamily() {
-   return font_family_names::kSansSerif;
-@@ -241,5 +280,9 @@ bool FontFaceSet::check(const String& font_string,
-     return false;
-   }
- 
-+  if (!IsFontAllowedByCommandLine(*font)) {
-+    return false;
-+  }
-+
-   FontSelector* font_selector = GetFontSelector();
-   FontFaceCache* font_face_cache = font_selector->GetFontFaceCache();
-diff --git a/third_party/blink/renderer/modules/webaudio/analyser_node.cc b/third_party/blink/renderer/modules/webaudio/analyser_node.cc
-index 5ff2fc8ea53b9..c5c7c2e4637b9 100644
---- a/third_party/blink/renderer/modules/webaudio/analyser_node.cc
-+++ b/third_party/blink/renderer/modules/webaudio/analyser_node.cc
-@@ -21,11 +21,100 @@
- 
- #include "third_party/blink/renderer/modules/webaudio/analyser_node.h"
- 
-+#include <algorithm>
-+
-+#include "base/command_line.h"
-+#include "base/containers/span.h"
-+#include "base/strings/string_number_conversions.h"
- #include "third_party/blink/renderer/bindings/modules/v8/v8_analyser_options.h"
- #include "third_party/blink/renderer/modules/webaudio/analyser_handler.h"
- #include "third_party/blink/renderer/modules/webaudio/audio_graph_tracer.h"
- 
- namespace blink {
-+
-+namespace {
-+
-+struct AudioFingerprintOverride {
-+  bool enabled = false;
-+  float offset = 0.0f;
-+  float scale = 1.0f;
-+};
-+
-+AudioFingerprintOverride BuildAudioFingerprintOverride() {
-+  AudioFingerprintOverride override_value;
-+  const base::CommandLine* command_line =
-+      base::CommandLine::ForCurrentProcess();
-+  if (!command_line) {
-+    return override_value;
-+  }
-+
-+  double offset = 0.0;
-+  double scale = 1.0;
-+  bool has_override = false;
-+  bool has_offset = false;
-+
-+  const std::string offset_value =
-+      command_line->GetSwitchValueASCII("audio-fingerprint-offset");
-+  if (!offset_value.empty() && base::StringToDouble(offset_value, &offset)) {
-+    override_value.offset = static_cast<float>(offset);
-+    has_override = true;
-+    has_offset = true;
-+  }
-+
-+  const std::string scale_value =
-+      command_line->GetSwitchValueASCII("audio-fingerprint-scale");
-+  if (!scale_value.empty() && base::StringToDouble(scale_value, &scale)) {
-+    override_value.scale = static_cast<float>(scale);
-+    has_override = true;
-+  }
-+
-+  const std::string seed_value =
-+      command_line->GetSwitchValueASCII("audio-fingerprint-seed");
-+  if (!seed_value.empty()) {
-+    int seed = 0;
-+    if (base::StringToInt(seed_value, &seed)) {
-+      if (!has_offset) {
-+        override_value.offset =
-+            static_cast<float>((seed % 1000) - 500) / 100000.0f;
-+      }
-+      has_override = true;
-+    }
-+  }
-+
-+  override_value.enabled = has_override;
-+  return override_value;
-+}
-+
-+const AudioFingerprintOverride& AudioFingerprintOverrideFromCommandLine() {
-+  static AudioFingerprintOverride override_value =
-+      BuildAudioFingerprintOverride();
-+  return override_value;
-+}
-+
-+void ApplyAudioFingerprintOverride(base::span<float> data,
-+                                   const AudioFingerprintOverride& override) {
-+  if (!override.enabled) {
-+    return;
-+  }
-+  for (auto& sample : data) {
-+    sample = sample * override.scale + override.offset;
-+  }
-+}
-+
-+void ApplyAudioFingerprintOverride(base::span<uint8_t> data,
-+                                   const AudioFingerprintOverride& override) {
-+  if (!override.enabled) {
-+    return;
-+  }
-+  for (auto& sample : data) {
-+    float adjusted =
-+        static_cast<float>(sample) * override.scale + override.offset;
-+    adjusted = std::clamp(adjusted, 0.0f, 255.0f);
-+    sample = static_cast<uint8_t>(adjusted);
-+  }
-+}
-+
-+}  // namespace
- 
- double AnalyserNode::minDecibels() const {
-   return GetAnalyserHandler().MinDecibels();
-@@ -119,11 +161,15 @@ double AnalyserNode::smoothingTimeConstant() const {
- }
- 
- void AnalyserNode::getFloatFrequencyData(NotShared<DOMFloat32Array> array) {
-   GetAnalyserHandler().GetFloatFrequencyData(array.Get(),
-                                              context()->currentTime());
-+  ApplyAudioFingerprintOverride(array->AsSpan(),
-+                                AudioFingerprintOverrideFromCommandLine());
- }
- 
- void AnalyserNode::getByteFrequencyData(NotShared<DOMUint8Array> array) {
-   GetAnalyserHandler().GetByteFrequencyData(array.Get(),
-                                             context()->currentTime());
-+  ApplyAudioFingerprintOverride(array->AsSpan(),
-+                                AudioFingerprintOverrideFromCommandLine());
- }
+ }  // namespace blink
 diff --git a/third_party/blink/renderer/modules/webaudio/audio_buffer.cc b/third_party/blink/renderer/modules/webaudio/audio_buffer.cc
-index 72563b33aa7f3..dfb4bd3c2d9f1 100644
+index 9e2816b78ed7f..f8bf4bc035fb2 100644
 --- a/third_party/blink/renderer/modules/webaudio/audio_buffer.cc
 +++ b/third_party/blink/renderer/modules/webaudio/audio_buffer.cc
-@@ -24,10 +24,13 @@
+@@ -33,9 +33,12 @@
  
  #include "third_party/blink/renderer/modules/webaudio/audio_buffer.h"
  
@@ -212,16 +90,50 @@ index 72563b33aa7f3..dfb4bd3c2d9f1 100644
  #include <memory>
  
 +#include "base/command_line.h"
- #include "base/compiler_specific.h"
  #include "base/containers/span.h"
 +#include "base/strings/string_number_conversions.h"
  #include "third_party/blink/renderer/bindings/modules/v8/v8_audio_buffer_options.h"
  #include "third_party/blink/renderer/modules/webaudio/base_audio_context.h"
  #include "third_party/blink/renderer/platform/audio/audio_bus.h"
-@@ -47,6 +53,92 @@ DOMFloat32Array* CreateFloat32ArrayOrNull(
-              ? DOMFloat32Array::CreateOrNull(length)
-              : DOMFloat32Array::CreateUninitializedOrNull(length);
+@@ -223,7 +226,21 @@ NotShared<DOMFloat32Array> AudioBuffer::getChannelData(unsigned channel_index) {
+     return NotShared<DOMFloat32Array>(nullptr);
+   }
+ 
+-  return NotShared<DOMFloat32Array>(channels_[channel_index].Get());
++  const AudioFingerprintOverride& override_value =
++      AudioFingerprintOverrideFromCommandLine();
++  if (!override_value.enabled) {
++    return NotShared<DOMFloat32Array>(channels_[channel_index].Get());
++  }
++
++  DOMFloat32Array* adjusted = CreateFloat32ArrayOrNull(
++      length_, InitializationPolicy::kDontInitialize);
++  if (!adjusted) {
++    return NotShared<DOMFloat32Array>(channels_[channel_index].Get());
++  }
++
++  ApplyAudioFingerprintOverride(channels_[channel_index].Get()->AsSpan(),
++                                adjusted->AsSpan(), override_value);
++  return NotShared<DOMFloat32Array>(adjusted);
  }
+ 
+ void AudioBuffer::copyFromChannel(NotShared<DOMFloat32Array> destination,
+@@ -265,6 +282,10 @@ void AudioBuffer::copyFromChannel(NotShared<DOMFloat32Array> destination,
+   DCHECK(dst.data());
+ 
+   dst.first(count).copy_from(src.subspan(buffer_offset, count));
++
++  const AudioFingerprintOverride& override_value =
++      AudioFingerprintOverrideFromCommandLine();
++  ApplyAudioFingerprintOverride(dst.first(count), override_value);
+ }
+ 
+ void AudioBuffer::copyToChannel(NotShared<DOMFloat32Array> source,
+@@ -336,4 +357,94 @@ void SharedAudioBuffer::Zero() {
+   }
+ }
+ 
++namespace {
 +
 +struct AudioFingerprintOverride {
 +  bool enabled = false;
@@ -308,35 +220,7 @@ index 72563b33aa7f3..dfb4bd3c2d9f1 100644
 +    sample = ApplyAudioFingerprintSample(sample, override);
 +  }
 +}
- 
- }  // namespace
- 
-@@ -219,4 +292,20 @@ NotShared<DOMFloat32Array> AudioBuffer::getChannelData(unsigned channel_index) {
-   if (channel_index >= channels_.size()) {
-     return NotShared<DOMFloat32Array>(nullptr);
-   }
- 
-+  const AudioFingerprintOverride& override_value =
-+      AudioFingerprintOverrideFromCommandLine();
-+  if (!override_value.enabled) {
-+    return NotShared<DOMFloat32Array>(channels_[channel_index].Get());
-+  }
 +
-+  DOMFloat32Array* adjusted = CreateFloat32ArrayOrNull(
-+      length_, InitializationPolicy::kDontInitialize);
-+  if (!adjusted) {
-+    return NotShared<DOMFloat32Array>(channels_[channel_index].Get());
-+  }
++}  // namespace
 +
-+  ApplyAudioFingerprintOverride(channels_[channel_index].Get()->AsSpan(),
-+                                adjusted->AsSpan(), override_value);
-+  return NotShared<DOMFloat32Array>(adjusted);
-+ }
-@@ -272,3 +358,7 @@ void AudioBuffer::copyFromChannel(NotShared<DOMFloat32Array> destination,
- 
-   dst.first(count).copy_from(src.subspan(buffer_offset, count));
-+
-+  const AudioFingerprintOverride& override_value =
-+      AudioFingerprintOverrideFromCommandLine();
-+  ApplyAudioFingerprintOverride(dst.first(count), override_value);
- }
+ }  // namespace blink

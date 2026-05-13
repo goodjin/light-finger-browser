@@ -1,0 +1,4 @@
+gen/chrome/grit/web_app_internals_resources.h
+gen/chrome/grit/web_app_internals_resources_map.cc
+gen/chrome/grit/web_app_internals_resources_map.h
+gen/chrome/web_app_internals_resources.pak

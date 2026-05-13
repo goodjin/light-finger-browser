@@ -1,0 +1,4 @@
+gen/content/grit/process_resources.h
+gen/content/grit/process_resources_map.cc
+gen/content/grit/process_resources_map.h
+gen/content/process_resources.pak

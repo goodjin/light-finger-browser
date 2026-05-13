@@ -1,0 +1,61 @@
+defines = -DNO_GETENV -DNO_PUTENV -DBITS_IN_JSAMPLE=16 -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=2 -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DMANGLE_JPEG_NAMES
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/libjpeg_turbo/src
+cflags = -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wthread-safety -Wgnu -Wno-gnu-anonymous-struct -Wno-gnu-conditional-omitted-operand -Wno-gnu-include-next -Wno-gnu-label-as-value -Wno-gnu-redeclared-enum -Wno-gnu-statement-expression -Wno-gnu-zero-variadic-macro-arguments -Wno-zero-length-array -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wshadow -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt
+cflags_c = -std=c11
+label_name = libjpeg16
+root_out_dir = .
+target_out_dir = obj/third_party/libjpeg_turbo
+target_output_name = libjpeg16
+
+build phony/third_party/libjpeg_turbo/libjpeg16.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/libjpeg_turbo/libjpeg16/jcapistd.o: cc ../../src/third_party/libjpeg_turbo/src/jcapistd.c | phony/third_party/libjpeg_turbo/libjpeg16.inputs
+  source_file_part = jcapistd.c
+  source_name_part = jcapistd
+build obj/third_party/libjpeg_turbo/libjpeg16/jccolor.o: cc ../../src/third_party/libjpeg_turbo/src/jccolor.c | phony/third_party/libjpeg_turbo/libjpeg16.inputs
+  source_file_part = jccolor.c
+  source_name_part = jccolor
+build obj/third_party/libjpeg_turbo/libjpeg16/jcdiffct.o: cc ../../src/third_party/libjpeg_turbo/src/jcdiffct.c | phony/third_party/libjpeg_turbo/libjpeg16.inputs
+  source_file_part = jcdiffct.c
+  source_name_part = jcdiffct
+build obj/third_party/libjpeg_turbo/libjpeg16/jclossls.o: cc ../../src/third_party/libjpeg_turbo/src/jclossls.c | phony/third_party/libjpeg_turbo/libjpeg16.inputs
+  source_file_part = jclossls.c
+  source_name_part = jclossls
+build obj/third_party/libjpeg_turbo/libjpeg16/jcmainct.o: cc ../../src/third_party/libjpeg_turbo/src/jcmainct.c | phony/third_party/libjpeg_turbo/libjpeg16.inputs
+  source_file_part = jcmainct.c
+  source_name_part = jcmainct
+build obj/third_party/libjpeg_turbo/libjpeg16/jcprepct.o: cc ../../src/third_party/libjpeg_turbo/src/jcprepct.c | phony/third_party/libjpeg_turbo/libjpeg16.inputs
+  source_file_part = jcprepct.c
+  source_name_part = jcprepct
+build obj/third_party/libjpeg_turbo/libjpeg16/jcsample.o: cc ../../src/third_party/libjpeg_turbo/src/jcsample.c | phony/third_party/libjpeg_turbo/libjpeg16.inputs
+  source_file_part = jcsample.c
+  source_name_part = jcsample
+build obj/third_party/libjpeg_turbo/libjpeg16/jdapistd.o: cc ../../src/third_party/libjpeg_turbo/src/jdapistd.c | phony/third_party/libjpeg_turbo/libjpeg16.inputs
+  source_file_part = jdapistd.c
+  source_name_part = jdapistd
+build obj/third_party/libjpeg_turbo/libjpeg16/jdcolor.o: cc ../../src/third_party/libjpeg_turbo/src/jdcolor.c | phony/third_party/libjpeg_turbo/libjpeg16.inputs
+  source_file_part = jdcolor.c
+  source_name_part = jdcolor
+build obj/third_party/libjpeg_turbo/libjpeg16/jddiffct.o: cc ../../src/third_party/libjpeg_turbo/src/jddiffct.c | phony/third_party/libjpeg_turbo/libjpeg16.inputs
+  source_file_part = jddiffct.c
+  source_name_part = jddiffct
+build obj/third_party/libjpeg_turbo/libjpeg16/jdlossls.o: cc ../../src/third_party/libjpeg_turbo/src/jdlossls.c | phony/third_party/libjpeg_turbo/libjpeg16.inputs
+  source_file_part = jdlossls.c
+  source_name_part = jdlossls
+build obj/third_party/libjpeg_turbo/libjpeg16/jdmainct.o: cc ../../src/third_party/libjpeg_turbo/src/jdmainct.c | phony/third_party/libjpeg_turbo/libjpeg16.inputs
+  source_file_part = jdmainct.c
+  source_name_part = jdmainct
+build obj/third_party/libjpeg_turbo/libjpeg16/jdpostct.o: cc ../../src/third_party/libjpeg_turbo/src/jdpostct.c | phony/third_party/libjpeg_turbo/libjpeg16.inputs
+  source_file_part = jdpostct.c
+  source_name_part = jdpostct
+build obj/third_party/libjpeg_turbo/libjpeg16/jdsample.o: cc ../../src/third_party/libjpeg_turbo/src/jdsample.c | phony/third_party/libjpeg_turbo/libjpeg16.inputs
+  source_file_part = jdsample.c
+  source_name_part = jdsample
+build obj/third_party/libjpeg_turbo/libjpeg16/jutils.o: cc ../../src/third_party/libjpeg_turbo/src/jutils.c | phony/third_party/libjpeg_turbo/libjpeg16.inputs
+  source_file_part = jutils.c
+  source_name_part = jutils
+
+build obj/third_party/libjpeg_turbo/libjpeg16.a: alink obj/third_party/libjpeg_turbo/libjpeg16/jcapistd.o obj/third_party/libjpeg_turbo/libjpeg16/jccolor.o obj/third_party/libjpeg_turbo/libjpeg16/jcdiffct.o obj/third_party/libjpeg_turbo/libjpeg16/jclossls.o obj/third_party/libjpeg_turbo/libjpeg16/jcmainct.o obj/third_party/libjpeg_turbo/libjpeg16/jcprepct.o obj/third_party/libjpeg_turbo/libjpeg16/jcsample.o obj/third_party/libjpeg_turbo/libjpeg16/jdapistd.o obj/third_party/libjpeg_turbo/libjpeg16/jdcolor.o obj/third_party/libjpeg_turbo/libjpeg16/jddiffct.o obj/third_party/libjpeg_turbo/libjpeg16/jdlossls.o obj/third_party/libjpeg_turbo/libjpeg16/jdmainct.o obj/third_party/libjpeg_turbo/libjpeg16/jdpostct.o obj/third_party/libjpeg_turbo/libjpeg16/jdsample.o obj/third_party/libjpeg_turbo/libjpeg16/jutils.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a phony/third_party/libjpeg_turbo/libjpeg16.inputs ||
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/third_party/libjpeg_turbo

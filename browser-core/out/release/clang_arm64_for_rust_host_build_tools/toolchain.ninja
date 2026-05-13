@@ -1,0 +1,244 @@
+rule clang_arm64_for_rust_host_build_tools_copy
+  command = ln -f ${in} ${out} 2>/dev/null || (rm -rf ${out} && cp -af ${in} ${out})
+  description = COPY ${in} ${out}
+rule clang_arm64_for_rust_host_build_tools_cxx_module
+  command = ../../src/third_party/llvm-build/Release+Asserts/bin/clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} ${module_deps_no_self} -fmodule-name=${label_name} -c -x c++ -Xclang -emit-module ${in} -o ${out}
+  description = CXX_MODULE ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule clang_arm64_for_rust_host_build_tools_objc
+  command = ../../src/third_party/llvm-build/Release+Asserts/bin/clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${framework_dirs} ${cflags} ${cflags_objc} -c ${in} -o ${out}
+  description = OBJC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule clang_arm64_for_rust_host_build_tools_objcxx
+  command = ../../src/third_party/llvm-build/Release+Asserts/bin/clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${framework_dirs} ${cflags} ${cflags_objcc} -c ${in} -o ${out}
+  description = OBJCXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule clang_arm64_for_rust_host_build_tools_asm
+  command = ../../src/third_party/llvm-build/Release+Asserts/bin/clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  description = ASM ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule clang_arm64_for_rust_host_build_tools_alink
+  command = rm -f ${out} && "../../src/third_party/llvm-build/Release+Asserts/bin/llvm-ar" ${arflags} -r -c -s -D ${out} @${out}.rsp
+  description = AR ${out}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in}
+rule clang_arm64_for_rust_host_build_tools_solink
+  command = TOOL_VERSION=1777987628 ../../src/build/toolchain/apple/linker_driver.py -Wcrl,otoolpath,/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/otool -Wcrl,nmpath,/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/nm -Wcrl,tocname,"${output_dir}/${target_output_name}${output_extension}.TOC" -Wcrl,driver,../../src/third_party/llvm-build/Release+Asserts/bin/clang++ -Wcrl,strippath,/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -Wcrl,installnametoolpath,../../src/third_party/llvm-build/Release+Asserts/bin/llvm-install-name-tool -shared  -Wcrl,dsym,${root_out_dir} -Wcrl,dsymutilpath,../../src/tools/clang/dsymutil/bin/dsymutil ${ldflags} -o "${output_dir}/${target_output_name}${output_extension}" "@${output_dir}/${target_output_name}${output_extension}.rsp" ${rlibs}
+  description = SOLINK ${out}
+  rspfile = ${output_dir}/${target_output_name}${output_extension}.rsp
+  rspfile_content = ${in} ${frameworks} ${swiftmodules} ${solibs} ${libs}
+  pool = build_toolchain_link_pool
+  restat = 1
+rule clang_arm64_for_rust_host_build_tools_solink_module
+  command = TOOL_VERSION=1777987628 ../../src/build/toolchain/apple/linker_driver.py -Wcrl,driver,../../src/third_party/llvm-build/Release+Asserts/bin/clang++ -Wcrl,strippath,/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -Wcrl,installnametoolpath,../../src/third_party/llvm-build/Release+Asserts/bin/llvm-install-name-tool -bundle ${ldflags} -o "${output_dir}/${target_output_name}${output_extension}" "@${output_dir}/${target_output_name}${output_extension}.rsp" ${rlibs} -Wcrl,dsym,${root_out_dir} -Wcrl,dsymutilpath,../../src/tools/clang/dsymutil/bin/dsymutil 
+  description = SOLINK_MODULE ${out}
+  rspfile = ${output_dir}/${target_output_name}${output_extension}.rsp
+  rspfile_content = ${in} ${frameworks} ${swiftmodules} ${solibs} ${libs}
+  pool = build_toolchain_link_pool
+rule clang_arm64_for_rust_host_build_tools_link
+  command = TOOL_VERSION=1777987628 ../../src/build/toolchain/apple/linker_driver.py -Wcrl,driver,../../src/third_party/llvm-build/Release+Asserts/bin/clang++ -Wcrl,strippath,/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -Wcrl,installnametoolpath,../../src/third_party/llvm-build/Release+Asserts/bin/llvm-install-name-tool  -Wcrl,dsym,${root_out_dir} -Wcrl,dsymutilpath,../../src/tools/clang/dsymutil/bin/dsymutil  ${ldflags} -o "${output_dir}/${target_output_name}${output_extension}" "@${output_dir}/${target_output_name}${output_extension}.rsp" ${rlibs}
+  description = LINK ${output_dir}/${target_output_name}${output_extension}
+  rspfile = ${output_dir}/${target_output_name}${output_extension}.rsp
+  rspfile_content = ${in} ${frameworks} ${swiftmodules} ${solibs} ${libs}
+  pool = build_toolchain_link_pool
+rule clang_arm64_for_rust_host_build_tools_stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule clang_arm64_for_rust_host_build_tools_copy_bundle_data
+  command = rm -rf ${out} && /bin/cp -Rc ${in} ${out}
+  description = COPY_BUNDLE_DATA ${in} ${out}
+  pool = build_toolchain_apple_bundle_pool
+rule clang_arm64_for_rust_host_build_tools_rust_bin
+  command = TOOL_VERSION=1777987628 "python3" "../../src/build/rust/rustc_wrapper.py" --rustc=../../src/third_party/rust-toolchain/bin/rustc --depfile=${output_dir}/${target_output_name}${output_extension}.d --rsp=${output_dir}/${target_output_name}${output_extension}.rsp -- -Clinker="../../src/build/toolchain/apple/linker_driver.py" --crate-name ${crate_name} ${in} --crate-type ${crate_type} ${rustflags} --emit=dep-info=${output_dir}/${target_output_name}${output_extension}.d,link -o ${output_dir}/${target_output_name}${output_extension} LDFLAGS -Wcrl,driver,../../src/third_party/llvm-build/Release+Asserts/bin/clang++ -Wcrl,strippath,/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -Wcrl,installnametoolpath,../../src/third_party/llvm-build/Release+Asserts/bin/llvm-install-name-tool ${ldflags} RUSTENV ${rustenv}
+  description = RUST(BIN) ${out}
+  rspfile = ${output_dir}/${target_output_name}${output_extension}.rsp
+  rspfile_content = ${rustdeps} ${externs} SOURCES ${sources}
+  depfile = ${output_dir}/${target_output_name}${output_extension}.d
+  deps = gcc
+  pool = build_toolchain_link_pool
+rule clang_arm64_for_rust_host_build_tools_rust_cdylib
+  command = TOOL_VERSION=1777987628 "python3" "../../src/build/rust/rustc_wrapper.py" --rustc=../../src/third_party/rust-toolchain/bin/rustc --depfile=${output_dir}/${target_output_name}${output_extension}.d --rsp=${output_dir}/${target_output_name}${output_extension}.rsp -- -Clinker="../../src/build/toolchain/apple/linker_driver.py" --crate-name ${crate_name} ${in} --crate-type ${crate_type} ${rustflags} --emit=dep-info=${output_dir}/${target_output_name}${output_extension}.d,link -o ${output_dir}/${target_output_name}${output_extension} LDFLAGS -Wcrl,driver,../../src/third_party/llvm-build/Release+Asserts/bin/clang++ -Wcrl,strippath,/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -Wcrl,installnametoolpath,../../src/third_party/llvm-build/Release+Asserts/bin/llvm-install-name-tool ${ldflags} RUSTENV ${rustenv}
+  description = RUST(CDYLIB) ${out}
+  rspfile = ${output_dir}/${target_output_name}${output_extension}.rsp
+  rspfile_content = ${rustdeps} ${externs} SOURCES ${sources}
+  depfile = ${output_dir}/${target_output_name}${output_extension}.d
+  deps = gcc
+  pool = build_toolchain_link_pool
+rule clang_arm64_for_rust_host_build_tools_rust_macro
+  command = "python3" "../../src/build/rust/rustc_wrapper.py" --rustc=../../src/third_party/rust-toolchain/bin/rustc --depfile=${output_dir}/${target_output_name}${output_extension}.d --rsp=${output_dir}/${target_output_name}${output_extension}.rsp -- -Clinker="../../src/third_party/llvm-build/Release+Asserts/bin/clang++" --crate-name ${crate_name} ${in} --crate-type ${crate_type} ${rustflags} --emit=dep-info=${output_dir}/${target_output_name}${output_extension}.d,link -o ${output_dir}/${target_output_name}${output_extension} LDFLAGS ${ldflags} RUSTENV ${rustenv}
+  description = RUST(MACRO) ${out}
+  rspfile = ${output_dir}/${target_output_name}${output_extension}.rsp
+  rspfile_content = ${rustdeps} ${externs} SOURCES ${sources}
+  depfile = ${output_dir}/${target_output_name}${output_extension}.d
+  deps = gcc
+  pool = build_toolchain_link_pool
+rule clang_arm64_for_rust_host_build_tools_rust_rlib
+  command = "python3" "../../src/build/rust/rustc_wrapper.py" --rustc=../../src/third_party/rust-toolchain/bin/rustc --depfile=${output_dir}/lib${target_output_name}${output_extension}.d --rsp=${output_dir}/lib${target_output_name}${output_extension}.rsp -- -Clinker="../../src/third_party/llvm-build/Release+Asserts/bin/clang++" --crate-name ${crate_name} ${in} --crate-type ${crate_type} ${rustflags} ${rustdeps} ${externs} --emit=dep-info=${output_dir}/lib${target_output_name}${output_extension}.d,link -o ${output_dir}/lib${target_output_name}${output_extension} LDFLAGS RUSTENV ${rustenv}
+  description = RUST ${out}
+  rspfile = ${output_dir}/lib${target_output_name}${output_extension}.rsp
+  rspfile_content = ${rustdeps} ${externs} SOURCES ${sources}
+  depfile = ${output_dir}/lib${target_output_name}${output_extension}.d
+  deps = gcc
+rule clang_arm64_for_rust_host_build_tools_rust_staticlib
+  command = "python3" "../../src/build/rust/rustc_wrapper.py" --rustc=../../src/third_party/rust-toolchain/bin/rustc --depfile=${output_dir}/${target_output_name}${output_extension}.d --rsp=${output_dir}/${target_output_name}${output_extension}.rsp -- -Clinker="../../src/third_party/llvm-build/Release+Asserts/bin/clang++" --crate-name ${crate_name} ${in} --crate-type ${crate_type} ${rustflags} --emit=dep-info=${output_dir}/${target_output_name}${output_extension}.d,link -o ${output_dir}/${target_output_name}${output_extension} LDFLAGS RUSTENV ${rustenv}
+  description = RUST(STATICLIB) ${out}
+  rspfile = ${output_dir}/${target_output_name}${output_extension}.rsp
+  rspfile_content = ${rustdeps} ${externs} SOURCES ${sources}
+  depfile = ${output_dir}/${target_output_name}${output_extension}.d
+  deps = gcc
+rule clang_arm64_for_rust_host_build_tools_cc
+  command = ../../src/third_party/llvm-build/Release+Asserts/bin/clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule clang_arm64_for_rust_host_build_tools_cxx
+  command = ../../src/third_party/llvm-build/Release+Asserts/bin/clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} ${module_deps_no_self} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+
+subninja clang_arm64_for_rust_host_build_tools/obj/build/rust/chromium_prelude/chromium_prelude.ninja
+build clang_arm64_for_rust_host_build_tools/phony/build/rust/chromium_prelude/import_attribute: phony clang_arm64_for_rust_host_build_tools/libimport_attribute.dylib
+subninja clang_arm64_for_rust_host_build_tools/obj/build/rust/chromium_prelude/import_attribute__proc_macro.ninja
+rule __build_rust_std_find_stdlib___build_toolchain_mac_clang_arm64_for_rust_host_build_tools__rule
+  command = python3 ../../src/build/rust/std/find_std_rlibs.py --rust-bin-dir ../../src/third_party/rust-toolchain/bin --output clang_arm64_for_rust_host_build_tools/obj/build/rust/std --depfile clang_arm64_for_rust_host_build_tools/obj/build/rust/std/stdlib.d --depfile-target std --rustc-revision f7b43542838f0a4a6cfdb17fbeadf45002042a77-1-llvmorg-21-init-5118-g52cd27e6 --target aarch64-apple-darwin
+  description = ACTION //build/rust/std:find_stdlib(//build/toolchain/mac:clang_arm64_for_rust_host_build_tools)
+  restat = 1
+  pool = build_toolchain_action_pool
+
+build clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libstd.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/liballoc.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libcfg_if.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libcompiler_builtins.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libcore.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libgetopts.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libhashbrown.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libpanic_abort.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libpanic_unwind.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/librustc_demangle.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libstd_detect.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libtest.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libunicode_width.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libunwind.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libaddr2line.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libadler2.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libgimli.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/liblibc.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libmemchr.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libminiz_oxide.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libobject.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libproc_macro.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libprofiler_builtins.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/librustc_std_workspace_alloc.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/librustc_std_workspace_core.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/librustc_std_workspace_std.rlib: __build_rust_std_find_stdlib___build_toolchain_mac_clang_arm64_for_rust_host_build_tools__rule | ../../src/build/rust/std/find_std_rlibs.py
+  depfile = clang_arm64_for_rust_host_build_tools/obj/build/rust/std/stdlib.d
+
+build clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib: phony clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libstd.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/liballoc.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libcfg_if.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libcompiler_builtins.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libcore.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libgetopts.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libhashbrown.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libpanic_abort.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libpanic_unwind.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/librustc_demangle.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libstd_detect.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libtest.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libunicode_width.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libunwind.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libaddr2line.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libadler2.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libgimli.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/liblibc.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libmemchr.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libminiz_oxide.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libobject.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libproc_macro.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libprofiler_builtins.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/librustc_std_workspace_alloc.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/librustc_std_workspace_core.rlib clang_arm64_for_rust_host_build_tools/obj/build/rust/std/librustc_std_workspace_std.rlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libstd.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libstd.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/liballoc.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/liballoc.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libcfg_if.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libcfg_if.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libcompiler_builtins.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libcompiler_builtins.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libcore.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libcore.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libgetopts.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libgetopts.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libhashbrown.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libhashbrown.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libpanic_abort.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libpanic_abort.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libpanic_unwind.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libpanic_unwind.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/librustc_demangle.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/librustc_demangle.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libstd_detect.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libstd_detect.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libtest.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libtest.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libunicode_width.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libunicode_width.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libunwind.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libunwind.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libaddr2line.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libaddr2line.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libadler2.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libadler2.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libgimli.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libgimli.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/liblibc.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/liblibc.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libmemchr.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libmemchr.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libminiz_oxide.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libminiz_oxide.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libobject.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libobject.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libproc_macro.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libproc_macro.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libprofiler_builtins.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/libprofiler_builtins.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/librustc_std_workspace_alloc.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/librustc_std_workspace_alloc.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/librustc_std_workspace_core.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/librustc_std_workspace_core.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+build clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/librustc_std_workspace_std.rlib: clang_arm64_for_rust_host_build_tools_copy clang_arm64_for_rust_host_build_tools/obj/build/rust/std/librustc_std_workspace_std.rlib || clang_arm64_for_rust_host_build_tools/phony/build/rust/std/find_stdlib
+
+build clang_arm64_for_rust_host_build_tools/phony/build/rust/std/prebuilt_rustc_copy_to_sysroot: phony clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libstd.rlib clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/liballoc.rlib clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libcfg_if.rlib clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libcompiler_builtins.rlib clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libcore.rlib clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libgetopts.rlib clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libhashbrown.rlib clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libpanic_abort.rlib clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libpanic_unwind.rlib clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/librustc_demangle.rlib clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libstd_detect.rlib clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libtest.rlib clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libunicode_width.rlib clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libunwind.rlib clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libaddr2line.rlib clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libadler2.rlib clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libgimli.rlib clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/liblibc.rlib clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libmemchr.rlib clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libminiz_oxide.rlib clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libobject.rlib clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libproc_macro.rlib clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libprofiler_builtins.rlib clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/librustc_std_workspace_alloc.rlib clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/librustc_std_workspace_core.rlib clang_arm64_for_rust_host_build_tools/prebuilt_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/librustc_std_workspace_std.rlib
+build clang_arm64_for_rust_host_build_tools/phony/build/rust/std/std: phony clang_arm64_for_rust_host_build_tools/phony/build/rust/std/prebuilt_rustc_copy_to_sysroot
+subninja clang_arm64_for_rust_host_build_tools/obj/build/rust/std/rules/compiler_builtins_compiler_builtins_vunknown_build_script.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/build/rust/std/rules/libc_libc_vunknown_build_script.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/build/rust/std/rules/object_object_vunknown_build_script.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/build/rust/std/rules/std_std_vunknown_build_script.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/build/rust/tests/test_bin_crate/test_bin_crate_test_bin_crate_vunknown_build_script.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/build/rust/tests/test_proc_macro_crate/test_proc_macro_crate__proc_macro.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/build/rust/tests/test_proc_macro_crate_2/test_proc_macro_crate__proc_macro.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/build/rust/tests/test_rlib_crate/test_rlib_crate_associated_bin_test_rlib_crate_associated_bin_vunknown_build_script.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/build/rust/tests/test_rlib_crate/test_rlib_crate_target1_v0_2_build_script.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/build/rust/tests/test_rlib_crate/test_rlib_crate_target2_v0_2_build_script.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/build/rust/tests/test_rlib_crate_testonly/testonly_build_dep.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/build/rust/tests/test_rlib_crate_testonly/testonly_target_testonly_target_vunknown_build_script.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/testing/rust_gtest_interop/gtest_attribute__proc_macro.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/anstyle/v1/lib.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/anyhow/v1/anyhow_lib_v1_build_script.ninja
+rule __third_party_rust_anyhow_v1_anyhow_lib_v1_build_script_output___build_toolchain_mac_clang_arm64_for_rust_host_build_tools__rule
+  command = python3 ../../src/build/rust/run_build_script.py --build-script clang_arm64_for_rust_host_build_tools/anyhow_lib_v1_build_script --output clang_arm64_for_rust_host_build_tools/gen/third_party/rust/anyhow/v1/lib/cargo_flags.rs --rust-prefix ../../src/third_party/rust-toolchain/bin --out-dir clang_arm64_for_rust_host_build_tools/gen/third_party/rust/anyhow/v1/lib --src-dir ../../src/third_party/rust/chromium_crates_io/vendor/anyhow-1.0.97 --target aarch64-apple-darwin --rustflags clang_arm64_for_rust_host_build_tools/gen/third_party/rust/anyhow/v1/lib/rustflags.txt --features std --env CARGO_PKG_AUTHORS=David\$ Tolnay\$ \<dtolnay@gmail.com\> CARGO_PKG_VERSION=1.0.97 CARGO_PKG_NAME=anyhow CARGO_PKG_DESCRIPTION=Flexible\$ concrete\$ Error\$ type\$ built\$ on\$ std$:$:error$:$:Error CARGO_MANIFEST_DIR=.
+  description = ACTION //third_party/rust/anyhow/v1:anyhow_lib_v1_build_script_output(//build/toolchain/mac:clang_arm64_for_rust_host_build_tools)
+  restat = 1
+  pool = build_toolchain_action_pool
+
+build clang_arm64_for_rust_host_build_tools/gen/third_party/rust/anyhow/v1/lib/cargo_flags.rs: __third_party_rust_anyhow_v1_anyhow_lib_v1_build_script_output___build_toolchain_mac_clang_arm64_for_rust_host_build_tools__rule | ../../src/build/rust/run_build_script.py ../../src/build/action_helpers.py ../../src/build/gn_helpers.py clang_arm64_for_rust_host_build_tools/gen/third_party/rust/anyhow/v1/lib/rustflags.txt clang_arm64_for_rust_host_build_tools/anyhow_lib_v1_build_script clang_arm64_for_rust_host_build_tools/anyhow_lib_v1_build_script clang_arm64_for_rust_host_build_tools/phony/third_party/rust/anyhow/v1/anyhow_lib_v1_build_script_write_rustflags
+
+build clang_arm64_for_rust_host_build_tools/phony/third_party/rust/anyhow/v1/anyhow_lib_v1_build_script_output: phony clang_arm64_for_rust_host_build_tools/gen/third_party/rust/anyhow/v1/lib/cargo_flags.rs
+rule __third_party_rust_anyhow_v1_anyhow_lib_v1_build_script_write_rustflags___build_toolchain_mac_clang_arm64_for_rust_host_build_tools__rule
+  command = python3 ../../src/build/rust/write_rustflags.py --output clang_arm64_for_rust_host_build_tools/gen/third_party/rust/anyhow/v1/lib/rustflags.txt -- ${rustflags}
+  description = ACTION //third_party/rust/anyhow/v1:anyhow_lib_v1_build_script_write_rustflags(//build/toolchain/mac:clang_arm64_for_rust_host_build_tools)
+  restat = 1
+  pool = build_toolchain_action_pool
+
+build clang_arm64_for_rust_host_build_tools/gen/third_party/rust/anyhow/v1/lib/rustflags.txt: __third_party_rust_anyhow_v1_anyhow_lib_v1_build_script_write_rustflags___build_toolchain_mac_clang_arm64_for_rust_host_build_tools__rule | ../../src/build/rust/write_rustflags.py ../../src/build/config/warning_suppression.txt
+  rustflags = -Cdebug-assertions -Csplit-debuginfo=unpacked -Cdefault-linker-libraries -Zdep-info-omit-d-target -Zmacro-backtrace -Zremap-cwd-prefix=. -Zexternal-clangrt --color=always --target=aarch64-apple-darwin -Cembed-bitcode=no -Clto=no --cfg cr_rustc_revision=\"f7b43542838f0a4a6cfdb17fbeadf45002042a77-1-llvmorg-21-init-5118-g52cd27e6\" -Copt-level=3 -Zdwarf-version=4 -g -Zallow-features= -Zdefault-visibility=hidden -Dunsafe_op_in_unsafe_fn
+
+build clang_arm64_for_rust_host_build_tools/phony/third_party/rust/anyhow/v1/anyhow_lib_v1_build_script_write_rustflags: phony clang_arm64_for_rust_host_build_tools/gen/third_party/rust/anyhow/v1/lib/rustflags.txt
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/anyhow/v1/lib.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/bytemuck_derive/v1/lib__proc_macro.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/clap/v4/lib.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/clap_builder/v4/lib.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/clap_lex/v0_7/lib.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/codespan_reporting/v0_12/lib.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/cxxbridge_cmd/v1/cxxbridge.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/cxxbridge_macro/v1/lib__proc_macro.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/either/v1/lib.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/itertools/v0_11/lib.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/libc/v0_2/libc_lib_v0_2_build_script.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/proc_macro2/v1/lib.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/proc_macro2/v1/proc_macro2_lib_v1_build_script.ninja
+rule __third_party_rust_proc_macro2_v1_proc_macro2_lib_v1_build_script_output___build_toolchain_mac_clang_arm64_for_rust_host_build_tools__rule
+  command = python3 ../../src/build/rust/run_build_script.py --build-script clang_arm64_for_rust_host_build_tools/proc_macro2_lib_v1_build_script --output clang_arm64_for_rust_host_build_tools/gen/third_party/rust/proc_macro2/v1/lib/cargo_flags.rs --rust-prefix ../../src/third_party/rust-toolchain/bin --out-dir clang_arm64_for_rust_host_build_tools/gen/third_party/rust/proc_macro2/v1/lib --src-dir ../../src/third_party/rust/chromium_crates_io/vendor/proc-macro2-1.0.94 --target aarch64-apple-darwin --rustflags clang_arm64_for_rust_host_build_tools/gen/third_party/rust/proc_macro2/v1/lib/rustflags.txt --features proc-macro span-locations --env CARGO_PKG_AUTHORS=David\$ Tolnay\$ \<dtolnay@gmail.com\>,\$ Alex\$ Crichton\$ \<alex@alexcrichton.com\> CARGO_PKG_VERSION=1.0.94 CARGO_PKG_NAME=proc-macro2 CARGO_PKG_DESCRIPTION=A\$ substitute\$ implementation\$ of\$ the\$ compiler\'s\$ \`proc_macro\`\$ API\$ to\$ decouple\$ token-based\$ libraries\$ from\$ the\$ procedural\$ macro\$ use\$ case. CARGO_MANIFEST_DIR=.
+  description = ACTION //third_party/rust/proc_macro2/v1:proc_macro2_lib_v1_build_script_output(//build/toolchain/mac:clang_arm64_for_rust_host_build_tools)
+  restat = 1
+  pool = build_toolchain_action_pool
+
+build clang_arm64_for_rust_host_build_tools/gen/third_party/rust/proc_macro2/v1/lib/cargo_flags.rs: __third_party_rust_proc_macro2_v1_proc_macro2_lib_v1_build_script_output___build_toolchain_mac_clang_arm64_for_rust_host_build_tools__rule | ../../src/build/rust/run_build_script.py ../../src/build/action_helpers.py ../../src/build/gn_helpers.py clang_arm64_for_rust_host_build_tools/gen/third_party/rust/proc_macro2/v1/lib/rustflags.txt clang_arm64_for_rust_host_build_tools/proc_macro2_lib_v1_build_script clang_arm64_for_rust_host_build_tools/proc_macro2_lib_v1_build_script clang_arm64_for_rust_host_build_tools/phony/third_party/rust/proc_macro2/v1/proc_macro2_lib_v1_build_script_write_rustflags
+
+build clang_arm64_for_rust_host_build_tools/phony/third_party/rust/proc_macro2/v1/proc_macro2_lib_v1_build_script_output: phony clang_arm64_for_rust_host_build_tools/gen/third_party/rust/proc_macro2/v1/lib/cargo_flags.rs
+rule __third_party_rust_proc_macro2_v1_proc_macro2_lib_v1_build_script_write_rustflags___build_toolchain_mac_clang_arm64_for_rust_host_build_tools__rule
+  command = python3 ../../src/build/rust/write_rustflags.py --output clang_arm64_for_rust_host_build_tools/gen/third_party/rust/proc_macro2/v1/lib/rustflags.txt -- ${rustflags}
+  description = ACTION //third_party/rust/proc_macro2/v1:proc_macro2_lib_v1_build_script_write_rustflags(//build/toolchain/mac:clang_arm64_for_rust_host_build_tools)
+  restat = 1
+  pool = build_toolchain_action_pool
+
+build clang_arm64_for_rust_host_build_tools/gen/third_party/rust/proc_macro2/v1/lib/rustflags.txt: __third_party_rust_proc_macro2_v1_proc_macro2_lib_v1_build_script_write_rustflags___build_toolchain_mac_clang_arm64_for_rust_host_build_tools__rule | ../../src/build/rust/write_rustflags.py ../../src/build/config/warning_suppression.txt
+  rustflags = -Cdebug-assertions -Csplit-debuginfo=unpacked -Cdefault-linker-libraries -Zdep-info-omit-d-target -Zmacro-backtrace -Zremap-cwd-prefix=. -Zexternal-clangrt --color=always --target=aarch64-apple-darwin -Cembed-bitcode=no -Clto=no --cfg cr_rustc_revision=\"f7b43542838f0a4a6cfdb17fbeadf45002042a77-1-llvmorg-21-init-5118-g52cd27e6\" -Copt-level=3 -Zdwarf-version=4 -g -Zallow-features= -Zdefault-visibility=hidden -Dunsafe_op_in_unsafe_fn
+
+build clang_arm64_for_rust_host_build_tools/phony/third_party/rust/proc_macro2/v1/proc_macro2_lib_v1_build_script_write_rustflags: phony clang_arm64_for_rust_host_build_tools/gen/third_party/rust/proc_macro2/v1/lib/rustflags.txt
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/prost_derive/v0_13/lib__proc_macro.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/quote/v1/lib.ninja
+build clang_arm64_for_rust_host_build_tools/phony/third_party/rust/rustversion/v1/lib: phony clang_arm64_for_rust_host_build_tools/librustversion_v1.dylib
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/rustversion/v1/lib__proc_macro.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/rustversion/v1/rustversion_lib_v1_build_script.ninja
+rule __third_party_rust_rustversion_v1_rustversion_lib_v1_build_script_output___build_toolchain_mac_clang_arm64_for_rust_host_build_tools__rule
+  command = python3 ../../src/build/rust/run_build_script.py --build-script clang_arm64_for_rust_host_build_tools/rustversion_lib_v1_build_script --output clang_arm64_for_rust_host_build_tools/gen/third_party/rust/rustversion/v1/lib/cargo_flags.rs --rust-prefix ../../src/third_party/rust-toolchain/bin --out-dir clang_arm64_for_rust_host_build_tools/gen/third_party/rust/rustversion/v1/lib --src-dir ../../src/third_party/rust/chromium_crates_io/vendor/rustversion-1.0.20/build --target aarch64-apple-darwin --rustflags clang_arm64_for_rust_host_build_tools/gen/third_party/rust/rustversion/v1/lib/rustflags.txt --generated-files version.expr --env CARGO_PKG_AUTHORS=David\$ Tolnay\$ \<dtolnay@gmail.com\> CARGO_PKG_VERSION=1.0.20 CARGO_PKG_NAME=rustversion CARGO_PKG_DESCRIPTION=Conditional\$ compilation\$ according\$ to\$ rustc\$ compiler\$ version CARGO_MANIFEST_DIR=.
+  description = ACTION //third_party/rust/rustversion/v1:rustversion_lib_v1_build_script_output(//build/toolchain/mac:clang_arm64_for_rust_host_build_tools)
+  restat = 1
+  pool = build_toolchain_action_pool
+
+build clang_arm64_for_rust_host_build_tools/gen/third_party/rust/rustversion/v1/lib/cargo_flags.rs clang_arm64_for_rust_host_build_tools/gen/third_party/rust/rustversion/v1/lib/version.expr: __third_party_rust_rustversion_v1_rustversion_lib_v1_build_script_output___build_toolchain_mac_clang_arm64_for_rust_host_build_tools__rule | ../../src/build/rust/run_build_script.py ../../src/build/action_helpers.py ../../src/build/gn_helpers.py clang_arm64_for_rust_host_build_tools/gen/third_party/rust/rustversion/v1/lib/rustflags.txt clang_arm64_for_rust_host_build_tools/rustversion_lib_v1_build_script ../../src/third_party/rust/chromium_crates_io/vendor/rustversion-1.0.20/build/rustc.rs clang_arm64_for_rust_host_build_tools/rustversion_lib_v1_build_script clang_arm64_for_rust_host_build_tools/phony/third_party/rust/rustversion/v1/rustversion_lib_v1_build_script_write_rustflags
+
+build clang_arm64_for_rust_host_build_tools/phony/third_party/rust/rustversion/v1/rustversion_lib_v1_build_script_output: phony clang_arm64_for_rust_host_build_tools/gen/third_party/rust/rustversion/v1/lib/cargo_flags.rs clang_arm64_for_rust_host_build_tools/gen/third_party/rust/rustversion/v1/lib/version.expr
+rule __third_party_rust_rustversion_v1_rustversion_lib_v1_build_script_write_rustflags___build_toolchain_mac_clang_arm64_for_rust_host_build_tools__rule
+  command = python3 ../../src/build/rust/write_rustflags.py --output clang_arm64_for_rust_host_build_tools/gen/third_party/rust/rustversion/v1/lib/rustflags.txt -- ${rustflags}
+  description = ACTION //third_party/rust/rustversion/v1:rustversion_lib_v1_build_script_write_rustflags(//build/toolchain/mac:clang_arm64_for_rust_host_build_tools)
+  restat = 1
+  pool = build_toolchain_action_pool
+
+build clang_arm64_for_rust_host_build_tools/gen/third_party/rust/rustversion/v1/lib/rustflags.txt: __third_party_rust_rustversion_v1_rustversion_lib_v1_build_script_write_rustflags___build_toolchain_mac_clang_arm64_for_rust_host_build_tools__rule | ../../src/build/rust/write_rustflags.py ../../src/build/config/warning_suppression.txt
+  rustflags = -Cdebug-assertions -Csplit-debuginfo=unpacked -Cdefault-linker-libraries -Zdep-info-omit-d-target -Zmacro-backtrace -Zremap-cwd-prefix=. -Zexternal-clangrt --color=always --target=aarch64-apple-darwin -Cembed-bitcode=no -Clto=no --cfg cr_rustc_revision=\"f7b43542838f0a4a6cfdb17fbeadf45002042a77-1-llvmorg-21-init-5118-g52cd27e6\" -Copt-level=3 -Zdwarf-version=4 -g -Zallow-features= -Zdefault-visibility=hidden -Dunsafe_op_in_unsafe_fn
+
+build clang_arm64_for_rust_host_build_tools/phony/third_party/rust/rustversion/v1/rustversion_lib_v1_build_script_write_rustflags: phony clang_arm64_for_rust_host_build_tools/gen/third_party/rust/rustversion/v1/lib/rustflags.txt
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/serde/v1/serde_lib_v1_build_script.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/serde_derive/v1/lib__proc_macro.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/serde_json_lenient/v0_2/serde_json_lenient_lib_v0_2_build_script.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/small_ctor/v0_1/lib__proc_macro.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/strsim/v0_11/lib.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/syn/v2/lib.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/termcolor/v1/lib.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/unicode_ident/v1/lib.ninja
+subninja clang_arm64_for_rust_host_build_tools/obj/third_party/rust/unicode_width/v0_1/lib.ninja

@@ -1,0 +1,8 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../../../../../src/chrome/browser/ui/webui/signin/signout_confirmation/signout_confirmation.mojom"
+  ]
+}

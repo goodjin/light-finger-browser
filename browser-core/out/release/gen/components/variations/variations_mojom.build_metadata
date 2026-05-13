@@ -1,0 +1,8 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../src/components/variations/variations.mojom"
+  ]
+}

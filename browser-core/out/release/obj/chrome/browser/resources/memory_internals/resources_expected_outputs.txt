@@ -1,0 +1,4 @@
+gen/chrome/grit/memory_internals_resources.h
+gen/chrome/grit/memory_internals_resources_map.cc
+gen/chrome/grit/memory_internals_resources_map.h
+gen/chrome/memory_internals_resources.pak

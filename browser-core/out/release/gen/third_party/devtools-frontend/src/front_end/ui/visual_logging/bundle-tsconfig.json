@@ -1,0 +1,1 @@
+{"compilerOptions":{"composite":true,"outDir":".","baseUrl":".","rootDir":"../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/visual_logging"},"files":["../../../../../../../../../src/third_party/devtools-frontend/src/front_end/ui/visual_logging/visual_logging.ts"],"references":[{"path":"./visual_logging-tsconfig.json"}]}

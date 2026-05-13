@@ -1,0 +1,20 @@
+[
+  {
+    "traits_headers": [
+      "cc/mojom/paint_flags_mojom_traits.h"
+    ],
+    "traits_public_deps": [
+      "//cc/paint"
+    ],
+    "types": [
+      {
+        "cpp": "::cc::PaintFlags::FilterQuality",
+        "mojom": "cc.mojom.FilterQuality"
+      },
+      {
+        "cpp": "::cc::PaintFlags::DynamicRangeLimitMixture",
+        "mojom": "cc.mojom.DynamicRangeLimit"
+      }
+    ]
+  }
+]

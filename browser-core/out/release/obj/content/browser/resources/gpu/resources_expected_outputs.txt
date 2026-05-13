@@ -1,0 +1,4 @@
+gen/content/grit/gpu_resources.h
+gen/content/grit/gpu_resources_map.cc
+gen/content/grit/gpu_resources_map.h
+gen/content/gpu_resources.pak

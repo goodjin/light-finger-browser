@@ -1,0 +1,8 @@
+{
+  "deps": [
+    "base.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../src/mojo/public/mojom/base/proto_wrapper.mojom"
+  ]
+}

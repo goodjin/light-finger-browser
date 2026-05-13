@@ -1,0 +1,4 @@
+gen/chrome/grit/browsing_topics_internals_resources.h
+gen/chrome/grit/browsing_topics_internals_resources_map.cc
+gen/chrome/grit/browsing_topics_internals_resources_map.h
+gen/chrome/browsing_topics_internals_resources.pak

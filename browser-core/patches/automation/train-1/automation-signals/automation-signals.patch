@@ -1,19 +1,34 @@
 diff --git a/third_party/blink/renderer/core/frame/navigator.cc b/third_party/blink/renderer/core/frame/navigator.cc
+index a8591113e53e4..0e9a44f46fac8 100644
 --- a/third_party/blink/renderer/core/frame/navigator.cc
 +++ b/third_party/blink/renderer/core/frame/navigator.cc
 @@ -23,6 +23,7 @@
-
+ 
  #include "third_party/blink/renderer/core/frame/navigator.h"
-
+ 
 +#include "base/command_line.h"
+ #include "third_party/blink/public/common/user_agent/user_agent_metadata.h"
  #include "third_party/blink/renderer/bindings/core/v8/script_controller.h"
  #include "third_party/blink/renderer/core/dom/document.h"
- #include "third_party/blink/renderer/core/execution_context/navigator_base.h"
-@@ -37,6 +38,24 @@
-
+@@ -39,6 +40,34 @@
+ 
  namespace blink {
-
+ 
 +namespace {
++
++String PlatformOverrideFromCommandLine() {
++  const base::CommandLine* command_line =
++      base::CommandLine::ForCurrentProcess();
++  if (!command_line) {
++    return String();
++  }
++  const std::string override_value =
++      command_line->GetSwitchValueASCII("platform");
++  if (override_value.empty()) {
++    return String();
++  }
++  return String::FromUtf8(override_value);
++}
 +
 +bool IsWebDriverDisabled() {
 +  const base::CommandLine* command_line =
@@ -21,43 +36,33 @@ diff --git a/third_party/blink/renderer/core/frame/navigator.cc b/third_party/bl
 +  if (!command_line) {
 +    return false;
 +  }
-+  // Check for explicit disable flag
-+  if (command_line->HasSwitch("disable-webdriver")) {
-+    return true;
-+  }
-+  // If automation is explicitly disabled, also hide webdriver
-+  if (command_line->HasSwitch("disable-automation")) {
-+    return true;
-+  }
-+  return false;
++  return command_line->HasSwitch("disable-webdriver") ||
++         command_line->HasSwitch("disable-automation");
 +}
 +
 +}  // namespace
 +
  Navigator::Navigator(ExecutionContext* context) : NavigatorBase(context) {}
-
+ 
  String Navigator::productSub() const {
-@@ -56,6 +75,15 @@ String Navigator::vendorSub() const {
+@@ -58,6 +87,10 @@ String Navigator::vendorSub() const {
  }
-
- String Navigator::webdriver() const {
-+  // Hide webdriver property when stealth mode is enabled
-+  // This prevents detection of automation frameworks via navigator.webdriver
-+  if (IsWebDriverDisabled()) {
-+    return String();
+ 
+ String Navigator::platform() const {
++  String cmdline_override = PlatformOverrideFromCommandLine();
++  if (!cmdline_override.empty()) {
++    return cmdline_override;
 +  }
-   // Default implementation returns empty string when not in automation mode.
-   // When ChromeDriver is attached, this returns "classic" or "webdriver".
-   // We override to always return empty to avoid detection.
-diff --git a/third_party/blink/renderer/core/frame/navigator.h b/third_party/blink/renderer/core/frame/navigator.h
---- a/third_party/blink/renderer/core/frame/navigator.h
-+++ b/third_party/blink/renderer/core/frame/navigator.h
-@@ -49,7 +49,7 @@ class Navigator : public NavigatorBase {
-   int connectionType(const String& effective_type) const;
-   String productSub() const;
-   String vendorSub() const;
--  String webdriver() const;
-+  String webdriver() const override;
-   void setAppBadge(mojom::blink::BadgeUIClient::ObserveParamsPtr params,
-                    ExceptionState& exception_state);
-   void clearAppBadge(ExceptionState& exception_state);
+   // TODO(955620): Consider changing devtools overrides to only allow overriding
+   // the platform with a frozen platform to distinguish between
+   // mobile and desktop when ReduceUserAgent is enabled.
+@@ -82,6 +115,9 @@ bool Navigator::cookieEnabled() const {
+ }
+ 
+ bool Navigator::webdriver() const {
++  if (IsWebDriverDisabled()) {
++    return false;
++  }
+   if (RuntimeEnabledFeatures::AutomationControlledEnabled())
+     return true;
+ 

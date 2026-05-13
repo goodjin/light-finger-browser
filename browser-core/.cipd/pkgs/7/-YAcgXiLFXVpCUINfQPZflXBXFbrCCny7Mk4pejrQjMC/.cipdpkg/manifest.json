@@ -1,0 +1,14 @@
+{
+  "format_version": "1.1",
+  "package_name": "infra/3pp/tools/esbuild/mac-arm64",
+  "install_mode": "copy",
+  "actual_install_mode": "copy",
+  "files": [
+    {
+      "name": "esbuild",
+      "size": 14599154,
+      "executable": true,
+      "hash": "69HPZZLpPMqFbAZIl6iwQxBO1QDbJothMRWB9GQCiOoC"
+    }
+  ]
+}

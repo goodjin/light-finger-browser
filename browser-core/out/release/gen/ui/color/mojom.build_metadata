@@ -1,0 +1,9 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../src/ui/color/color_id.mojom",
+    "../../../../../src/ui/color/scheme_variant.mojom"
+  ]
+}

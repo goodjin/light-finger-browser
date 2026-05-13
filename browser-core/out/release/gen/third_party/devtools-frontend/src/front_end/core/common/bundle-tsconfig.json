@@ -1,0 +1,1 @@
+{"compilerOptions":{"composite":true,"outDir":".","baseUrl":".","rootDir":"../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/common"},"files":["../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/common/common.ts"],"references":[{"path":"./ColorUtils-tsconfig.json"},{"path":"./common-tsconfig.json"}]}

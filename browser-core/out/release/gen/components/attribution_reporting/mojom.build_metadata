@@ -1,0 +1,15 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../src/components/attribution_reporting/debug_types.mojom",
+    "../../../../../src/components/attribution_reporting/os_registration_error.mojom",
+    "../../../../../src/components/attribution_reporting/registration_eligibility.mojom",
+    "../../../../../src/components/attribution_reporting/source_registration_error.mojom",
+    "../../../../../src/components/attribution_reporting/source_registration_time_config.mojom",
+    "../../../../../src/components/attribution_reporting/summary_operator.mojom",
+    "../../../../../src/components/attribution_reporting/trigger_data_matching.mojom",
+    "../../../../../src/components/attribution_reporting/trigger_registration_error.mojom"
+  ]
+}

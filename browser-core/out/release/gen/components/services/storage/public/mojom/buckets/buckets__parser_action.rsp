@@ -1,0 +1,3 @@
+../../src/components/services/storage/public/mojom/buckets/bucket_id.mojom
+../../src/components/services/storage/public/mojom/buckets/bucket_info.mojom
+../../src/components/services/storage/public/mojom/buckets/bucket_locator.mojom

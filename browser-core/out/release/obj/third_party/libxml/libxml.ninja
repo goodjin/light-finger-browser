@@ -1,0 +1,101 @@
+defines = -D_REENTRANT -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DU_USING_ICU_NAMESPACE=0 -DU_ENABLE_DYLOAD=0 -DUSE_CHROMIUM_ICU=1 -DU_ENABLE_TRACING=1 -DU_ENABLE_RESOURCE_TRACING=0 -DU_STATIC_IMPLEMENTATION -DICU_UTIL_DATA_IMPL=ICU_UTIL_DATA_FILE
+framework_dirs =
+include_dirs = -I../../src/third_party/libxml/mac -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/libxml/src/include -I../../src/third_party/libxml/mac/include -I../../src/third_party/icu/source/common -I../../src/third_party/icu/source/i18n -I../../src/third_party/zlib
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wno-pointer-sign -Wno-empty-body -Wno-tautological-pointer-compare -Wno-ignored-attributes -Wno-int-to-void-pointer-cast -Wno-incompatible-pointer-types -Wno-unused-function -Wno-enum-compare -DLIBXML_STATIC=
+cflags_c = -std=c11
+cflags_cc = -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness
+label_name = libxml
+root_out_dir = .
+target_out_dir = obj/third_party/libxml
+target_output_name = libxml2
+
+build phony/third_party/libxml/libxml.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/libxml/libxml/HTMLparser.o: cc ../../src/third_party/libxml/src/HTMLparser.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = HTMLparser.c
+  source_name_part = HTMLparser
+build obj/third_party/libxml/libxml/HTMLtree.o: cc ../../src/third_party/libxml/src/HTMLtree.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = HTMLtree.c
+  source_name_part = HTMLtree
+build obj/third_party/libxml/libxml/SAX2.o: cc ../../src/third_party/libxml/src/SAX2.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = SAX2.c
+  source_name_part = SAX2
+build obj/third_party/libxml/libxml/buf.o: cc ../../src/third_party/libxml/src/buf.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = buf.c
+  source_name_part = buf
+build obj/third_party/libxml/libxml/chvalid.o: cc ../../src/third_party/libxml/src/chvalid.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = chvalid.c
+  source_name_part = chvalid
+build obj/third_party/libxml/libxml/dict.o: cc ../../src/third_party/libxml/src/dict.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = dict.c
+  source_name_part = dict
+build obj/third_party/libxml/libxml/encoding.o: cc ../../src/third_party/libxml/src/encoding.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = encoding.c
+  source_name_part = encoding
+build obj/third_party/libxml/libxml/entities.o: cc ../../src/third_party/libxml/src/entities.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = entities.c
+  source_name_part = entities
+build obj/third_party/libxml/libxml/error.o: cc ../../src/third_party/libxml/src/error.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = error.c
+  source_name_part = error
+build obj/third_party/libxml/libxml/globals.o: cc ../../src/third_party/libxml/src/globals.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = globals.c
+  source_name_part = globals
+build obj/third_party/libxml/libxml/hash.o: cc ../../src/third_party/libxml/src/hash.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hash.c
+  source_name_part = hash
+build obj/third_party/libxml/libxml/list.o: cc ../../src/third_party/libxml/src/list.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = list.c
+  source_name_part = list
+build obj/third_party/libxml/libxml/parser.o: cc ../../src/third_party/libxml/src/parser.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = parser.c
+  source_name_part = parser
+build obj/third_party/libxml/libxml/parserInternals.o: cc ../../src/third_party/libxml/src/parserInternals.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = parserInternals.c
+  source_name_part = parserInternals
+build obj/third_party/libxml/libxml/pattern.o: cc ../../src/third_party/libxml/src/pattern.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = pattern.c
+  source_name_part = pattern
+build obj/third_party/libxml/libxml/threads.o: cc ../../src/third_party/libxml/src/threads.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = threads.c
+  source_name_part = threads
+build obj/third_party/libxml/libxml/tree.o: cc ../../src/third_party/libxml/src/tree.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = tree.c
+  source_name_part = tree
+build obj/third_party/libxml/libxml/uri.o: cc ../../src/third_party/libxml/src/uri.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = uri.c
+  source_name_part = uri
+build obj/third_party/libxml/libxml/valid.o: cc ../../src/third_party/libxml/src/valid.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = valid.c
+  source_name_part = valid
+build obj/third_party/libxml/libxml/xmlIO.o: cc ../../src/third_party/libxml/src/xmlIO.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = xmlIO.c
+  source_name_part = xmlIO
+build obj/third_party/libxml/libxml/xmlmemory.o: cc ../../src/third_party/libxml/src/xmlmemory.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = xmlmemory.c
+  source_name_part = xmlmemory
+build obj/third_party/libxml/libxml/xmlreader.o: cc ../../src/third_party/libxml/src/xmlreader.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = xmlreader.c
+  source_name_part = xmlreader
+build obj/third_party/libxml/libxml/xmlsave.o: cc ../../src/third_party/libxml/src/xmlsave.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = xmlsave.c
+  source_name_part = xmlsave
+build obj/third_party/libxml/libxml/xmlstring.o: cc ../../src/third_party/libxml/src/xmlstring.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = xmlstring.c
+  source_name_part = xmlstring
+build obj/third_party/libxml/libxml/xmlunicode.o: cc ../../src/third_party/libxml/src/xmlunicode.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = xmlunicode.c
+  source_name_part = xmlunicode
+build obj/third_party/libxml/libxml/xmlwriter.o: cc ../../src/third_party/libxml/src/xmlwriter.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = xmlwriter.c
+  source_name_part = xmlwriter
+build obj/third_party/libxml/libxml/xpath.o: cc ../../src/third_party/libxml/src/xpath.c | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = xpath.c
+  source_name_part = xpath
+build obj/third_party/libxml/libxml/disabled_libxml_features.o: cxx ../../src/third_party/libxml/chromium/disabled_libxml_features.cc | phony/third_party/libxml/libxml.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = disabled_libxml_features.cc
+  source_name_part = disabled_libxml_features
+
+build obj/third_party/libxml/libxml2.a: alink obj/third_party/libxml/libxml/HTMLparser.o obj/third_party/libxml/libxml/HTMLtree.o obj/third_party/libxml/libxml/SAX2.o obj/third_party/libxml/libxml/buf.o obj/third_party/libxml/libxml/chvalid.o obj/third_party/libxml/libxml/dict.o obj/third_party/libxml/libxml/encoding.o obj/third_party/libxml/libxml/entities.o obj/third_party/libxml/libxml/error.o obj/third_party/libxml/libxml/globals.o obj/third_party/libxml/libxml/hash.o obj/third_party/libxml/libxml/list.o obj/third_party/libxml/libxml/parser.o obj/third_party/libxml/libxml/parserInternals.o obj/third_party/libxml/libxml/pattern.o obj/third_party/libxml/libxml/threads.o obj/third_party/libxml/libxml/tree.o obj/third_party/libxml/libxml/uri.o obj/third_party/libxml/libxml/valid.o obj/third_party/libxml/libxml/xmlIO.o obj/third_party/libxml/libxml/xmlmemory.o obj/third_party/libxml/libxml/xmlreader.o obj/third_party/libxml/libxml/xmlsave.o obj/third_party/libxml/libxml/xmlstring.o obj/third_party/libxml/libxml/xmlunicode.o obj/third_party/libxml/libxml/xmlwriter.o obj/third_party/libxml/libxml/xpath.o obj/third_party/libxml/libxml/disabled_libxml_features.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a phony/third_party/libxml/libxml.inputs || phony/third_party/icu/icuuc obj/third_party/zlib/libchrome_zlib.a obj/third_party/icu/libicuuc.a phony/third_party/zlib/zlib_adler32_simd phony/third_party/zlib/zlib_inflate_chunk_simd phony/third_party/zlib/zlib_arm_crc32
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/third_party/libxml

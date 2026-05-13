@@ -1,0 +1,8 @@
+{
+  "deps": [
+    "../../mojo/public/mojom/base/base.build_metadata"
+  ],
+  "sources": [
+    "../../../../../src/content/shell/common/shell_controller.test-mojom"
+  ]
+}

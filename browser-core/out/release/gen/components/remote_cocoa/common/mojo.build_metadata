@@ -1,0 +1,28 @@
+{
+  "deps": [
+    "../../system_media_controls/mojo.build_metadata",
+    "../../../mojo/public/mojom/base/base.build_metadata",
+    "../../../services/network/public/mojom/mojom.build_metadata",
+    "../../../ui/base/accelerators/mojom/mojom.build_metadata",
+    "../../../ui/base/cursor/mojom/mojom.build_metadata",
+    "../../../ui/base/ime/mojom/mojom.build_metadata",
+    "../../../ui/base/mojom/mojom.build_metadata",
+    "../../../ui/base/mojom/ui_base_types.build_metadata",
+    "../../../ui/display/mojom/mojom.build_metadata",
+    "../../../ui/events/mojom/mojom.build_metadata",
+    "../../../ui/gfx/geometry/mojom/mojom.build_metadata",
+    "../../../ui/gfx/image/mojom/mojom.build_metadata",
+    "../../../ui/gfx/mojom/mojom.build_metadata",
+    "../../../ui/gfx/range/mojom/mojom.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../src/components/remote_cocoa/common/alert.mojom",
+    "../../../../../../src/components/remote_cocoa/common/application.mojom",
+    "../../../../../../src/components/remote_cocoa/common/font.mojom",
+    "../../../../../../src/components/remote_cocoa/common/menu.mojom",
+    "../../../../../../src/components/remote_cocoa/common/native_widget_ns_window.mojom",
+    "../../../../../../src/components/remote_cocoa/common/native_widget_ns_window_host.mojom",
+    "../../../../../../src/components/remote_cocoa/common/select_file_dialog.mojom",
+    "../../../../../../src/components/remote_cocoa/common/text_input_host.mojom"
+  ]
+}

@@ -1,0 +1,109 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DTINT_BUILD_SPV_READER=0 -DTINT_BUILD_SPV_WRITER=1 -DTINT_BUILD_WGSL_READER=1 -DTINT_BUILD_WGSL_WRITER=1 -DTINT_BUILD_MSL_WRITER=1 -DTINT_BUILD_HLSL_WRITER=1 -DTINT_BUILD_GLSL_WRITER=1 -DTINT_BUILD_GLSL_VALIDATOR=1 -DTINT_BUILD_SYNTAX_TREE_WRITER=0 -DTINT_BUILD_IR_BINARY=1 -DTINT_BUILD_IR_FUZZER=0 -DTINT_BUILD_IS_WIN=0 -DTINT_BUILD_IS_MAC=1 -DTINT_BUILD_IS_LINUX=0
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/dawn -Igen/third_party/dawn -I../../src/third_party/dawn/include
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall
+cflags_cc = -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness
+label_name = transform
+root_out_dir = .
+target_out_dir = obj/third_party/dawn/src/tint/lang/wgsl/ast/transform
+target_output_name = transform
+
+build phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/add_empty_entry_point.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/add_empty_entry_point.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = add_empty_entry_point.cc
+  source_name_part = add_empty_entry_point
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/array_length_from_uniform.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/array_length_from_uniform.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = array_length_from_uniform.cc
+  source_name_part = array_length_from_uniform
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/binding_remapper.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/binding_remapper.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = binding_remapper.cc
+  source_name_part = binding_remapper
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/builtin_polyfill.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/builtin_polyfill.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = builtin_polyfill.cc
+  source_name_part = builtin_polyfill
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/canonicalize_entry_point_io.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/canonicalize_entry_point_io.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = canonicalize_entry_point_io.cc
+  source_name_part = canonicalize_entry_point_io
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/data.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/data.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = data.cc
+  source_name_part = data
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/demote_to_helper.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/demote_to_helper.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = demote_to_helper.cc
+  source_name_part = demote_to_helper
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/direct_variable_access.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/direct_variable_access.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = direct_variable_access.cc
+  source_name_part = direct_variable_access
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/disable_uniformity_analysis.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/disable_uniformity_analysis.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = disable_uniformity_analysis.cc
+  source_name_part = disable_uniformity_analysis
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/expand_compound_assignment.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/expand_compound_assignment.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = expand_compound_assignment.cc
+  source_name_part = expand_compound_assignment
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/first_index_offset.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/first_index_offset.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = first_index_offset.cc
+  source_name_part = first_index_offset
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/fold_constants.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/fold_constants.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = fold_constants.cc
+  source_name_part = fold_constants
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/get_insertion_point.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/get_insertion_point.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = get_insertion_point.cc
+  source_name_part = get_insertion_point
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/hoist_to_decl_before.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/hoist_to_decl_before.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = hoist_to_decl_before.cc
+  source_name_part = hoist_to_decl_before
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/manager.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/manager.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = manager.cc
+  source_name_part = manager
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/multiplanar_external_texture.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/multiplanar_external_texture.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = multiplanar_external_texture.cc
+  source_name_part = multiplanar_external_texture
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/preserve_padding.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/preserve_padding.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = preserve_padding.cc
+  source_name_part = preserve_padding
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/promote_initializers_to_let.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/promote_initializers_to_let.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = promote_initializers_to_let.cc
+  source_name_part = promote_initializers_to_let
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/promote_side_effects_to_decl.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/promote_side_effects_to_decl.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = promote_side_effects_to_decl.cc
+  source_name_part = promote_side_effects_to_decl
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/remove_continue_in_switch.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/remove_continue_in_switch.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = remove_continue_in_switch.cc
+  source_name_part = remove_continue_in_switch
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/remove_phonies.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/remove_phonies.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = remove_phonies.cc
+  source_name_part = remove_phonies
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/remove_unreachable_statements.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/remove_unreachable_statements.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = remove_unreachable_statements.cc
+  source_name_part = remove_unreachable_statements
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/renamer.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/renamer.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = renamer.cc
+  source_name_part = renamer
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/robustness.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/robustness.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = robustness.cc
+  source_name_part = robustness
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/simplify_pointers.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/simplify_pointers.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = simplify_pointers.cc
+  source_name_part = simplify_pointers
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/single_entry_point.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/single_entry_point.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = single_entry_point.cc
+  source_name_part = single_entry_point
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/substitute_override.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/substitute_override.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = substitute_override.cc
+  source_name_part = substitute_override
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/transform.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = transform.cc
+  source_name_part = transform
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/unshadow.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/unshadow.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = unshadow.cc
+  source_name_part = unshadow
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/vectorize_scalar_matrix_initializers.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/vectorize_scalar_matrix_initializers.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = vectorize_scalar_matrix_initializers.cc
+  source_name_part = vectorize_scalar_matrix_initializers
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/vertex_pulling.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/vertex_pulling.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = vertex_pulling.cc
+  source_name_part = vertex_pulling
+build obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/zero_init_workgroup_memory.o: cxx ../../src/third_party/dawn/src/tint/lang/wgsl/ast/transform/zero_init_workgroup_memory.cc | phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform.inputs
+  source_file_part = zero_init_workgroup_memory.cc
+  source_name_part = zero_init_workgroup_memory
+
+build phony/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform: phony obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/add_empty_entry_point.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/array_length_from_uniform.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/binding_remapper.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/builtin_polyfill.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/canonicalize_entry_point_io.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/data.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/demote_to_helper.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/direct_variable_access.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/disable_uniformity_analysis.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/expand_compound_assignment.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/first_index_offset.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/fold_constants.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/get_insertion_point.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/hoist_to_decl_before.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/manager.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/multiplanar_external_texture.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/preserve_padding.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/promote_initializers_to_let.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/promote_side_effects_to_decl.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/remove_continue_in_switch.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/remove_phonies.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/remove_unreachable_statements.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/renamer.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/robustness.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/simplify_pointers.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/single_entry_point.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/substitute_override.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/transform.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/unshadow.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/vectorize_scalar_matrix_initializers.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/vertex_pulling.o obj/third_party/dawn/src/tint/lang/wgsl/ast/transform/transform/zero_init_workgroup_memory.o || obj/third_party/dawn/src/utils/libutils.a phony/third_party/dawn/src/tint/api/common/common phony/third_party/dawn/src/tint/lang/core/core phony/third_party/dawn/src/tint/lang/core/common/common phony/third_party/dawn/src/tint/lang/core/constant/constant phony/third_party/dawn/src/tint/lang/core/type/type phony/third_party/dawn/src/tint/lang/wgsl/wgsl phony/third_party/dawn/src/tint/lang/wgsl/ast/ast phony/third_party/dawn/src/tint/lang/wgsl/common/common phony/third_party/dawn/src/tint/lang/wgsl/features/features phony/third_party/dawn/src/tint/lang/wgsl/program/program phony/third_party/dawn/src/tint/lang/wgsl/resolver/resolver phony/third_party/dawn/src/tint/lang/wgsl/sem/sem phony/third_party/dawn/src/tint/utils/utils phony/third_party/dawn/src/tint/utils/containers/containers phony/third_party/dawn/src/tint/utils/diagnostic/diagnostic phony/third_party/dawn/src/tint/utils/ice/ice phony/third_party/dawn/src/tint/utils/macros/macros phony/third_party/dawn/src/tint/utils/math/math phony/third_party/dawn/src/tint/utils/memory/memory phony/third_party/dawn/src/tint/utils/rtti/rtti phony/third_party/dawn/src/tint/utils/symbol/symbol phony/third_party/dawn/src/tint/utils/text/text phony/third_party/dawn/src/tint/utils/system/system phony/third_party/dawn/src/tint/lang/core/intrinsic/intrinsic phony/third_party/dawn/src/tint/lang/wgsl/intrinsic/intrinsic

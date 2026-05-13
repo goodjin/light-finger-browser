@@ -1,0 +1,88 @@
+defines = -DHAVE_UNISTD_H -DHAVE_FCNTL_H -DFT2_BUILD_LIBRARY -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DFT_CONFIG_MODULES_H=\"freetype-custom/freetype/config/ftmodule.h\" -DFT_CONFIG_OPTIONS_H=\"freetype-custom/freetype/config/ftoption.h\" -DPDFIUM_REQUIRED_MODULES -DCHROMIUM_RESTRICT_VISIBILITY
+framework_dirs =
+include_dirs = -I../../src/third_party/freetype/src/include/freetype/config -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/harfbuzz-ng/src/src -I../../src/third_party/freetype/include -I../../src/third_party/freetype/include/freetype-custom -I../../src/third_party/freetype/src/include -I../../src/third_party/libpng -I../../src/third_party/zlib
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wno-deprecated-declarations -Wno-unused-function
+cflags_c = -std=c11
+label_name = freetype_source
+root_out_dir = .
+target_out_dir = obj/third_party/freetype
+target_output_name = freetype_source
+
+build phony/third_party/freetype/freetype_source.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/freetype/freetype_source/autofit.o: cc ../../src/third_party/freetype/src/src/autofit/autofit.c | phony/third_party/freetype/freetype_source.inputs
+  source_file_part = autofit.c
+  source_name_part = autofit
+build obj/third_party/freetype/freetype_source/ftbase.o: cc ../../src/third_party/freetype/src/src/base/ftbase.c | phony/third_party/freetype/freetype_source.inputs
+  source_file_part = ftbase.c
+  source_name_part = ftbase
+build obj/third_party/freetype/freetype_source/ftbbox.o: cc ../../src/third_party/freetype/src/src/base/ftbbox.c | phony/third_party/freetype/freetype_source.inputs
+  source_file_part = ftbbox.c
+  source_name_part = ftbbox
+build obj/third_party/freetype/freetype_source/ftbitmap.o: cc ../../src/third_party/freetype/src/src/base/ftbitmap.c | phony/third_party/freetype/freetype_source.inputs
+  source_file_part = ftbitmap.c
+  source_name_part = ftbitmap
+build obj/third_party/freetype/freetype_source/ftdebug.o: cc ../../src/third_party/freetype/src/src/base/ftdebug.c | phony/third_party/freetype/freetype_source.inputs
+  source_file_part = ftdebug.c
+  source_name_part = ftdebug
+build obj/third_party/freetype/freetype_source/ftfstype.o: cc ../../src/third_party/freetype/src/src/base/ftfstype.c | phony/third_party/freetype/freetype_source.inputs
+  source_file_part = ftfstype.c
+  source_name_part = ftfstype
+build obj/third_party/freetype/freetype_source/ftgasp.o: cc ../../src/third_party/freetype/src/src/base/ftgasp.c | phony/third_party/freetype/freetype_source.inputs
+  source_file_part = ftgasp.c
+  source_name_part = ftgasp
+build obj/third_party/freetype/freetype_source/ftglyph.o: cc ../../src/third_party/freetype/src/src/base/ftglyph.c | phony/third_party/freetype/freetype_source.inputs
+  source_file_part = ftglyph.c
+  source_name_part = ftglyph
+build obj/third_party/freetype/freetype_source/ftinit.o: cc ../../src/third_party/freetype/src/src/base/ftinit.c | phony/third_party/freetype/freetype_source.inputs
+  source_file_part = ftinit.c
+  source_name_part = ftinit
+build obj/third_party/freetype/freetype_source/ftmm.o: cc ../../src/third_party/freetype/src/src/base/ftmm.c | phony/third_party/freetype/freetype_source.inputs
+  source_file_part = ftmm.c
+  source_name_part = ftmm
+build obj/third_party/freetype/freetype_source/ftstroke.o: cc ../../src/third_party/freetype/src/src/base/ftstroke.c | phony/third_party/freetype/freetype_source.inputs
+  source_file_part = ftstroke.c
+  source_name_part = ftstroke
+build obj/third_party/freetype/freetype_source/fttype1.o: cc ../../src/third_party/freetype/src/src/base/fttype1.c | phony/third_party/freetype/freetype_source.inputs
+  source_file_part = fttype1.c
+  source_name_part = fttype1
+build obj/third_party/freetype/freetype_source/cff.o: cc ../../src/third_party/freetype/src/src/cff/cff.c | phony/third_party/freetype/freetype_source.inputs
+  source_file_part = cff.c
+  source_name_part = cff
+build obj/third_party/freetype/freetype_source/ftgzip.o: cc ../../src/third_party/freetype/src/src/gzip/ftgzip.c | phony/third_party/freetype/freetype_source.inputs
+  source_file_part = ftgzip.c
+  source_name_part = ftgzip
+build obj/third_party/freetype/freetype_source/psaux.o: cc ../../src/third_party/freetype/src/src/psaux/psaux.c | phony/third_party/freetype/freetype_source.inputs
+  source_file_part = psaux.c
+  source_name_part = psaux
+build obj/third_party/freetype/freetype_source/pshinter.o: cc ../../src/third_party/freetype/src/src/pshinter/pshinter.c | phony/third_party/freetype/freetype_source.inputs
+  source_file_part = pshinter.c
+  source_name_part = pshinter
+build obj/third_party/freetype/freetype_source/psnames.o: cc ../../src/third_party/freetype/src/src/psnames/psnames.c | phony/third_party/freetype/freetype_source.inputs
+  source_file_part = psnames.c
+  source_name_part = psnames
+build obj/third_party/freetype/freetype_source/raster.o: cc ../../src/third_party/freetype/src/src/raster/raster.c | phony/third_party/freetype/freetype_source.inputs
+  source_file_part = raster.c
+  source_name_part = raster
+build obj/third_party/freetype/freetype_source/sfnt.o: cc ../../src/third_party/freetype/src/src/sfnt/sfnt.c | phony/third_party/freetype/freetype_source.inputs
+  source_file_part = sfnt.c
+  source_name_part = sfnt
+build obj/third_party/freetype/freetype_source/smooth.o: cc ../../src/third_party/freetype/src/src/smooth/smooth.c | phony/third_party/freetype/freetype_source.inputs
+  source_file_part = smooth.c
+  source_name_part = smooth
+build obj/third_party/freetype/freetype_source/truetype.o: cc ../../src/third_party/freetype/src/src/truetype/truetype.c | phony/third_party/freetype/freetype_source.inputs
+  source_file_part = truetype.c
+  source_name_part = truetype
+build obj/third_party/freetype/freetype_source/ftsystem.o: cc ../../src/third_party/freetype/src/builds/unix/ftsystem.c | phony/third_party/freetype/freetype_source.inputs
+  source_file_part = ftsystem.c
+  source_name_part = ftsystem
+build obj/third_party/freetype/freetype_source/ftcid.o: cc ../../src/third_party/freetype/src/src/base/ftcid.c | phony/third_party/freetype/freetype_source.inputs
+  source_file_part = ftcid.c
+  source_name_part = ftcid
+build obj/third_party/freetype/freetype_source/type1cid.o: cc ../../src/third_party/freetype/src/src/cid/type1cid.c | phony/third_party/freetype/freetype_source.inputs
+  source_file_part = type1cid.c
+  source_name_part = type1cid
+build obj/third_party/freetype/freetype_source/type1.o: cc ../../src/third_party/freetype/src/src/type1/type1.c | phony/third_party/freetype/freetype_source.inputs
+  source_file_part = type1.c
+  source_name_part = type1
+
+build phony/third_party/freetype/freetype_source: phony obj/third_party/freetype/freetype_source/autofit.o obj/third_party/freetype/freetype_source/ftbase.o obj/third_party/freetype/freetype_source/ftbbox.o obj/third_party/freetype/freetype_source/ftbitmap.o obj/third_party/freetype/freetype_source/ftdebug.o obj/third_party/freetype/freetype_source/ftfstype.o obj/third_party/freetype/freetype_source/ftgasp.o obj/third_party/freetype/freetype_source/ftglyph.o obj/third_party/freetype/freetype_source/ftinit.o obj/third_party/freetype/freetype_source/ftmm.o obj/third_party/freetype/freetype_source/ftstroke.o obj/third_party/freetype/freetype_source/fttype1.o obj/third_party/freetype/freetype_source/cff.o obj/third_party/freetype/freetype_source/ftgzip.o obj/third_party/freetype/freetype_source/psaux.o obj/third_party/freetype/freetype_source/pshinter.o obj/third_party/freetype/freetype_source/psnames.o obj/third_party/freetype/freetype_source/raster.o obj/third_party/freetype/freetype_source/sfnt.o obj/third_party/freetype/freetype_source/smooth.o obj/third_party/freetype/freetype_source/truetype.o obj/third_party/freetype/freetype_source/ftsystem.o obj/third_party/freetype/freetype_source/ftcid.o obj/third_party/freetype/freetype_source/type1cid.o obj/third_party/freetype/freetype_source/type1.o || phony/third_party/libpng/libpng obj/third_party/zlib/libchrome_zlib.a phony/third_party/libpng/libpng_sources phony/third_party/zlib/zlib_adler32_simd phony/third_party/zlib/zlib_inflate_chunk_simd phony/third_party/zlib/zlib_arm_crc32

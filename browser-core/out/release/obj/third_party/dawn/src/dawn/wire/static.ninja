@@ -1,0 +1,142 @@
+defines = -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=2 -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DDAWN_ABORT_ON_ASSERT -DDAWN_ENABLE_BACKEND_METAL -DDAWN_ENABLE_BACKEND_NULL -DDAWN_ENABLE_BACKEND_VULKAN -DVK_USE_PLATFORM_METAL_EXT -DVK_USE_PLATFORM_MACOS_MVK
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -Igen/third_party/dawn/src -I../../src/third_party/dawn/src -Igen/third_party/dawn/include -I../../src/third_party/dawn/include -I../../src/third_party/abseil-cpp -I../../src/base/allocator/partition_allocator/src -Igen/base/allocator/partition_allocator/src -I../../src/third_party/dawn -I../../src/third_party/vulkan-headers/src/include
+cflags = -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wthread-safety -Wgnu -Wno-gnu-anonymous-struct -Wno-gnu-conditional-omitted-operand -Wno-gnu-include-next -Wno-gnu-label-as-value -Wno-gnu-redeclared-enum -Wno-gnu-statement-expression -Wno-gnu-zero-variadic-macro-arguments -Wno-zero-length-array -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wshadow -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wno-assume -Wno-redundant-parens
+cflags_cc = -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden
+label_name = static
+root_out_dir = .
+target_out_dir = obj/third_party/dawn/src/dawn/wire
+target_output_name = libdawn_wire_static
+
+build phony/third_party/dawn/src/dawn/wire/static.inputdeps: phony phony/base/allocator/partition_allocator/src/partition_alloc/buildflags phony/build/chromeos_buildflags phony/third_party/dawn/include/dawn/cpp_headers_gen phony/third_party/dawn/include/dawn/headers_gen phony/third_party/dawn/src/dawn/common/dawn_gpu_info_gen phony/third_party/dawn/src/dawn/common/dawn_version_gen phony/third_party/dawn/src/dawn/wire/gen
+build obj/third_party/dawn/src/dawn/wire/static/WireCmd_autogen.o: cxx gen/third_party/dawn/src/dawn/wire/WireCmd_autogen.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = WireCmd_autogen.cpp
+  source_name_part = WireCmd_autogen
+build obj/third_party/dawn/src/dawn/wire/static/ApiProcs_autogen.o: cxx gen/third_party/dawn/src/dawn/wire/client/ApiProcs_autogen.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = ApiProcs_autogen.cpp
+  source_name_part = ApiProcs_autogen
+build obj/third_party/dawn/src/dawn/wire/static/ClientHandlers_autogen.o: cxx gen/third_party/dawn/src/dawn/wire/client/ClientHandlers_autogen.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = ClientHandlers_autogen.cpp
+  source_name_part = ClientHandlers_autogen
+build obj/third_party/dawn/src/dawn/wire/static/ServerDoers_autogen.o: cxx gen/third_party/dawn/src/dawn/wire/server/ServerDoers_autogen.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = ServerDoers_autogen.cpp
+  source_name_part = ServerDoers_autogen
+build obj/third_party/dawn/src/dawn/wire/static/ServerHandlers_autogen.o: cxx gen/third_party/dawn/src/dawn/wire/server/ServerHandlers_autogen.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = ServerHandlers_autogen.cpp
+  source_name_part = ServerHandlers_autogen
+build obj/third_party/dawn/src/dawn/wire/static/ChunkedCommandHandler.o: cxx ../../src/third_party/dawn/src/dawn/wire/ChunkedCommandHandler.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = ChunkedCommandHandler.cpp
+  source_name_part = ChunkedCommandHandler
+build obj/third_party/dawn/src/dawn/wire/static/ChunkedCommandSerializer.o: cxx ../../src/third_party/dawn/src/dawn/wire/ChunkedCommandSerializer.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = ChunkedCommandSerializer.cpp
+  source_name_part = ChunkedCommandSerializer
+build obj/third_party/dawn/src/dawn/wire/static/ObjectHandle.o: cxx ../../src/third_party/dawn/src/dawn/wire/ObjectHandle.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = ObjectHandle.cpp
+  source_name_part = ObjectHandle
+build obj/third_party/dawn/src/dawn/wire/static/SupportedFeatures.o: cxx ../../src/third_party/dawn/src/dawn/wire/SupportedFeatures.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = SupportedFeatures.cpp
+  source_name_part = SupportedFeatures
+build obj/third_party/dawn/src/dawn/wire/static/Wire.o: cxx ../../src/third_party/dawn/src/dawn/wire/Wire.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = Wire.cpp
+  source_name_part = Wire
+build obj/third_party/dawn/src/dawn/wire/static/WireClient.o: cxx ../../src/third_party/dawn/src/dawn/wire/WireClient.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = WireClient.cpp
+  source_name_part = WireClient
+build obj/third_party/dawn/src/dawn/wire/static/WireDeserializeAllocator.o: cxx ../../src/third_party/dawn/src/dawn/wire/WireDeserializeAllocator.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = WireDeserializeAllocator.cpp
+  source_name_part = WireDeserializeAllocator
+build obj/third_party/dawn/src/dawn/wire/static/WireServer.o: cxx ../../src/third_party/dawn/src/dawn/wire/WireServer.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = WireServer.cpp
+  source_name_part = WireServer
+build obj/third_party/dawn/src/dawn/wire/static/Adapter.o: cxx ../../src/third_party/dawn/src/dawn/wire/client/Adapter.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = Adapter.cpp
+  source_name_part = Adapter
+build obj/third_party/dawn/src/dawn/wire/static/Buffer.o: cxx ../../src/third_party/dawn/src/dawn/wire/client/Buffer.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = Buffer.cpp
+  source_name_part = Buffer
+build obj/third_party/dawn/src/dawn/wire/static/Client.o: cxx ../../src/third_party/dawn/src/dawn/wire/client/Client.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = Client.cpp
+  source_name_part = Client
+build obj/third_party/dawn/src/dawn/wire/static/ClientDoers.o: cxx ../../src/third_party/dawn/src/dawn/wire/client/ClientDoers.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = ClientDoers.cpp
+  source_name_part = ClientDoers
+build obj/third_party/dawn/src/dawn/wire/static/ClientInlineMemoryTransferService.o: cxx ../../src/third_party/dawn/src/dawn/wire/client/ClientInlineMemoryTransferService.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = ClientInlineMemoryTransferService.cpp
+  source_name_part = ClientInlineMemoryTransferService
+build obj/third_party/dawn/src/dawn/wire/static/ComputePassEncoder.o: cxx ../../src/third_party/dawn/src/dawn/wire/client/ComputePassEncoder.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = ComputePassEncoder.cpp
+  source_name_part = ComputePassEncoder
+build obj/third_party/dawn/src/dawn/wire/static/Device.o: cxx ../../src/third_party/dawn/src/dawn/wire/client/Device.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = Device.cpp
+  source_name_part = Device
+build obj/third_party/dawn/src/dawn/wire/static/EventManager.o: cxx ../../src/third_party/dawn/src/dawn/wire/client/EventManager.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = EventManager.cpp
+  source_name_part = EventManager
+build obj/third_party/dawn/src/dawn/wire/static/Instance.o: cxx ../../src/third_party/dawn/src/dawn/wire/client/Instance.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = Instance.cpp
+  source_name_part = Instance
+build obj/third_party/dawn/src/dawn/wire/static/LimitsAndFeatures.o: cxx ../../src/third_party/dawn/src/dawn/wire/client/LimitsAndFeatures.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = LimitsAndFeatures.cpp
+  source_name_part = LimitsAndFeatures
+build obj/third_party/dawn/src/dawn/wire/static/ObjectBase.o: cxx ../../src/third_party/dawn/src/dawn/wire/client/ObjectBase.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = ObjectBase.cpp
+  source_name_part = ObjectBase
+build obj/third_party/dawn/src/dawn/wire/static/ObjectStore.o: cxx ../../src/third_party/dawn/src/dawn/wire/client/ObjectStore.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = ObjectStore.cpp
+  source_name_part = ObjectStore
+build obj/third_party/dawn/src/dawn/wire/static/QuerySet.o: cxx ../../src/third_party/dawn/src/dawn/wire/client/QuerySet.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = QuerySet.cpp
+  source_name_part = QuerySet
+build obj/third_party/dawn/src/dawn/wire/static/Queue.o: cxx ../../src/third_party/dawn/src/dawn/wire/client/Queue.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = Queue.cpp
+  source_name_part = Queue
+build obj/third_party/dawn/src/dawn/wire/static/RenderBundleEncoder.o: cxx ../../src/third_party/dawn/src/dawn/wire/client/RenderBundleEncoder.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = RenderBundleEncoder.cpp
+  source_name_part = RenderBundleEncoder
+build obj/third_party/dawn/src/dawn/wire/static/RenderPassEncoder.o: cxx ../../src/third_party/dawn/src/dawn/wire/client/RenderPassEncoder.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = RenderPassEncoder.cpp
+  source_name_part = RenderPassEncoder
+build obj/third_party/dawn/src/dawn/wire/static/ShaderModule.o: cxx ../../src/third_party/dawn/src/dawn/wire/client/ShaderModule.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = ShaderModule.cpp
+  source_name_part = ShaderModule
+build obj/third_party/dawn/src/dawn/wire/static/Surface.o: cxx ../../src/third_party/dawn/src/dawn/wire/client/Surface.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = Surface.cpp
+  source_name_part = Surface
+build obj/third_party/dawn/src/dawn/wire/static/Texture.o: cxx ../../src/third_party/dawn/src/dawn/wire/client/Texture.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = Texture.cpp
+  source_name_part = Texture
+build obj/third_party/dawn/src/dawn/wire/static/Server.o: cxx ../../src/third_party/dawn/src/dawn/wire/server/Server.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = Server.cpp
+  source_name_part = Server
+build obj/third_party/dawn/src/dawn/wire/static/ServerAdapter.o: cxx ../../src/third_party/dawn/src/dawn/wire/server/ServerAdapter.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = ServerAdapter.cpp
+  source_name_part = ServerAdapter
+build obj/third_party/dawn/src/dawn/wire/static/ServerBuffer.o: cxx ../../src/third_party/dawn/src/dawn/wire/server/ServerBuffer.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = ServerBuffer.cpp
+  source_name_part = ServerBuffer
+build obj/third_party/dawn/src/dawn/wire/static/ServerDevice.o: cxx ../../src/third_party/dawn/src/dawn/wire/server/ServerDevice.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = ServerDevice.cpp
+  source_name_part = ServerDevice
+build obj/third_party/dawn/src/dawn/wire/static/ServerInlineMemoryTransferService.o: cxx ../../src/third_party/dawn/src/dawn/wire/server/ServerInlineMemoryTransferService.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = ServerInlineMemoryTransferService.cpp
+  source_name_part = ServerInlineMemoryTransferService
+build obj/third_party/dawn/src/dawn/wire/static/ServerInstance.o: cxx ../../src/third_party/dawn/src/dawn/wire/server/ServerInstance.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = ServerInstance.cpp
+  source_name_part = ServerInstance
+build obj/third_party/dawn/src/dawn/wire/static/ServerProgrammableEncoder.o: cxx ../../src/third_party/dawn/src/dawn/wire/server/ServerProgrammableEncoder.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = ServerProgrammableEncoder.cpp
+  source_name_part = ServerProgrammableEncoder
+build obj/third_party/dawn/src/dawn/wire/static/ServerQueue.o: cxx ../../src/third_party/dawn/src/dawn/wire/server/ServerQueue.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = ServerQueue.cpp
+  source_name_part = ServerQueue
+build obj/third_party/dawn/src/dawn/wire/static/ServerShaderModule.o: cxx ../../src/third_party/dawn/src/dawn/wire/server/ServerShaderModule.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = ServerShaderModule.cpp
+  source_name_part = ServerShaderModule
+build obj/third_party/dawn/src/dawn/wire/static/ServerSurface.o: cxx ../../src/third_party/dawn/src/dawn/wire/server/ServerSurface.cpp | ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/static.inputdeps
+  source_file_part = ServerSurface.cpp
+  source_name_part = ServerSurface
+
+build obj/third_party/dawn/src/dawn/wire/libdawn_wire_static.a: alink obj/third_party/dawn/src/dawn/wire/static/WireCmd_autogen.o obj/third_party/dawn/src/dawn/wire/static/ApiProcs_autogen.o obj/third_party/dawn/src/dawn/wire/static/ClientHandlers_autogen.o obj/third_party/dawn/src/dawn/wire/static/ServerDoers_autogen.o obj/third_party/dawn/src/dawn/wire/static/ServerHandlers_autogen.o obj/third_party/dawn/src/dawn/wire/static/ChunkedCommandHandler.o obj/third_party/dawn/src/dawn/wire/static/ChunkedCommandSerializer.o obj/third_party/dawn/src/dawn/wire/static/ObjectHandle.o obj/third_party/dawn/src/dawn/wire/static/SupportedFeatures.o obj/third_party/dawn/src/dawn/wire/static/Wire.o obj/third_party/dawn/src/dawn/wire/static/WireClient.o obj/third_party/dawn/src/dawn/wire/static/WireDeserializeAllocator.o obj/third_party/dawn/src/dawn/wire/static/WireServer.o obj/third_party/dawn/src/dawn/wire/static/Adapter.o obj/third_party/dawn/src/dawn/wire/static/Buffer.o obj/third_party/dawn/src/dawn/wire/static/Client.o obj/third_party/dawn/src/dawn/wire/static/ClientDoers.o obj/third_party/dawn/src/dawn/wire/static/ClientInlineMemoryTransferService.o obj/third_party/dawn/src/dawn/wire/static/ComputePassEncoder.o obj/third_party/dawn/src/dawn/wire/static/Device.o obj/third_party/dawn/src/dawn/wire/static/EventManager.o obj/third_party/dawn/src/dawn/wire/static/Instance.o obj/third_party/dawn/src/dawn/wire/static/LimitsAndFeatures.o obj/third_party/dawn/src/dawn/wire/static/ObjectBase.o obj/third_party/dawn/src/dawn/wire/static/ObjectStore.o obj/third_party/dawn/src/dawn/wire/static/QuerySet.o obj/third_party/dawn/src/dawn/wire/static/Queue.o obj/third_party/dawn/src/dawn/wire/static/RenderBundleEncoder.o obj/third_party/dawn/src/dawn/wire/static/RenderPassEncoder.o obj/third_party/dawn/src/dawn/wire/static/ShaderModule.o obj/third_party/dawn/src/dawn/wire/static/Surface.o obj/third_party/dawn/src/dawn/wire/static/Texture.o obj/third_party/dawn/src/dawn/wire/static/Server.o obj/third_party/dawn/src/dawn/wire/static/ServerAdapter.o obj/third_party/dawn/src/dawn/wire/static/ServerBuffer.o obj/third_party/dawn/src/dawn/wire/static/ServerDevice.o obj/third_party/dawn/src/dawn/wire/static/ServerInlineMemoryTransferService.o obj/third_party/dawn/src/dawn/wire/static/ServerInstance.o obj/third_party/dawn/src/dawn/wire/static/ServerProgrammableEncoder.o obj/third_party/dawn/src/dawn/wire/static/ServerQueue.o obj/third_party/dawn/src/dawn/wire/static/ServerShaderModule.o obj/third_party/dawn/src/dawn/wire/static/ServerSurface.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a ../../src/build/config/warning_suppression.txt || phony/third_party/dawn/src/dawn/wire/abseil phony/third_party/dawn/src/dawn/wire/headers phony/third_party/dawn/src/dawn/partition_alloc/raw_ptr phony/third_party/dawn/src/dawn/wire/gen obj/third_party/dawn/src/dawn/common/libcommon.a phony/third_party/dawn/src/tint/lang/wgsl/features/features phony/third_party/abseil-cpp/absl phony/third_party/abseil-cpp/absl/base/base phony/third_party/abseil-cpp/absl/base/log_severity phony/third_party/abseil-cpp/absl/base/raw_logging_internal phony/third_party/abseil-cpp/absl/base/spinlock_wait phony/third_party/abseil-cpp/absl/container/btree phony/third_party/abseil-cpp/absl/container/layout phony/third_party/abseil-cpp/absl/debugging/demangle_internal phony/third_party/abseil-cpp/absl/debugging/demangle_rust phony/third_party/abseil-cpp/absl/debugging/decode_rust_punycode phony/third_party/abseil-cpp/absl/debugging/bounded_utf8_length_sequence phony/third_party/abseil-cpp/absl/numeric/bits phony/third_party/abseil-cpp/absl/base/endian phony/third_party/abseil-cpp/absl/debugging/utf8_for_code_point phony/third_party/abseil-cpp/absl/strings/strings phony/third_party/abseil-cpp/absl/strings/string_view phony/third_party/abseil-cpp/absl/base/throw_delegate phony/third_party/abseil-cpp/absl/strings/charset phony/third_party/abseil-cpp/absl/strings/internal phony/third_party/abseil-cpp/absl/numeric/int128 phony/third_party/abseil-cpp/absl/types/span phony/third_party/abseil-cpp/absl/strings/cord phony/third_party/abseil-cpp/absl/strings/cord_internal phony/third_party/abseil-cpp/absl/container/inlined_vector phony/third_party/abseil-cpp/absl/container/inlined_vector_internal phony/third_party/abseil-cpp/absl/crc/crc_cord_state phony/third_party/abseil-cpp/absl/crc/crc32c phony/third_party/abseil-cpp/absl/crc/cpu_detect phony/third_party/abseil-cpp/absl/crc/crc_internal phony/third_party/abseil-cpp/absl/strings/str_format phony/third_party/abseil-cpp/absl/strings/str_format_internal phony/third_party/abseil-cpp/absl/container/fixed_array phony/third_party/abseil-cpp/absl/strings/cordz_info phony/third_party/abseil-cpp/absl/strings/cordz_functions phony/third_party/abseil-cpp/absl/profiling/exponential_biased phony/third_party/abseil-cpp/absl/strings/cordz_handle phony/third_party/abseil-cpp/absl/synchronization/synchronization phony/third_party/abseil-cpp/absl/synchronization/graphcycles_internal phony/third_party/abseil-cpp/absl/base/malloc_internal phony/third_party/abseil-cpp/absl/synchronization/kernel_timeout_internal phony/third_party/abseil-cpp/absl/time/time phony/third_party/abseil-cpp/absl/time/internal/cctz/civil_time phony/third_party/abseil-cpp/absl/time/internal/cctz/time_zone phony/third_party/abseil-cpp/absl/base/tracing_internal phony/third_party/abseil-cpp/absl/debugging/stacktrace phony/third_party/abseil-cpp/absl/debugging/debugging_internal phony/third_party/abseil-cpp/absl/debugging/symbolize phony/third_party/abseil-cpp/absl/strings/cordz_update_scope phony/third_party/abseil-cpp/absl/container/flat_hash_map phony/third_party/abseil-cpp/absl/container/hash_container_defaults phony/third_party/abseil-cpp/absl/container/hash_function_defaults phony/third_party/abseil-cpp/absl/hash/hash phony/third_party/abseil-cpp/absl/hash/city phony/third_party/abseil-cpp/absl/hash/low_level_hash phony/third_party/abseil-cpp/absl/container/raw_hash_map phony/third_party/abseil-cpp/absl/container/raw_hash_set phony/third_party/abseil-cpp/absl/container/hashtable_control_bytes phony/third_party/abseil-cpp/absl/container/hashtablez_sampler phony/third_party/abseil-cpp/absl/profiling/sample_recorder phony/third_party/abseil-cpp/absl/container/flat_hash_set phony/third_party/abseil-cpp/absl/container/node_hash_map phony/third_party/abseil-cpp/absl/container/node_hash_set phony/third_party/abseil-cpp/absl/debugging/failure_signal_handler phony/third_party/abseil-cpp/absl/debugging/examine_stack phony/third_party/abseil-cpp/absl/log/absl_check phony/third_party/abseil-cpp/absl/log/internal/check_impl phony/third_party/abseil-cpp/absl/log/internal/check_op phony/third_party/abseil-cpp/absl/log/internal/nullguard phony/third_party/abseil-cpp/absl/log/internal/nullstream phony/third_party/abseil-cpp/absl/log/internal/strip phony/third_party/abseil-cpp/absl/log/internal/log_message phony/third_party/abseil-cpp/absl/log/internal/append_truncated phony/third_party/abseil-cpp/absl/log/internal/format phony/third_party/abseil-cpp/absl/log/internal/globals phony/third_party/abseil-cpp/absl/log/internal/log_sink_set phony/third_party/abseil-cpp/absl/log/globals phony/third_party/abseil-cpp/absl/log/internal/vlog_config phony/third_party/abseil-cpp/absl/log/internal/fnmatch phony/third_party/abseil-cpp/absl/log/log_entry phony/third_party/abseil-cpp/absl/log/log_sink phony/third_party/abseil-cpp/absl/log/internal/proto phony/third_party/abseil-cpp/absl/log/internal/structured_proto phony/third_party/abseil-cpp/absl/base/strerror phony/third_party/abseil-cpp/absl/log/log_sink_registry phony/third_party/abseil-cpp/absl/debugging/leak_check phony/third_party/abseil-cpp/absl/log/internal/conditions phony/third_party/abseil-cpp/absl/log/absl_log phony/third_party/abseil-cpp/absl/log/internal/log_impl phony/third_party/abseil-cpp/absl/log/absl_vlog_is_on phony/third_party/abseil-cpp/absl/log/die_if_null phony/third_party/abseil-cpp/absl/log/log phony/third_party/abseil-cpp/absl/log/vlog_is_on phony/third_party/abseil-cpp/absl/log/initialize phony/third_party/abseil-cpp/absl/random/random phony/third_party/abseil-cpp/absl/random/distributions phony/third_party/abseil-cpp/absl/random/internal/fast_uniform_bits phony/third_party/abseil-cpp/absl/random/internal/traits phony/third_party/abseil-cpp/absl/random/internal/fastmath phony/third_party/abseil-cpp/absl/random/internal/generate_real phony/third_party/abseil-cpp/absl/random/internal/iostream_state_saver phony/third_party/abseil-cpp/absl/random/internal/uniform_helper phony/third_party/abseil-cpp/absl/random/internal/wide_multiply phony/third_party/abseil-cpp/absl/random/seed_sequences phony/third_party/abseil-cpp/absl/random/seed_gen_exception phony/third_party/abseil-cpp/absl/random/internal/entropy_pool phony/third_party/abseil-cpp/absl/random/internal/platform phony/third_party/abseil-cpp/absl/random/internal/randen phony/third_party/abseil-cpp/absl/random/internal/randen_hwaes phony/third_party/abseil-cpp/absl/random/internal/randen_hwaes_impl phony/third_party/abseil-cpp/absl/random/internal/randen_slow phony/third_party/abseil-cpp/absl/random/internal/seed_material phony/third_party/abseil-cpp/absl/random/internal/salted_seed_seq phony/third_party/abseil-cpp/absl/random/internal/nonsecure_base phony/third_party/abseil-cpp/absl/random/internal/pcg_engine phony/third_party/abseil-cpp/absl/random/internal/randen_engine phony/third_party/abseil-cpp/absl/random/bit_gen_ref phony/third_party/abseil-cpp/absl/status/status phony/third_party/abseil-cpp/absl/status/statusor phony/third_party/dawn/include/dawn/headers obj/base/allocator/partition_allocator/src/partition_alloc/libraw_ptr.a phony/base/allocator/partition_allocator/src/partition_alloc/build_config obj/base/allocator/partition_allocator/src/partition_alloc/liballocator_base.a obj/base/allocator/partition_allocator/src/partition_alloc/liballocator_core.a obj/base/allocator/partition_allocator/src/partition_alloc/liballocator_shim.a obj/third_party/dawn/src/utils/libutils.a phony/third_party/dawn/include/dawn/cpp_headers
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/third_party/dawn/src/dawn/wire

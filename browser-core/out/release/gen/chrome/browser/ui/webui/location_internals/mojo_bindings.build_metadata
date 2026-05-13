@@ -1,0 +1,8 @@
+{
+  "deps": [
+    "../../../../../services/device/public/mojom/geolocation_internals.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../src/chrome/browser/ui/webui/location_internals/location_internals.mojom"
+  ]
+}

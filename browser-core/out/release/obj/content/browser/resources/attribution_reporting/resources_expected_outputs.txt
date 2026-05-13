@@ -1,0 +1,4 @@
+gen/content/grit/attribution_internals_resources.h
+gen/content/grit/attribution_internals_resources_map.cc
+gen/content/grit/attribution_internals_resources_map.h
+gen/content/attribution_internals_resources.pak

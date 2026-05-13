@@ -1,0 +1,9 @@
+../../src/services/video_capture/public/mojom/device.mojom
+../../src/services/video_capture/public/mojom/devices_changed_observer.mojom
+../../src/services/video_capture/public/mojom/producer.mojom
+../../src/services/video_capture/public/mojom/testing_controls.mojom
+../../src/services/video_capture/public/mojom/video_capture_service.mojom
+../../src/services/video_capture/public/mojom/video_frame_handler.mojom
+../../src/services/video_capture/public/mojom/video_source.mojom
+../../src/services/video_capture/public/mojom/video_source_provider.mojom
+../../src/services/video_capture/public/mojom/virtual_device.mojom

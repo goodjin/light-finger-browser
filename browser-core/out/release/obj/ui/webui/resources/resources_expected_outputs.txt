@@ -1,0 +1,4 @@
+gen/ui/webui/resources/grit/webui_resources.h
+gen/ui/webui/resources/grit/webui_resources_map.cc
+gen/ui/webui/resources/grit/webui_resources_map.h
+gen/ui/webui/resources/webui_resources.pak

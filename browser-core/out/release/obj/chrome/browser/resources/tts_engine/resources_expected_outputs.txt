@@ -1,0 +1,4 @@
+gen/chrome/grit/tts_engine_resources.h
+gen/chrome/grit/tts_engine_resources_map.cc
+gen/chrome/grit/tts_engine_resources_map.h
+gen/chrome/tts_engine_resources.pak

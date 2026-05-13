@@ -1,0 +1,9 @@
+../../src/chrome/browser/lens/core/mojom/geometry.mojom
+../../src/chrome/browser/lens/core/mojom/lens.mojom
+../../src/chrome/browser/lens/core/mojom/lens_ghost_loader.mojom
+../../src/chrome/browser/lens/core/mojom/lens_side_panel.mojom
+../../src/chrome/browser/lens/core/mojom/overlay_object.mojom
+../../src/chrome/browser/lens/core/mojom/page_content_type.mojom
+../../src/chrome/browser/lens/core/mojom/polygon.mojom
+../../src/chrome/browser/lens/core/mojom/text.mojom
+../../src/chrome/browser/lens/core/mojom/translate.mojom

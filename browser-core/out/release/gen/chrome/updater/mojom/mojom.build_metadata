@@ -1,0 +1,10 @@
+{
+  "deps": [
+    "../../enterprise_companion/mojom/policy_fetch_reason_mojom.build_metadata",
+    "../../../mojo/public/mojom/base/base.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../src/chrome/updater/mojom/updater_service.mojom",
+    "../../../../../../src/chrome/updater/mojom/updater_service_internal.mojom"
+  ]
+}

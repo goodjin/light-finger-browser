@@ -1,0 +1,4 @@
+gen/chrome/test/data/grit/webui_test_resources.h
+gen/chrome/test/data/grit/webui_test_resources_map.cc
+gen/chrome/test/data/grit/webui_test_resources_map.h
+gen/chrome/webui_test_resources.pak

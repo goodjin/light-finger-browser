@@ -1,0 +1,4 @@
+gen/chrome/grit/signin_resources.h
+gen/chrome/grit/signin_resources_map.cc
+gen/chrome/grit/signin_resources_map.h
+gen/chrome/signin_resources.pak

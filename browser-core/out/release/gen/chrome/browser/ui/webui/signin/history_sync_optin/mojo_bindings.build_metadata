@@ -1,0 +1,8 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../../../../../src/chrome/browser/ui/webui/signin/history_sync_optin/history_sync_optin.mojom"
+  ]
+}

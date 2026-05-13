@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import { SettingsPage } from './components/SettingsPage';
-import { TabsPage } from './components/TabsPage';
 import { AccountsPage } from './components/AccountsPage';
 import { ProxiesPage } from './components/ProxiesPage';
+import { FingerprintManagerPage } from './components/FingerprintManagerPage';
 import { ListInstances } from './wailsjs/go/main/App';
 import { instance } from './wailsjs/go/models';
 
 type DashboardProps = {
-  onGoToTabs: () => void;
+  onGoToFingerprint: () => void;
 };
 
-function Dashboard({ onGoToTabs }: DashboardProps) {
+function Dashboard({ onGoToFingerprint }: DashboardProps) {
   const [runningCount, setRunningCount] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const [instanceStats, setInstanceStats] = useState<{ name: string; count: number }[]>([]);
@@ -67,7 +67,7 @@ function Dashboard({ onGoToTabs }: DashboardProps) {
       <div className="dashboard-section">
         <h3>Quick Actions</h3>
         <div className="quick-actions">
-          <button className="action-btn" onClick={onGoToTabs}>Go to Tabs</button>
+          <button className="action-btn" onClick={onGoToFingerprint}>Fingerprint Manager</button>
         </div>
       </div>
       <div className="dashboard-section">
@@ -90,13 +90,13 @@ function Dashboard({ onGoToTabs }: DashboardProps) {
   );
 }
 
-type Tab = 'dashboard' | 'settings' | 'tabs' | 'accounts' | 'proxies';
+type Tab = 'dashboard' | 'settings' | 'accounts' | 'proxies' | 'fingerprint';
 
 function App() {
-  const [activeTab, setActiveTab] = useState<Tab>('tabs'); // Default to tabs per FE-003
+  const [activeTab, setActiveTab] = useState<Tab>('fingerprint'); // Default to fingerprint per task
 
-  const handleGoToTabs = () => {
-    setActiveTab('tabs');
+  const handleGoToFingerprint = () => {
+    setActiveTab('fingerprint');
   };
 
   return (
@@ -114,11 +114,11 @@ function App() {
             Dashboard
           </li>
           <li
-            className={activeTab === 'tabs' ? 'active' : ''}
-            onClick={() => setActiveTab('tabs')}
+            className={activeTab === 'fingerprint' ? 'active' : ''}
+            onClick={() => setActiveTab('fingerprint')}
           >
-            <span className="nav-icon">⧉</span>
-            Tabs
+            <span className="nav-icon">🔐</span>
+            Fingerprint
           </li>
           <li
             className={activeTab === 'settings' ? 'active' : ''}
@@ -145,9 +145,9 @@ function App() {
       </nav>
       <main className="content">
         {activeTab === 'dashboard' && (
-          <Dashboard onGoToTabs={handleGoToTabs} />
+          <Dashboard onGoToFingerprint={handleGoToFingerprint} />
         )}
-        {activeTab === 'tabs' && <TabsPage />}
+        {activeTab === 'fingerprint' && <FingerprintManagerPage />}
         {activeTab === 'settings' && <SettingsPage />}
         {activeTab === 'accounts' && <AccountsPage createRequest={0} />}
         {activeTab === 'proxies' && <ProxiesPage />}

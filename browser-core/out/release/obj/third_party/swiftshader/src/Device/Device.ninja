@@ -1,0 +1,78 @@
+defines = -DSWIFTSHADER_ENABLE_ASTC -DSWIFTSHADER_LEGACY_PRECISION=true -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DMARL_USE_PTHREAD_THREAD_LOCAL=1
+framework_dirs =
+include_dirs = -I../../src/third_party/swiftshader/src -I../../src/third_party/swiftshader/include -I../../src/third_party/swiftshader/third_party/SPIRV-Headers/include -I../../src/third_party/swiftshader/third_party/astc-encoder/Source -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/swiftshader/third_party/SPIRV-Tools/include -I../../src/third_party/swiftshader/third_party/marl/include
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wno-shadow -Os
+cflags_cc = -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness
+label_name = Device
+root_out_dir = .
+target_out_dir = obj/third_party/swiftshader/src/Device
+target_output_name = Device
+
+build obj/third_party/swiftshader/src/Device/Device/ASTC_Decoder.o: cxx ../../src/third_party/swiftshader/src/Device/ASTC_Decoder.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = ASTC_Decoder.cpp
+  source_name_part = ASTC_Decoder
+build obj/third_party/swiftshader/src/Device/Device/BC_Decoder.o: cxx ../../src/third_party/swiftshader/src/Device/BC_Decoder.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = BC_Decoder.cpp
+  source_name_part = BC_Decoder
+build obj/third_party/swiftshader/src/Device/Device/Blitter.o: cxx ../../src/third_party/swiftshader/src/Device/Blitter.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = Blitter.cpp
+  source_name_part = Blitter
+build obj/third_party/swiftshader/src/Device/Device/Clipper.o: cxx ../../src/third_party/swiftshader/src/Device/Clipper.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = Clipper.cpp
+  source_name_part = Clipper
+build obj/third_party/swiftshader/src/Device/Device/Context.o: cxx ../../src/third_party/swiftshader/src/Device/Context.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = Context.cpp
+  source_name_part = Context
+build obj/third_party/swiftshader/src/Device/Device/ETC_Decoder.o: cxx ../../src/third_party/swiftshader/src/Device/ETC_Decoder.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = ETC_Decoder.cpp
+  source_name_part = ETC_Decoder
+build obj/third_party/swiftshader/src/Device/Device/PixelProcessor.o: cxx ../../src/third_party/swiftshader/src/Device/PixelProcessor.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PixelProcessor.cpp
+  source_name_part = PixelProcessor
+build obj/third_party/swiftshader/src/Device/Device/QuadRasterizer.o: cxx ../../src/third_party/swiftshader/src/Device/QuadRasterizer.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = QuadRasterizer.cpp
+  source_name_part = QuadRasterizer
+build obj/third_party/swiftshader/src/Device/Device/Renderer.o: cxx ../../src/third_party/swiftshader/src/Device/Renderer.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = Renderer.cpp
+  source_name_part = Renderer
+build obj/third_party/swiftshader/src/Device/Device/SetupProcessor.o: cxx ../../src/third_party/swiftshader/src/Device/SetupProcessor.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = SetupProcessor.cpp
+  source_name_part = SetupProcessor
+build obj/third_party/swiftshader/src/Device/Device/VertexProcessor.o: cxx ../../src/third_party/swiftshader/src/Device/VertexProcessor.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = VertexProcessor.cpp
+  source_name_part = VertexProcessor
+build obj/third_party/swiftshader/src/Device/Device/astc_block_sizes2.o: cxx ../../src/third_party/swiftshader/third_party/astc-encoder/Source/astc_block_sizes2.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = astc_block_sizes2.cpp
+  source_name_part = astc_block_sizes2
+build obj/third_party/swiftshader/src/Device/Device/astc_color_unquantize.o: cxx ../../src/third_party/swiftshader/third_party/astc-encoder/Source/astc_color_unquantize.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = astc_color_unquantize.cpp
+  source_name_part = astc_color_unquantize
+build obj/third_party/swiftshader/src/Device/Device/astc_decompress_symbolic.o: cxx ../../src/third_party/swiftshader/third_party/astc-encoder/Source/astc_decompress_symbolic.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = astc_decompress_symbolic.cpp
+  source_name_part = astc_decompress_symbolic
+build obj/third_party/swiftshader/src/Device/Device/astc_image_load_store.o: cxx ../../src/third_party/swiftshader/third_party/astc-encoder/Source/astc_image_load_store.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = astc_image_load_store.cpp
+  source_name_part = astc_image_load_store
+build obj/third_party/swiftshader/src/Device/Device/astc_integer_sequence.o: cxx ../../src/third_party/swiftshader/third_party/astc-encoder/Source/astc_integer_sequence.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = astc_integer_sequence.cpp
+  source_name_part = astc_integer_sequence
+build obj/third_party/swiftshader/src/Device/Device/astc_mathlib.o: cxx ../../src/third_party/swiftshader/third_party/astc-encoder/Source/astc_mathlib.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = astc_mathlib.cpp
+  source_name_part = astc_mathlib
+build obj/third_party/swiftshader/src/Device/Device/astc_mathlib_softfloat.o: cxx ../../src/third_party/swiftshader/third_party/astc-encoder/Source/astc_mathlib_softfloat.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = astc_mathlib_softfloat.cpp
+  source_name_part = astc_mathlib_softfloat
+build obj/third_party/swiftshader/src/Device/Device/astc_partition_tables.o: cxx ../../src/third_party/swiftshader/third_party/astc-encoder/Source/astc_partition_tables.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = astc_partition_tables.cpp
+  source_name_part = astc_partition_tables
+build obj/third_party/swiftshader/src/Device/Device/astc_quantization.o: cxx ../../src/third_party/swiftshader/third_party/astc-encoder/Source/astc_quantization.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = astc_quantization.cpp
+  source_name_part = astc_quantization
+build obj/third_party/swiftshader/src/Device/Device/astc_symbolic_physical.o: cxx ../../src/third_party/swiftshader/third_party/astc-encoder/Source/astc_symbolic_physical.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = astc_symbolic_physical.cpp
+  source_name_part = astc_symbolic_physical
+build obj/third_party/swiftshader/src/Device/Device/astc_weight_quant_xfer_tables.o: cxx ../../src/third_party/swiftshader/third_party/astc-encoder/Source/astc_weight_quant_xfer_tables.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = astc_weight_quant_xfer_tables.cpp
+  source_name_part = astc_weight_quant_xfer_tables
+
+build phony/third_party/swiftshader/src/Device/Device: phony obj/third_party/swiftshader/src/Device/Device/ASTC_Decoder.o obj/third_party/swiftshader/src/Device/Device/BC_Decoder.o obj/third_party/swiftshader/src/Device/Device/Blitter.o obj/third_party/swiftshader/src/Device/Device/Clipper.o obj/third_party/swiftshader/src/Device/Device/Context.o obj/third_party/swiftshader/src/Device/Device/ETC_Decoder.o obj/third_party/swiftshader/src/Device/Device/PixelProcessor.o obj/third_party/swiftshader/src/Device/Device/QuadRasterizer.o obj/third_party/swiftshader/src/Device/Device/Renderer.o obj/third_party/swiftshader/src/Device/Device/SetupProcessor.o obj/third_party/swiftshader/src/Device/Device/VertexProcessor.o obj/third_party/swiftshader/src/Device/Device/astc_block_sizes2.o obj/third_party/swiftshader/src/Device/Device/astc_color_unquantize.o obj/third_party/swiftshader/src/Device/Device/astc_decompress_symbolic.o obj/third_party/swiftshader/src/Device/Device/astc_image_load_store.o obj/third_party/swiftshader/src/Device/Device/astc_integer_sequence.o obj/third_party/swiftshader/src/Device/Device/astc_mathlib.o obj/third_party/swiftshader/src/Device/Device/astc_mathlib_softfloat.o obj/third_party/swiftshader/src/Device/Device/astc_partition_tables.o obj/third_party/swiftshader/src/Device/Device/astc_quantization.o obj/third_party/swiftshader/src/Device/Device/astc_symbolic_physical.o obj/third_party/swiftshader/src/Device/Device/astc_weight_quant_xfer_tables.o || phony/third_party/swiftshader/src/System/System_headers

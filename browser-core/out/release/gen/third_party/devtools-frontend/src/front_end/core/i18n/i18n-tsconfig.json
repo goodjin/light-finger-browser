@@ -1,0 +1,59 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "composite": true,
+    "declaration": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": true,
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable"
+    ],
+    "module": "esnext",
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "outDir": ".",
+    "rootDir": "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/i18n",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "esnext",
+    "tsBuildInfoFile": "i18n-tsconfig.json.tsbuildinfo",
+    "typeRoots": [],
+    "useUnknownInCatchVariables": false
+  },
+  "files": [
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/i18n/ByteUtilities.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/i18n/DevToolsLocale.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/i18n/NumberFormatter.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/i18n/i18nImpl.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/i18n/i18nTypes.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/i18n/time-utilities.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/legacy/legacy-defs.d.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/global_typings/global_defs.d.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/node_modules/@types/filesystem/index.d.ts"
+  ],
+  "references": [
+    {
+      "path": "./locales_js-tsconfig.json"
+    },
+    {
+      "path": "../platform/bundle-tsconfig.json"
+    },
+    {
+      "path": "../root/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../third_party/i18n/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../third_party/intl-messageformat/bundle-tsconfig.json"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "traits_headers": [
+      "services/network/public/cpp/shared_storage_mojom_traits.h"
+    ],
+    "types": [
+      {
+        "cpp": "::std::u16string",
+        "mojom": "network.mojom.SharedStorageKeyArgument"
+      },
+      {
+        "cpp": "::std::u16string",
+        "mojom": "network.mojom.SharedStorageValueArgument"
+      },
+      {
+        "cpp": "::std::string",
+        "mojom": "network.mojom.LockName"
+      },
+      {
+        "cpp": "::std::vector<::network::mojom::SharedStorageModifierMethodWithOptionsPtr>",
+        "mojom": "network.mojom.SharedStorageBatchUpdateMethodsArgument",
+        "move_only": true
+      }
+    ]
+  }
+]

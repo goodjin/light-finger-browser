@@ -1,0 +1,9 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DSK_ENABLE_SKSL -DSK_UNTIL_CRBUG_1187654_IS_FIXED -DSK_USER_CONFIG_HEADER=\"../../skia/config/SkUserConfig.h\" -DSK_WIN_FONTMGR_NO_SIMULATIONS -DSK_DISABLE_LEGACY_INIT_DECODERS -DSK_CODEC_DECODES_JPEG -DSK_CODEC_ENCODES_JPEG -DSK_BUILD_FOR_MAC -DSK_GAMMA_SRGB -DSK_GAMMA_CONTRAST=0.0 -DSK_GANESH -DSK_GPU_WORKAROUNDS_HEADER=\"gpu/config/gpu_driver_bug_workaround_autogen.h\" -DSK_GL -DSK_GRAPHITE -DSK_DAWN
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/skia -Igen/third_party/skia -I../../src/third_party/wuffs/src/release/c -Igen/third_party/dawn/include -I../../src/third_party/dawn/include
+label_name = rust_png_ffi_cpp
+root_out_dir = .
+target_out_dir = obj/skia
+target_output_name = rust_png_ffi_cpp
+
+

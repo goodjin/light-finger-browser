@@ -1,0 +1,2 @@
+gen/components/arc/grit/input_overlay_resources.h
+gen/components/arc/input_overlay_resources.pak

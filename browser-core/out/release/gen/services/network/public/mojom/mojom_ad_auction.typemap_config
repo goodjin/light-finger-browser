@@ -1,0 +1,17 @@
+[
+  {
+    "traits_headers": [
+      "services/network/public/cpp/ad_auction/event_record_mojom_traits.h"
+    ],
+    "traits_public_deps": [
+      "//net"
+    ],
+    "types": [
+      {
+        "cpp": "::network::AdAuctionEventRecord",
+        "mojom": "network.mojom.AdAuctionEventRecord",
+        "move_only": true
+      }
+    ]
+  }
+]

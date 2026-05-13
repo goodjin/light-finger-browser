@@ -1,0 +1,4 @@
+gen/chrome/grit/connectors_internals_resources.h
+gen/chrome/grit/connectors_internals_resources_map.cc
+gen/chrome/grit/connectors_internals_resources_map.h
+gen/chrome/connectors_internals_resources.pak

@@ -1,0 +1,193 @@
+defines = -DHAVE_OT -DHAVE_ICU -DHAVE_ICU_BUILTIN -DHB_NO_MMAP -DHB_NO_PAINT -DHB_NO_RESOURCE_FORK -DHB_NO_SUBSET_LAYOUT -DHB_NO_FALLBACK_SHAPE -DHB_NO_UCD -DHB_NO_WIN1256 -DU_DISABLE_VERSION_SUFFIX=0 -DHB_NO_BUFFER_VERIFY -DHB_NO_DRAW -DHB_NO_BORING_EXPANSION -DHB_NO_AVAR2 -DHB_NO_PRAGMA_GCC_DIAGNOSTIC_ERROR -DHB_NO_PRAGMA_GCC_DIAGNOSTIC_WARNING -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DFT_CONFIG_MODULES_H=\"freetype-custom/freetype/config/ftmodule.h\" -DFT_CONFIG_OPTIONS_H=\"freetype-custom/freetype/config/ftoption.h\" -DPDFIUM_REQUIRED_MODULES -DCHROMIUM_RESTRICT_VISIBILITY -DU_USING_ICU_NAMESPACE=0 -DU_ENABLE_DYLOAD=0 -DUSE_CHROMIUM_ICU=1 -DU_ENABLE_TRACING=1 -DU_ENABLE_RESOURCE_TRACING=0 -DU_STATIC_IMPLEMENTATION -DICU_UTIL_DATA_IMPL=ICU_UTIL_DATA_FILE
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/freetype/include -I../../src/third_party/freetype/include/freetype-custom -I../../src/third_party/freetype/src/include -I../../src/third_party/harfbuzz-ng/src/src -I../../src/third_party/icu/source/common -I../../src/third_party/icu/source/i18n
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -O3 -fno-math-errno
+cflags_cc = -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness
+label_name = harfbuzz_source
+root_out_dir = .
+target_out_dir = obj/third_party/harfbuzz-ng
+target_output_name = harfbuzz_source
+
+build phony/third_party/harfbuzz-ng/harfbuzz_source.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/harfbuzz-ng/harfbuzz_source/VARC.o: cxx ../../src/third_party/harfbuzz-ng/src/src/OT/Var/VARC/VARC.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = VARC.cc
+  source_name_part = VARC
+build obj/third_party/harfbuzz-ng/harfbuzz_source/gsubgpos-context.o: cxx ../../src/third_party/harfbuzz-ng/src/src/graph/gsubgpos-context.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = gsubgpos-context.cc
+  source_name_part = gsubgpos-context
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-aat-layout.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-aat-layout.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-aat-layout.cc
+  source_name_part = hb-aat-layout
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-aat-map.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-aat-map.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-aat-map.cc
+  source_name_part = hb-aat-map
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-blob.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-blob.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-blob.cc
+  source_name_part = hb-blob
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-buffer-serialize.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-buffer-serialize.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-buffer-serialize.cc
+  source_name_part = hb-buffer-serialize
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-buffer-verify.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-buffer-verify.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-buffer-verify.cc
+  source_name_part = hb-buffer-verify
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-buffer.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-buffer.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-buffer.cc
+  source_name_part = hb-buffer
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-common.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-common.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-common.cc
+  source_name_part = hb-common
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-draw.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-draw.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-draw.cc
+  source_name_part = hb-draw
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-face-builder.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-face-builder.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-face-builder.cc
+  source_name_part = hb-face-builder
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-face.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-face.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-face.cc
+  source_name_part = hb-face
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-font.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-font.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-font.cc
+  source_name_part = hb-font
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-icu.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-icu.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-icu.cc
+  source_name_part = hb-icu
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-map.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-map.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-map.cc
+  source_name_part = hb-map
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-number.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-number.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-number.cc
+  source_name_part = hb-number
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-cff1-table.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-cff1-table.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-cff1-table.cc
+  source_name_part = hb-ot-cff1-table
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-cff2-table.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-cff2-table.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-cff2-table.cc
+  source_name_part = hb-ot-cff2-table
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-color.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-color.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-color.cc
+  source_name_part = hb-ot-color
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-face.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-face.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-face.cc
+  source_name_part = hb-ot-face
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-font.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-font.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-font.cc
+  source_name_part = hb-ot-font
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-layout.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-layout.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-layout.cc
+  source_name_part = hb-ot-layout
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-map.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-map.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-map.cc
+  source_name_part = hb-ot-map
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-math.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-math.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-math.cc
+  source_name_part = hb-ot-math
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-meta.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-meta.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-meta.cc
+  source_name_part = hb-ot-meta
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-metrics.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-metrics.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-metrics.cc
+  source_name_part = hb-ot-metrics
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-name.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-name.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-name.cc
+  source_name_part = hb-ot-name
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shape-fallback.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-shape-fallback.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-shape-fallback.cc
+  source_name_part = hb-ot-shape-fallback
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shape-normalize.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-shape-normalize.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-shape-normalize.cc
+  source_name_part = hb-ot-shape-normalize
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shape.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-shape.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-shape.cc
+  source_name_part = hb-ot-shape
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shaper-arabic.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-shaper-arabic.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-shaper-arabic.cc
+  source_name_part = hb-ot-shaper-arabic
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shaper-default.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-shaper-default.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-shaper-default.cc
+  source_name_part = hb-ot-shaper-default
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shaper-hangul.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-shaper-hangul.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-shaper-hangul.cc
+  source_name_part = hb-ot-shaper-hangul
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shaper-hebrew.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-shaper-hebrew.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-shaper-hebrew.cc
+  source_name_part = hb-ot-shaper-hebrew
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shaper-indic-table.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-shaper-indic-table.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-shaper-indic-table.cc
+  source_name_part = hb-ot-shaper-indic-table
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shaper-indic.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-shaper-indic.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-shaper-indic.cc
+  source_name_part = hb-ot-shaper-indic
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shaper-khmer.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-shaper-khmer.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-shaper-khmer.cc
+  source_name_part = hb-ot-shaper-khmer
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shaper-myanmar.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-shaper-myanmar.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-shaper-myanmar.cc
+  source_name_part = hb-ot-shaper-myanmar
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shaper-syllabic.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-shaper-syllabic.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-shaper-syllabic.cc
+  source_name_part = hb-ot-shaper-syllabic
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shaper-thai.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-shaper-thai.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-shaper-thai.cc
+  source_name_part = hb-ot-shaper-thai
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shaper-use.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-shaper-use.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-shaper-use.cc
+  source_name_part = hb-ot-shaper-use
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shaper-vowel-constraints.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-shaper-vowel-constraints.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-shaper-vowel-constraints.cc
+  source_name_part = hb-ot-shaper-vowel-constraints
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-tag.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-tag.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-tag.cc
+  source_name_part = hb-ot-tag
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-var.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ot-var.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ot-var.cc
+  source_name_part = hb-ot-var
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-paint-extents.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-paint-extents.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-paint-extents.cc
+  source_name_part = hb-paint-extents
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-set.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-set.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-set.cc
+  source_name_part = hb-set
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-shape-plan.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-shape-plan.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-shape-plan.cc
+  source_name_part = hb-shape-plan
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-shape.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-shape.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-shape.cc
+  source_name_part = hb-shape
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-shaper.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-shaper.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-shaper.cc
+  source_name_part = hb-shaper
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-static.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-static.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-static.cc
+  source_name_part = hb-static
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-subset-cff-common.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-subset-cff-common.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-subset-cff-common.cc
+  source_name_part = hb-subset-cff-common
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-subset-cff1.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-subset-cff1.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-subset-cff1.cc
+  source_name_part = hb-subset-cff1
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-subset-cff2.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-subset-cff2.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-subset-cff2.cc
+  source_name_part = hb-subset-cff2
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-subset-input.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-subset-input.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-subset-input.cc
+  source_name_part = hb-subset-input
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-subset-instancer-iup.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-subset-instancer-iup.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-subset-instancer-iup.cc
+  source_name_part = hb-subset-instancer-iup
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-subset-instancer-solver.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-subset-instancer-solver.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-subset-instancer-solver.cc
+  source_name_part = hb-subset-instancer-solver
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-subset-plan.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-subset-plan.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-subset-plan.cc
+  source_name_part = hb-subset-plan
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-subset.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-subset.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-subset.cc
+  source_name_part = hb-subset
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ucd.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-ucd.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-ucd.cc
+  source_name_part = hb-ucd
+build obj/third_party/harfbuzz-ng/harfbuzz_source/hb-unicode.o: cxx ../../src/third_party/harfbuzz-ng/src/src/hb-unicode.cc | phony/third_party/harfbuzz-ng/harfbuzz_source.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = hb-unicode.cc
+  source_name_part = hb-unicode
+
+build phony/third_party/harfbuzz-ng/harfbuzz_source: phony obj/third_party/harfbuzz-ng/harfbuzz_source/VARC.o obj/third_party/harfbuzz-ng/harfbuzz_source/gsubgpos-context.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-aat-layout.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-aat-map.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-blob.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-buffer-serialize.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-buffer-verify.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-buffer.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-common.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-draw.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-face-builder.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-face.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-font.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-icu.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-map.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-number.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-cff1-table.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-cff2-table.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-color.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-face.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-font.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-layout.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-map.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-math.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-meta.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-metrics.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-name.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shape-fallback.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shape-normalize.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shape.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shaper-arabic.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shaper-default.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shaper-hangul.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shaper-hebrew.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shaper-indic-table.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shaper-indic.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shaper-khmer.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shaper-myanmar.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shaper-syllabic.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shaper-thai.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shaper-use.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-shaper-vowel-constraints.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-tag.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ot-var.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-paint-extents.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-set.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-shape-plan.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-shape.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-shaper.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-static.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-subset-cff-common.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-subset-cff1.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-subset-cff2.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-subset-input.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-subset-instancer-iup.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-subset-instancer-solver.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-subset-plan.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-subset.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-ucd.o obj/third_party/harfbuzz-ng/harfbuzz_source/hb-unicode.o || phony/third_party/icu/icuuc obj/third_party/icu/libicuuc.a

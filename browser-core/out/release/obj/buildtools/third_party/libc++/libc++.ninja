@@ -1,0 +1,154 @@
+defines = -DLIBCXX_BUILDING_LIBCXXABI -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -D_LIBCPP_BUILDING_LIBRARY -DLIBC_NAMESPACE=__llvm_libc_cr
+framework_dirs =
+include_dirs = -I../../src/third_party/libc++/src/src -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/llvm-libc/src
+cflags = -fvisibility-global-new-delete=force-hidden -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -fstrict-aliasing -Wundef -fPIC -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall
+cflags_cc = -std=c++20 -Wno-trigraphs -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden -std=c++20 -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness -fexceptions -frtti
+label_name = libc++
+root_out_dir = .
+target_out_dir = obj/buildtools/third_party/libc++
+target_output_name = libc++
+
+build phony/buildtools/third_party/libc++/libc++.inputs: phony ../../src/buildtools/third_party/libc++/__assertion_handler ../../src/buildtools/third_party/libc++/__config_site ../../src/build/config/warning_suppression.txt
+build obj/buildtools/third_party/libc++/libc++/algorithm.o: cxx ../../src/third_party/libc++/src/src/algorithm.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = algorithm.cpp
+  source_name_part = algorithm
+build obj/buildtools/third_party/libc++/libc++/any.o: cxx ../../src/third_party/libc++/src/src/any.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = any.cpp
+  source_name_part = any
+build obj/buildtools/third_party/libc++/libc++/atomic.o: cxx ../../src/third_party/libc++/src/src/atomic.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = atomic.cpp
+  source_name_part = atomic
+build obj/buildtools/third_party/libc++/libc++/barrier.o: cxx ../../src/third_party/libc++/src/src/barrier.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = barrier.cpp
+  source_name_part = barrier
+build obj/buildtools/third_party/libc++/libc++/bind.o: cxx ../../src/third_party/libc++/src/src/bind.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = bind.cpp
+  source_name_part = bind
+build obj/buildtools/third_party/libc++/libc++/call_once.o: cxx ../../src/third_party/libc++/src/src/call_once.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = call_once.cpp
+  source_name_part = call_once
+build obj/buildtools/third_party/libc++/libc++/charconv.o: cxx ../../src/third_party/libc++/src/src/charconv.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = charconv.cpp
+  source_name_part = charconv
+build obj/buildtools/third_party/libc++/libc++/chrono.o: cxx ../../src/third_party/libc++/src/src/chrono.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = chrono.cpp
+  source_name_part = chrono
+build obj/buildtools/third_party/libc++/libc++/condition_variable.o: cxx ../../src/third_party/libc++/src/src/condition_variable.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = condition_variable.cpp
+  source_name_part = condition_variable
+build obj/buildtools/third_party/libc++/libc++/condition_variable_destructor.o: cxx ../../src/third_party/libc++/src/src/condition_variable_destructor.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = condition_variable_destructor.cpp
+  source_name_part = condition_variable_destructor
+build obj/buildtools/third_party/libc++/libc++/error_category.o: cxx ../../src/third_party/libc++/src/src/error_category.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = error_category.cpp
+  source_name_part = error_category
+build obj/buildtools/third_party/libc++/libc++/exception.o: cxx ../../src/third_party/libc++/src/src/exception.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = exception.cpp
+  source_name_part = exception
+build obj/buildtools/third_party/libc++/libc++/directory_iterator.o: cxx ../../src/third_party/libc++/src/src/filesystem/directory_iterator.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = directory_iterator.cpp
+  source_name_part = directory_iterator
+build obj/buildtools/third_party/libc++/libc++/filesystem_error.o: cxx ../../src/third_party/libc++/src/src/filesystem/filesystem_error.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = filesystem_error.cpp
+  source_name_part = filesystem_error
+build obj/buildtools/third_party/libc++/libc++/operations.o: cxx ../../src/third_party/libc++/src/src/filesystem/operations.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = operations.cpp
+  source_name_part = operations
+build obj/buildtools/third_party/libc++/libc++/path.o: cxx ../../src/third_party/libc++/src/src/filesystem/path.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = path.cpp
+  source_name_part = path
+build obj/buildtools/third_party/libc++/libc++/functional.o: cxx ../../src/third_party/libc++/src/src/functional.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = functional.cpp
+  source_name_part = functional
+build obj/buildtools/third_party/libc++/libc++/future.o: cxx ../../src/third_party/libc++/src/src/future.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = future.cpp
+  source_name_part = future
+build obj/buildtools/third_party/libc++/libc++/hash.o: cxx ../../src/third_party/libc++/src/src/hash.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = hash.cpp
+  source_name_part = hash
+build obj/buildtools/third_party/libc++/libc++/ios.o: cxx ../../src/third_party/libc++/src/src/ios.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = ios.cpp
+  source_name_part = ios
+build obj/buildtools/third_party/libc++/libc++/ios.instantiations.o: cxx ../../src/third_party/libc++/src/src/ios.instantiations.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = ios.instantiations.cpp
+  source_name_part = ios.instantiations
+build obj/buildtools/third_party/libc++/libc++/iostream.o: cxx ../../src/third_party/libc++/src/src/iostream.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = iostream.cpp
+  source_name_part = iostream
+build obj/buildtools/third_party/libc++/libc++/locale.o: cxx ../../src/third_party/libc++/src/src/locale.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = locale.cpp
+  source_name_part = locale
+build obj/buildtools/third_party/libc++/libc++/memory.o: cxx ../../src/third_party/libc++/src/src/memory.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = memory.cpp
+  source_name_part = memory
+build obj/buildtools/third_party/libc++/libc++/mutex.o: cxx ../../src/third_party/libc++/src/src/mutex.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = mutex.cpp
+  source_name_part = mutex
+build obj/buildtools/third_party/libc++/libc++/mutex_destructor.o: cxx ../../src/third_party/libc++/src/src/mutex_destructor.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = mutex_destructor.cpp
+  source_name_part = mutex_destructor
+build obj/buildtools/third_party/libc++/libc++/new_handler.o: cxx ../../src/third_party/libc++/src/src/new_handler.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = new_handler.cpp
+  source_name_part = new_handler
+build obj/buildtools/third_party/libc++/libc++/new_helpers.o: cxx ../../src/third_party/libc++/src/src/new_helpers.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = new_helpers.cpp
+  source_name_part = new_helpers
+build obj/buildtools/third_party/libc++/libc++/optional.o: cxx ../../src/third_party/libc++/src/src/optional.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = optional.cpp
+  source_name_part = optional
+build obj/buildtools/third_party/libc++/libc++/random.o: cxx ../../src/third_party/libc++/src/src/random.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = random.cpp
+  source_name_part = random
+build obj/buildtools/third_party/libc++/libc++/random_shuffle.o: cxx ../../src/third_party/libc++/src/src/random_shuffle.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = random_shuffle.cpp
+  source_name_part = random_shuffle
+build obj/buildtools/third_party/libc++/libc++/regex.o: cxx ../../src/third_party/libc++/src/src/regex.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = regex.cpp
+  source_name_part = regex
+build obj/buildtools/third_party/libc++/libc++/d2fixed.o: cxx ../../src/third_party/libc++/src/src/ryu/d2fixed.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = d2fixed.cpp
+  source_name_part = d2fixed
+build obj/buildtools/third_party/libc++/libc++/d2s.o: cxx ../../src/third_party/libc++/src/src/ryu/d2s.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = d2s.cpp
+  source_name_part = d2s
+build obj/buildtools/third_party/libc++/libc++/f2s.o: cxx ../../src/third_party/libc++/src/src/ryu/f2s.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = f2s.cpp
+  source_name_part = f2s
+build obj/buildtools/third_party/libc++/libc++/shared_mutex.o: cxx ../../src/third_party/libc++/src/src/shared_mutex.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = shared_mutex.cpp
+  source_name_part = shared_mutex
+build obj/buildtools/third_party/libc++/libc++/stdexcept.o: cxx ../../src/third_party/libc++/src/src/stdexcept.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = stdexcept.cpp
+  source_name_part = stdexcept
+build obj/buildtools/third_party/libc++/libc++/string.o: cxx ../../src/third_party/libc++/src/src/string.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = string.cpp
+  source_name_part = string
+build obj/buildtools/third_party/libc++/libc++/strstream.o: cxx ../../src/third_party/libc++/src/src/strstream.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = strstream.cpp
+  source_name_part = strstream
+build obj/buildtools/third_party/libc++/libc++/system_error.o: cxx ../../src/third_party/libc++/src/src/system_error.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = system_error.cpp
+  source_name_part = system_error
+build obj/buildtools/third_party/libc++/libc++/thread.o: cxx ../../src/third_party/libc++/src/src/thread.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = thread.cpp
+  source_name_part = thread
+build obj/buildtools/third_party/libc++/libc++/typeinfo.o: cxx ../../src/third_party/libc++/src/src/typeinfo.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = typeinfo.cpp
+  source_name_part = typeinfo
+build obj/buildtools/third_party/libc++/libc++/valarray.o: cxx ../../src/third_party/libc++/src/src/valarray.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = valarray.cpp
+  source_name_part = valarray
+build obj/buildtools/third_party/libc++/libc++/variant.o: cxx ../../src/third_party/libc++/src/src/variant.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = variant.cpp
+  source_name_part = variant
+build obj/buildtools/third_party/libc++/libc++/vector.o: cxx ../../src/third_party/libc++/src/src/vector.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = vector.cpp
+  source_name_part = vector
+build obj/buildtools/third_party/libc++/libc++/verbose_abort.o: cxx ../../src/third_party/libc++/src/src/verbose_abort.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = verbose_abort.cpp
+  source_name_part = verbose_abort
+build obj/buildtools/third_party/libc++/libc++/new.o: cxx ../../src/third_party/libc++/src/src/new.cpp | phony/buildtools/third_party/libc++/libc++.inputs
+  source_file_part = new.cpp
+  source_name_part = new
+
+build phony/buildtools/third_party/libc++/libc++: phony obj/buildtools/third_party/libc++/libc++/algorithm.o obj/buildtools/third_party/libc++/libc++/any.o obj/buildtools/third_party/libc++/libc++/atomic.o obj/buildtools/third_party/libc++/libc++/barrier.o obj/buildtools/third_party/libc++/libc++/bind.o obj/buildtools/third_party/libc++/libc++/call_once.o obj/buildtools/third_party/libc++/libc++/charconv.o obj/buildtools/third_party/libc++/libc++/chrono.o obj/buildtools/third_party/libc++/libc++/condition_variable.o obj/buildtools/third_party/libc++/libc++/condition_variable_destructor.o obj/buildtools/third_party/libc++/libc++/error_category.o obj/buildtools/third_party/libc++/libc++/exception.o obj/buildtools/third_party/libc++/libc++/directory_iterator.o obj/buildtools/third_party/libc++/libc++/filesystem_error.o obj/buildtools/third_party/libc++/libc++/operations.o obj/buildtools/third_party/libc++/libc++/path.o obj/buildtools/third_party/libc++/libc++/functional.o obj/buildtools/third_party/libc++/libc++/future.o obj/buildtools/third_party/libc++/libc++/hash.o obj/buildtools/third_party/libc++/libc++/ios.o obj/buildtools/third_party/libc++/libc++/ios.instantiations.o obj/buildtools/third_party/libc++/libc++/iostream.o obj/buildtools/third_party/libc++/libc++/locale.o obj/buildtools/third_party/libc++/libc++/memory.o obj/buildtools/third_party/libc++/libc++/mutex.o obj/buildtools/third_party/libc++/libc++/mutex_destructor.o obj/buildtools/third_party/libc++/libc++/new_handler.o obj/buildtools/third_party/libc++/libc++/new_helpers.o obj/buildtools/third_party/libc++/libc++/optional.o obj/buildtools/third_party/libc++/libc++/random.o obj/buildtools/third_party/libc++/libc++/random_shuffle.o obj/buildtools/third_party/libc++/libc++/regex.o obj/buildtools/third_party/libc++/libc++/d2fixed.o obj/buildtools/third_party/libc++/libc++/d2s.o obj/buildtools/third_party/libc++/libc++/f2s.o obj/buildtools/third_party/libc++/libc++/shared_mutex.o obj/buildtools/third_party/libc++/libc++/stdexcept.o obj/buildtools/third_party/libc++/libc++/string.o obj/buildtools/third_party/libc++/libc++/strstream.o obj/buildtools/third_party/libc++/libc++/system_error.o obj/buildtools/third_party/libc++/libc++/thread.o obj/buildtools/third_party/libc++/libc++/typeinfo.o obj/buildtools/third_party/libc++/libc++/valarray.o obj/buildtools/third_party/libc++/libc++/variant.o obj/buildtools/third_party/libc++/libc++/vector.o obj/buildtools/third_party/libc++/libc++/verbose_abort.o obj/buildtools/third_party/libc++/libc++/new.o || phony/buildtools/third_party/libc++abi/libc++abi

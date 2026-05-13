@@ -1,37 +1,25 @@
-diff --git a/third_party/blink/renderer/core/input/mouse_event.cc b/third_party/blink/renderer/core/input/mouse_event.cc
---- a/third_party/blink/renderer/core/input/mouse_event.cc
-+++ b/third_party/blink/renderer/core/input/mouse_event.cc
-@@ -9,6 +9,7 @@
-
- #include <algorithm>
- #include <cmath>
-+#include <cstdint>
- #include <limits>
- #include <memory>
- #include <utility>
-@@ -17,6 +18,9 @@
- #include "base/atomicops.h"
- #include "base/bit_cast.h"
- #include "base/check_op.h"
+diff --git a/third_party/blink/renderer/core/events/mouse_event.cc b/third_party/blink/renderer/core/events/mouse_event.cc
+index c6331d7836..23410a24eb 100644
+--- a/third_party/blink/renderer/core/events/mouse_event.cc
++++ b/third_party/blink/renderer/core/events/mouse_event.cc
+@@ -35,6 +35,9 @@
+ #include "third_party/blink/renderer/core/html/html_frame_element_base.h"
+ #include "third_party/blink/renderer/core/html/media/html_media_element.h"
+ #include "third_party/blink/renderer/core/input/input_device_capabilities.h"
 +#include "base/command_line.h"
 +#include "base/strings/string_number_conversions.h"
 +#include "base/strings/string_util.h"
- #include "third_party/blink/public/common/input/web_mouse_event.h"
- #include "third_party/blink/public/common/input/web_mouse_wheel_event.h"
- #include "third_party/blink/public/web/web_pointer_event.h"
-@@ -30,6 +34,8 @@
- #include "third_party/blink/renderer/core/events/mouse_event_init.h"
- #include "third_party/blink/renderer/core/frame/local_dom_window.h"
- #include "third_party/blink/renderer/core/frame/local_frame.h"
-+#include "third_party/blink/renderer/core/input/pointer_event.h"
-+#include "third_party/blink/renderer/platform/wtf/text/string_view.h"
-
- namespace blink {
-
+ #include "third_party/blink/renderer/core/layout/layout_object.h"
+ #include "third_party/blink/renderer/core/layout/layout_view.h"
+ #include "third_party/blink/renderer/core/page/page.h"
+@@ -95,6 +98,66 @@ unsigned ButtonsToWebInputEventModifiers(uint16_t buttons) {
+ 
+ }  // namespace
+ 
 +namespace {
 +
 +// Get fingerprint seed from command line
-+bool GetBehaviorSeed(uint64_t* seed_out) {
++bool GetMouseBehaviorSeed(uint64_t* seed_out) {
 +  const base::CommandLine* command_line =
 +      base::CommandLine::ForCurrentProcess();
 +  if (!command_line) {
@@ -65,7 +53,7 @@ diff --git a/third_party/blink/renderer/core/input/mouse_event.cc b/third_party/
 +}
 +
 +// Mix seed with event-specific data for deterministic noise
-+uint64_t MixBehaviorSeed(uint64_t seed, uint64_t event_data, uint64_t multiplier) {
++uint64_t MixMouseBehaviorSeed(uint64_t seed, uint64_t event_data, uint64_t multiplier) {
 +  uint64_t value = seed ^ event_data ^ multiplier;
 +  value ^= value >> 33;
 +  value *= 0xff51afd7ed558ccdULL;
@@ -75,17 +63,9 @@ diff --git a/third_party/blink/renderer/core/input/mouse_event.cc b/third_party/
 +  return value;
 +}
 +
-+// Get jitter amount in microseconds based on seed and event type
-+int64_t GetMouseTimestampJitter(uint64_t seed, uint64_t event_id, int max_jitter_us) {
-+  uint64_t mixed = MixBehaviorSeed(seed, event_id, 0x9e3779b97f4a7c15ULL);
-+  // Convert to signed and bound to max_jitter_us range [-max_jitter_us, max_jitter_us]
-+  int64_t jitter = static_cast<int64_t>(mixed & 0xFFFFFFFFULL) % (max_jitter_us * 2);
-+  return jitter - max_jitter_us;
-+}
-+
 +// Get position jitter in pixels
 +double GetMousePositionJitter(uint64_t seed, uint64_t event_id, double max_jitter_px) {
-+  uint64_t mixed = MixBehaviorSeed(seed, event_id, 0x6b8b4567);
++  uint64_t mixed = MixMouseBehaviorSeed(seed, event_id, 0x6b8b4567);
 +  double jitter_ratio = static_cast<double>(mixed & 0xFFFFULL) / 65535.0;
 +  // Return jitter in range [-max_jitter_px, max_jitter_px]
 +  return (jitter_ratio * 2.0 * max_jitter_px) - max_jitter_px;
@@ -95,227 +75,51 @@ diff --git a/third_party/blink/renderer/core/input/mouse_event.cc b/third_party/
 +uint64_t g_mouse_event_counter = 0;
 +
 +}  // namespace
-
- MouseEvent::MouseEvent() = default;
-
-@@ -166,6 +213,10 @@ unsigned MouseEvent::which() const {
-
- UIEventWithKeyState::UpdateModifiersFromInit(const KeyboardEventInit* initializer) {
-   if (initializer->hasModifierKey()) {
-+    // Apply humanization jitter to modifier key state changes
-+    uint64_t seed = 0;
-+    if (GetBehaviorSeed(&seed)) {
-+      g_mouse_event_counter++;
-+    }
-     setModifierKey(CreateModifierKeyEvent());
-   }
++
+ MouseEvent* MouseEvent::Create(ScriptState* script_state,
+                                const AtomicString& type,
+                                const MouseEventInit* initializer) {
+@@ -354,6 +417,43 @@ unsigned MouseEvent::which() const {
+   return (unsigned)(button_ + 1);
  }
-@@ -190,6 +241,21 @@ const AtomicString& MouseEvent::InterfaceName() const {
-   return event_interface_names::kMouseEvent;
- }
-
+ 
 +double MouseEvent::screenX() const {
 +  uint64_t seed = 0;
-+  if (GetBehaviorSeed(&seed)) {
++  if (GetMouseBehaviorSeed(&seed)) {
 +    g_mouse_event_counter++;
 +    double jitter = GetMousePositionJitter(seed, g_mouse_event_counter, 1.5);
-+    return PlatformEvent::screenX() + jitter;
++    return std::floor(screen_x_ + jitter);
 +  }
-+  return PlatformEvent::screenX();
++  return std::floor(screen_x_);
 +}
 +
 +double MouseEvent::screenY() const {
 +  uint64_t seed = 0;
-+  if (GetBehaviorSeed(&seed)) {
++  if (GetMouseBehaviorSeed(&seed)) {
 +    double jitter = GetMousePositionJitter(seed, g_mouse_event_counter, 1.5);
-+    return PlatformEvent::screenY() + jitter;
++    return std::floor(screen_y_ + jitter);
 +  }
-+  return PlatformEvent::screenY();
++  return std::floor(screen_y_);
 +}
 +
- void MouseEvent::ReceivedTarget() {
-   UIEventWithKeyState::ReceivedTarget();
-   if (GetDocument()) {
-@@ -199,6 +265,25 @@ void MouseEvent::ReceivedTarget() {
-   }
- }
-
 +double MouseEvent::clientX() const {
 +  uint64_t seed = 0;
-+  if (GetBehaviorSeed(&seed)) {
++  if (GetMouseBehaviorSeed(&seed)) {
 +    double jitter = GetMousePositionJitter(seed, g_mouse_event_counter, 1.0);
-+    return PlatformEvent::clientX() + jitter;
++    return std::floor(client_x_ + jitter);
 +  }
-+  return PlatformEvent::clientX();
++  return std::floor(client_x_);
 +}
 +
 +double MouseEvent::clientY() const {
 +  uint64_t seed = 0;
-+  if (GetBehaviorSeed(&seed)) {
++  if (GetMouseBehaviorSeed(&seed)) {
 +    double jitter = GetMousePositionJitter(seed, g_mouse_event_counter, 1.0);
-+    return PlatformEvent::clientY() + jitter;
++    return std::floor(client_y_ + jitter);
 +  }
-+  return PlatformEvent::clientY();
++  return std::floor(client_y_);
 +}
 +
- void MouseEvent::SetAbsoluteLocation(const gfx::PointF& location) {
-   SetNavigationApiLocation(location);
-   absolute_location_ = location;
-diff --git a/third_party/blink/renderer/core/input/pointer_event.cc b/third_party/blink/renderer/core/input/pointer_event.cc
---- a/third_party/blink/renderer/core/input/pointer_event.cc
-+++ b/third_party/blink/renderer/core/input/pointer_event.cc
-@@ -15,6 +15,9 @@
- #include "base/atomicops.h"
- #include "base/bit_cast.h"
- #include "base/check_op.h"
-+#include "base/command_line.h"
-+#include "base/strings/string_number_conversions.h"
-+#include "base/strings/string_util.h"
- #include "third_party/blink/public/common/input/web_pointer_event.h"
- #include "third_party/blink/renderer/core/clipboard/data_transfer.h"
- #include "third_party/blink/renderer/core/clipboard/system_drag_data.h"
-@@ -36,6 +39,8 @@
- #include "third_party/blink/renderer/platform/wtf/text/wtf_string.h"
- #include "ui/gfx/geometry/mojo/geometry.mojom-blink.h"
-
-+namespace {
-+
- // The following functions are duplicated from event_handling_util.cc.
- // We should refactor to avoid duplication.
- wtf_size_t FindQueueingClosestDRT(const gfx::Vector2dF& point,
-@@ -72,6 +77,67 @@
-   return index;
- }
-
-+// Get fingerprint seed from command line
-+bool GetBehaviorSeed(uint64_t* seed_out) {
-+  const base::CommandLine* command_line =
-+      base::CommandLine::ForCurrentProcess();
-+  if (!command_line) {
-+    return false;
-+  }
-+
-+  // Check if behavior humanization is enabled
-+  std::string noise_value = base::ToLowerASCII(
-+      command_line->GetSwitchValueASCII("fingerprint-noise"));
-+  if (!noise_value.empty() &&
-+      (noise_value == "0" || noise_value == "false" ||
-+       noise_value == "no")) {
-+    return false;
-+  }
-+
-+  std::string seed_value = command_line->GetSwitchValueASCII("fingerprint");
-+  uint64_t seed = 0;
-+  if (!seed_value.empty()) {
-+    if (!base::StringToUint64(seed_value, &seed)) {
-+      // FNV-1a hash for string seed
-+      seed = 1469598103934665603ULL;
-+      for (unsigned char c : seed_value) {
-+        seed ^= c;
-+        seed *= 1099511628211ULL;
-+      }
-+    }
-+  }
-+
-+  *seed_out = seed;
-+  return true;
-+}
-+
-+// Mix seed with event-specific data for deterministic noise
-+uint64_t MixBehaviorSeed(uint64_t seed, uint64_t event_data, uint64_t multiplier) {
-+  uint64_t value = seed ^ event_data ^ multiplier;
-+  value ^= value >> 33;
-+  value *= 0xff51afd7ed558ccdULL;
-+  value ^= value >> 33;
-+  value *= 0xc4ceb9fe1a85ec53ULL;
-+  value ^= value >> 33;
-+  return value;
-+}
-+
-+// Get jitter amount in microseconds based on seed and event type
-+int64_t GetPointerTimestampJitter(uint64_t seed, uint64_t event_id, int max_jitter_us) {
-+  uint64_t mixed = MixBehaviorSeed(seed, event_id, 0x9e3779b97f4a7c15ULL);
-+  int64_t jitter = static_cast<int64_t>(mixed & 0xFFFFFFFFULL) % (max_jitter_us * 2);
-+  return jitter - max_jitter_us;
-+}
-+
-+// Get position jitter in pixels
-+double GetPointerPositionJitter(uint64_t seed, uint64_t event_id, double max_jitter_px) {
-+  uint64_t mixed = MixBehaviorSeed(seed, event_id, 0x6b8b4567);
-+  double jitter_ratio = static_cast<double>(mixed & 0xFFFFULL) / 65535.0;
-+  return (jitter_ratio * 2.0 * max_jitter_px) - max_jitter_px;
-+}
-+
-+// Rolling event counter for temporal ordering
-+uint64_t g_pointer_event_counter = 0;
-+
-+}  // namespace
-+
- PointerEvent::PointerEvent() = default;
-
- PointerEvent::PointerEvent(const WebPointerEvent& web_event,
-@@ -113,6 +179,20 @@ unsigned PointerEvent::which() const {
-   return GetEvent().GetIntegerProperty(base::AtomicOps::acquire_load(
-       const_cast<base::subtle::AtomicWord*>(&pointer_id_)));
-+
-+double PointerEvent::clientX() const {
-+  uint64_t seed = 0;
-+  if (GetBehaviorSeed(&seed)) {
-+    g_pointer_event_counter++;
-+    double jitter = GetPointerPositionJitter(seed, g_pointer_event_counter, 1.0);
-+    return PlatformEvent::clientX() + jitter;
-+  }
-+  return PlatformEvent::clientX();
-+}
-+
-+double PointerEvent::clientY() const {
-+  uint64_t seed = 0;
-+  if (GetBehaviorSeed(&seed)) {
-+    double jitter = GetPointerPositionJitter(seed, g_pointer_event_counter, 1.0);
-+    return PlatformEvent::clientY() + jitter;
-+  }
-+  return PlatformEvent::clientY();
-+}
-
- double PointerEvent::width() const {
-   return HasWidth() ? CSSValueIdentifierToDouble(width_) : 1;
-@@ -126,6 +206,20 @@ void PointerEvent::SetAbsoluteLocation(const gfx::PointF& location) {
-   absolute_location_ = location;
- }
-
-+double PointerEvent::screenX() const {
-+  uint64_t seed = 0;
-+  if (GetBehaviorSeed(&seed)) {
-+    double jitter = GetPointerPositionJitter(seed, g_pointer_event_counter, 1.5);
-+    return PlatformEvent::screenX() + jitter;
-+  }
-+  return PlatformEvent::screenX();
-+}
-+
-+double PointerEvent::screenY() const {
-+  uint64_t seed = 0;
-+  if (GetBehaviorSeed(&seed)) {
-+    double jitter = GetPointerPositionJitter(seed, g_pointer_event_counter, 1.5);
-+    return PlatformEvent::screenY() + jitter;
-+  }
-+  return PlatformEvent::screenY();
-+}
-+
- bool PointerEvent::IsPrimary() const {
-   return pointer_type_ == PointerEventBase::kMouse ||
-          GetPropertyAsPointerType(kPrimaryKey) == PointerEventBase::kPrimary;
-diff --git a/third_party/blink/renderer/core/input/pointer_event.h b/third_party/blink/renderer/core/input/pointer_event.h
---- a/third_party/blink/renderer/core/input/pointer_event.h
-+++ b/third_party/blink/renderer/core/input/pointer_event.h
-@@ -116,6 +116,10 @@ class PointerEvent : public MouseEvent {
-   double width() const;
-   double height() const;
-
-+  double clientX() const override;
-+  double clientY() const override;
-+  double screenX() const override;
-+  double screenY() const override;
-+
-   double tangentPressure() const;
-   double twist() const;
-   double tiltX() const;
+ Node* MouseEvent::toElement() const {
+   // MSIE extension - "the object toward which the user is moving the mouse
+   // pointer"

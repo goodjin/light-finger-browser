@@ -1,0 +1,118 @@
+defines = -DIPCZ_STANDALONE -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=2 -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/ipcz/src -Igen/third_party/ipcz/src -I../../src/third_party/ipcz/include -I../../src/third_party/abseil-cpp
+cflags = -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wthread-safety -Wgnu -Wno-gnu-anonymous-struct -Wno-gnu-conditional-omitted-operand -Wno-gnu-include-next -Wno-gnu-label-as-value -Wno-gnu-redeclared-enum -Wno-gnu-statement-expression -Wno-gnu-zero-variadic-macro-arguments -Wno-zero-length-array -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wshadow -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt
+cflags_cc = -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden
+label_name = impl_standalone
+root_out_dir = .
+target_out_dir = obj/third_party/ipcz/src
+target_output_name = impl_standalone
+
+build phony/third_party/ipcz/src/impl_standalone.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/ipcz/src/impl_standalone/api_context.o: cxx ../../src/third_party/ipcz/src/ipcz/api_context.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = api_context.cc
+  source_name_part = api_context
+build obj/third_party/ipcz/src/impl_standalone/api_object.o: cxx ../../src/third_party/ipcz/src/ipcz/api_object.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = api_object.cc
+  source_name_part = api_object
+build obj/third_party/ipcz/src/impl_standalone/application_object.o: cxx ../../src/third_party/ipcz/src/ipcz/application_object.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = application_object.cc
+  source_name_part = application_object
+build obj/third_party/ipcz/src/impl_standalone/block_allocator.o: cxx ../../src/third_party/ipcz/src/ipcz/block_allocator.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = block_allocator.cc
+  source_name_part = block_allocator
+build obj/third_party/ipcz/src/impl_standalone/block_allocator_pool.o: cxx ../../src/third_party/ipcz/src/ipcz/block_allocator_pool.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = block_allocator_pool.cc
+  source_name_part = block_allocator_pool
+build obj/third_party/ipcz/src/impl_standalone/box.o: cxx ../../src/third_party/ipcz/src/ipcz/box.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = box.cc
+  source_name_part = box
+build obj/third_party/ipcz/src/impl_standalone/buffer_pool.o: cxx ../../src/third_party/ipcz/src/ipcz/buffer_pool.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = buffer_pool.cc
+  source_name_part = buffer_pool
+build obj/third_party/ipcz/src/impl_standalone/driver_memory.o: cxx ../../src/third_party/ipcz/src/ipcz/driver_memory.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = driver_memory.cc
+  source_name_part = driver_memory
+build obj/third_party/ipcz/src/impl_standalone/driver_memory_mapping.o: cxx ../../src/third_party/ipcz/src/ipcz/driver_memory_mapping.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = driver_memory_mapping.cc
+  source_name_part = driver_memory_mapping
+build obj/third_party/ipcz/src/impl_standalone/driver_object.o: cxx ../../src/third_party/ipcz/src/ipcz/driver_object.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = driver_object.cc
+  source_name_part = driver_object
+build obj/third_party/ipcz/src/impl_standalone/driver_transport.o: cxx ../../src/third_party/ipcz/src/ipcz/driver_transport.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = driver_transport.cc
+  source_name_part = driver_transport
+build obj/third_party/ipcz/src/impl_standalone/features.o: cxx ../../src/third_party/ipcz/src/ipcz/features.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = features.cc
+  source_name_part = features
+build obj/third_party/ipcz/src/impl_standalone/fragment.o: cxx ../../src/third_party/ipcz/src/ipcz/fragment.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = fragment.cc
+  source_name_part = fragment
+build obj/third_party/ipcz/src/impl_standalone/fragment_ref.o: cxx ../../src/third_party/ipcz/src/ipcz/fragment_ref.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = fragment_ref.cc
+  source_name_part = fragment_ref
+build obj/third_party/ipcz/src/impl_standalone/link_side.o: cxx ../../src/third_party/ipcz/src/ipcz/link_side.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = link_side.cc
+  source_name_part = link_side
+build obj/third_party/ipcz/src/impl_standalone/link_type.o: cxx ../../src/third_party/ipcz/src/ipcz/link_type.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = link_type.cc
+  source_name_part = link_type
+build obj/third_party/ipcz/src/impl_standalone/local_router_link.o: cxx ../../src/third_party/ipcz/src/ipcz/local_router_link.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = local_router_link.cc
+  source_name_part = local_router_link
+build obj/third_party/ipcz/src/impl_standalone/message.o: cxx ../../src/third_party/ipcz/src/ipcz/message.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = message.cc
+  source_name_part = message
+build obj/third_party/ipcz/src/impl_standalone/node.o: cxx ../../src/third_party/ipcz/src/ipcz/node.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = node.cc
+  source_name_part = node
+build obj/third_party/ipcz/src/impl_standalone/node_connector.o: cxx ../../src/third_party/ipcz/src/ipcz/node_connector.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = node_connector.cc
+  source_name_part = node_connector
+build obj/third_party/ipcz/src/impl_standalone/node_link.o: cxx ../../src/third_party/ipcz/src/ipcz/node_link.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = node_link.cc
+  source_name_part = node_link
+build obj/third_party/ipcz/src/impl_standalone/node_link_memory.o: cxx ../../src/third_party/ipcz/src/ipcz/node_link_memory.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = node_link_memory.cc
+  source_name_part = node_link_memory
+build obj/third_party/ipcz/src/impl_standalone/node_messages.o: cxx ../../src/third_party/ipcz/src/ipcz/node_messages.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = node_messages.cc
+  source_name_part = node_messages
+build obj/third_party/ipcz/src/impl_standalone/node_name.o: cxx ../../src/third_party/ipcz/src/ipcz/node_name.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = node_name.cc
+  source_name_part = node_name
+build obj/third_party/ipcz/src/impl_standalone/parcel.o: cxx ../../src/third_party/ipcz/src/ipcz/parcel.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = parcel.cc
+  source_name_part = parcel
+build obj/third_party/ipcz/src/impl_standalone/parcel_wrapper.o: cxx ../../src/third_party/ipcz/src/ipcz/parcel_wrapper.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = parcel_wrapper.cc
+  source_name_part = parcel_wrapper
+build obj/third_party/ipcz/src/impl_standalone/pending_transaction_set.o: cxx ../../src/third_party/ipcz/src/ipcz/pending_transaction_set.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = pending_transaction_set.cc
+  source_name_part = pending_transaction_set
+build obj/third_party/ipcz/src/impl_standalone/ref_counted_fragment.o: cxx ../../src/third_party/ipcz/src/ipcz/ref_counted_fragment.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = ref_counted_fragment.cc
+  source_name_part = ref_counted_fragment
+build obj/third_party/ipcz/src/impl_standalone/remote_router_link.o: cxx ../../src/third_party/ipcz/src/ipcz/remote_router_link.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = remote_router_link.cc
+  source_name_part = remote_router_link
+build obj/third_party/ipcz/src/impl_standalone/route_edge.o: cxx ../../src/third_party/ipcz/src/ipcz/route_edge.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = route_edge.cc
+  source_name_part = route_edge
+build obj/third_party/ipcz/src/impl_standalone/router.o: cxx ../../src/third_party/ipcz/src/ipcz/router.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = router.cc
+  source_name_part = router
+build obj/third_party/ipcz/src/impl_standalone/router_link_state.o: cxx ../../src/third_party/ipcz/src/ipcz/router_link_state.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = router_link_state.cc
+  source_name_part = router_link_state
+build obj/third_party/ipcz/src/impl_standalone/test_messages.o: cxx ../../src/third_party/ipcz/src/ipcz/test_messages.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = test_messages.cc
+  source_name_part = test_messages
+build obj/third_party/ipcz/src/impl_standalone/trap_event_dispatcher.o: cxx ../../src/third_party/ipcz/src/ipcz/trap_event_dispatcher.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = trap_event_dispatcher.cc
+  source_name_part = trap_event_dispatcher
+build obj/third_party/ipcz/src/impl_standalone/trap_set.o: cxx ../../src/third_party/ipcz/src/ipcz/trap_set.cc | phony/third_party/ipcz/src/impl_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = trap_set.cc
+  source_name_part = trap_set
+
+build phony/third_party/ipcz/src/impl_standalone: phony obj/third_party/ipcz/src/impl_standalone/api_context.o obj/third_party/ipcz/src/impl_standalone/api_object.o obj/third_party/ipcz/src/impl_standalone/application_object.o obj/third_party/ipcz/src/impl_standalone/block_allocator.o obj/third_party/ipcz/src/impl_standalone/block_allocator_pool.o obj/third_party/ipcz/src/impl_standalone/box.o obj/third_party/ipcz/src/impl_standalone/buffer_pool.o obj/third_party/ipcz/src/impl_standalone/driver_memory.o obj/third_party/ipcz/src/impl_standalone/driver_memory_mapping.o obj/third_party/ipcz/src/impl_standalone/driver_object.o obj/third_party/ipcz/src/impl_standalone/driver_transport.o obj/third_party/ipcz/src/impl_standalone/features.o obj/third_party/ipcz/src/impl_standalone/fragment.o obj/third_party/ipcz/src/impl_standalone/fragment_ref.o obj/third_party/ipcz/src/impl_standalone/link_side.o obj/third_party/ipcz/src/impl_standalone/link_type.o obj/third_party/ipcz/src/impl_standalone/local_router_link.o obj/third_party/ipcz/src/impl_standalone/message.o obj/third_party/ipcz/src/impl_standalone/node.o obj/third_party/ipcz/src/impl_standalone/node_connector.o obj/third_party/ipcz/src/impl_standalone/node_link.o obj/third_party/ipcz/src/impl_standalone/node_link_memory.o obj/third_party/ipcz/src/impl_standalone/node_messages.o obj/third_party/ipcz/src/impl_standalone/node_name.o obj/third_party/ipcz/src/impl_standalone/parcel.o obj/third_party/ipcz/src/impl_standalone/parcel_wrapper.o obj/third_party/ipcz/src/impl_standalone/pending_transaction_set.o obj/third_party/ipcz/src/impl_standalone/ref_counted_fragment.o obj/third_party/ipcz/src/impl_standalone/remote_router_link.o obj/third_party/ipcz/src/impl_standalone/route_edge.o obj/third_party/ipcz/src/impl_standalone/router.o obj/third_party/ipcz/src/impl_standalone/router_link_state.o obj/third_party/ipcz/src/impl_standalone/test_messages.o obj/third_party/ipcz/src/impl_standalone/trap_event_dispatcher.o obj/third_party/ipcz/src/impl_standalone/trap_set.o || phony/third_party/abseil-cpp/absl phony/third_party/ipcz/src/standalone/standalone phony/third_party/ipcz/src/util_standalone phony/third_party/abseil-cpp/absl/base/base phony/third_party/abseil-cpp/absl/base/log_severity phony/third_party/abseil-cpp/absl/base/raw_logging_internal phony/third_party/abseil-cpp/absl/base/spinlock_wait phony/third_party/abseil-cpp/absl/container/btree phony/third_party/abseil-cpp/absl/container/layout phony/third_party/abseil-cpp/absl/debugging/demangle_internal phony/third_party/abseil-cpp/absl/debugging/demangle_rust phony/third_party/abseil-cpp/absl/debugging/decode_rust_punycode phony/third_party/abseil-cpp/absl/debugging/bounded_utf8_length_sequence phony/third_party/abseil-cpp/absl/numeric/bits phony/third_party/abseil-cpp/absl/base/endian phony/third_party/abseil-cpp/absl/debugging/utf8_for_code_point phony/third_party/abseil-cpp/absl/strings/strings phony/third_party/abseil-cpp/absl/strings/string_view phony/third_party/abseil-cpp/absl/base/throw_delegate phony/third_party/abseil-cpp/absl/strings/charset phony/third_party/abseil-cpp/absl/strings/internal phony/third_party/abseil-cpp/absl/numeric/int128 phony/third_party/abseil-cpp/absl/types/span phony/third_party/abseil-cpp/absl/strings/cord phony/third_party/abseil-cpp/absl/strings/cord_internal phony/third_party/abseil-cpp/absl/container/inlined_vector phony/third_party/abseil-cpp/absl/container/inlined_vector_internal phony/third_party/abseil-cpp/absl/crc/crc_cord_state phony/third_party/abseil-cpp/absl/crc/crc32c phony/third_party/abseil-cpp/absl/crc/cpu_detect phony/third_party/abseil-cpp/absl/crc/crc_internal phony/third_party/abseil-cpp/absl/strings/str_format phony/third_party/abseil-cpp/absl/strings/str_format_internal phony/third_party/abseil-cpp/absl/container/fixed_array phony/third_party/abseil-cpp/absl/strings/cordz_info phony/third_party/abseil-cpp/absl/strings/cordz_functions phony/third_party/abseil-cpp/absl/profiling/exponential_biased phony/third_party/abseil-cpp/absl/strings/cordz_handle phony/third_party/abseil-cpp/absl/synchronization/synchronization phony/third_party/abseil-cpp/absl/synchronization/graphcycles_internal phony/third_party/abseil-cpp/absl/base/malloc_internal phony/third_party/abseil-cpp/absl/synchronization/kernel_timeout_internal phony/third_party/abseil-cpp/absl/time/time phony/third_party/abseil-cpp/absl/time/internal/cctz/civil_time phony/third_party/abseil-cpp/absl/time/internal/cctz/time_zone phony/third_party/abseil-cpp/absl/base/tracing_internal phony/third_party/abseil-cpp/absl/debugging/stacktrace phony/third_party/abseil-cpp/absl/debugging/debugging_internal phony/third_party/abseil-cpp/absl/debugging/symbolize phony/third_party/abseil-cpp/absl/strings/cordz_update_scope phony/third_party/abseil-cpp/absl/container/flat_hash_map phony/third_party/abseil-cpp/absl/container/hash_container_defaults phony/third_party/abseil-cpp/absl/container/hash_function_defaults phony/third_party/abseil-cpp/absl/hash/hash phony/third_party/abseil-cpp/absl/hash/city phony/third_party/abseil-cpp/absl/hash/low_level_hash phony/third_party/abseil-cpp/absl/container/raw_hash_map phony/third_party/abseil-cpp/absl/container/raw_hash_set phony/third_party/abseil-cpp/absl/container/hashtable_control_bytes phony/third_party/abseil-cpp/absl/container/hashtablez_sampler phony/third_party/abseil-cpp/absl/profiling/sample_recorder phony/third_party/abseil-cpp/absl/container/flat_hash_set phony/third_party/abseil-cpp/absl/container/node_hash_map phony/third_party/abseil-cpp/absl/container/node_hash_set phony/third_party/abseil-cpp/absl/debugging/failure_signal_handler phony/third_party/abseil-cpp/absl/debugging/examine_stack phony/third_party/abseil-cpp/absl/log/absl_check phony/third_party/abseil-cpp/absl/log/internal/check_impl phony/third_party/abseil-cpp/absl/log/internal/check_op phony/third_party/abseil-cpp/absl/log/internal/nullguard phony/third_party/abseil-cpp/absl/log/internal/nullstream phony/third_party/abseil-cpp/absl/log/internal/strip phony/third_party/abseil-cpp/absl/log/internal/log_message phony/third_party/abseil-cpp/absl/log/internal/append_truncated phony/third_party/abseil-cpp/absl/log/internal/format phony/third_party/abseil-cpp/absl/log/internal/globals phony/third_party/abseil-cpp/absl/log/internal/log_sink_set phony/third_party/abseil-cpp/absl/log/globals phony/third_party/abseil-cpp/absl/log/internal/vlog_config phony/third_party/abseil-cpp/absl/log/internal/fnmatch phony/third_party/abseil-cpp/absl/log/log_entry phony/third_party/abseil-cpp/absl/log/log_sink phony/third_party/abseil-cpp/absl/log/internal/proto phony/third_party/abseil-cpp/absl/log/internal/structured_proto phony/third_party/abseil-cpp/absl/base/strerror phony/third_party/abseil-cpp/absl/log/log_sink_registry phony/third_party/abseil-cpp/absl/debugging/leak_check phony/third_party/abseil-cpp/absl/log/internal/conditions phony/third_party/abseil-cpp/absl/log/absl_log phony/third_party/abseil-cpp/absl/log/internal/log_impl phony/third_party/abseil-cpp/absl/log/absl_vlog_is_on phony/third_party/abseil-cpp/absl/log/die_if_null phony/third_party/abseil-cpp/absl/log/log phony/third_party/abseil-cpp/absl/log/vlog_is_on phony/third_party/abseil-cpp/absl/log/initialize phony/third_party/abseil-cpp/absl/random/random phony/third_party/abseil-cpp/absl/random/distributions phony/third_party/abseil-cpp/absl/random/internal/fast_uniform_bits phony/third_party/abseil-cpp/absl/random/internal/traits phony/third_party/abseil-cpp/absl/random/internal/fastmath phony/third_party/abseil-cpp/absl/random/internal/generate_real phony/third_party/abseil-cpp/absl/random/internal/iostream_state_saver phony/third_party/abseil-cpp/absl/random/internal/uniform_helper phony/third_party/abseil-cpp/absl/random/internal/wide_multiply phony/third_party/abseil-cpp/absl/random/seed_sequences phony/third_party/abseil-cpp/absl/random/seed_gen_exception phony/third_party/abseil-cpp/absl/random/internal/entropy_pool phony/third_party/abseil-cpp/absl/random/internal/platform phony/third_party/abseil-cpp/absl/random/internal/randen phony/third_party/abseil-cpp/absl/random/internal/randen_hwaes phony/third_party/abseil-cpp/absl/random/internal/randen_hwaes_impl phony/third_party/abseil-cpp/absl/random/internal/randen_slow phony/third_party/abseil-cpp/absl/random/internal/seed_material phony/third_party/abseil-cpp/absl/random/internal/salted_seed_seq phony/third_party/abseil-cpp/absl/random/internal/nonsecure_base phony/third_party/abseil-cpp/absl/random/internal/pcg_engine phony/third_party/abseil-cpp/absl/random/internal/randen_engine phony/third_party/abseil-cpp/absl/random/bit_gen_ref phony/third_party/abseil-cpp/absl/status/status phony/third_party/abseil-cpp/absl/status/statusor

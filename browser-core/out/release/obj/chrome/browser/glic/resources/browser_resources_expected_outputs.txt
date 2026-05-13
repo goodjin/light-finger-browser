@@ -1,0 +1,2 @@
+gen/chrome/browser/glic/resources/glic_browser_resources.pak
+gen/chrome/browser/glic/resources/grit/glic_browser_resources.h

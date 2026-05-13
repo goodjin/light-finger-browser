@@ -1,0 +1,8 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../../../src/components/compose/core/browser/compose_enums.mojom"
+  ]
+}

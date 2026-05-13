@@ -1,0 +1,8 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../../../src/ui/base/cursor/mojom/cursor_type.mojom"
+  ]
+}

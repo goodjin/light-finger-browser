@@ -1,0 +1,8 @@
+{
+  "deps": [
+    "policy_fetch_reason_mojom.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../src/chrome/enterprise_companion/mojom/enterprise_companion.mojom"
+  ]
+}

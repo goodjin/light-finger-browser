@@ -1,11 +1,11 @@
 diff --git a/third_party/blink/renderer/core/frame/navigator_language.cc b/third_party/blink/renderer/core/frame/navigator_language.cc
-index 75cd3461317b7..0691ab81b2ed1 100644
+index e64bc23a80729..0ea3bd9c6e714 100644
 --- a/third_party/blink/renderer/core/frame/navigator_language.cc
 +++ b/third_party/blink/renderer/core/frame/navigator_language.cc
 @@ -14,6 +14,24 @@
- 
+
  namespace blink {
- 
+
 +namespace {
 +
 +String LocaleOverrideFromCommandLine() {
@@ -25,11 +25,11 @@ index 75cd3461317b7..0691ab81b2ed1 100644
 +}  // namespace
 +
  Vector<String> ParseAndSanitize(const String& accept_languages) {
-   Vector<String> languages = accept_languages.SplitSkippingEmpty(',');
- 
-@@ -69,6 +87,13 @@ void NavigatorLanguage::SetLanguagesForTesting(const String& languages) {
+   Vector<String> languages;
+   accept_languages.Split(',', languages);
+@@ -60,6 +78,13 @@ void NavigatorLanguage::SetLanguagesForTesting(const String& languages) {
  }
- 
+
  void NavigatorLanguage::EnsureUpdatedLanguage() {
 +  String locale_override = LocaleOverrideFromCommandLine();
 +  if (!locale_override.IsNull()) {
@@ -38,6 +38,6 @@ index 75cd3461317b7..0691ab81b2ed1 100644
 +    return;
 +  }
 +
-   String accept_languages_override;
-   probe::ApplyAcceptLanguageOverride(execution_context_,
-                                      &accept_languages_override);
+   if (languages_dirty_) {
+     String accept_languages_override;
+     probe::ApplyAcceptLanguageOverride(execution_context_,

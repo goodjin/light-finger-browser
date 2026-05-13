@@ -1,0 +1,52 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "composite": true,
+    "declaration": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": true,
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable"
+    ],
+    "module": "esnext",
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "outDir": ".",
+    "rootDir": "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/platform",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "esnext",
+    "tsBuildInfoFile": "platform-tsconfig.json.tsbuildinfo",
+    "typeRoots": [],
+    "useUnknownInCatchVariables": false
+  },
+  "files": [
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/platform/ArrayUtilities.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/platform/Brand.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/platform/Constructor.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/platform/DOMUtilities.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/platform/DateUtilities.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/platform/DevToolsPath.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/platform/KeyboardUtilities.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/platform/MapUtilities.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/platform/MimeType.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/platform/NumberUtilities.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/platform/StringUtilities.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/platform/Timing.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/platform/TypedArrayUtilities.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/platform/TypescriptUtilities.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/platform/UIString.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/core/platform/UserVisibleError.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/legacy/legacy-defs.d.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/front_end/global_typings/global_defs.d.ts",
+    "../../../../../../../../../src/third_party/devtools-frontend/src/node_modules/@types/filesystem/index.d.ts"
+  ]
+}

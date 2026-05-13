@@ -57,4 +57,13 @@ if [[ "$PLATFORM" == "all" ]]; then
 else
   wails build -platform "$PLATFORM" -o "$OUTPUT_DIR" || die "Build failed"
   info "Build complete: $OUTPUT_DIR"
+
+  # Copy Chromium.app for darwin builds
+  if [[ "$PLATFORM" == darwin-* ]]; then
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    POST_BUILD="$SCRIPT_DIR/../scripts/post-build.sh"
+    if [[ -x "$POST_BUILD" ]]; then
+      "$POST_BUILD"
+    fi
+  fi
 fi

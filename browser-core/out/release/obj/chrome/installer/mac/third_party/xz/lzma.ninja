@@ -1,0 +1,10 @@
+defines = -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=2 -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DHAVE_CONFIG_H -DHAVE_SMALL=1 -DHAVE_CHECK_CRC32=1 -DHAVE_DECODERS=1 -DHAVE_DECODER_LZMA2=1 -DHAVE_DECODER_X86=1 -DHAVE_ENCODERS=1 -DHAVE_ENCODER_LZMA2=1 -DHAVE_ENCODER_X86=1
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/chrome/installer/mac/third_party/xz/config/mac -I../../src/chrome/installer/mac/third_party/xz/xz/src/common -I../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/api -I../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/check -I../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common -I../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/delta -I../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/lz -I../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/lzma -I../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/rangecoder -I../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/simple
+label_name = lzma
+root_out_dir = .
+target_out_dir = obj/chrome/installer/mac/third_party/xz
+target_output_name = lzma
+
+
+build phony/chrome/installer/mac/third_party/xz/lzma: phony || phony/chrome/installer/mac/third_party/xz/common phony/chrome/installer/mac/third_party/xz/compress phony/chrome/installer/mac/third_party/xz/decompress

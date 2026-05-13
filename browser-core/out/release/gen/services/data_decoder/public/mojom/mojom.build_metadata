@@ -1,0 +1,21 @@
+{
+  "deps": [
+    "mojom_xml_parser.build_metadata",
+    "../../../../components/facilitated_payments/core/mojom/pix_code_validator_mojom.build_metadata",
+    "../../../../components/web_package/mojom/mojom.build_metadata",
+    "../../../../mojo/public/mojom/base/base.build_metadata",
+    "../../../../sandbox/policy/mojom/mojom.build_metadata",
+    "../../../network/public/mojom/mojom_structured_headers.build_metadata",
+    "../../../../skia/public/mojom/mojom.build_metadata",
+    "../../../../ui/gfx/geometry/mojom/mojom.build_metadata",
+    "../../../../url/mojom/url_mojom_gurl.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../src/services/data_decoder/public/mojom/cbor_parser.mojom",
+    "../../../../../../../src/services/data_decoder/public/mojom/data_decoder_service.mojom",
+    "../../../../../../../src/services/data_decoder/public/mojom/gzipper.mojom",
+    "../../../../../../../src/services/data_decoder/public/mojom/image_decoder.mojom",
+    "../../../../../../../src/services/data_decoder/public/mojom/json_parser.mojom",
+    "../../../../../../../src/services/data_decoder/public/mojom/structured_headers_parser.mojom"
+  ]
+}

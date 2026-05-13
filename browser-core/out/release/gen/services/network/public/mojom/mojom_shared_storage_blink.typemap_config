@@ -1,0 +1,29 @@
+[
+  {
+    "traits_headers": [
+      "third_party/blink/renderer/modules/shared_storage/shared_storage_blink_mojom_traits.h"
+    ],
+    "traits_sources": [
+      "//third_party/blink/renderer/modules/shared_storage/shared_storage_blink_mojom_traits.cc"
+    ],
+    "types": [
+      {
+        "cpp": "::WTF::String",
+        "mojom": "network.mojom.SharedStorageKeyArgument"
+      },
+      {
+        "cpp": "::WTF::String",
+        "mojom": "network.mojom.SharedStorageValueArgument"
+      },
+      {
+        "cpp": "::WTF::String",
+        "mojom": "network.mojom.LockName"
+      },
+      {
+        "cpp": "::WTF::Vector<::network::mojom::blink::SharedStorageModifierMethodWithOptionsPtr>",
+        "mojom": "network.mojom.SharedStorageBatchUpdateMethodsArgument",
+        "move_only": true
+      }
+    ]
+  }
+]

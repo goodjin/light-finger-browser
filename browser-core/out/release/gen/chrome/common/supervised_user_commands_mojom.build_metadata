@@ -1,0 +1,8 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../src/chrome/common/supervised_user_commands.mojom"
+  ]
+}

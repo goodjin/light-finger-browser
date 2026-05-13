@@ -1,0 +1,8 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../../src/gpu/ipc/common/surface_handle.mojom"
+  ]
+}

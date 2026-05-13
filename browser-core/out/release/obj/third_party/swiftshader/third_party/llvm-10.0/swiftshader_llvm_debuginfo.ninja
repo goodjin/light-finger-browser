@@ -1,0 +1,141 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS
+framework_dirs =
+include_dirs = -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/include -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64 -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/ARM -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/Mips -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/RISCV -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86 -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/include -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/IR -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/AArch64 -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/ARM -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/Mips -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/PowerPC -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/RISCV -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/X86 -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Transforms/InstCombine -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/darwin/include -I../../src -Igen -I../../src/buildtools/third_party/libc++
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wno-shadow -Os -Wno-attributes -Wno-bitwise-instead-of-logical -Wno-deprecated-declarations -Wno-enum-compare -Wno-header-hygiene -Wno-unused-function -Wno-unused-local-typedef -Wno-unused-private-field -Wno-unused-result -Wno-unused-variable
+cflags_cc = -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness
+label_name = swiftshader_llvm_debuginfo
+root_out_dir = .
+target_out_dir = obj/third_party/swiftshader/third_party/llvm-10.0
+target_output_name = swiftshader_llvm_debuginfo
+
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/CVTypeVisitor.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/CVTypeVisitor.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = CVTypeVisitor.cpp
+  source_name_part = CVTypeVisitor
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/CodeViewError.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/CodeViewError.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = CodeViewError.cpp
+  source_name_part = CodeViewError
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/CodeViewRecordIO.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/CodeViewRecordIO.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = CodeViewRecordIO.cpp
+  source_name_part = CodeViewRecordIO
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/ContinuationRecordBuilder.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/ContinuationRecordBuilder.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = ContinuationRecordBuilder.cpp
+  source_name_part = ContinuationRecordBuilder
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/EnumTables.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/EnumTables.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = EnumTables.cpp
+  source_name_part = EnumTables
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/GlobalTypeTableBuilder.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/GlobalTypeTableBuilder.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = GlobalTypeTableBuilder.cpp
+  source_name_part = GlobalTypeTableBuilder
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/Line.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/Line.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = Line.cpp
+  source_name_part = Line
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/RecordName.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/RecordName.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = RecordName.cpp
+  source_name_part = RecordName
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/RecordSerialization.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/RecordSerialization.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = RecordSerialization.cpp
+  source_name_part = RecordSerialization
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/SimpleTypeSerializer.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/SimpleTypeSerializer.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = SimpleTypeSerializer.cpp
+  source_name_part = SimpleTypeSerializer
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/SymbolRecordMapping.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/SymbolRecordMapping.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = SymbolRecordMapping.cpp
+  source_name_part = SymbolRecordMapping
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/TypeHashing.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/TypeHashing.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = TypeHashing.cpp
+  source_name_part = TypeHashing
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/TypeIndex.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/TypeIndex.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = TypeIndex.cpp
+  source_name_part = TypeIndex
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/TypeIndexDiscovery.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/TypeIndexDiscovery.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = TypeIndexDiscovery.cpp
+  source_name_part = TypeIndexDiscovery
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/TypeRecordMapping.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/TypeRecordMapping.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = TypeRecordMapping.cpp
+  source_name_part = TypeRecordMapping
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/TypeTableCollection.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/CodeView/TypeTableCollection.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = TypeTableCollection.cpp
+  source_name_part = TypeTableCollection
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFAbbreviationDeclaration.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFAbbreviationDeclaration.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFAbbreviationDeclaration.cpp
+  source_name_part = DWARFAbbreviationDeclaration
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFAcceleratorTable.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFAcceleratorTable.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFAcceleratorTable.cpp
+  source_name_part = DWARFAcceleratorTable
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFAddressRange.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFAddressRange.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFAddressRange.cpp
+  source_name_part = DWARFAddressRange
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFCompileUnit.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFCompileUnit.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFCompileUnit.cpp
+  source_name_part = DWARFCompileUnit
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFContext.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFContext.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFContext.cpp
+  source_name_part = DWARFContext
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDataExtractor.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDataExtractor.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFDataExtractor.cpp
+  source_name_part = DWARFDataExtractor
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugAbbrev.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDebugAbbrev.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFDebugAbbrev.cpp
+  source_name_part = DWARFDebugAbbrev
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugAddr.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDebugAddr.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFDebugAddr.cpp
+  source_name_part = DWARFDebugAddr
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugArangeSet.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDebugArangeSet.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFDebugArangeSet.cpp
+  source_name_part = DWARFDebugArangeSet
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugAranges.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDebugAranges.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFDebugAranges.cpp
+  source_name_part = DWARFDebugAranges
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugFrame.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDebugFrame.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFDebugFrame.cpp
+  source_name_part = DWARFDebugFrame
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugInfoEntry.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDebugInfoEntry.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFDebugInfoEntry.cpp
+  source_name_part = DWARFDebugInfoEntry
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugLine.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDebugLine.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFDebugLine.cpp
+  source_name_part = DWARFDebugLine
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugLoc.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDebugLoc.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFDebugLoc.cpp
+  source_name_part = DWARFDebugLoc
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugMacro.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDebugMacro.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFDebugMacro.cpp
+  source_name_part = DWARFDebugMacro
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugPubTable.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDebugPubTable.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFDebugPubTable.cpp
+  source_name_part = DWARFDebugPubTable
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugRangeList.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDebugRangeList.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFDebugRangeList.cpp
+  source_name_part = DWARFDebugRangeList
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugRnglists.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDebugRnglists.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFDebugRnglists.cpp
+  source_name_part = DWARFDebugRnglists
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDie.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFDie.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFDie.cpp
+  source_name_part = DWARFDie
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFExpression.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFExpression.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFExpression.cpp
+  source_name_part = DWARFExpression
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFFormValue.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFFormValue.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFFormValue.cpp
+  source_name_part = DWARFFormValue
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFGdbIndex.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFGdbIndex.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFGdbIndex.cpp
+  source_name_part = DWARFGdbIndex
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFListTable.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFListTable.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFListTable.cpp
+  source_name_part = DWARFListTable
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFTypeUnit.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFTypeUnit.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFTypeUnit.cpp
+  source_name_part = DWARFTypeUnit
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFUnit.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFUnit.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFUnit.cpp
+  source_name_part = DWARFUnit
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFUnitIndex.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFUnitIndex.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFUnitIndex.cpp
+  source_name_part = DWARFUnitIndex
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFVerifier.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/DebugInfo/DWARF/DWARFVerifier.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = DWARFVerifier.cpp
+  source_name_part = DWARFVerifier
+
+build phony/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo: phony obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/CVTypeVisitor.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/CodeViewError.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/CodeViewRecordIO.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/ContinuationRecordBuilder.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/EnumTables.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/GlobalTypeTableBuilder.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/Line.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/RecordName.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/RecordSerialization.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/SimpleTypeSerializer.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/SymbolRecordMapping.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/TypeHashing.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/TypeIndex.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/TypeIndexDiscovery.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/TypeRecordMapping.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/TypeTableCollection.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFAbbreviationDeclaration.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFAcceleratorTable.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFAddressRange.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFCompileUnit.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFContext.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDataExtractor.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugAbbrev.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugAddr.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugArangeSet.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugAranges.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugFrame.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugInfoEntry.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugLine.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugLoc.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugMacro.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugPubTable.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugRangeList.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDebugRnglists.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFDie.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFExpression.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFFormValue.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFGdbIndex.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFListTable.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFTypeUnit.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFUnit.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFUnitIndex.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_debuginfo/DWARFVerifier.o

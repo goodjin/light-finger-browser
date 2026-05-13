@@ -1,0 +1,19 @@
+crate_name = adler2
+crate_type = rlib
+output_extension = .rlib
+output_dir = local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib
+rustflags = --cfg=backtrace_in_libstd -Zforce-unstable-if-unmarked --cap-lints=allow --cfg=feature=\"compiler_builtins\" --cfg=feature=\"core\" --cfg=feature=\"rustc-dep-of-std\" --edition=2021 -Csplit-debuginfo=unpacked -Cdefault-linker-libraries -Zdep-info-omit-d-target -Zmacro-backtrace -Zremap-cwd-prefix=. -Zexternal-clangrt --color=always --target=aarch64-apple-darwin -Cembed-bitcode=no -Clto=no -Ccodegen-units=1 -Cpanic=abort -Zpanic_abort_tests --cfg cr_rustc_revision=\"f7b43542838f0a4a6cfdb17fbeadf45002042a77-1-llvmorg-21-init-5118-g52cd27e6\" -Copt-level=3 -Zdwarf-version=4 -g -Zdefault-visibility=hidden -Dunsafe_op_in_unsafe_fn --sysroot=local_rustc_sysroot
+rustenv = OUT_DIR=../../../../../../../../../../../out/release/gen/build/rust/std/rules/adler2 CFG_DISABLE_UNSTABLE_FEATURES=0 STD_ENV_ARCH=aarch64 CARGO_PKG_AUTHORS=Jonas\$ Schievink\$ \<jonasschievink@gmail.com\>,\$ oyvindln\$ \<oyvindln@users.noreply.github.com\> CARGO_PKG_VERSION=2.0.0 CARGO_PKG_NAME=adler2 CARGO_PKG_DESCRIPTION=A\$ simple\$ clean-room\$ implementation\$ of\$ the\$ Adler-32\$ checksum CARGO_MANIFEST_DIR=../../src/build/rust/std/rules/adler2/crate
+label_name = adler2
+root_out_dir = .
+target_out_dir = obj/build/rust/std/rules
+target_output_name = adler2_adler2
+
+build phony/build/rust/std/rules/adler2.inputdeps: phony phony/build/rust/std/empty_sysroot_for_std_build phony/build/rust/std/rules/compiler_builtins_compiler_builtins_vunknown_build_script_output
+build local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libadler2_adler2.rlib: rust_rlib ../../src/third_party/rust-toolchain/lib/rustlib/src/rust/library/vendor/adler2-2.0.0/src/lib.rs | ../../src/third_party/rust-toolchain/lib/rustlib/src/rust/library/vendor/adler2-2.0.0/src/algo.rs ../../src/third_party/rust-toolchain/lib/rustlib/src/rust/library/vendor/adler2-2.0.0/src/lib.rs local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libcompiler_builtins_compiler_builtins.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/librustc_std_workspace_core_rustc_std_workspace_core.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libcore_core.rlib local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libprofiler_builtins_profiler_builtins.rlib || phony/build/rust/std/rules/adler2.inputdeps ../../src/build/config/warning_suppression.txt phony/build/rust/std/profiler_builtins_group phony/build/rust/std/std_build_deps
+  source_file_part = lib.rs
+  source_name_part = lib
+  externs = --extern compiler_builtins=local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/libcompiler_builtins_compiler_builtins.rlib --extern core=local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib/librustc_std_workspace_core_rustc_std_workspace_core.rlib
+  rustdeps = -Ldependency=local_rustc_sysroot/lib/rustlib/aarch64-apple-darwin/lib -Clink-arg=../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a
+  ldflags =
+  sources = ../../src/third_party/rust-toolchain/lib/rustlib/src/rust/library/vendor/adler2-2.0.0/src/algo.rs ../../src/third_party/rust-toolchain/lib/rustlib/src/rust/library/vendor/adler2-2.0.0/src/lib.rs

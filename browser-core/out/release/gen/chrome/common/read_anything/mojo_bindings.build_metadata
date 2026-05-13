@@ -1,0 +1,11 @@
+{
+  "deps": [
+    "../../../mojo/public/mojom/base/base.build_metadata",
+    "../../../ui/accessibility/ax_features_mojo.build_metadata",
+    "../../../ui/accessibility/mojom/mojom.build_metadata",
+    "../../../url/mojom/url_mojom_gurl.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../src/chrome/common/read_anything/read_anything.mojom"
+  ]
+}

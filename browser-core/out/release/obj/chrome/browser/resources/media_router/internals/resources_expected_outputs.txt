@@ -1,0 +1,4 @@
+gen/chrome/grit/media_router_internals_resources.h
+gen/chrome/grit/media_router_internals_resources_map.cc
+gen/chrome/grit/media_router_internals_resources_map.h
+gen/chrome/media_router_internals_resources.pak

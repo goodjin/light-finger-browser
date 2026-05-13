@@ -1,0 +1,9 @@
+{
+  "deps": [
+    "../../../mojo/public/mojom/base/base.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../src/ui/gl/mojom/gl_implementation.mojom",
+    "../../../../../../src/ui/gl/mojom/gpu_preference.mojom"
+  ]
+}

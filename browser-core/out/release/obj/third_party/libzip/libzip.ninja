@@ -1,0 +1,352 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/libzip/src -I../../src/third_party/zlib
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wno-implicit-function-declaration
+cflags_c = -std=c11
+label_name = libzip
+root_out_dir = .
+target_out_dir = obj/third_party/libzip
+target_output_name = libzip
+
+build phony/third_party/libzip/libzip.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/libzip/libzip/zip_add.o: cc ../../src/third_party/libzip/src/lib/zip_add.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_add.c
+  source_name_part = zip_add
+build obj/third_party/libzip/libzip/zip_add_dir.o: cc ../../src/third_party/libzip/src/lib/zip_add_dir.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_add_dir.c
+  source_name_part = zip_add_dir
+build obj/third_party/libzip/libzip/zip_add_entry.o: cc ../../src/third_party/libzip/src/lib/zip_add_entry.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_add_entry.c
+  source_name_part = zip_add_entry
+build obj/third_party/libzip/libzip/zip_algorithm_deflate.o: cc ../../src/third_party/libzip/src/lib/zip_algorithm_deflate.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_algorithm_deflate.c
+  source_name_part = zip_algorithm_deflate
+build obj/third_party/libzip/libzip/zip_buffer.o: cc ../../src/third_party/libzip/src/lib/zip_buffer.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_buffer.c
+  source_name_part = zip_buffer
+build obj/third_party/libzip/libzip/zip_close.o: cc ../../src/third_party/libzip/src/lib/zip_close.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_close.c
+  source_name_part = zip_close
+build obj/third_party/libzip/libzip/zip_delete.o: cc ../../src/third_party/libzip/src/lib/zip_delete.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_delete.c
+  source_name_part = zip_delete
+build obj/third_party/libzip/libzip/zip_dir_add.o: cc ../../src/third_party/libzip/src/lib/zip_dir_add.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_dir_add.c
+  source_name_part = zip_dir_add
+build obj/third_party/libzip/libzip/zip_dirent.o: cc ../../src/third_party/libzip/src/lib/zip_dirent.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_dirent.c
+  source_name_part = zip_dirent
+build obj/third_party/libzip/libzip/zip_discard.o: cc ../../src/third_party/libzip/src/lib/zip_discard.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_discard.c
+  source_name_part = zip_discard
+build obj/third_party/libzip/libzip/zip_entry.o: cc ../../src/third_party/libzip/src/lib/zip_entry.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_entry.c
+  source_name_part = zip_entry
+build obj/third_party/libzip/libzip/zip_error.o: cc ../../src/third_party/libzip/src/lib/zip_error.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_error.c
+  source_name_part = zip_error
+build obj/third_party/libzip/libzip/zip_error_clear.o: cc ../../src/third_party/libzip/src/lib/zip_error_clear.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_error_clear.c
+  source_name_part = zip_error_clear
+build obj/third_party/libzip/libzip/zip_error_get.o: cc ../../src/third_party/libzip/src/lib/zip_error_get.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_error_get.c
+  source_name_part = zip_error_get
+build obj/third_party/libzip/libzip/zip_error_get_sys_type.o: cc ../../src/third_party/libzip/src/lib/zip_error_get_sys_type.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_error_get_sys_type.c
+  source_name_part = zip_error_get_sys_type
+build obj/third_party/libzip/libzip/zip_error_strerror.o: cc ../../src/third_party/libzip/src/lib/zip_error_strerror.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_error_strerror.c
+  source_name_part = zip_error_strerror
+build obj/third_party/libzip/libzip/zip_error_to_str.o: cc ../../src/third_party/libzip/src/lib/zip_error_to_str.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_error_to_str.c
+  source_name_part = zip_error_to_str
+build obj/third_party/libzip/libzip/zip_extra_field.o: cc ../../src/third_party/libzip/src/lib/zip_extra_field.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_extra_field.c
+  source_name_part = zip_extra_field
+build obj/third_party/libzip/libzip/zip_extra_field_api.o: cc ../../src/third_party/libzip/src/lib/zip_extra_field_api.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_extra_field_api.c
+  source_name_part = zip_extra_field_api
+build obj/third_party/libzip/libzip/zip_fclose.o: cc ../../src/third_party/libzip/src/lib/zip_fclose.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_fclose.c
+  source_name_part = zip_fclose
+build obj/third_party/libzip/libzip/zip_fdopen.o: cc ../../src/third_party/libzip/src/lib/zip_fdopen.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_fdopen.c
+  source_name_part = zip_fdopen
+build obj/third_party/libzip/libzip/zip_file_add.o: cc ../../src/third_party/libzip/src/lib/zip_file_add.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_file_add.c
+  source_name_part = zip_file_add
+build obj/third_party/libzip/libzip/zip_file_error_clear.o: cc ../../src/third_party/libzip/src/lib/zip_file_error_clear.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_file_error_clear.c
+  source_name_part = zip_file_error_clear
+build obj/third_party/libzip/libzip/zip_file_error_get.o: cc ../../src/third_party/libzip/src/lib/zip_file_error_get.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_file_error_get.c
+  source_name_part = zip_file_error_get
+build obj/third_party/libzip/libzip/zip_file_get_comment.o: cc ../../src/third_party/libzip/src/lib/zip_file_get_comment.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_file_get_comment.c
+  source_name_part = zip_file_get_comment
+build obj/third_party/libzip/libzip/zip_file_get_external_attributes.o: cc ../../src/third_party/libzip/src/lib/zip_file_get_external_attributes.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_file_get_external_attributes.c
+  source_name_part = zip_file_get_external_attributes
+build obj/third_party/libzip/libzip/zip_file_get_offset.o: cc ../../src/third_party/libzip/src/lib/zip_file_get_offset.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_file_get_offset.c
+  source_name_part = zip_file_get_offset
+build obj/third_party/libzip/libzip/zip_file_rename.o: cc ../../src/third_party/libzip/src/lib/zip_file_rename.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_file_rename.c
+  source_name_part = zip_file_rename
+build obj/third_party/libzip/libzip/zip_file_replace.o: cc ../../src/third_party/libzip/src/lib/zip_file_replace.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_file_replace.c
+  source_name_part = zip_file_replace
+build obj/third_party/libzip/libzip/zip_file_set_comment.o: cc ../../src/third_party/libzip/src/lib/zip_file_set_comment.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_file_set_comment.c
+  source_name_part = zip_file_set_comment
+build obj/third_party/libzip/libzip/zip_file_set_encryption.o: cc ../../src/third_party/libzip/src/lib/zip_file_set_encryption.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_file_set_encryption.c
+  source_name_part = zip_file_set_encryption
+build obj/third_party/libzip/libzip/zip_file_set_external_attributes.o: cc ../../src/third_party/libzip/src/lib/zip_file_set_external_attributes.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_file_set_external_attributes.c
+  source_name_part = zip_file_set_external_attributes
+build obj/third_party/libzip/libzip/zip_file_set_mtime.o: cc ../../src/third_party/libzip/src/lib/zip_file_set_mtime.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_file_set_mtime.c
+  source_name_part = zip_file_set_mtime
+build obj/third_party/libzip/libzip/zip_file_strerror.o: cc ../../src/third_party/libzip/src/lib/zip_file_strerror.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_file_strerror.c
+  source_name_part = zip_file_strerror
+build obj/third_party/libzip/libzip/zip_fopen.o: cc ../../src/third_party/libzip/src/lib/zip_fopen.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_fopen.c
+  source_name_part = zip_fopen
+build obj/third_party/libzip/libzip/zip_fopen_encrypted.o: cc ../../src/third_party/libzip/src/lib/zip_fopen_encrypted.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_fopen_encrypted.c
+  source_name_part = zip_fopen_encrypted
+build obj/third_party/libzip/libzip/zip_fopen_index.o: cc ../../src/third_party/libzip/src/lib/zip_fopen_index.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_fopen_index.c
+  source_name_part = zip_fopen_index
+build obj/third_party/libzip/libzip/zip_fopen_index_encrypted.o: cc ../../src/third_party/libzip/src/lib/zip_fopen_index_encrypted.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_fopen_index_encrypted.c
+  source_name_part = zip_fopen_index_encrypted
+build obj/third_party/libzip/libzip/zip_fread.o: cc ../../src/third_party/libzip/src/lib/zip_fread.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_fread.c
+  source_name_part = zip_fread
+build obj/third_party/libzip/libzip/zip_fseek.o: cc ../../src/third_party/libzip/src/lib/zip_fseek.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_fseek.c
+  source_name_part = zip_fseek
+build obj/third_party/libzip/libzip/zip_ftell.o: cc ../../src/third_party/libzip/src/lib/zip_ftell.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_ftell.c
+  source_name_part = zip_ftell
+build obj/third_party/libzip/libzip/zip_get_archive_comment.o: cc ../../src/third_party/libzip/src/lib/zip_get_archive_comment.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_get_archive_comment.c
+  source_name_part = zip_get_archive_comment
+build obj/third_party/libzip/libzip/zip_get_archive_flag.o: cc ../../src/third_party/libzip/src/lib/zip_get_archive_flag.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_get_archive_flag.c
+  source_name_part = zip_get_archive_flag
+build obj/third_party/libzip/libzip/zip_get_encryption_implementation.o: cc ../../src/third_party/libzip/src/lib/zip_get_encryption_implementation.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_get_encryption_implementation.c
+  source_name_part = zip_get_encryption_implementation
+build obj/third_party/libzip/libzip/zip_get_file_comment.o: cc ../../src/third_party/libzip/src/lib/zip_get_file_comment.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_get_file_comment.c
+  source_name_part = zip_get_file_comment
+build obj/third_party/libzip/libzip/zip_get_name.o: cc ../../src/third_party/libzip/src/lib/zip_get_name.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_get_name.c
+  source_name_part = zip_get_name
+build obj/third_party/libzip/libzip/zip_get_num_entries.o: cc ../../src/third_party/libzip/src/lib/zip_get_num_entries.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_get_num_entries.c
+  source_name_part = zip_get_num_entries
+build obj/third_party/libzip/libzip/zip_get_num_files.o: cc ../../src/third_party/libzip/src/lib/zip_get_num_files.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_get_num_files.c
+  source_name_part = zip_get_num_files
+build obj/third_party/libzip/libzip/zip_hash.o: cc ../../src/third_party/libzip/src/lib/zip_hash.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_hash.c
+  source_name_part = zip_hash
+build obj/third_party/libzip/libzip/zip_io_util.o: cc ../../src/third_party/libzip/src/lib/zip_io_util.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_io_util.c
+  source_name_part = zip_io_util
+build obj/third_party/libzip/libzip/zip_libzip_version.o: cc ../../src/third_party/libzip/src/lib/zip_libzip_version.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_libzip_version.c
+  source_name_part = zip_libzip_version
+build obj/third_party/libzip/libzip/zip_memdup.o: cc ../../src/third_party/libzip/src/lib/zip_memdup.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_memdup.c
+  source_name_part = zip_memdup
+build obj/third_party/libzip/libzip/zip_mkstempm.o: cc ../../src/third_party/libzip/src/lib/zip_mkstempm.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_mkstempm.c
+  source_name_part = zip_mkstempm
+build obj/third_party/libzip/libzip/zip_name_locate.o: cc ../../src/third_party/libzip/src/lib/zip_name_locate.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_name_locate.c
+  source_name_part = zip_name_locate
+build obj/third_party/libzip/libzip/zip_new.o: cc ../../src/third_party/libzip/src/lib/zip_new.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_new.c
+  source_name_part = zip_new
+build obj/third_party/libzip/libzip/zip_open.o: cc ../../src/third_party/libzip/src/lib/zip_open.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_open.c
+  source_name_part = zip_open
+build obj/third_party/libzip/libzip/zip_pkware.o: cc ../../src/third_party/libzip/src/lib/zip_pkware.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_pkware.c
+  source_name_part = zip_pkware
+build obj/third_party/libzip/libzip/zip_progress.o: cc ../../src/third_party/libzip/src/lib/zip_progress.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_progress.c
+  source_name_part = zip_progress
+build obj/third_party/libzip/libzip/zip_random_unix.o: cc ../../src/third_party/libzip/src/lib/zip_random_unix.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_random_unix.c
+  source_name_part = zip_random_unix
+build obj/third_party/libzip/libzip/zip_rename.o: cc ../../src/third_party/libzip/src/lib/zip_rename.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_rename.c
+  source_name_part = zip_rename
+build obj/third_party/libzip/libzip/zip_replace.o: cc ../../src/third_party/libzip/src/lib/zip_replace.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_replace.c
+  source_name_part = zip_replace
+build obj/third_party/libzip/libzip/zip_set_archive_comment.o: cc ../../src/third_party/libzip/src/lib/zip_set_archive_comment.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_set_archive_comment.c
+  source_name_part = zip_set_archive_comment
+build obj/third_party/libzip/libzip/zip_set_archive_flag.o: cc ../../src/third_party/libzip/src/lib/zip_set_archive_flag.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_set_archive_flag.c
+  source_name_part = zip_set_archive_flag
+build obj/third_party/libzip/libzip/zip_set_default_password.o: cc ../../src/third_party/libzip/src/lib/zip_set_default_password.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_set_default_password.c
+  source_name_part = zip_set_default_password
+build obj/third_party/libzip/libzip/zip_set_file_comment.o: cc ../../src/third_party/libzip/src/lib/zip_set_file_comment.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_set_file_comment.c
+  source_name_part = zip_set_file_comment
+build obj/third_party/libzip/libzip/zip_set_file_compression.o: cc ../../src/third_party/libzip/src/lib/zip_set_file_compression.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_set_file_compression.c
+  source_name_part = zip_set_file_compression
+build obj/third_party/libzip/libzip/zip_set_name.o: cc ../../src/third_party/libzip/src/lib/zip_set_name.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_set_name.c
+  source_name_part = zip_set_name
+build obj/third_party/libzip/libzip/zip_source_accept_empty.o: cc ../../src/third_party/libzip/src/lib/zip_source_accept_empty.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_accept_empty.c
+  source_name_part = zip_source_accept_empty
+build obj/third_party/libzip/libzip/zip_source_begin_write.o: cc ../../src/third_party/libzip/src/lib/zip_source_begin_write.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_begin_write.c
+  source_name_part = zip_source_begin_write
+build obj/third_party/libzip/libzip/zip_source_begin_write_cloning.o: cc ../../src/third_party/libzip/src/lib/zip_source_begin_write_cloning.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_begin_write_cloning.c
+  source_name_part = zip_source_begin_write_cloning
+build obj/third_party/libzip/libzip/zip_source_buffer.o: cc ../../src/third_party/libzip/src/lib/zip_source_buffer.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_buffer.c
+  source_name_part = zip_source_buffer
+build obj/third_party/libzip/libzip/zip_source_call.o: cc ../../src/third_party/libzip/src/lib/zip_source_call.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_call.c
+  source_name_part = zip_source_call
+build obj/third_party/libzip/libzip/zip_source_close.o: cc ../../src/third_party/libzip/src/lib/zip_source_close.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_close.c
+  source_name_part = zip_source_close
+build obj/third_party/libzip/libzip/zip_source_commit_write.o: cc ../../src/third_party/libzip/src/lib/zip_source_commit_write.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_commit_write.c
+  source_name_part = zip_source_commit_write
+build obj/third_party/libzip/libzip/zip_source_compress.o: cc ../../src/third_party/libzip/src/lib/zip_source_compress.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_compress.c
+  source_name_part = zip_source_compress
+build obj/third_party/libzip/libzip/zip_source_crc.o: cc ../../src/third_party/libzip/src/lib/zip_source_crc.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_crc.c
+  source_name_part = zip_source_crc
+build obj/third_party/libzip/libzip/zip_source_error.o: cc ../../src/third_party/libzip/src/lib/zip_source_error.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_error.c
+  source_name_part = zip_source_error
+build obj/third_party/libzip/libzip/zip_source_file_common.o: cc ../../src/third_party/libzip/src/lib/zip_source_file_common.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_file_common.c
+  source_name_part = zip_source_file_common
+build obj/third_party/libzip/libzip/zip_source_file_stdio.o: cc ../../src/third_party/libzip/src/lib/zip_source_file_stdio.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_file_stdio.c
+  source_name_part = zip_source_file_stdio
+build obj/third_party/libzip/libzip/zip_source_file_stdio_named.o: cc ../../src/third_party/libzip/src/lib/zip_source_file_stdio_named.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_file_stdio_named.c
+  source_name_part = zip_source_file_stdio_named
+build obj/third_party/libzip/libzip/zip_source_free.o: cc ../../src/third_party/libzip/src/lib/zip_source_free.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_free.c
+  source_name_part = zip_source_free
+build obj/third_party/libzip/libzip/zip_source_function.o: cc ../../src/third_party/libzip/src/lib/zip_source_function.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_function.c
+  source_name_part = zip_source_function
+build obj/third_party/libzip/libzip/zip_source_get_file_attributes.o: cc ../../src/third_party/libzip/src/lib/zip_source_get_file_attributes.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_get_file_attributes.c
+  source_name_part = zip_source_get_file_attributes
+build obj/third_party/libzip/libzip/zip_source_is_deleted.o: cc ../../src/third_party/libzip/src/lib/zip_source_is_deleted.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_is_deleted.c
+  source_name_part = zip_source_is_deleted
+build obj/third_party/libzip/libzip/zip_source_layered.o: cc ../../src/third_party/libzip/src/lib/zip_source_layered.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_layered.c
+  source_name_part = zip_source_layered
+build obj/third_party/libzip/libzip/zip_source_open.o: cc ../../src/third_party/libzip/src/lib/zip_source_open.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_open.c
+  source_name_part = zip_source_open
+build obj/third_party/libzip/libzip/zip_source_pkware_decode.o: cc ../../src/third_party/libzip/src/lib/zip_source_pkware_decode.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_pkware_decode.c
+  source_name_part = zip_source_pkware_decode
+build obj/third_party/libzip/libzip/zip_source_pkware_encode.o: cc ../../src/third_party/libzip/src/lib/zip_source_pkware_encode.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_pkware_encode.c
+  source_name_part = zip_source_pkware_encode
+build obj/third_party/libzip/libzip/zip_source_read.o: cc ../../src/third_party/libzip/src/lib/zip_source_read.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_read.c
+  source_name_part = zip_source_read
+build obj/third_party/libzip/libzip/zip_source_remove.o: cc ../../src/third_party/libzip/src/lib/zip_source_remove.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_remove.c
+  source_name_part = zip_source_remove
+build obj/third_party/libzip/libzip/zip_source_rollback_write.o: cc ../../src/third_party/libzip/src/lib/zip_source_rollback_write.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_rollback_write.c
+  source_name_part = zip_source_rollback_write
+build obj/third_party/libzip/libzip/zip_source_seek.o: cc ../../src/third_party/libzip/src/lib/zip_source_seek.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_seek.c
+  source_name_part = zip_source_seek
+build obj/third_party/libzip/libzip/zip_source_seek_write.o: cc ../../src/third_party/libzip/src/lib/zip_source_seek_write.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_seek_write.c
+  source_name_part = zip_source_seek_write
+build obj/third_party/libzip/libzip/zip_source_stat.o: cc ../../src/third_party/libzip/src/lib/zip_source_stat.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_stat.c
+  source_name_part = zip_source_stat
+build obj/third_party/libzip/libzip/zip_source_supports.o: cc ../../src/third_party/libzip/src/lib/zip_source_supports.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_supports.c
+  source_name_part = zip_source_supports
+build obj/third_party/libzip/libzip/zip_source_tell.o: cc ../../src/third_party/libzip/src/lib/zip_source_tell.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_tell.c
+  source_name_part = zip_source_tell
+build obj/third_party/libzip/libzip/zip_source_tell_write.o: cc ../../src/third_party/libzip/src/lib/zip_source_tell_write.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_tell_write.c
+  source_name_part = zip_source_tell_write
+build obj/third_party/libzip/libzip/zip_source_window.o: cc ../../src/third_party/libzip/src/lib/zip_source_window.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_window.c
+  source_name_part = zip_source_window
+build obj/third_party/libzip/libzip/zip_source_write.o: cc ../../src/third_party/libzip/src/lib/zip_source_write.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_write.c
+  source_name_part = zip_source_write
+build obj/third_party/libzip/libzip/zip_source_zip.o: cc ../../src/third_party/libzip/src/lib/zip_source_zip.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_zip.c
+  source_name_part = zip_source_zip
+build obj/third_party/libzip/libzip/zip_source_zip_new.o: cc ../../src/third_party/libzip/src/lib/zip_source_zip_new.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_source_zip_new.c
+  source_name_part = zip_source_zip_new
+build obj/third_party/libzip/libzip/zip_stat.o: cc ../../src/third_party/libzip/src/lib/zip_stat.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_stat.c
+  source_name_part = zip_stat
+build obj/third_party/libzip/libzip/zip_stat_index.o: cc ../../src/third_party/libzip/src/lib/zip_stat_index.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_stat_index.c
+  source_name_part = zip_stat_index
+build obj/third_party/libzip/libzip/zip_stat_init.o: cc ../../src/third_party/libzip/src/lib/zip_stat_init.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_stat_init.c
+  source_name_part = zip_stat_init
+build obj/third_party/libzip/libzip/zip_strerror.o: cc ../../src/third_party/libzip/src/lib/zip_strerror.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_strerror.c
+  source_name_part = zip_strerror
+build obj/third_party/libzip/libzip/zip_string.o: cc ../../src/third_party/libzip/src/lib/zip_string.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_string.c
+  source_name_part = zip_string
+build obj/third_party/libzip/libzip/zip_unchange.o: cc ../../src/third_party/libzip/src/lib/zip_unchange.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_unchange.c
+  source_name_part = zip_unchange
+build obj/third_party/libzip/libzip/zip_unchange_all.o: cc ../../src/third_party/libzip/src/lib/zip_unchange_all.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_unchange_all.c
+  source_name_part = zip_unchange_all
+build obj/third_party/libzip/libzip/zip_unchange_archive.o: cc ../../src/third_party/libzip/src/lib/zip_unchange_archive.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_unchange_archive.c
+  source_name_part = zip_unchange_archive
+build obj/third_party/libzip/libzip/zip_unchange_data.o: cc ../../src/third_party/libzip/src/lib/zip_unchange_data.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_unchange_data.c
+  source_name_part = zip_unchange_data
+build obj/third_party/libzip/libzip/zip_utf-8.o: cc ../../src/third_party/libzip/src/lib/zip_utf-8.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_utf-8.c
+  source_name_part = zip_utf-8
+build obj/third_party/libzip/libzip/zip_err_str.o: cc ../../src/third_party/libzip/src/zip_err_str.c | phony/third_party/libzip/libzip.inputs
+  source_file_part = zip_err_str.c
+  source_name_part = zip_err_str
+
+build obj/third_party/libzip/libzip.a: alink obj/third_party/libzip/libzip/zip_add.o obj/third_party/libzip/libzip/zip_add_dir.o obj/third_party/libzip/libzip/zip_add_entry.o obj/third_party/libzip/libzip/zip_algorithm_deflate.o obj/third_party/libzip/libzip/zip_buffer.o obj/third_party/libzip/libzip/zip_close.o obj/third_party/libzip/libzip/zip_delete.o obj/third_party/libzip/libzip/zip_dir_add.o obj/third_party/libzip/libzip/zip_dirent.o obj/third_party/libzip/libzip/zip_discard.o obj/third_party/libzip/libzip/zip_entry.o obj/third_party/libzip/libzip/zip_error.o obj/third_party/libzip/libzip/zip_error_clear.o obj/third_party/libzip/libzip/zip_error_get.o obj/third_party/libzip/libzip/zip_error_get_sys_type.o obj/third_party/libzip/libzip/zip_error_strerror.o obj/third_party/libzip/libzip/zip_error_to_str.o obj/third_party/libzip/libzip/zip_extra_field.o obj/third_party/libzip/libzip/zip_extra_field_api.o obj/third_party/libzip/libzip/zip_fclose.o obj/third_party/libzip/libzip/zip_fdopen.o obj/third_party/libzip/libzip/zip_file_add.o obj/third_party/libzip/libzip/zip_file_error_clear.o obj/third_party/libzip/libzip/zip_file_error_get.o obj/third_party/libzip/libzip/zip_file_get_comment.o obj/third_party/libzip/libzip/zip_file_get_external_attributes.o obj/third_party/libzip/libzip/zip_file_get_offset.o obj/third_party/libzip/libzip/zip_file_rename.o obj/third_party/libzip/libzip/zip_file_replace.o obj/third_party/libzip/libzip/zip_file_set_comment.o obj/third_party/libzip/libzip/zip_file_set_encryption.o obj/third_party/libzip/libzip/zip_file_set_external_attributes.o obj/third_party/libzip/libzip/zip_file_set_mtime.o obj/third_party/libzip/libzip/zip_file_strerror.o obj/third_party/libzip/libzip/zip_fopen.o obj/third_party/libzip/libzip/zip_fopen_encrypted.o obj/third_party/libzip/libzip/zip_fopen_index.o obj/third_party/libzip/libzip/zip_fopen_index_encrypted.o obj/third_party/libzip/libzip/zip_fread.o obj/third_party/libzip/libzip/zip_fseek.o obj/third_party/libzip/libzip/zip_ftell.o obj/third_party/libzip/libzip/zip_get_archive_comment.o obj/third_party/libzip/libzip/zip_get_archive_flag.o obj/third_party/libzip/libzip/zip_get_encryption_implementation.o obj/third_party/libzip/libzip/zip_get_file_comment.o obj/third_party/libzip/libzip/zip_get_name.o obj/third_party/libzip/libzip/zip_get_num_entries.o obj/third_party/libzip/libzip/zip_get_num_files.o obj/third_party/libzip/libzip/zip_hash.o obj/third_party/libzip/libzip/zip_io_util.o obj/third_party/libzip/libzip/zip_libzip_version.o obj/third_party/libzip/libzip/zip_memdup.o obj/third_party/libzip/libzip/zip_mkstempm.o obj/third_party/libzip/libzip/zip_name_locate.o obj/third_party/libzip/libzip/zip_new.o obj/third_party/libzip/libzip/zip_open.o obj/third_party/libzip/libzip/zip_pkware.o obj/third_party/libzip/libzip/zip_progress.o obj/third_party/libzip/libzip/zip_random_unix.o obj/third_party/libzip/libzip/zip_rename.o obj/third_party/libzip/libzip/zip_replace.o obj/third_party/libzip/libzip/zip_set_archive_comment.o obj/third_party/libzip/libzip/zip_set_archive_flag.o obj/third_party/libzip/libzip/zip_set_default_password.o obj/third_party/libzip/libzip/zip_set_file_comment.o obj/third_party/libzip/libzip/zip_set_file_compression.o obj/third_party/libzip/libzip/zip_set_name.o obj/third_party/libzip/libzip/zip_source_accept_empty.o obj/third_party/libzip/libzip/zip_source_begin_write.o obj/third_party/libzip/libzip/zip_source_begin_write_cloning.o obj/third_party/libzip/libzip/zip_source_buffer.o obj/third_party/libzip/libzip/zip_source_call.o obj/third_party/libzip/libzip/zip_source_close.o obj/third_party/libzip/libzip/zip_source_commit_write.o obj/third_party/libzip/libzip/zip_source_compress.o obj/third_party/libzip/libzip/zip_source_crc.o obj/third_party/libzip/libzip/zip_source_error.o obj/third_party/libzip/libzip/zip_source_file_common.o obj/third_party/libzip/libzip/zip_source_file_stdio.o obj/third_party/libzip/libzip/zip_source_file_stdio_named.o obj/third_party/libzip/libzip/zip_source_free.o obj/third_party/libzip/libzip/zip_source_function.o obj/third_party/libzip/libzip/zip_source_get_file_attributes.o obj/third_party/libzip/libzip/zip_source_is_deleted.o obj/third_party/libzip/libzip/zip_source_layered.o obj/third_party/libzip/libzip/zip_source_open.o obj/third_party/libzip/libzip/zip_source_pkware_decode.o obj/third_party/libzip/libzip/zip_source_pkware_encode.o obj/third_party/libzip/libzip/zip_source_read.o obj/third_party/libzip/libzip/zip_source_remove.o obj/third_party/libzip/libzip/zip_source_rollback_write.o obj/third_party/libzip/libzip/zip_source_seek.o obj/third_party/libzip/libzip/zip_source_seek_write.o obj/third_party/libzip/libzip/zip_source_stat.o obj/third_party/libzip/libzip/zip_source_supports.o obj/third_party/libzip/libzip/zip_source_tell.o obj/third_party/libzip/libzip/zip_source_tell_write.o obj/third_party/libzip/libzip/zip_source_window.o obj/third_party/libzip/libzip/zip_source_write.o obj/third_party/libzip/libzip/zip_source_zip.o obj/third_party/libzip/libzip/zip_source_zip_new.o obj/third_party/libzip/libzip/zip_stat.o obj/third_party/libzip/libzip/zip_stat_index.o obj/third_party/libzip/libzip/zip_stat_init.o obj/third_party/libzip/libzip/zip_strerror.o obj/third_party/libzip/libzip/zip_string.o obj/third_party/libzip/libzip/zip_unchange.o obj/third_party/libzip/libzip/zip_unchange_all.o obj/third_party/libzip/libzip/zip_unchange_archive.o obj/third_party/libzip/libzip/zip_unchange_data.o obj/third_party/libzip/libzip/zip_utf-8.o obj/third_party/libzip/libzip/zip_err_str.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a phony/third_party/libzip/libzip.inputs || obj/third_party/zlib/libchrome_zlib.a phony/third_party/zlib/zlib_adler32_simd phony/third_party/zlib/zlib_inflate_chunk_simd phony/third_party/zlib/zlib_arm_crc32
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/third_party/libzip

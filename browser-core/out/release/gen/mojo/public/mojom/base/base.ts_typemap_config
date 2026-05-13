@@ -1,0 +1,22 @@
+[
+  {
+    "source": "time_converters.ts",
+    "types": [
+      {
+        "converter": "JsTimeConverter",
+        "mojom": "mojo_base.mojom.JSTime",
+        "ts": "Date"
+      }
+    ]
+  },
+  {
+    "source": "jserror_converter.ts",
+    "types": [
+      {
+        "converter": "JsErrorConverter",
+        "mojom": "mojo_base.mojom.JsError",
+        "ts": "Object"
+      }
+    ]
+  }
+]

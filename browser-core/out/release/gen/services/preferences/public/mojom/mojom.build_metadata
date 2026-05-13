@@ -1,0 +1,9 @@
+{
+  "deps": [
+    "../../../../mojo/public/mojom/base/base.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../src/services/preferences/public/mojom/preferences.mojom",
+    "../../../../../../../src/services/preferences/public/mojom/tracked_preference_validation_delegate.mojom"
+  ]
+}

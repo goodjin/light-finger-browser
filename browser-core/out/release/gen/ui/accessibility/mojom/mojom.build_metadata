@@ -1,0 +1,25 @@
+{
+  "deps": [
+    "../../../mojo/public/mojom/base/base.build_metadata",
+    "../ax_constants_mojo.build_metadata",
+    "../ax_enums_mojo.build_metadata",
+    "../../gfx/geometry/mojom/mojom.build_metadata",
+    "../../gfx/mojom/mojom.build_metadata",
+    "../../gfx/range/mojom/mojom.build_metadata",
+    "../../../url/mojom/url_mojom_gurl.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../src/ui/accessibility/mojom/ax_action_data.mojom",
+    "../../../../../../src/ui/accessibility/mojom/ax_event.mojom",
+    "../../../../../../src/ui/accessibility/mojom/ax_event_intent.mojom",
+    "../../../../../../src/ui/accessibility/mojom/ax_location_and_scroll_updates.mojom",
+    "../../../../../../src/ui/accessibility/mojom/ax_mode.mojom",
+    "../../../../../../src/ui/accessibility/mojom/ax_node_data.mojom",
+    "../../../../../../src/ui/accessibility/mojom/ax_relative_bounds.mojom",
+    "../../../../../../src/ui/accessibility/mojom/ax_tree_checks.mojom",
+    "../../../../../../src/ui/accessibility/mojom/ax_tree_data.mojom",
+    "../../../../../../src/ui/accessibility/mojom/ax_tree_id.mojom",
+    "../../../../../../src/ui/accessibility/mojom/ax_tree_update.mojom",
+    "../../../../../../src/ui/accessibility/mojom/ax_updates_and_events.mojom"
+  ]
+}

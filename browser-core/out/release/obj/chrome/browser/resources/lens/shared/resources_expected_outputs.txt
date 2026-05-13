@@ -1,0 +1,4 @@
+gen/chrome/grit/lens_shared_resources.h
+gen/chrome/grit/lens_shared_resources_map.cc
+gen/chrome/grit/lens_shared_resources_map.h
+gen/chrome/lens_shared_resources.pak

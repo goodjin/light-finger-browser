@@ -1,0 +1,251 @@
+defines = -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=2 -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DPERFETTO_IMPLEMENTATION
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/protobuf/src -I../../src/third_party/perfetto -I../../src/third_party/perfetto/src/profiling/memory/include -I../../src/third_party/perfetto/include -Igen/third_party/perfetto/build_config -Igen/third_party/perfetto
+cflags = -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wthread-safety -Wgnu -Wno-gnu-anonymous-struct -Wno-gnu-conditional-omitted-operand -Wno-gnu-include-next -Wno-gnu-label-as-value -Wno-gnu-redeclared-enum -Wno-gnu-statement-expression -Wno-gnu-zero-variadic-macro-arguments -Wno-zero-length-array -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wshadow -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt
+cflags_cc = -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden
+label_name = cpp
+root_out_dir = .
+target_out_dir = obj/third_party/perfetto/protos/perfetto/trace/ftrace
+target_output_name = libcpp
+
+build phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/ftrace_event.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/ftrace_event_bundle.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/ftrace_stats.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/test_bundle_wrapper.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/generic.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/android_fs.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/bcl_exynos.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/binder.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/block.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/cgroup.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/clk.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/cma.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/compaction.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/cpm_trace.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/cpuhp.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/cros_ec.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/dcvsh.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/devfreq.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/dma_fence.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/dmabuf_heap.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/dpu.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/drm.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/ext4.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/f2fs.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/fastrpc.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/fence.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/filemap.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/fs.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/ftrace.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/g2d.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/google_icc_trace.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/google_irm_trace.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/gpu_mem.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/gpu_scheduler.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/hyp.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/i2c.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/ion.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/ipi.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/irq.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/kgsl.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/kmem.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/kvm.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/lowmemorykiller.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/lwis.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/mali.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/mdss.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/mm_event.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/net.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/oom.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/panel.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/perf_trace_counters.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/pixel_mm.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/power.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/printk.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/raw_syscalls.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/regulator.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/rpm.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/samsung.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/sched.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/scm.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/sde.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/signal.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/skb.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/sock.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/sync.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/synthetic.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/systrace.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/task.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/tcp.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/thermal.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/thermal_exynos.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/trusty.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/ufs.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/v4l2.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/virtio_gpu.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/virtio_video.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/vmscan.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/workqueue.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/ftrace_event.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/ftrace_event_bundle.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/ftrace_stats.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/test_bundle_wrapper.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/generic.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/android_fs.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/bcl_exynos.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/binder.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/block.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/cgroup.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/clk.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/cma.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/compaction.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/cpm_trace.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/cpuhp.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/cros_ec.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/dcvsh.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/devfreq.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/dma_fence.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/dmabuf_heap.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/dpu.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/drm.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/ext4.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/f2fs.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/fastrpc.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/fence.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/filemap.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/fs.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/ftrace.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/g2d.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/google_icc_trace.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/google_irm_trace.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/gpu_mem.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/gpu_scheduler.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/hyp.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/i2c.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/ion.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/ipi.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/irq.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/kgsl.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/kmem.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/kvm.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/lowmemorykiller.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/lwis.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/mali.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/mdss.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/mm_event.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/net.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/oom.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/panel.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/perf_trace_counters.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/pixel_mm.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/power.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/printk.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/raw_syscalls.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/regulator.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/rpm.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/samsung.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/sched.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/scm.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/sde.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/signal.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/skb.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/sock.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/sync.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/synthetic.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/systrace.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/task.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/tcp.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/thermal.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/thermal_exynos.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/trusty.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/ufs.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/v4l2.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/virtio_gpu.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/virtio_video.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/vmscan.proto ../../src/third_party/perfetto/protos/perfetto/trace/ftrace/workqueue.proto
+build phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps: phony phony/third_party/perfetto/gn/gen_buildflags phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp_gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/ftrace_event.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/ftrace_event.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = ftrace_event.gen.cc
+  source_name_part = ftrace_event.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/ftrace_event_bundle.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/ftrace_event_bundle.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = ftrace_event_bundle.gen.cc
+  source_name_part = ftrace_event_bundle.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/ftrace_stats.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/ftrace_stats.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = ftrace_stats.gen.cc
+  source_name_part = ftrace_stats.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/test_bundle_wrapper.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/test_bundle_wrapper.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = test_bundle_wrapper.gen.cc
+  source_name_part = test_bundle_wrapper.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/generic.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/generic.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = generic.gen.cc
+  source_name_part = generic.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/android_fs.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/android_fs.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = android_fs.gen.cc
+  source_name_part = android_fs.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/bcl_exynos.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/bcl_exynos.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = bcl_exynos.gen.cc
+  source_name_part = bcl_exynos.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/binder.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/binder.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = binder.gen.cc
+  source_name_part = binder.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/block.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/block.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = block.gen.cc
+  source_name_part = block.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/cgroup.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/cgroup.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = cgroup.gen.cc
+  source_name_part = cgroup.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/clk.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/clk.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = clk.gen.cc
+  source_name_part = clk.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/cma.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/cma.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = cma.gen.cc
+  source_name_part = cma.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/compaction.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/compaction.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = compaction.gen.cc
+  source_name_part = compaction.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/cpm_trace.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/cpm_trace.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = cpm_trace.gen.cc
+  source_name_part = cpm_trace.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/cpuhp.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/cpuhp.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = cpuhp.gen.cc
+  source_name_part = cpuhp.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/cros_ec.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/cros_ec.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = cros_ec.gen.cc
+  source_name_part = cros_ec.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/dcvsh.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/dcvsh.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = dcvsh.gen.cc
+  source_name_part = dcvsh.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/devfreq.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/devfreq.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = devfreq.gen.cc
+  source_name_part = devfreq.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/dma_fence.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/dma_fence.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = dma_fence.gen.cc
+  source_name_part = dma_fence.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/dmabuf_heap.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/dmabuf_heap.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = dmabuf_heap.gen.cc
+  source_name_part = dmabuf_heap.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/dpu.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/dpu.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = dpu.gen.cc
+  source_name_part = dpu.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/drm.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/drm.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = drm.gen.cc
+  source_name_part = drm.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/ext4.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/ext4.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = ext4.gen.cc
+  source_name_part = ext4.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/f2fs.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/f2fs.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = f2fs.gen.cc
+  source_name_part = f2fs.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/fastrpc.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/fastrpc.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = fastrpc.gen.cc
+  source_name_part = fastrpc.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/fence.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/fence.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = fence.gen.cc
+  source_name_part = fence.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/filemap.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/filemap.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = filemap.gen.cc
+  source_name_part = filemap.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/fs.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/fs.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = fs.gen.cc
+  source_name_part = fs.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/ftrace.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/ftrace.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = ftrace.gen.cc
+  source_name_part = ftrace.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/g2d.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/g2d.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = g2d.gen.cc
+  source_name_part = g2d.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/google_icc_trace.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/google_icc_trace.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = google_icc_trace.gen.cc
+  source_name_part = google_icc_trace.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/google_irm_trace.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/google_irm_trace.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = google_irm_trace.gen.cc
+  source_name_part = google_irm_trace.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/gpu_mem.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/gpu_mem.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = gpu_mem.gen.cc
+  source_name_part = gpu_mem.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/gpu_scheduler.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/gpu_scheduler.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = gpu_scheduler.gen.cc
+  source_name_part = gpu_scheduler.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/hyp.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/hyp.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = hyp.gen.cc
+  source_name_part = hyp.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/i2c.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/i2c.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = i2c.gen.cc
+  source_name_part = i2c.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/ion.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/ion.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = ion.gen.cc
+  source_name_part = ion.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/ipi.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/ipi.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = ipi.gen.cc
+  source_name_part = ipi.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/irq.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/irq.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = irq.gen.cc
+  source_name_part = irq.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/kgsl.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/kgsl.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = kgsl.gen.cc
+  source_name_part = kgsl.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/kmem.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/kmem.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = kmem.gen.cc
+  source_name_part = kmem.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/kvm.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/kvm.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = kvm.gen.cc
+  source_name_part = kvm.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/lowmemorykiller.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/lowmemorykiller.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = lowmemorykiller.gen.cc
+  source_name_part = lowmemorykiller.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/lwis.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/lwis.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = lwis.gen.cc
+  source_name_part = lwis.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/mali.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/mali.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = mali.gen.cc
+  source_name_part = mali.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/mdss.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/mdss.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = mdss.gen.cc
+  source_name_part = mdss.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/mm_event.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/mm_event.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = mm_event.gen.cc
+  source_name_part = mm_event.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/net.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/net.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = net.gen.cc
+  source_name_part = net.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/oom.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/oom.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = oom.gen.cc
+  source_name_part = oom.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/panel.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/panel.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = panel.gen.cc
+  source_name_part = panel.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/perf_trace_counters.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/perf_trace_counters.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = perf_trace_counters.gen.cc
+  source_name_part = perf_trace_counters.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/pixel_mm.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/pixel_mm.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = pixel_mm.gen.cc
+  source_name_part = pixel_mm.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/power.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/power.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = power.gen.cc
+  source_name_part = power.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/printk.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/printk.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = printk.gen.cc
+  source_name_part = printk.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/raw_syscalls.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/raw_syscalls.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = raw_syscalls.gen.cc
+  source_name_part = raw_syscalls.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/regulator.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/regulator.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = regulator.gen.cc
+  source_name_part = regulator.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/rpm.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/rpm.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = rpm.gen.cc
+  source_name_part = rpm.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/samsung.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/samsung.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = samsung.gen.cc
+  source_name_part = samsung.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/sched.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/sched.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = sched.gen.cc
+  source_name_part = sched.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/scm.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/scm.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = scm.gen.cc
+  source_name_part = scm.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/sde.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/sde.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = sde.gen.cc
+  source_name_part = sde.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/signal.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/signal.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = signal.gen.cc
+  source_name_part = signal.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/skb.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/skb.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = skb.gen.cc
+  source_name_part = skb.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/sock.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/sock.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = sock.gen.cc
+  source_name_part = sock.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/sync.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/sync.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = sync.gen.cc
+  source_name_part = sync.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/synthetic.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/synthetic.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = synthetic.gen.cc
+  source_name_part = synthetic.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/systrace.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/systrace.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = systrace.gen.cc
+  source_name_part = systrace.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/task.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/task.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = task.gen.cc
+  source_name_part = task.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/tcp.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/tcp.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = tcp.gen.cc
+  source_name_part = tcp.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/thermal.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/thermal.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = thermal.gen.cc
+  source_name_part = thermal.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/thermal_exynos.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/thermal_exynos.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = thermal_exynos.gen.cc
+  source_name_part = thermal_exynos.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/trusty.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/trusty.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = trusty.gen.cc
+  source_name_part = trusty.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/ufs.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/ufs.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = ufs.gen.cc
+  source_name_part = ufs.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/v4l2.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/v4l2.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = v4l2.gen.cc
+  source_name_part = v4l2.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/virtio_gpu.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/virtio_gpu.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = virtio_gpu.gen.cc
+  source_name_part = virtio_gpu.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/virtio_video.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/virtio_video.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = virtio_video.gen.cc
+  source_name_part = virtio_video.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/vmscan.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/vmscan.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = vmscan.gen.cc
+  source_name_part = vmscan.gen
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/workqueue.gen.o: cxx gen/third_party/perfetto/protos/perfetto/trace/ftrace/workqueue.gen.cc | phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputdeps
+  source_file_part = workqueue.gen.cc
+  source_name_part = workqueue.gen
+
+build obj/third_party/perfetto/protos/perfetto/trace/ftrace/libcpp.a: alink obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/ftrace_event.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/ftrace_event_bundle.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/ftrace_stats.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/test_bundle_wrapper.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/generic.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/android_fs.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/bcl_exynos.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/binder.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/block.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/cgroup.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/clk.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/cma.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/compaction.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/cpm_trace.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/cpuhp.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/cros_ec.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/dcvsh.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/devfreq.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/dma_fence.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/dmabuf_heap.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/dpu.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/drm.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/ext4.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/f2fs.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/fastrpc.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/fence.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/filemap.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/fs.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/ftrace.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/g2d.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/google_icc_trace.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/google_irm_trace.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/gpu_mem.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/gpu_scheduler.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/hyp.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/i2c.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/ion.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/ipi.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/irq.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/kgsl.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/kmem.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/kvm.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/lowmemorykiller.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/lwis.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/mali.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/mdss.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/mm_event.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/net.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/oom.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/panel.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/perf_trace_counters.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/pixel_mm.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/power.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/printk.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/raw_syscalls.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/regulator.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/rpm.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/samsung.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/sched.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/scm.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/sde.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/signal.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/skb.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/sock.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/sync.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/synthetic.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/systrace.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/task.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/tcp.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/thermal.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/thermal_exynos.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/trusty.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/ufs.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/v4l2.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/virtio_gpu.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/virtio_video.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/vmscan.gen.o obj/third_party/perfetto/protos/perfetto/trace/ftrace/cpp/workqueue.gen.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp.inputs || phony/third_party/perfetto/protos/perfetto/trace/ftrace/cpp_gen phony/third_party/perfetto/gn/default_deps phony/third_party/perfetto/src/protozero/protozero phony/third_party/perfetto/src/base/base phony/third_party/perfetto/src/base/perfetto_base_default_platform
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/third_party/perfetto/protos/perfetto/trace/ftrace

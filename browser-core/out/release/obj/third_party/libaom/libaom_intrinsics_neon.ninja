@@ -1,0 +1,145 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/libaom/source/config -I../../src/third_party/libaom/source/libaom -I../../src/third_party/libaom/source/config/linux/arm64-cpu-detect
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall
+cflags_c = -std=c11
+label_name = libaom_intrinsics_neon
+root_out_dir = .
+target_out_dir = obj/third_party/libaom
+target_output_name = libaom_intrinsics_neon
+
+build phony/third_party/libaom/libaom_intrinsics_neon.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/libaom/libaom_intrinsics_neon/av1_convolve_horiz_rs_neon.o: cc ../../src/third_party/libaom/source/libaom/av1/common/arm/av1_convolve_horiz_rs_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = av1_convolve_horiz_rs_neon.c
+  source_name_part = av1_convolve_horiz_rs_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/av1_convolve_scale_neon.o: cc ../../src/third_party/libaom/source/libaom/av1/common/arm/av1_convolve_scale_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = av1_convolve_scale_neon.c
+  source_name_part = av1_convolve_scale_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/av1_inv_txfm_neon.o: cc ../../src/third_party/libaom/source/libaom/av1/common/arm/av1_inv_txfm_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = av1_inv_txfm_neon.c
+  source_name_part = av1_inv_txfm_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/av1_txfm_neon.o: cc ../../src/third_party/libaom/source/libaom/av1/common/arm/av1_txfm_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = av1_txfm_neon.c
+  source_name_part = av1_txfm_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/blend_a64_hmask_neon.o: cc ../../src/third_party/libaom/source/libaom/av1/common/arm/blend_a64_hmask_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = blend_a64_hmask_neon.c
+  source_name_part = blend_a64_hmask_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/blend_a64_vmask_neon.o: cc ../../src/third_party/libaom/source/libaom/av1/common/arm/blend_a64_vmask_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = blend_a64_vmask_neon.c
+  source_name_part = blend_a64_vmask_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/cdef_block_neon.o: cc ../../src/third_party/libaom/source/libaom/av1/common/arm/cdef_block_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = cdef_block_neon.c
+  source_name_part = cdef_block_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/compound_convolve_neon.o: cc ../../src/third_party/libaom/source/libaom/av1/common/arm/compound_convolve_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = compound_convolve_neon.c
+  source_name_part = compound_convolve_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/convolve_neon.o: cc ../../src/third_party/libaom/source/libaom/av1/common/arm/convolve_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = convolve_neon.c
+  source_name_part = convolve_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/highbd_inv_txfm_neon.o: cc ../../src/third_party/libaom/source/libaom/av1/common/arm/highbd_inv_txfm_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = highbd_inv_txfm_neon.c
+  source_name_part = highbd_inv_txfm_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/reconinter_neon.o: cc ../../src/third_party/libaom/source/libaom/av1/common/arm/reconinter_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = reconinter_neon.c
+  source_name_part = reconinter_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/reconintra_neon.o: cc ../../src/third_party/libaom/source/libaom/av1/common/arm/reconintra_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = reconintra_neon.c
+  source_name_part = reconintra_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/resize_neon.o: cc ../../src/third_party/libaom/source/libaom/av1/common/arm/resize_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = resize_neon.c
+  source_name_part = resize_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/aom_convolve_copy_neon.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/arm/aom_convolve_copy_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = aom_convolve_copy_neon.c
+  source_name_part = aom_convolve_copy_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/aom_convolve8_neon.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/arm/aom_convolve8_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = aom_convolve8_neon.c
+  source_name_part = aom_convolve8_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/aom_scaled_convolve8_neon.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/arm/aom_scaled_convolve8_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = aom_scaled_convolve8_neon.c
+  source_name_part = aom_scaled_convolve8_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/loopfilter_neon.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/arm/loopfilter_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = loopfilter_neon.c
+  source_name_part = loopfilter_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/intrapred_neon.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/arm/intrapred_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = intrapred_neon.c
+  source_name_part = intrapred_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/blend_a64_mask_neon.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/arm/blend_a64_mask_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = blend_a64_mask_neon.c
+  source_name_part = blend_a64_mask_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/av1_error_neon.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/arm/av1_error_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = av1_error_neon.c
+  source_name_part = av1_error_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/av1_fwd_txfm2d_neon.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/arm/av1_fwd_txfm2d_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = av1_fwd_txfm2d_neon.c
+  source_name_part = av1_fwd_txfm2d_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/av1_k_means_neon.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/arm/av1_k_means_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = av1_k_means_neon.c
+  source_name_part = av1_k_means_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/encodetxb_neon.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/arm/encodetxb_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = encodetxb_neon.c
+  source_name_part = encodetxb_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/highbd_fwd_txfm_neon.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/arm/highbd_fwd_txfm_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = highbd_fwd_txfm_neon.c
+  source_name_part = highbd_fwd_txfm_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/hybrid_fwd_txfm_neon.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/arm/hybrid_fwd_txfm_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = hybrid_fwd_txfm_neon.c
+  source_name_part = hybrid_fwd_txfm_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/quantize_neon.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/arm/quantize_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = quantize_neon.c
+  source_name_part = quantize_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/rdopt_neon.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/arm/rdopt_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = rdopt_neon.c
+  source_name_part = rdopt_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/reconinter_enc_neon.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/arm/reconinter_enc_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = reconinter_enc_neon.c
+  source_name_part = reconinter_enc_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/wedge_utils_neon.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/arm/wedge_utils_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = wedge_utils_neon.c
+  source_name_part = wedge_utils_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/ml_neon.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/arm/ml_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = ml_neon.c
+  source_name_part = ml_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/av1_temporal_denoiser_neon.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/arm/av1_temporal_denoiser_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = av1_temporal_denoiser_neon.c
+  source_name_part = av1_temporal_denoiser_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/avg_pred_neon.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/arm/avg_pred_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = avg_pred_neon.c
+  source_name_part = avg_pred_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/fwd_txfm_neon.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/arm/fwd_txfm_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = fwd_txfm_neon.c
+  source_name_part = fwd_txfm_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/sadxd_neon.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/arm/sadxd_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = sadxd_neon.c
+  source_name_part = sadxd_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/sad_neon.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/arm/sad_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = sad_neon.c
+  source_name_part = sad_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/masked_sad_neon.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/arm/masked_sad_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = masked_sad_neon.c
+  source_name_part = masked_sad_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/subpel_variance_neon.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/arm/subpel_variance_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = subpel_variance_neon.c
+  source_name_part = subpel_variance_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/variance_neon.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/arm/variance_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = variance_neon.c
+  source_name_part = variance_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/hadamard_neon.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/arm/hadamard_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = hadamard_neon.c
+  source_name_part = hadamard_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/avg_neon.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/arm/avg_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = avg_neon.c
+  source_name_part = avg_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/sse_neon.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/arm/sse_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = sse_neon.c
+  source_name_part = sse_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/subtract_neon.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/arm/subtract_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = subtract_neon.c
+  source_name_part = subtract_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/sum_squares_neon.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/arm/sum_squares_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = sum_squares_neon.c
+  source_name_part = sum_squares_neon
+build obj/third_party/libaom/libaom_intrinsics_neon/blk_sse_sum_neon.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/arm/blk_sse_sum_neon.c | phony/third_party/libaom/libaom_intrinsics_neon.inputs
+  source_file_part = blk_sse_sum_neon.c
+  source_name_part = blk_sse_sum_neon
+
+build phony/third_party/libaom/libaom_intrinsics_neon: phony obj/third_party/libaom/libaom_intrinsics_neon/av1_convolve_horiz_rs_neon.o obj/third_party/libaom/libaom_intrinsics_neon/av1_convolve_scale_neon.o obj/third_party/libaom/libaom_intrinsics_neon/av1_inv_txfm_neon.o obj/third_party/libaom/libaom_intrinsics_neon/av1_txfm_neon.o obj/third_party/libaom/libaom_intrinsics_neon/blend_a64_hmask_neon.o obj/third_party/libaom/libaom_intrinsics_neon/blend_a64_vmask_neon.o obj/third_party/libaom/libaom_intrinsics_neon/cdef_block_neon.o obj/third_party/libaom/libaom_intrinsics_neon/compound_convolve_neon.o obj/third_party/libaom/libaom_intrinsics_neon/convolve_neon.o obj/third_party/libaom/libaom_intrinsics_neon/highbd_inv_txfm_neon.o obj/third_party/libaom/libaom_intrinsics_neon/reconinter_neon.o obj/third_party/libaom/libaom_intrinsics_neon/reconintra_neon.o obj/third_party/libaom/libaom_intrinsics_neon/resize_neon.o obj/third_party/libaom/libaom_intrinsics_neon/aom_convolve_copy_neon.o obj/third_party/libaom/libaom_intrinsics_neon/aom_convolve8_neon.o obj/third_party/libaom/libaom_intrinsics_neon/aom_scaled_convolve8_neon.o obj/third_party/libaom/libaom_intrinsics_neon/loopfilter_neon.o obj/third_party/libaom/libaom_intrinsics_neon/intrapred_neon.o obj/third_party/libaom/libaom_intrinsics_neon/blend_a64_mask_neon.o obj/third_party/libaom/libaom_intrinsics_neon/av1_error_neon.o obj/third_party/libaom/libaom_intrinsics_neon/av1_fwd_txfm2d_neon.o obj/third_party/libaom/libaom_intrinsics_neon/av1_k_means_neon.o obj/third_party/libaom/libaom_intrinsics_neon/encodetxb_neon.o obj/third_party/libaom/libaom_intrinsics_neon/highbd_fwd_txfm_neon.o obj/third_party/libaom/libaom_intrinsics_neon/hybrid_fwd_txfm_neon.o obj/third_party/libaom/libaom_intrinsics_neon/quantize_neon.o obj/third_party/libaom/libaom_intrinsics_neon/rdopt_neon.o obj/third_party/libaom/libaom_intrinsics_neon/reconinter_enc_neon.o obj/third_party/libaom/libaom_intrinsics_neon/wedge_utils_neon.o obj/third_party/libaom/libaom_intrinsics_neon/ml_neon.o obj/third_party/libaom/libaom_intrinsics_neon/av1_temporal_denoiser_neon.o obj/third_party/libaom/libaom_intrinsics_neon/avg_pred_neon.o obj/third_party/libaom/libaom_intrinsics_neon/fwd_txfm_neon.o obj/third_party/libaom/libaom_intrinsics_neon/sadxd_neon.o obj/third_party/libaom/libaom_intrinsics_neon/sad_neon.o obj/third_party/libaom/libaom_intrinsics_neon/masked_sad_neon.o obj/third_party/libaom/libaom_intrinsics_neon/subpel_variance_neon.o obj/third_party/libaom/libaom_intrinsics_neon/variance_neon.o obj/third_party/libaom/libaom_intrinsics_neon/hadamard_neon.o obj/third_party/libaom/libaom_intrinsics_neon/avg_neon.o obj/third_party/libaom/libaom_intrinsics_neon/sse_neon.o obj/third_party/libaom/libaom_intrinsics_neon/subtract_neon.o obj/third_party/libaom/libaom_intrinsics_neon/sum_squares_neon.o obj/third_party/libaom/libaom_intrinsics_neon/blk_sse_sum_neon.o

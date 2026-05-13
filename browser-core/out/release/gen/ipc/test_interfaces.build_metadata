@@ -1,0 +1,8 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../src/ipc/ipc_test.test-mojom"
+  ]
+}

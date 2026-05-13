@@ -1,0 +1,5 @@
+../../src/media/mojo/mojom/speech_recognition_error.mojom
+../../src/media/mojo/mojom/speech_recognition_error_code.mojom
+../../src/media/mojo/mojom/speech_recognition_grammar.mojom
+../../src/media/mojo/mojom/speech_recognition_result.mojom
+../../src/media/mojo/mojom/speech_recognizer.mojom

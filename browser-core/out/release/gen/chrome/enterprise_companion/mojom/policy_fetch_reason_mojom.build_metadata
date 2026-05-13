@@ -1,0 +1,8 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../../src/chrome/enterprise_companion/mojom/policy_fetch_reason.mojom"
+  ]
+}

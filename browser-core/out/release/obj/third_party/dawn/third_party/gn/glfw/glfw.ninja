@@ -1,0 +1,80 @@
+defines = -D_GLFW_COCOA -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/dawn/third_party/glfw/include
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall
+cflags_c = -Wno-sign-compare -Wno-missing-field-initializers -Wno-macro-redefined -std=c11
+cflags_objc = -Wno-sign-compare -Wno-unguarded-availability -Wno-objc-multiple-method-names -std=c11
+label_name = glfw
+root_out_dir = .
+target_out_dir = obj/third_party/dawn/third_party/gn/glfw
+target_output_name = libglfw
+
+build phony/third_party/dawn/third_party/gn/glfw/glfw.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/dawn/third_party/gn/glfw/glfw/context.o: cc ../../src/third_party/dawn/third_party/glfw/src/context.c | phony/third_party/dawn/third_party/gn/glfw/glfw.inputs
+  source_file_part = context.c
+  source_name_part = context
+build obj/third_party/dawn/third_party/gn/glfw/glfw/egl_context.o: cc ../../src/third_party/dawn/third_party/glfw/src/egl_context.c | phony/third_party/dawn/third_party/gn/glfw/glfw.inputs
+  source_file_part = egl_context.c
+  source_name_part = egl_context
+build obj/third_party/dawn/third_party/gn/glfw/glfw/init.o: cc ../../src/third_party/dawn/third_party/glfw/src/init.c | phony/third_party/dawn/third_party/gn/glfw/glfw.inputs
+  source_file_part = init.c
+  source_name_part = init
+build obj/third_party/dawn/third_party/gn/glfw/glfw/input.o: cc ../../src/third_party/dawn/third_party/glfw/src/input.c | phony/third_party/dawn/third_party/gn/glfw/glfw.inputs
+  source_file_part = input.c
+  source_name_part = input
+build obj/third_party/dawn/third_party/gn/glfw/glfw/monitor.o: cc ../../src/third_party/dawn/third_party/glfw/src/monitor.c | phony/third_party/dawn/third_party/gn/glfw/glfw.inputs
+  source_file_part = monitor.c
+  source_name_part = monitor
+build obj/third_party/dawn/third_party/gn/glfw/glfw/null_init.o: cc ../../src/third_party/dawn/third_party/glfw/src/null_init.c | phony/third_party/dawn/third_party/gn/glfw/glfw.inputs
+  source_file_part = null_init.c
+  source_name_part = null_init
+build obj/third_party/dawn/third_party/gn/glfw/glfw/null_joystick.o: cc ../../src/third_party/dawn/third_party/glfw/src/null_joystick.c | phony/third_party/dawn/third_party/gn/glfw/glfw.inputs
+  source_file_part = null_joystick.c
+  source_name_part = null_joystick
+build obj/third_party/dawn/third_party/gn/glfw/glfw/null_monitor.o: cc ../../src/third_party/dawn/third_party/glfw/src/null_monitor.c | phony/third_party/dawn/third_party/gn/glfw/glfw.inputs
+  source_file_part = null_monitor.c
+  source_name_part = null_monitor
+build obj/third_party/dawn/third_party/gn/glfw/glfw/null_window.o: cc ../../src/third_party/dawn/third_party/glfw/src/null_window.c | phony/third_party/dawn/third_party/gn/glfw/glfw.inputs
+  source_file_part = null_window.c
+  source_name_part = null_window
+build obj/third_party/dawn/third_party/gn/glfw/glfw/osmesa_context.o: cc ../../src/third_party/dawn/third_party/glfw/src/osmesa_context.c | phony/third_party/dawn/third_party/gn/glfw/glfw.inputs
+  source_file_part = osmesa_context.c
+  source_name_part = osmesa_context
+build obj/third_party/dawn/third_party/gn/glfw/glfw/platform.o: cc ../../src/third_party/dawn/third_party/glfw/src/platform.c | phony/third_party/dawn/third_party/gn/glfw/glfw.inputs
+  source_file_part = platform.c
+  source_name_part = platform
+build obj/third_party/dawn/third_party/gn/glfw/glfw/vulkan.o: cc ../../src/third_party/dawn/third_party/glfw/src/vulkan.c | phony/third_party/dawn/third_party/gn/glfw/glfw.inputs
+  source_file_part = vulkan.c
+  source_name_part = vulkan
+build obj/third_party/dawn/third_party/gn/glfw/glfw/window.o: cc ../../src/third_party/dawn/third_party/glfw/src/window.c | phony/third_party/dawn/third_party/gn/glfw/glfw.inputs
+  source_file_part = window.c
+  source_name_part = window
+build obj/third_party/dawn/third_party/gn/glfw/glfw/cocoa_time.o: cc ../../src/third_party/dawn/third_party/glfw/src/cocoa_time.c | phony/third_party/dawn/third_party/gn/glfw/glfw.inputs
+  source_file_part = cocoa_time.c
+  source_name_part = cocoa_time
+build obj/third_party/dawn/third_party/gn/glfw/glfw/posix_module.o: cc ../../src/third_party/dawn/third_party/glfw/src/posix_module.c | phony/third_party/dawn/third_party/gn/glfw/glfw.inputs
+  source_file_part = posix_module.c
+  source_name_part = posix_module
+build obj/third_party/dawn/third_party/gn/glfw/glfw/posix_thread.o: cc ../../src/third_party/dawn/third_party/glfw/src/posix_thread.c | phony/third_party/dawn/third_party/gn/glfw/glfw.inputs
+  source_file_part = posix_thread.c
+  source_name_part = posix_thread
+build obj/third_party/dawn/third_party/gn/glfw/glfw/cocoa_init.o: objc ../../src/third_party/dawn/third_party/glfw/src/cocoa_init.m | phony/third_party/dawn/third_party/gn/glfw/glfw.inputs
+  source_file_part = cocoa_init.m
+  source_name_part = cocoa_init
+build obj/third_party/dawn/third_party/gn/glfw/glfw/cocoa_joystick.o: objc ../../src/third_party/dawn/third_party/glfw/src/cocoa_joystick.m | phony/third_party/dawn/third_party/gn/glfw/glfw.inputs
+  source_file_part = cocoa_joystick.m
+  source_name_part = cocoa_joystick
+build obj/third_party/dawn/third_party/gn/glfw/glfw/cocoa_monitor.o: objc ../../src/third_party/dawn/third_party/glfw/src/cocoa_monitor.m | phony/third_party/dawn/third_party/gn/glfw/glfw.inputs
+  source_file_part = cocoa_monitor.m
+  source_name_part = cocoa_monitor
+build obj/third_party/dawn/third_party/gn/glfw/glfw/cocoa_window.o: objc ../../src/third_party/dawn/third_party/glfw/src/cocoa_window.m | phony/third_party/dawn/third_party/gn/glfw/glfw.inputs
+  source_file_part = cocoa_window.m
+  source_name_part = cocoa_window
+build obj/third_party/dawn/third_party/gn/glfw/glfw/nsgl_context.o: objc ../../src/third_party/dawn/third_party/glfw/src/nsgl_context.m | phony/third_party/dawn/third_party/gn/glfw/glfw.inputs
+  source_file_part = nsgl_context.m
+  source_name_part = nsgl_context
+
+build obj/third_party/dawn/third_party/gn/glfw/libglfw.a: alink obj/third_party/dawn/third_party/gn/glfw/glfw/context.o obj/third_party/dawn/third_party/gn/glfw/glfw/egl_context.o obj/third_party/dawn/third_party/gn/glfw/glfw/init.o obj/third_party/dawn/third_party/gn/glfw/glfw/input.o obj/third_party/dawn/third_party/gn/glfw/glfw/monitor.o obj/third_party/dawn/third_party/gn/glfw/glfw/null_init.o obj/third_party/dawn/third_party/gn/glfw/glfw/null_joystick.o obj/third_party/dawn/third_party/gn/glfw/glfw/null_monitor.o obj/third_party/dawn/third_party/gn/glfw/glfw/null_window.o obj/third_party/dawn/third_party/gn/glfw/glfw/osmesa_context.o obj/third_party/dawn/third_party/gn/glfw/glfw/platform.o obj/third_party/dawn/third_party/gn/glfw/glfw/vulkan.o obj/third_party/dawn/third_party/gn/glfw/glfw/window.o obj/third_party/dawn/third_party/gn/glfw/glfw/cocoa_time.o obj/third_party/dawn/third_party/gn/glfw/glfw/posix_module.o obj/third_party/dawn/third_party/gn/glfw/glfw/posix_thread.o obj/third_party/dawn/third_party/gn/glfw/glfw/cocoa_init.o obj/third_party/dawn/third_party/gn/glfw/glfw/cocoa_joystick.o obj/third_party/dawn/third_party/gn/glfw/glfw/cocoa_monitor.o obj/third_party/dawn/third_party/gn/glfw/glfw/cocoa_window.o obj/third_party/dawn/third_party/gn/glfw/glfw/nsgl_context.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a phony/third_party/dawn/third_party/gn/glfw/glfw.inputs ||
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/third_party/dawn/third_party/gn/glfw

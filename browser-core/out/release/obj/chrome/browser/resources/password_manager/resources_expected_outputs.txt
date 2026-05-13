@@ -1,0 +1,4 @@
+gen/chrome/grit/password_manager_resources.h
+gen/chrome/grit/password_manager_resources_map.cc
+gen/chrome/grit/password_manager_resources_map.h
+gen/chrome/password_manager_resources.pak

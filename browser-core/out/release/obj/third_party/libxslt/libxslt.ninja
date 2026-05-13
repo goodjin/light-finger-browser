@@ -1,0 +1,73 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DLIBXSLT_STATIC -DU_USING_ICU_NAMESPACE=0 -DU_ENABLE_DYLOAD=0 -DUSE_CHROMIUM_ICU=1 -DU_ENABLE_TRACING=1 -DU_ENABLE_RESOURCE_TRACING=0 -DU_STATIC_IMPLEMENTATION -DICU_UTIL_DATA_IMPL=ICU_UTIL_DATA_FILE
+framework_dirs =
+include_dirs = -I../../src/third_party/libxslt/mac -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/libxslt/src -I../../src/third_party/libxslt/src/libxslt -I../../src/third_party/libxml/src/include -I../../src/third_party/libxml/mac/include -I../../src/third_party/icu/source/common -I../../src/third_party/icu/source/i18n
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wno-pointer-sign -Wno-unused-function -DLIBXML_STATIC=
+cflags_c = -std=c11
+label_name = libxslt
+root_out_dir = .
+target_out_dir = obj/third_party/libxslt
+target_output_name = libxslt
+
+build phony/third_party/libxslt/libxslt.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/libxslt/libxslt/attributes.o: cc ../../src/third_party/libxslt/src/libxslt/attributes.c | phony/third_party/libxslt/libxslt.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = attributes.c
+  source_name_part = attributes
+build obj/third_party/libxslt/libxslt/attrvt.o: cc ../../src/third_party/libxslt/src/libxslt/attrvt.c | phony/third_party/libxslt/libxslt.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = attrvt.c
+  source_name_part = attrvt
+build obj/third_party/libxslt/libxslt/documents.o: cc ../../src/third_party/libxslt/src/libxslt/documents.c | phony/third_party/libxslt/libxslt.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = documents.c
+  source_name_part = documents
+build obj/third_party/libxslt/libxslt/extensions.o: cc ../../src/third_party/libxslt/src/libxslt/extensions.c | phony/third_party/libxslt/libxslt.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = extensions.c
+  source_name_part = extensions
+build obj/third_party/libxslt/libxslt/extra.o: cc ../../src/third_party/libxslt/src/libxslt/extra.c | phony/third_party/libxslt/libxslt.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = extra.c
+  source_name_part = extra
+build obj/third_party/libxslt/libxslt/functions.o: cc ../../src/third_party/libxslt/src/libxslt/functions.c | phony/third_party/libxslt/libxslt.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = functions.c
+  source_name_part = functions
+build obj/third_party/libxslt/libxslt/imports.o: cc ../../src/third_party/libxslt/src/libxslt/imports.c | phony/third_party/libxslt/libxslt.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = imports.c
+  source_name_part = imports
+build obj/third_party/libxslt/libxslt/keys.o: cc ../../src/third_party/libxslt/src/libxslt/keys.c | phony/third_party/libxslt/libxslt.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = keys.c
+  source_name_part = keys
+build obj/third_party/libxslt/libxslt/namespaces.o: cc ../../src/third_party/libxslt/src/libxslt/namespaces.c | phony/third_party/libxslt/libxslt.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = namespaces.c
+  source_name_part = namespaces
+build obj/third_party/libxslt/libxslt/numbers.o: cc ../../src/third_party/libxslt/src/libxslt/numbers.c | phony/third_party/libxslt/libxslt.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = numbers.c
+  source_name_part = numbers
+build obj/third_party/libxslt/libxslt/pattern.o: cc ../../src/third_party/libxslt/src/libxslt/pattern.c | phony/third_party/libxslt/libxslt.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = pattern.c
+  source_name_part = pattern
+build obj/third_party/libxslt/libxslt/preproc.o: cc ../../src/third_party/libxslt/src/libxslt/preproc.c | phony/third_party/libxslt/libxslt.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = preproc.c
+  source_name_part = preproc
+build obj/third_party/libxslt/libxslt/security.o: cc ../../src/third_party/libxslt/src/libxslt/security.c | phony/third_party/libxslt/libxslt.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = security.c
+  source_name_part = security
+build obj/third_party/libxslt/libxslt/templates.o: cc ../../src/third_party/libxslt/src/libxslt/templates.c | phony/third_party/libxslt/libxslt.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = templates.c
+  source_name_part = templates
+build obj/third_party/libxslt/libxslt/transform.o: cc ../../src/third_party/libxslt/src/libxslt/transform.c | phony/third_party/libxslt/libxslt.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = transform.c
+  source_name_part = transform
+build obj/third_party/libxslt/libxslt/variables.o: cc ../../src/third_party/libxslt/src/libxslt/variables.c | phony/third_party/libxslt/libxslt.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = variables.c
+  source_name_part = variables
+build obj/third_party/libxslt/libxslt/xslt.o: cc ../../src/third_party/libxslt/src/libxslt/xslt.c | phony/third_party/libxslt/libxslt.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = xslt.c
+  source_name_part = xslt
+build obj/third_party/libxslt/libxslt/xsltlocale.o: cc ../../src/third_party/libxslt/src/libxslt/xsltlocale.c | phony/third_party/libxslt/libxslt.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = xsltlocale.c
+  source_name_part = xsltlocale
+build obj/third_party/libxslt/libxslt/xsltutils.o: cc ../../src/third_party/libxslt/src/libxslt/xsltutils.c | phony/third_party/libxslt/libxslt.inputs || phony/third_party/icu/copy_icudata
+  source_file_part = xsltutils.c
+  source_name_part = xsltutils
+
+build obj/third_party/libxslt/libxslt.a: alink obj/third_party/libxslt/libxslt/attributes.o obj/third_party/libxslt/libxslt/attrvt.o obj/third_party/libxslt/libxslt/documents.o obj/third_party/libxslt/libxslt/extensions.o obj/third_party/libxslt/libxslt/extra.o obj/third_party/libxslt/libxslt/functions.o obj/third_party/libxslt/libxslt/imports.o obj/third_party/libxslt/libxslt/keys.o obj/third_party/libxslt/libxslt/namespaces.o obj/third_party/libxslt/libxslt/numbers.o obj/third_party/libxslt/libxslt/pattern.o obj/third_party/libxslt/libxslt/preproc.o obj/third_party/libxslt/libxslt/security.o obj/third_party/libxslt/libxslt/templates.o obj/third_party/libxslt/libxslt/transform.o obj/third_party/libxslt/libxslt/variables.o obj/third_party/libxslt/libxslt/xslt.o obj/third_party/libxslt/libxslt/xsltlocale.o obj/third_party/libxslt/libxslt/xsltutils.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a phony/third_party/libxslt/libxslt.inputs || obj/third_party/libxml/libxml2.a obj/third_party/icu/libicuuc.a obj/third_party/zlib/libchrome_zlib.a phony/third_party/zlib/zlib_adler32_simd phony/third_party/zlib/zlib_inflate_chunk_simd phony/third_party/zlib/zlib_arm_crc32
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/third_party/libxslt

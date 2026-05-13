@@ -1,0 +1,8 @@
+{
+  "deps": [
+    "mojom.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../src/device/bluetooth/public/mojom/emulation/fake_bluetooth.mojom"
+  ]
+}

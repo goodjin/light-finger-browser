@@ -1,0 +1,43 @@
+{
+  "deps": [
+    "../../../../components/digital_goods/mojom/mojom.build_metadata",
+    "../../../../components/payments/mojom/mojom.build_metadata",
+    "../../../../components/schema_org/common/mojom.build_metadata",
+    "../../../../mojo/public/mojom/base/base.build_metadata",
+    "../../../../services/media_session/public/mojom/mojom.build_metadata",
+    "../../../../services/network/public/mojom/mojom.build_metadata",
+    "../../../../services/network/public/mojom/mojom_schemeful_site.build_metadata",
+    "../../../../url/mojom/url_mojom_gurl.build_metadata",
+    "../../../../url/mojom/url_mojom_origin.build_metadata",
+    "../../../../url/mojom/url_mojom_scheme_host_port.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../src/third_party/blink/public/mojom/android_font_lookup/android_font_lookup.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/blob/blob.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/blob/blob_registry.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/blob/blob_url_store.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/blob/data_element.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/blob/file_backed_blob_factory.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/blob/serialized_blob.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/contacts/contacts_manager.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/credentialmanagement/credential_manager.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/credentialmanagement/credential_type_flags.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/digital_goods/digital_goods.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/document_metadata/document_metadata.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/facilitated_payments/payment_link_handler.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/font_unique_name_lookup/font_unique_name_lookup.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/handwriting/handwriting.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/input/input_host.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/input/input_messages.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/installation/installation.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/installedapp/installed_app_provider.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/installedapp/related_application.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/mediasession/media_session.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/payments/payment_handler_host.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/payments/payment_request.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/payments/secure_payment_confirmation_service.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/webauthn/authenticator.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/webshare/share_error.mojom",
+    "../../../../../../../src/third_party/blink/public/mojom/webshare/webshare.mojom"
+  ]
+}

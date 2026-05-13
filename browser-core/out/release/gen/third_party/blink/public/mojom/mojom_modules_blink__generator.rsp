@@ -1,0 +1,5 @@
+../../src/third_party/blink/public/mojom/buckets/bucket_manager_host.mojom
+../../src/third_party/blink/public/mojom/indexeddb/indexeddb.mojom
+../../src/third_party/blink/public/mojom/shared_storage/shared_storage.mojom
+../../src/third_party/blink/public/mojom/shared_storage/shared_storage_worklet_service.mojom
+../../src/third_party/blink/public/mojom/storage_access/storage_access_handle.mojom

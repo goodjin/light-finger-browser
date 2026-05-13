@@ -1,0 +1,13 @@
+[
+  {
+    "source": "data/web_ui_mojo_ts_test_other_converter.ts",
+    "types": [
+      {
+        "converter": "MappedDictConverter",
+        "mojom": "content.mojom.MappedDict",
+        "ts": "MappedDictType",
+        "ts_import": "./web_ui_mojo_ts_test_other_mapped_types.js"
+      }
+    ]
+  }
+]

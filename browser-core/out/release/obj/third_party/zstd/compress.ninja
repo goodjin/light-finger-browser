@@ -1,0 +1,55 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DZSTDLIB_STATIC_API=ZSTDLIB_HIDDEN -DZDICTLIB_STATIC_API=ZDICTLIB_HIDDEN -DZSTDLIB_VISIBLE=ZSTDLIB_HIDDEN -DZSTDERRORLIB_VISIBLE=ZSTDERRORLIB_HIDDEN -DZDICTLIB_VISIBLE=ZDICTLIB_HIDDEN
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -O3 -fno-math-errno
+cflags_c = -std=c11
+label_name = compress
+root_out_dir = .
+target_out_dir = obj/third_party/zstd
+target_output_name = compress
+
+build phony/third_party/zstd/compress.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/zstd/compress/fse_compress.o: cc ../../src/third_party/zstd/src/lib/compress/fse_compress.c | phony/third_party/zstd/compress.inputs
+  source_file_part = fse_compress.c
+  source_name_part = fse_compress
+build obj/third_party/zstd/compress/hist.o: cc ../../src/third_party/zstd/src/lib/compress/hist.c | phony/third_party/zstd/compress.inputs
+  source_file_part = hist.c
+  source_name_part = hist
+build obj/third_party/zstd/compress/huf_compress.o: cc ../../src/third_party/zstd/src/lib/compress/huf_compress.c | phony/third_party/zstd/compress.inputs
+  source_file_part = huf_compress.c
+  source_name_part = huf_compress
+build obj/third_party/zstd/compress/zstd_compress.o: cc ../../src/third_party/zstd/src/lib/compress/zstd_compress.c | phony/third_party/zstd/compress.inputs
+  source_file_part = zstd_compress.c
+  source_name_part = zstd_compress
+build obj/third_party/zstd/compress/zstd_compress_literals.o: cc ../../src/third_party/zstd/src/lib/compress/zstd_compress_literals.c | phony/third_party/zstd/compress.inputs
+  source_file_part = zstd_compress_literals.c
+  source_name_part = zstd_compress_literals
+build obj/third_party/zstd/compress/zstd_compress_sequences.o: cc ../../src/third_party/zstd/src/lib/compress/zstd_compress_sequences.c | phony/third_party/zstd/compress.inputs
+  source_file_part = zstd_compress_sequences.c
+  source_name_part = zstd_compress_sequences
+build obj/third_party/zstd/compress/zstd_compress_superblock.o: cc ../../src/third_party/zstd/src/lib/compress/zstd_compress_superblock.c | phony/third_party/zstd/compress.inputs
+  source_file_part = zstd_compress_superblock.c
+  source_name_part = zstd_compress_superblock
+build obj/third_party/zstd/compress/zstd_double_fast.o: cc ../../src/third_party/zstd/src/lib/compress/zstd_double_fast.c | phony/third_party/zstd/compress.inputs
+  source_file_part = zstd_double_fast.c
+  source_name_part = zstd_double_fast
+build obj/third_party/zstd/compress/zstd_fast.o: cc ../../src/third_party/zstd/src/lib/compress/zstd_fast.c | phony/third_party/zstd/compress.inputs
+  source_file_part = zstd_fast.c
+  source_name_part = zstd_fast
+build obj/third_party/zstd/compress/zstd_lazy.o: cc ../../src/third_party/zstd/src/lib/compress/zstd_lazy.c | phony/third_party/zstd/compress.inputs
+  source_file_part = zstd_lazy.c
+  source_name_part = zstd_lazy
+build obj/third_party/zstd/compress/zstd_ldm.o: cc ../../src/third_party/zstd/src/lib/compress/zstd_ldm.c | phony/third_party/zstd/compress.inputs
+  source_file_part = zstd_ldm.c
+  source_name_part = zstd_ldm
+build obj/third_party/zstd/compress/zstd_opt.o: cc ../../src/third_party/zstd/src/lib/compress/zstd_opt.c | phony/third_party/zstd/compress.inputs
+  source_file_part = zstd_opt.c
+  source_name_part = zstd_opt
+build obj/third_party/zstd/compress/zstd_preSplit.o: cc ../../src/third_party/zstd/src/lib/compress/zstd_preSplit.c | phony/third_party/zstd/compress.inputs
+  source_file_part = zstd_preSplit.c
+  source_name_part = zstd_preSplit
+build obj/third_party/zstd/compress/zstdmt_compress.o: cc ../../src/third_party/zstd/src/lib/compress/zstdmt_compress.c | phony/third_party/zstd/compress.inputs
+  source_file_part = zstdmt_compress.c
+  source_name_part = zstdmt_compress
+
+build phony/third_party/zstd/compress: phony obj/third_party/zstd/compress/fse_compress.o obj/third_party/zstd/compress/hist.o obj/third_party/zstd/compress/huf_compress.o obj/third_party/zstd/compress/zstd_compress.o obj/third_party/zstd/compress/zstd_compress_literals.o obj/third_party/zstd/compress/zstd_compress_sequences.o obj/third_party/zstd/compress/zstd_compress_superblock.o obj/third_party/zstd/compress/zstd_double_fast.o obj/third_party/zstd/compress/zstd_fast.o obj/third_party/zstd/compress/zstd_lazy.o obj/third_party/zstd/compress/zstd_ldm.o obj/third_party/zstd/compress/zstd_opt.o obj/third_party/zstd/compress/zstd_preSplit.o obj/third_party/zstd/compress/zstdmt_compress.o || phony/third_party/zstd/common

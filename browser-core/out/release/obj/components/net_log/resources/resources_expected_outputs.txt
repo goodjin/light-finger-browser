@@ -1,0 +1,4 @@
+gen/components/grit/net_export_resources.h
+gen/components/grit/net_export_resources_map.cc
+gen/components/grit/net_export_resources_map.h
+gen/components/net_export_resources.pak

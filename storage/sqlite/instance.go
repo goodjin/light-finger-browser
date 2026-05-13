@@ -3,6 +3,7 @@ package sqlite
 import (
 	"database/sql"
 	"encoding/json"
+	"log"
 	"time"
 
 	"github.com/tmos/fingerbrower/fingerprint"
@@ -48,6 +49,8 @@ func (s *InstanceStore) Get(id string) (*instance.BrowserInstance, error) {
 }
 
 func (s *InstanceStore) List(filter *instance.InstanceFilter) ([]*instance.BrowserInstance, error) {
+	log.Println("[DB List] START - about to query database")
+	log.Printf("[DB List] DB stats: %+v", s.db.Stats())
 	query := `SELECT id, name, status, fingerprint_json, proxy_id, proxy_url, account_id, cdp_endpoint, pid, port, user_data_dir, group_name, headless, started_at, last_active_at, created_at
 		FROM browser_instances WHERE 1=1`
 	args := []interface{}{}
@@ -56,10 +59,12 @@ func (s *InstanceStore) List(filter *instance.InstanceFilter) ([]*instance.Brows
 		if filter.Status != nil {
 			query += " AND status = ?"
 			args = append(args, *filter.Status)
+			log.Printf("[DB List] Filter by status: %s", *filter.Status)
 		}
 		if filter.Group != "" {
 			query += " AND group_name = ?"
 			args = append(args, filter.Group)
+			log.Printf("[DB List] Filter by group: %s", filter.Group)
 		}
 		if filter.ProxyID != "" {
 			query += " AND proxy_id = ?"
@@ -71,20 +76,29 @@ func (s *InstanceStore) List(filter *instance.InstanceFilter) ([]*instance.Brows
 		}
 	}
 
+	log.Printf("[DB List] Executing query: %s", query)
+	log.Printf("[DB List] Args: %v", args)
+	log.Println("[DB List] About to call s.db.Query...")
+
 	rows, err := s.db.Query(query, args...)
 	if err != nil {
+		log.Printf("[DB List] Query error: %v", err)
 		return nil, err
 	}
+	log.Println("[DB List] Query returned successfully")
 	defer rows.Close()
+	log.Println("[DB List] Query executed, scanning rows...")
 
 	var instances []*instance.BrowserInstance
 	for rows.Next() {
 		inst, err := s.scanInstanceFromRows(rows)
 		if err != nil {
+			log.Printf("[DB List] Scan error: %v", err)
 			return nil, err
 		}
 		instances = append(instances, inst)
 	}
+	log.Printf("[DB List] Done, found %d instances", len(instances))
 	return instances, nil
 }
 

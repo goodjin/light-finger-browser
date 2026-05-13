@@ -1,0 +1,61 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DZLIB_IMPLEMENTATION -DADLER32_SIMD_NEON -DINFLATE_CHUNK_SIMD_NEON -DINFLATE_CHUNK_READ_64LE -DDEFLATE_SLIDE_HASH_NEON -DCRC32_ARMV8_CRC32 -DARMV8_OS_MACOS
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/zlib
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -O3 -fno-math-errno -Wno-incompatible-pointer-types -Wunused-variable
+cflags_c = -std=c11
+label_name = zlib
+root_out_dir = .
+target_out_dir = obj/third_party/zlib
+target_output_name = libchrome_zlib
+
+build phony/third_party/zlib/zlib.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/zlib/zlib/adler32.o: cc ../../src/third_party/zlib/adler32.c | phony/third_party/zlib/zlib.inputs
+  source_file_part = adler32.c
+  source_name_part = adler32
+build obj/third_party/zlib/zlib/compress.o: cc ../../src/third_party/zlib/compress.c | phony/third_party/zlib/zlib.inputs
+  source_file_part = compress.c
+  source_name_part = compress
+build obj/third_party/zlib/zlib/cpu_features.o: cc ../../src/third_party/zlib/cpu_features.c | phony/third_party/zlib/zlib.inputs
+  source_file_part = cpu_features.c
+  source_name_part = cpu_features
+build obj/third_party/zlib/zlib/crc32.o: cc ../../src/third_party/zlib/crc32.c | phony/third_party/zlib/zlib.inputs
+  source_file_part = crc32.c
+  source_name_part = crc32
+build obj/third_party/zlib/zlib/deflate.o: cc ../../src/third_party/zlib/deflate.c | phony/third_party/zlib/zlib.inputs
+  source_file_part = deflate.c
+  source_name_part = deflate
+build obj/third_party/zlib/zlib/gzclose.o: cc ../../src/third_party/zlib/gzclose.c | phony/third_party/zlib/zlib.inputs
+  source_file_part = gzclose.c
+  source_name_part = gzclose
+build obj/third_party/zlib/zlib/gzlib.o: cc ../../src/third_party/zlib/gzlib.c | phony/third_party/zlib/zlib.inputs
+  source_file_part = gzlib.c
+  source_name_part = gzlib
+build obj/third_party/zlib/zlib/gzread.o: cc ../../src/third_party/zlib/gzread.c | phony/third_party/zlib/zlib.inputs
+  source_file_part = gzread.c
+  source_name_part = gzread
+build obj/third_party/zlib/zlib/gzwrite.o: cc ../../src/third_party/zlib/gzwrite.c | phony/third_party/zlib/zlib.inputs
+  source_file_part = gzwrite.c
+  source_name_part = gzwrite
+build obj/third_party/zlib/zlib/infback.o: cc ../../src/third_party/zlib/infback.c | phony/third_party/zlib/zlib.inputs
+  source_file_part = infback.c
+  source_name_part = infback
+build obj/third_party/zlib/zlib/inffast.o: cc ../../src/third_party/zlib/inffast.c | phony/third_party/zlib/zlib.inputs
+  source_file_part = inffast.c
+  source_name_part = inffast
+build obj/third_party/zlib/zlib/inftrees.o: cc ../../src/third_party/zlib/inftrees.c | phony/third_party/zlib/zlib.inputs
+  source_file_part = inftrees.c
+  source_name_part = inftrees
+build obj/third_party/zlib/zlib/trees.o: cc ../../src/third_party/zlib/trees.c | phony/third_party/zlib/zlib.inputs
+  source_file_part = trees.c
+  source_name_part = trees
+build obj/third_party/zlib/zlib/uncompr.o: cc ../../src/third_party/zlib/uncompr.c | phony/third_party/zlib/zlib.inputs
+  source_file_part = uncompr.c
+  source_name_part = uncompr
+build obj/third_party/zlib/zlib/zutil.o: cc ../../src/third_party/zlib/zutil.c | phony/third_party/zlib/zlib.inputs
+  source_file_part = zutil.c
+  source_name_part = zutil
+
+build obj/third_party/zlib/libchrome_zlib.a: alink obj/third_party/zlib/zlib/adler32.o obj/third_party/zlib/zlib/compress.o obj/third_party/zlib/zlib/cpu_features.o obj/third_party/zlib/zlib/crc32.o obj/third_party/zlib/zlib/deflate.o obj/third_party/zlib/zlib/gzclose.o obj/third_party/zlib/zlib/gzlib.o obj/third_party/zlib/zlib/gzread.o obj/third_party/zlib/zlib/gzwrite.o obj/third_party/zlib/zlib/infback.o obj/third_party/zlib/zlib/inffast.o obj/third_party/zlib/zlib/inftrees.o obj/third_party/zlib/zlib/trees.o obj/third_party/zlib/zlib/uncompr.o obj/third_party/zlib/zlib/zutil.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a phony/third_party/zlib/zlib.inputs || phony/third_party/zlib/zlib_adler32_simd phony/third_party/zlib/zlib_inflate_chunk_simd phony/third_party/zlib/zlib_arm_crc32
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/third_party/zlib

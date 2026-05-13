@@ -7,7 +7,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE_ROOT="$SCRIPT_DIR"
 SRC_DIR="$WORKSPACE_ROOT/src"
-PATCH_DIR="$WORKSPACE_ROOT/patches"
+PATCH_DIR="$WORKSPACE_ROOT"
 PATCH_TRAIN="$(cat "$WORKSPACE_ROOT/patch_train")"
 OUT_DIR="$WORKSPACE_ROOT/out"
 ARTIFACTS_DIR="$WORKSPACE_ROOT/artifacts"
@@ -62,7 +62,7 @@ command -v ninja &>/dev/null || { warn "ninja not found. Using depot_tools gn+ni
 command -v gn &>/dev/null || { warn "gn not found. Using depot_tools."; }
 
 # Step 1: Fetch source if needed
-if [[ ! -d "$SRC_DIR" || ! -f "$SRC_DIR/.repo" ]]; then
+if [[ ! -d "$SRC_DIR" || ! -d "$SRC_DIR/.git" ]]; then
     info "Fetching Chromium source..."
     "$SCRIPT_DIR/scripts/fetch_chromium.sh"
 else
@@ -71,12 +71,16 @@ fi
 
 cd "$SRC_DIR"
 
-# Step 2: Apply patches
-info "Applying stealth patches (train $PATCH_TRAIN)..."
-"$SCRIPT_DIR/scripts/apply_patches.sh" \
-    --src "$SRC_DIR" \
-    --overlay "$PATCH_DIR" \
-    --train "$PATCH_TRAIN" || die "Patch application failed"
+# Step 2: Apply patches (skip if SKIP_PATCHES=1, patches may already be applied)
+if [[ "${SKIP_PATCHES:-0}" != "1" ]]; then
+    info "Applying stealth patches (train $PATCH_TRAIN)..."
+    "$SCRIPT_DIR/scripts/apply_patches.sh" \
+        --src "$SRC_DIR" \
+        --overlay "$PATCH_DIR" \
+        --train "$PATCH_TRAIN" || die "Patch application failed"
+else
+    info "Skipping patch application (patches may already be applied)"
+fi
 
 # Step 3: Generate build config
 info "Generating build configuration..."

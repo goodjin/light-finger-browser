@@ -1,0 +1,9 @@
+{
+  "deps": [
+    "../../public/logger_interfaces.build_metadata",
+    "../../public/protocol/mojo_bindings.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../src/components/data_sharing/data_sharing_internals/webui/data_sharing_internals.mojom"
+  ]
+}

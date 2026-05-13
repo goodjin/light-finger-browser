@@ -1,0 +1,9 @@
+{
+  "deps": [
+    "../../../../../mojo/public/mojom/base/base.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../src/components/services/heap_profiling/public/mojom/heap_profiling_client.mojom",
+    "../../../../../../../../src/components/services/heap_profiling/public/mojom/heap_profiling_service.mojom"
+  ]
+}

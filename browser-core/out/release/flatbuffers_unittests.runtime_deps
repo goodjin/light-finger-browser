@@ -1,0 +1,15 @@
+./flatbuffers_unittests
+../../src/third_party/flatbuffers/src/tests/
+../../src/testing/scripts/run_flatbuffers_unittests.py
+../../src/testing/test_env.py
+../../src/testing/xvfb.py
+../../src/testing/scripts/common.py
+../../src/.vpython3
+../../src/build/util/lib/__init__.py
+../../src/build/util/lib/proto/
+../../src/.vpython3
+../../src/build/util/lib/__init__.py
+../../src/build/util/lib/results/
+bin/run_flatbuffers_unittests
+../../src/.vpython3
+../../src/testing/location_tags.json

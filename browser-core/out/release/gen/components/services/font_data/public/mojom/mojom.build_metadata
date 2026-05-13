@@ -1,0 +1,8 @@
+{
+  "deps": [
+    "../../../../../mojo/public/mojom/base/base.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../src/components/services/font_data/public/mojom/font_data_service.mojom"
+  ]
+}

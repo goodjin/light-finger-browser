@@ -1,0 +1,9 @@
+{
+  "deps": [
+    "../../../../../components/data_sharing/public/protocol/mojo_bindings.build_metadata",
+    "../../../../../mojo/public/mojom/base/base.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../../src/chrome/browser/ui/webui/data_sharing/data_sharing.mojom"
+  ]
+}

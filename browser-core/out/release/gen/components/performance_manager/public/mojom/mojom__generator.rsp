@@ -1,0 +1,4 @@
+../../src/components/performance_manager/public/mojom/coordination_unit.mojom
+../../src/components/performance_manager/public/mojom/lifecycle.mojom
+../../src/components/performance_manager/public/mojom/v8_contexts.mojom
+../../src/components/performance_manager/public/mojom/web_memory.mojom

@@ -1,0 +1,85 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DWEBP_NEAR_LOSSLESS=0 -DWEBP_DISABLE_STATS -DWEBP_USE_THREAD -DWEBP_REDUCE_SIZE -DWEBP_REDUCE_CSP -DWEBP_EXTERN=extern
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/libwebp/src -I../../src/third_party/libwebp/src/src
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -O2 -fno-math-errno
+cflags_c = -std=c11
+label_name = libwebp_enc
+root_out_dir = .
+target_out_dir = obj/third_party/libwebp
+target_output_name = libwebp_enc
+
+build phony/third_party/libwebp/libwebp_enc.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/libwebp/libwebp_enc/alpha_enc.o: cc ../../src/third_party/libwebp/src/src/enc/alpha_enc.c | phony/third_party/libwebp/libwebp_enc.inputs
+  source_file_part = alpha_enc.c
+  source_name_part = alpha_enc
+build obj/third_party/libwebp/libwebp_enc/analysis_enc.o: cc ../../src/third_party/libwebp/src/src/enc/analysis_enc.c | phony/third_party/libwebp/libwebp_enc.inputs
+  source_file_part = analysis_enc.c
+  source_name_part = analysis_enc
+build obj/third_party/libwebp/libwebp_enc/backward_references_cost_enc.o: cc ../../src/third_party/libwebp/src/src/enc/backward_references_cost_enc.c | phony/third_party/libwebp/libwebp_enc.inputs
+  source_file_part = backward_references_cost_enc.c
+  source_name_part = backward_references_cost_enc
+build obj/third_party/libwebp/libwebp_enc/backward_references_enc.o: cc ../../src/third_party/libwebp/src/src/enc/backward_references_enc.c | phony/third_party/libwebp/libwebp_enc.inputs
+  source_file_part = backward_references_enc.c
+  source_name_part = backward_references_enc
+build obj/third_party/libwebp/libwebp_enc/config_enc.o: cc ../../src/third_party/libwebp/src/src/enc/config_enc.c | phony/third_party/libwebp/libwebp_enc.inputs
+  source_file_part = config_enc.c
+  source_name_part = config_enc
+build obj/third_party/libwebp/libwebp_enc/cost_enc.o: cc ../../src/third_party/libwebp/src/src/enc/cost_enc.c | phony/third_party/libwebp/libwebp_enc.inputs
+  source_file_part = cost_enc.c
+  source_name_part = cost_enc
+build obj/third_party/libwebp/libwebp_enc/filter_enc.o: cc ../../src/third_party/libwebp/src/src/enc/filter_enc.c | phony/third_party/libwebp/libwebp_enc.inputs
+  source_file_part = filter_enc.c
+  source_name_part = filter_enc
+build obj/third_party/libwebp/libwebp_enc/frame_enc.o: cc ../../src/third_party/libwebp/src/src/enc/frame_enc.c | phony/third_party/libwebp/libwebp_enc.inputs
+  source_file_part = frame_enc.c
+  source_name_part = frame_enc
+build obj/third_party/libwebp/libwebp_enc/histogram_enc.o: cc ../../src/third_party/libwebp/src/src/enc/histogram_enc.c | phony/third_party/libwebp/libwebp_enc.inputs
+  source_file_part = histogram_enc.c
+  source_name_part = histogram_enc
+build obj/third_party/libwebp/libwebp_enc/iterator_enc.o: cc ../../src/third_party/libwebp/src/src/enc/iterator_enc.c | phony/third_party/libwebp/libwebp_enc.inputs
+  source_file_part = iterator_enc.c
+  source_name_part = iterator_enc
+build obj/third_party/libwebp/libwebp_enc/near_lossless_enc.o: cc ../../src/third_party/libwebp/src/src/enc/near_lossless_enc.c | phony/third_party/libwebp/libwebp_enc.inputs
+  source_file_part = near_lossless_enc.c
+  source_name_part = near_lossless_enc
+build obj/third_party/libwebp/libwebp_enc/picture_csp_enc.o: cc ../../src/third_party/libwebp/src/src/enc/picture_csp_enc.c | phony/third_party/libwebp/libwebp_enc.inputs
+  source_file_part = picture_csp_enc.c
+  source_name_part = picture_csp_enc
+build obj/third_party/libwebp/libwebp_enc/picture_enc.o: cc ../../src/third_party/libwebp/src/src/enc/picture_enc.c | phony/third_party/libwebp/libwebp_enc.inputs
+  source_file_part = picture_enc.c
+  source_name_part = picture_enc
+build obj/third_party/libwebp/libwebp_enc/picture_psnr_enc.o: cc ../../src/third_party/libwebp/src/src/enc/picture_psnr_enc.c | phony/third_party/libwebp/libwebp_enc.inputs
+  source_file_part = picture_psnr_enc.c
+  source_name_part = picture_psnr_enc
+build obj/third_party/libwebp/libwebp_enc/picture_rescale_enc.o: cc ../../src/third_party/libwebp/src/src/enc/picture_rescale_enc.c | phony/third_party/libwebp/libwebp_enc.inputs
+  source_file_part = picture_rescale_enc.c
+  source_name_part = picture_rescale_enc
+build obj/third_party/libwebp/libwebp_enc/picture_tools_enc.o: cc ../../src/third_party/libwebp/src/src/enc/picture_tools_enc.c | phony/third_party/libwebp/libwebp_enc.inputs
+  source_file_part = picture_tools_enc.c
+  source_name_part = picture_tools_enc
+build obj/third_party/libwebp/libwebp_enc/predictor_enc.o: cc ../../src/third_party/libwebp/src/src/enc/predictor_enc.c | phony/third_party/libwebp/libwebp_enc.inputs
+  source_file_part = predictor_enc.c
+  source_name_part = predictor_enc
+build obj/third_party/libwebp/libwebp_enc/quant_enc.o: cc ../../src/third_party/libwebp/src/src/enc/quant_enc.c | phony/third_party/libwebp/libwebp_enc.inputs
+  source_file_part = quant_enc.c
+  source_name_part = quant_enc
+build obj/third_party/libwebp/libwebp_enc/syntax_enc.o: cc ../../src/third_party/libwebp/src/src/enc/syntax_enc.c | phony/third_party/libwebp/libwebp_enc.inputs
+  source_file_part = syntax_enc.c
+  source_name_part = syntax_enc
+build obj/third_party/libwebp/libwebp_enc/token_enc.o: cc ../../src/third_party/libwebp/src/src/enc/token_enc.c | phony/third_party/libwebp/libwebp_enc.inputs
+  source_file_part = token_enc.c
+  source_name_part = token_enc
+build obj/third_party/libwebp/libwebp_enc/tree_enc.o: cc ../../src/third_party/libwebp/src/src/enc/tree_enc.c | phony/third_party/libwebp/libwebp_enc.inputs
+  source_file_part = tree_enc.c
+  source_name_part = tree_enc
+build obj/third_party/libwebp/libwebp_enc/vp8l_enc.o: cc ../../src/third_party/libwebp/src/src/enc/vp8l_enc.c | phony/third_party/libwebp/libwebp_enc.inputs
+  source_file_part = vp8l_enc.c
+  source_name_part = vp8l_enc
+build obj/third_party/libwebp/libwebp_enc/webp_enc.o: cc ../../src/third_party/libwebp/src/src/enc/webp_enc.c | phony/third_party/libwebp/libwebp_enc.inputs
+  source_file_part = webp_enc.c
+  source_name_part = webp_enc
+
+build obj/third_party/libwebp/libwebp_enc.a: alink obj/third_party/libwebp/libwebp_enc/alpha_enc.o obj/third_party/libwebp/libwebp_enc/analysis_enc.o obj/third_party/libwebp/libwebp_enc/backward_references_cost_enc.o obj/third_party/libwebp/libwebp_enc/backward_references_enc.o obj/third_party/libwebp/libwebp_enc/config_enc.o obj/third_party/libwebp/libwebp_enc/cost_enc.o obj/third_party/libwebp/libwebp_enc/filter_enc.o obj/third_party/libwebp/libwebp_enc/frame_enc.o obj/third_party/libwebp/libwebp_enc/histogram_enc.o obj/third_party/libwebp/libwebp_enc/iterator_enc.o obj/third_party/libwebp/libwebp_enc/near_lossless_enc.o obj/third_party/libwebp/libwebp_enc/picture_csp_enc.o obj/third_party/libwebp/libwebp_enc/picture_enc.o obj/third_party/libwebp/libwebp_enc/picture_psnr_enc.o obj/third_party/libwebp/libwebp_enc/picture_rescale_enc.o obj/third_party/libwebp/libwebp_enc/picture_tools_enc.o obj/third_party/libwebp/libwebp_enc/predictor_enc.o obj/third_party/libwebp/libwebp_enc/quant_enc.o obj/third_party/libwebp/libwebp_enc/syntax_enc.o obj/third_party/libwebp/libwebp_enc/token_enc.o obj/third_party/libwebp/libwebp_enc/tree_enc.o obj/third_party/libwebp/libwebp_enc/vp8l_enc.o obj/third_party/libwebp/libwebp_enc/webp_enc.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a phony/third_party/libwebp/libwebp_enc.inputs || obj/third_party/libwebp/libwebp_dec.a obj/third_party/libwebp/libwebp_sharpyuv.a obj/third_party/libwebp/libwebp_utils.a obj/third_party/libwebp/libwebp_sharpyuv_dsp.a obj/third_party/libwebp/libwebp_sharpyuv_sse2.a obj/third_party/libwebp/libwebp_sharpyuv_neon.a
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/third_party/libwebp

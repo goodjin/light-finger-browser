@@ -1,0 +1,4 @@
+gen/content/grit/network_errors_resources.h
+gen/content/grit/network_errors_resources_map.cc
+gen/content/grit/network_errors_resources_map.h
+gen/content/network_errors_resources.pak

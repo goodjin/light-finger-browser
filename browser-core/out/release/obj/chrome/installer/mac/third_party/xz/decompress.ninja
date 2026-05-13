@@ -1,0 +1,79 @@
+defines = -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=2 -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DHAVE_CONFIG_H -DHAVE_SMALL=1 -DHAVE_CHECK_CRC32=1 -DHAVE_DECODERS=1 -DHAVE_DECODER_LZMA2=1 -DHAVE_DECODER_X86=1
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/chrome/installer/mac/third_party/xz/config/mac -I../../src/chrome/installer/mac/third_party/xz/xz/src/common -I../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/api -I../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/check -I../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common -I../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/delta -I../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/lz -I../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/lzma -I../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/rangecoder -I../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/simple
+cflags = -Os -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wthread-safety -Wgnu -Wno-gnu-anonymous-struct -Wno-gnu-conditional-omitted-operand -Wno-gnu-include-next -Wno-gnu-label-as-value -Wno-gnu-redeclared-enum -Wno-gnu-statement-expression -Wno-gnu-zero-variadic-macro-arguments -Wno-zero-length-array -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wshadow -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wno-implicit-fallthrough
+cflags_c = -std=c11
+label_name = decompress
+root_out_dir = .
+target_out_dir = obj/chrome/installer/mac/third_party/xz
+target_output_name = decompress
+
+build phony/chrome/installer/mac/third_party/xz/decompress.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/chrome/installer/mac/third_party/xz/decompress/alone_decoder.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/alone_decoder.c | phony/chrome/installer/mac/third_party/xz/decompress.inputs
+  source_file_part = alone_decoder.c
+  source_name_part = alone_decoder
+build obj/chrome/installer/mac/third_party/xz/decompress/auto_decoder.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/auto_decoder.c | phony/chrome/installer/mac/third_party/xz/decompress.inputs
+  source_file_part = auto_decoder.c
+  source_name_part = auto_decoder
+build obj/chrome/installer/mac/third_party/xz/decompress/block_buffer_decoder.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/block_buffer_decoder.c | phony/chrome/installer/mac/third_party/xz/decompress.inputs
+  source_file_part = block_buffer_decoder.c
+  source_name_part = block_buffer_decoder
+build obj/chrome/installer/mac/third_party/xz/decompress/block_decoder.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/block_decoder.c | phony/chrome/installer/mac/third_party/xz/decompress.inputs
+  source_file_part = block_decoder.c
+  source_name_part = block_decoder
+build obj/chrome/installer/mac/third_party/xz/decompress/block_header_decoder.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/block_header_decoder.c | phony/chrome/installer/mac/third_party/xz/decompress.inputs
+  source_file_part = block_header_decoder.c
+  source_name_part = block_header_decoder
+build obj/chrome/installer/mac/third_party/xz/decompress/easy_decoder_memusage.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/easy_decoder_memusage.c | phony/chrome/installer/mac/third_party/xz/decompress.inputs
+  source_file_part = easy_decoder_memusage.c
+  source_name_part = easy_decoder_memusage
+build obj/chrome/installer/mac/third_party/xz/decompress/file_info.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/file_info.c | phony/chrome/installer/mac/third_party/xz/decompress.inputs
+  source_file_part = file_info.c
+  source_name_part = file_info
+build obj/chrome/installer/mac/third_party/xz/decompress/filter_buffer_decoder.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/filter_buffer_decoder.c | phony/chrome/installer/mac/third_party/xz/decompress.inputs
+  source_file_part = filter_buffer_decoder.c
+  source_name_part = filter_buffer_decoder
+build obj/chrome/installer/mac/third_party/xz/decompress/filter_decoder.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/filter_decoder.c | phony/chrome/installer/mac/third_party/xz/decompress.inputs
+  source_file_part = filter_decoder.c
+  source_name_part = filter_decoder
+build obj/chrome/installer/mac/third_party/xz/decompress/filter_flags_decoder.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/filter_flags_decoder.c | phony/chrome/installer/mac/third_party/xz/decompress.inputs
+  source_file_part = filter_flags_decoder.c
+  source_name_part = filter_flags_decoder
+build obj/chrome/installer/mac/third_party/xz/decompress/index_decoder.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/index_decoder.c | phony/chrome/installer/mac/third_party/xz/decompress.inputs
+  source_file_part = index_decoder.c
+  source_name_part = index_decoder
+build obj/chrome/installer/mac/third_party/xz/decompress/index_hash.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/index_hash.c | phony/chrome/installer/mac/third_party/xz/decompress.inputs
+  source_file_part = index_hash.c
+  source_name_part = index_hash
+build obj/chrome/installer/mac/third_party/xz/decompress/lzip_decoder.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/lzip_decoder.c | phony/chrome/installer/mac/third_party/xz/decompress.inputs
+  source_file_part = lzip_decoder.c
+  source_name_part = lzip_decoder
+build obj/chrome/installer/mac/third_party/xz/decompress/stream_buffer_decoder.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/stream_buffer_decoder.c | phony/chrome/installer/mac/third_party/xz/decompress.inputs
+  source_file_part = stream_buffer_decoder.c
+  source_name_part = stream_buffer_decoder
+build obj/chrome/installer/mac/third_party/xz/decompress/stream_decoder.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/stream_decoder.c | phony/chrome/installer/mac/third_party/xz/decompress.inputs
+  source_file_part = stream_decoder.c
+  source_name_part = stream_decoder
+build obj/chrome/installer/mac/third_party/xz/decompress/stream_decoder_mt.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/stream_decoder_mt.c | phony/chrome/installer/mac/third_party/xz/decompress.inputs
+  source_file_part = stream_decoder_mt.c
+  source_name_part = stream_decoder_mt
+build obj/chrome/installer/mac/third_party/xz/decompress/stream_flags_decoder.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/stream_flags_decoder.c | phony/chrome/installer/mac/third_party/xz/decompress.inputs
+  source_file_part = stream_flags_decoder.c
+  source_name_part = stream_flags_decoder
+build obj/chrome/installer/mac/third_party/xz/decompress/vli_decoder.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/common/vli_decoder.c | phony/chrome/installer/mac/third_party/xz/decompress.inputs
+  source_file_part = vli_decoder.c
+  source_name_part = vli_decoder
+build obj/chrome/installer/mac/third_party/xz/decompress/lz_decoder.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/lz/lz_decoder.c | phony/chrome/installer/mac/third_party/xz/decompress.inputs
+  source_file_part = lz_decoder.c
+  source_name_part = lz_decoder
+build obj/chrome/installer/mac/third_party/xz/decompress/lzma_decoder.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/lzma/lzma_decoder.c | phony/chrome/installer/mac/third_party/xz/decompress.inputs
+  source_file_part = lzma_decoder.c
+  source_name_part = lzma_decoder
+build obj/chrome/installer/mac/third_party/xz/decompress/lzma2_decoder.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/lzma/lzma2_decoder.c | phony/chrome/installer/mac/third_party/xz/decompress.inputs
+  source_file_part = lzma2_decoder.c
+  source_name_part = lzma2_decoder
+build obj/chrome/installer/mac/third_party/xz/decompress/simple_decoder.o: cc ../../src/chrome/installer/mac/third_party/xz/xz/src/liblzma/simple/simple_decoder.c | phony/chrome/installer/mac/third_party/xz/decompress.inputs
+  source_file_part = simple_decoder.c
+  source_name_part = simple_decoder
+
+build phony/chrome/installer/mac/third_party/xz/decompress: phony obj/chrome/installer/mac/third_party/xz/decompress/alone_decoder.o obj/chrome/installer/mac/third_party/xz/decompress/auto_decoder.o obj/chrome/installer/mac/third_party/xz/decompress/block_buffer_decoder.o obj/chrome/installer/mac/third_party/xz/decompress/block_decoder.o obj/chrome/installer/mac/third_party/xz/decompress/block_header_decoder.o obj/chrome/installer/mac/third_party/xz/decompress/easy_decoder_memusage.o obj/chrome/installer/mac/third_party/xz/decompress/file_info.o obj/chrome/installer/mac/third_party/xz/decompress/filter_buffer_decoder.o obj/chrome/installer/mac/third_party/xz/decompress/filter_decoder.o obj/chrome/installer/mac/third_party/xz/decompress/filter_flags_decoder.o obj/chrome/installer/mac/third_party/xz/decompress/index_decoder.o obj/chrome/installer/mac/third_party/xz/decompress/index_hash.o obj/chrome/installer/mac/third_party/xz/decompress/lzip_decoder.o obj/chrome/installer/mac/third_party/xz/decompress/stream_buffer_decoder.o obj/chrome/installer/mac/third_party/xz/decompress/stream_decoder.o obj/chrome/installer/mac/third_party/xz/decompress/stream_decoder_mt.o obj/chrome/installer/mac/third_party/xz/decompress/stream_flags_decoder.o obj/chrome/installer/mac/third_party/xz/decompress/vli_decoder.o obj/chrome/installer/mac/third_party/xz/decompress/lz_decoder.o obj/chrome/installer/mac/third_party/xz/decompress/lzma_decoder.o obj/chrome/installer/mac/third_party/xz/decompress/lzma2_decoder.o obj/chrome/installer/mac/third_party/xz/decompress/simple_decoder.o

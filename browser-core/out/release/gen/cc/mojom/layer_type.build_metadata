@@ -1,0 +1,8 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../src/cc/mojom/layer_type.mojom"
+  ]
+}

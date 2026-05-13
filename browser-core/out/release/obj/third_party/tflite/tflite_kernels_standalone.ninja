@@ -1,0 +1,331 @@
+defines = -DTFLITE_HAVE_CPUINFO -DOFFICIAL_BUILD -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_FORTIFY_SOURCE=2 -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -DTFL_STATIC_LIBRARY_BUILD -DLITERT_DISABLE_OPENCL_SUPPORT -DFARMHASH_NO_CXX_STRING -DNEON2SSE_DISABLE_PERFORMANCE_WARNING -DTF_LITE_STRIP_ERROR_STRINGS -DTFLITE_BUILD_WITH_XNNPACK_DELEGATE -DXNNPACK_DELEGATE_ENABLE_QS8 -DXNNPACK_DELEGATE_ENABLE_QU8 -DXNNPACK_DELEGATE_USE_LATEST_OPS -DTFLITE_KERNEL_USE_XNNPACK -DTFLITE_WITH_RUY -DEIGEN_MPL2_ONLY -DEIGEN_MAX_ALIGN_BYTES=64 -DEIGEN_HAS_TYPE_TRAITS=0 -DFLATBUFFERS_LOCALE_INDEPENDENT=0 -DPTHREADPOOL_USE_GCD=0 -DCHROMIUM -DXNN_ENABLE_ASSEMBLY=1 -DXNN_ENABLE_GEMM_M_SPECIALIZATION=1 -DXNN_ENABLE_MEMOPT=1 -DXNN_ENABLE_CPUINFO=1 -DXNN_ENABLE_SPARSE=1 -DXNN_LOG_LEVEL=0 -DXNN_LOG_TO_STDIO=0 -DXNN_ENABLE_AVX512BF16=0 -DXNN_ENABLE_ARM_DOTPROD=1 -DXNN_ENABLE_ARM_I8MM=1
+framework_dirs =
+include_dirs = -I../../src/third_party/cpuinfo/src -I../../src -Igen -I../../src/buildtools/third_party/libc++ -Igen/third_party/tflite/src -I../../src/third_party/tflite/shims -I../../src/third_party/tflite/src -I../../src/third_party/tflite/src/third_party/xla -I../../src/third_party/tflite/src/third_party/xla/third_party/tsl -I../../src/third_party/pthreadpool/src/include -I../../src/third_party/eigen3/src -I../../src/third_party/abseil-cpp -I../../src/third_party/farmhash/src/src -I../../src/third_party/flatbuffers/src/include -I../../src/third_party/flatbuffers/src/src -I../../src/third_party/flatbuffers/src -I../../src/third_party/flatbuffers/generated -I../../src/third_party/fp16/src/include -I../../src/third_party/gemmlowp/src -I../../src/third_party/neon_2_sse/src -I../../src/third_party/ruy/src -I../../src/third_party/cpuinfo/src/include -I../../src/third_party/cpuinfo/src/src -I../../src/third_party/cpuinfo/src/deps/clog/include -I../../src/third_party/pthreadpool/src/src -I../../src/third_party/xnnpack/src/deps/clog/include -I../../src/third_party/xnnpack/src/include -I../../src/third_party/xnnpack/src/src -I../../src/third_party/xnnpack/src
+cflags = -Wall -Wextra -Wimplicit-fallthrough -Wextra-semi -Wunreachable-code-aggressive -Wthread-safety -Wgnu -Wno-gnu-anonymous-struct -Wno-gnu-conditional-omitted-operand -Wno-gnu-include-next -Wno-gnu-label-as-value -Wno-gnu-redeclared-enum -Wno-gnu-statement-expression -Wno-gnu-zero-variadic-macro-arguments -Wno-zero-length-array -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wshadow -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wno-c99-extensions -Wno-comment -Wno-extern-c-compat -Wno-gnu-inline-cpp-without-extern -Wno-loop-analysis -Wno-shadow -Wno-deprecated-anon-enum-enum-conversion -Wno-unused-function -Wno-sign-compare -Wno-unused-but-set-variable -Wno-unused-variable -Wno-deprecated-copy -Wno-deprecated-declarations -Wno-extra-semi -Wno-unused-function -Wno-unused-result -Wno-constant-conversion -Wno-shorten-64-to-32 -Wno-unused-function -Wno-deprecated-comma-subscript
+cflags_cc = -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden
+label_name = tflite_kernels_standalone
+root_out_dir = .
+target_out_dir = obj/third_party/tflite
+target_output_name = libtflite_kernels_standalone
+
+build phony/third_party/tflite/tflite_kernels_standalone.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/tflite/tflite_kernels_standalone/activations.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/activations.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = activations.cc
+  source_name_part = activations
+build obj/third_party/tflite/tflite_kernels_standalone/add.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/add.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = add.cc
+  source_name_part = add
+build obj/third_party/tflite/tflite_kernels_standalone/add_n.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/add_n.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = add_n.cc
+  source_name_part = add_n
+build obj/third_party/tflite/tflite_kernels_standalone/arg_min_max.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/arg_min_max.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = arg_min_max.cc
+  source_name_part = arg_min_max
+build obj/third_party/tflite/tflite_kernels_standalone/assign_variable.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/assign_variable.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = assign_variable.cc
+  source_name_part = assign_variable
+build obj/third_party/tflite/tflite_kernels_standalone/basic_rnn.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/basic_rnn.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = basic_rnn.cc
+  source_name_part = basic_rnn
+build obj/third_party/tflite/tflite_kernels_standalone/batch_matmul.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/batch_matmul.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = batch_matmul.cc
+  source_name_part = batch_matmul
+build obj/third_party/tflite/tflite_kernels_standalone/batch_to_space_nd.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/batch_to_space_nd.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = batch_to_space_nd.cc
+  source_name_part = batch_to_space_nd
+build obj/third_party/tflite/tflite_kernels_standalone/bidirectional_sequence_lstm.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/bidirectional_sequence_lstm.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = bidirectional_sequence_lstm.cc
+  source_name_part = bidirectional_sequence_lstm
+build obj/third_party/tflite/tflite_kernels_standalone/bidirectional_sequence_rnn.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/bidirectional_sequence_rnn.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = bidirectional_sequence_rnn.cc
+  source_name_part = bidirectional_sequence_rnn
+build obj/third_party/tflite/tflite_kernels_standalone/cast.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/cast.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = cast.cc
+  source_name_part = cast
+build obj/third_party/tflite/tflite_kernels_standalone/ceil.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/ceil.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = ceil.cc
+  source_name_part = ceil
+build obj/third_party/tflite/tflite_kernels_standalone/comparisons.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/comparisons.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = comparisons.cc
+  source_name_part = comparisons
+build obj/third_party/tflite/tflite_kernels_standalone/concatenation.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/concatenation.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = concatenation.cc
+  source_name_part = concatenation
+build obj/third_party/tflite/tflite_kernels_standalone/control_flow_common.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/control_flow_common.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = control_flow_common.cc
+  source_name_part = control_flow_common
+build obj/third_party/tflite/tflite_kernels_standalone/conv.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/conv.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = conv.cc
+  source_name_part = conv
+build obj/third_party/tflite/tflite_kernels_standalone/cpu_backend_context.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/cpu_backend_context.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = cpu_backend_context.cc
+  source_name_part = cpu_backend_context
+build obj/third_party/tflite/tflite_kernels_standalone/cpu_backend_gemm_eigen.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/cpu_backend_gemm_eigen.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = cpu_backend_gemm_eigen.cc
+  source_name_part = cpu_backend_gemm_eigen
+build obj/third_party/tflite/tflite_kernels_standalone/cumsum.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/cumsum.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = cumsum.cc
+  source_name_part = cumsum
+build obj/third_party/tflite/tflite_kernels_standalone/densify.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/densify.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = densify.cc
+  source_name_part = densify
+build obj/third_party/tflite/tflite_kernels_standalone/depth_to_space.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/depth_to_space.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = depth_to_space.cc
+  source_name_part = depth_to_space
+build obj/third_party/tflite/tflite_kernels_standalone/depthwise_conv.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/depthwise_conv.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = depthwise_conv.cc
+  source_name_part = depthwise_conv
+build obj/third_party/tflite/tflite_kernels_standalone/dequantize.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/dequantize.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = dequantize.cc
+  source_name_part = dequantize
+build obj/third_party/tflite/tflite_kernels_standalone/div.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/div.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = div.cc
+  source_name_part = div
+build obj/third_party/tflite/tflite_kernels_standalone/eigen_support.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/eigen_support.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = eigen_support.cc
+  source_name_part = eigen_support
+build obj/third_party/tflite/tflite_kernels_standalone/elementwise.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/elementwise.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = elementwise.cc
+  source_name_part = elementwise
+build obj/third_party/tflite/tflite_kernels_standalone/embedding_lookup.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/embedding_lookup.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = embedding_lookup.cc
+  source_name_part = embedding_lookup
+build obj/third_party/tflite/tflite_kernels_standalone/embedding_lookup_sparse.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/embedding_lookup_sparse.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = embedding_lookup_sparse.cc
+  source_name_part = embedding_lookup_sparse
+build obj/third_party/tflite/tflite_kernels_standalone/exp.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/exp.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = exp.cc
+  source_name_part = exp
+build obj/third_party/tflite/tflite_kernels_standalone/expand_dims.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/expand_dims.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = expand_dims.cc
+  source_name_part = expand_dims
+build obj/third_party/tflite/tflite_kernels_standalone/fake_quant.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/fake_quant.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = fake_quant.cc
+  source_name_part = fake_quant
+build obj/third_party/tflite/tflite_kernels_standalone/fill.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/fill.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = fill.cc
+  source_name_part = fill
+build obj/third_party/tflite/tflite_kernels_standalone/floor.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/floor.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = floor.cc
+  source_name_part = floor
+build obj/third_party/tflite/tflite_kernels_standalone/floor_div.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/floor_div.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = floor_div.cc
+  source_name_part = floor_div
+build obj/third_party/tflite/tflite_kernels_standalone/floor_mod.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/floor_mod.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = floor_mod.cc
+  source_name_part = floor_mod
+build obj/third_party/tflite/tflite_kernels_standalone/fully_connected.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/fully_connected.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = fully_connected.cc
+  source_name_part = fully_connected
+build obj/third_party/tflite/tflite_kernels_standalone/gather.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/gather.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = gather.cc
+  source_name_part = gather
+build obj/third_party/tflite/tflite_kernels_standalone/gather_nd.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/gather_nd.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = gather_nd.cc
+  source_name_part = gather_nd
+build obj/third_party/tflite/tflite_kernels_standalone/hashtable_lookup.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/hashtable_lookup.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = hashtable_lookup.cc
+  source_name_part = hashtable_lookup
+build obj/third_party/tflite/tflite_kernels_standalone/if.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/if.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = if.cc
+  source_name_part = if
+build obj/third_party/tflite/tflite_kernels_standalone/kernel_util.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/kernel_util.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = kernel_util.cc
+  source_name_part = kernel_util
+build obj/third_party/tflite/tflite_kernels_standalone/l2norm.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/l2norm.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = l2norm.cc
+  source_name_part = l2norm
+build obj/third_party/tflite/tflite_kernels_standalone/local_response_norm.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/local_response_norm.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = local_response_norm.cc
+  source_name_part = local_response_norm
+build obj/third_party/tflite/tflite_kernels_standalone/logical.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/logical.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = logical.cc
+  source_name_part = logical
+build obj/third_party/tflite/tflite_kernels_standalone/lsh_projection.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/lsh_projection.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = lsh_projection.cc
+  source_name_part = lsh_projection
+build obj/third_party/tflite/tflite_kernels_standalone/lstm.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/lstm.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = lstm.cc
+  source_name_part = lstm
+build obj/third_party/tflite/tflite_kernels_standalone/lstm_eval.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/lstm_eval.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = lstm_eval.cc
+  source_name_part = lstm_eval
+build obj/third_party/tflite/tflite_kernels_standalone/matrix_diag.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/matrix_diag.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = matrix_diag.cc
+  source_name_part = matrix_diag
+build obj/third_party/tflite/tflite_kernels_standalone/matrix_set_diag.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/matrix_set_diag.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = matrix_set_diag.cc
+  source_name_part = matrix_set_diag
+build obj/third_party/tflite/tflite_kernels_standalone/maximum_minimum.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/maximum_minimum.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = maximum_minimum.cc
+  source_name_part = maximum_minimum
+build obj/third_party/tflite/tflite_kernels_standalone/mirror_pad.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/mirror_pad.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = mirror_pad.cc
+  source_name_part = mirror_pad
+build obj/third_party/tflite/tflite_kernels_standalone/mul.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/mul.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = mul.cc
+  source_name_part = mul
+build obj/third_party/tflite/tflite_kernels_standalone/neg.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/neg.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = neg.cc
+  source_name_part = neg
+build obj/third_party/tflite/tflite_kernels_standalone/non_max_suppression.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/non_max_suppression.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = non_max_suppression.cc
+  source_name_part = non_max_suppression
+build obj/third_party/tflite/tflite_kernels_standalone/numeric_verify.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/numeric_verify.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = numeric_verify.cc
+  source_name_part = numeric_verify
+build obj/third_party/tflite/tflite_kernels_standalone/one_hot.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/one_hot.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = one_hot.cc
+  source_name_part = one_hot
+build obj/third_party/tflite/tflite_kernels_standalone/pack.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/pack.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = pack.cc
+  source_name_part = pack
+build obj/third_party/tflite/tflite_kernels_standalone/pad.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/pad.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = pad.cc
+  source_name_part = pad
+build obj/third_party/tflite/tflite_kernels_standalone/pooling.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/pooling.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = pooling.cc
+  source_name_part = pooling
+build obj/third_party/tflite/tflite_kernels_standalone/pow.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/pow.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = pow.cc
+  source_name_part = pow
+build obj/third_party/tflite/tflite_kernels_standalone/quantize.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/quantize.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = quantize.cc
+  source_name_part = quantize
+build obj/third_party/tflite/tflite_kernels_standalone/random_ops.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/random_ops.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = random_ops.cc
+  source_name_part = random_ops
+build obj/third_party/tflite/tflite_kernels_standalone/range.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/range.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = range.cc
+  source_name_part = range
+build obj/third_party/tflite/tflite_kernels_standalone/rank.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/rank.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = rank.cc
+  source_name_part = rank
+build obj/third_party/tflite/tflite_kernels_standalone/read_variable.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/read_variable.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = read_variable.cc
+  source_name_part = read_variable
+build obj/third_party/tflite/tflite_kernels_standalone/reduce.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/reduce.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = reduce.cc
+  source_name_part = reduce
+build obj/third_party/tflite/tflite_kernels_standalone/reshape.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/reshape.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = reshape.cc
+  source_name_part = reshape
+build obj/third_party/tflite/tflite_kernels_standalone/resize_bilinear.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/resize_bilinear.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = resize_bilinear.cc
+  source_name_part = resize_bilinear
+build obj/third_party/tflite/tflite_kernels_standalone/resize_nearest_neighbor.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/resize_nearest_neighbor.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = resize_nearest_neighbor.cc
+  source_name_part = resize_nearest_neighbor
+build obj/third_party/tflite/tflite_kernels_standalone/reverse.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/reverse.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = reverse.cc
+  source_name_part = reverse
+build obj/third_party/tflite/tflite_kernels_standalone/reverse_sequence.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/reverse_sequence.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = reverse_sequence.cc
+  source_name_part = reverse_sequence
+build obj/third_party/tflite/tflite_kernels_standalone/rfft2d.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/rfft2d.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = rfft2d.cc
+  source_name_part = rfft2d
+build obj/third_party/tflite/tflite_kernels_standalone/rng_bit_generator.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/rng_bit_generator.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = rng_bit_generator.cc
+  source_name_part = rng_bit_generator
+build obj/third_party/tflite/tflite_kernels_standalone/rng_util.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/rng_util.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = rng_util.cc
+  source_name_part = rng_util
+build obj/third_party/tflite/tflite_kernels_standalone/round.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/round.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = round.cc
+  source_name_part = round
+build obj/third_party/tflite/tflite_kernels_standalone/scatter_nd.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/scatter_nd.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = scatter_nd.cc
+  source_name_part = scatter_nd
+build obj/third_party/tflite/tflite_kernels_standalone/segment_sum.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/segment_sum.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = segment_sum.cc
+  source_name_part = segment_sum
+build obj/third_party/tflite/tflite_kernels_standalone/select.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/select.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = select.cc
+  source_name_part = select
+build obj/third_party/tflite/tflite_kernels_standalone/shape.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/shape.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = shape.cc
+  source_name_part = shape
+build obj/third_party/tflite/tflite_kernels_standalone/skip_gram.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/skip_gram.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = skip_gram.cc
+  source_name_part = skip_gram
+build obj/third_party/tflite/tflite_kernels_standalone/slice.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/slice.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = slice.cc
+  source_name_part = slice
+build obj/third_party/tflite/tflite_kernels_standalone/space_to_batch_nd.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/space_to_batch_nd.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = space_to_batch_nd.cc
+  source_name_part = space_to_batch_nd
+build obj/third_party/tflite/tflite_kernels_standalone/space_to_depth.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/space_to_depth.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = space_to_depth.cc
+  source_name_part = space_to_depth
+build obj/third_party/tflite/tflite_kernels_standalone/sparse_to_dense.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/sparse_to_dense.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = sparse_to_dense.cc
+  source_name_part = sparse_to_dense
+build obj/third_party/tflite/tflite_kernels_standalone/split.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/split.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = split.cc
+  source_name_part = split
+build obj/third_party/tflite/tflite_kernels_standalone/split_v.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/split_v.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = split_v.cc
+  source_name_part = split_v
+build obj/third_party/tflite/tflite_kernels_standalone/squared_difference.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/squared_difference.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = squared_difference.cc
+  source_name_part = squared_difference
+build obj/third_party/tflite/tflite_kernels_standalone/squeeze.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/squeeze.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = squeeze.cc
+  source_name_part = squeeze
+build obj/third_party/tflite/tflite_kernels_standalone/stablehlo_gather.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/stablehlo_gather.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = stablehlo_gather.cc
+  source_name_part = stablehlo_gather
+build obj/third_party/tflite/tflite_kernels_standalone/stablehlo_scatter.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/stablehlo_scatter.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = stablehlo_scatter.cc
+  source_name_part = stablehlo_scatter
+build obj/third_party/tflite/tflite_kernels_standalone/strided_slice.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/strided_slice.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = strided_slice.cc
+  source_name_part = strided_slice
+build obj/third_party/tflite/tflite_kernels_standalone/sub.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/sub.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = sub.cc
+  source_name_part = sub
+build obj/third_party/tflite/tflite_kernels_standalone/svdf.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/svdf.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = svdf.cc
+  source_name_part = svdf
+build obj/third_party/tflite/tflite_kernels_standalone/tensor_slice_util.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/tensor_slice_util.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = tensor_slice_util.cc
+  source_name_part = tensor_slice_util
+build obj/third_party/tflite/tflite_kernels_standalone/tile.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/tile.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = tile.cc
+  source_name_part = tile
+build obj/third_party/tflite/tflite_kernels_standalone/topk_v2.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/topk_v2.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = topk_v2.cc
+  source_name_part = topk_v2
+build obj/third_party/tflite/tflite_kernels_standalone/transpose.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/transpose.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = transpose.cc
+  source_name_part = transpose
+build obj/third_party/tflite/tflite_kernels_standalone/transpose_conv.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/transpose_conv.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = transpose_conv.cc
+  source_name_part = transpose_conv
+build obj/third_party/tflite/tflite_kernels_standalone/unidirectional_sequence_lstm.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/unidirectional_sequence_lstm.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = unidirectional_sequence_lstm.cc
+  source_name_part = unidirectional_sequence_lstm
+build obj/third_party/tflite/tflite_kernels_standalone/unidirectional_sequence_rnn.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/unidirectional_sequence_rnn.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = unidirectional_sequence_rnn.cc
+  source_name_part = unidirectional_sequence_rnn
+build obj/third_party/tflite/tflite_kernels_standalone/unique.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/unique.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = unique.cc
+  source_name_part = unique
+build obj/third_party/tflite/tflite_kernels_standalone/unpack.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/unpack.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = unpack.cc
+  source_name_part = unpack
+build obj/third_party/tflite/tflite_kernels_standalone/where.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/where.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = where.cc
+  source_name_part = where
+build obj/third_party/tflite/tflite_kernels_standalone/while.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/while.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = while.cc
+  source_name_part = while
+build obj/third_party/tflite/tflite_kernels_standalone/zeros_like.o: cxx ../../src/third_party/tflite/src/tensorflow/lite/kernels/zeros_like.cc | phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/build/chromeos_buildflags
+  source_file_part = zeros_like.cc
+  source_name_part = zeros_like
+
+build obj/third_party/tflite/libtflite_kernels_standalone.a: alink obj/third_party/tflite/tflite_kernels_standalone/activations.o obj/third_party/tflite/tflite_kernels_standalone/add.o obj/third_party/tflite/tflite_kernels_standalone/add_n.o obj/third_party/tflite/tflite_kernels_standalone/arg_min_max.o obj/third_party/tflite/tflite_kernels_standalone/assign_variable.o obj/third_party/tflite/tflite_kernels_standalone/basic_rnn.o obj/third_party/tflite/tflite_kernels_standalone/batch_matmul.o obj/third_party/tflite/tflite_kernels_standalone/batch_to_space_nd.o obj/third_party/tflite/tflite_kernels_standalone/bidirectional_sequence_lstm.o obj/third_party/tflite/tflite_kernels_standalone/bidirectional_sequence_rnn.o obj/third_party/tflite/tflite_kernels_standalone/cast.o obj/third_party/tflite/tflite_kernels_standalone/ceil.o obj/third_party/tflite/tflite_kernels_standalone/comparisons.o obj/third_party/tflite/tflite_kernels_standalone/concatenation.o obj/third_party/tflite/tflite_kernels_standalone/control_flow_common.o obj/third_party/tflite/tflite_kernels_standalone/conv.o obj/third_party/tflite/tflite_kernels_standalone/cpu_backend_context.o obj/third_party/tflite/tflite_kernels_standalone/cpu_backend_gemm_eigen.o obj/third_party/tflite/tflite_kernels_standalone/cumsum.o obj/third_party/tflite/tflite_kernels_standalone/densify.o obj/third_party/tflite/tflite_kernels_standalone/depth_to_space.o obj/third_party/tflite/tflite_kernels_standalone/depthwise_conv.o obj/third_party/tflite/tflite_kernels_standalone/dequantize.o obj/third_party/tflite/tflite_kernels_standalone/div.o obj/third_party/tflite/tflite_kernels_standalone/eigen_support.o obj/third_party/tflite/tflite_kernels_standalone/elementwise.o obj/third_party/tflite/tflite_kernels_standalone/embedding_lookup.o obj/third_party/tflite/tflite_kernels_standalone/embedding_lookup_sparse.o obj/third_party/tflite/tflite_kernels_standalone/exp.o obj/third_party/tflite/tflite_kernels_standalone/expand_dims.o obj/third_party/tflite/tflite_kernels_standalone/fake_quant.o obj/third_party/tflite/tflite_kernels_standalone/fill.o obj/third_party/tflite/tflite_kernels_standalone/floor.o obj/third_party/tflite/tflite_kernels_standalone/floor_div.o obj/third_party/tflite/tflite_kernels_standalone/floor_mod.o obj/third_party/tflite/tflite_kernels_standalone/fully_connected.o obj/third_party/tflite/tflite_kernels_standalone/gather.o obj/third_party/tflite/tflite_kernels_standalone/gather_nd.o obj/third_party/tflite/tflite_kernels_standalone/hashtable_lookup.o obj/third_party/tflite/tflite_kernels_standalone/if.o obj/third_party/tflite/tflite_kernels_standalone/kernel_util.o obj/third_party/tflite/tflite_kernels_standalone/l2norm.o obj/third_party/tflite/tflite_kernels_standalone/local_response_norm.o obj/third_party/tflite/tflite_kernels_standalone/logical.o obj/third_party/tflite/tflite_kernels_standalone/lsh_projection.o obj/third_party/tflite/tflite_kernels_standalone/lstm.o obj/third_party/tflite/tflite_kernels_standalone/lstm_eval.o obj/third_party/tflite/tflite_kernels_standalone/matrix_diag.o obj/third_party/tflite/tflite_kernels_standalone/matrix_set_diag.o obj/third_party/tflite/tflite_kernels_standalone/maximum_minimum.o obj/third_party/tflite/tflite_kernels_standalone/mirror_pad.o obj/third_party/tflite/tflite_kernels_standalone/mul.o obj/third_party/tflite/tflite_kernels_standalone/neg.o obj/third_party/tflite/tflite_kernels_standalone/non_max_suppression.o obj/third_party/tflite/tflite_kernels_standalone/numeric_verify.o obj/third_party/tflite/tflite_kernels_standalone/one_hot.o obj/third_party/tflite/tflite_kernels_standalone/pack.o obj/third_party/tflite/tflite_kernels_standalone/pad.o obj/third_party/tflite/tflite_kernels_standalone/pooling.o obj/third_party/tflite/tflite_kernels_standalone/pow.o obj/third_party/tflite/tflite_kernels_standalone/quantize.o obj/third_party/tflite/tflite_kernels_standalone/random_ops.o obj/third_party/tflite/tflite_kernels_standalone/range.o obj/third_party/tflite/tflite_kernels_standalone/rank.o obj/third_party/tflite/tflite_kernels_standalone/read_variable.o obj/third_party/tflite/tflite_kernels_standalone/reduce.o obj/third_party/tflite/tflite_kernels_standalone/reshape.o obj/third_party/tflite/tflite_kernels_standalone/resize_bilinear.o obj/third_party/tflite/tflite_kernels_standalone/resize_nearest_neighbor.o obj/third_party/tflite/tflite_kernels_standalone/reverse.o obj/third_party/tflite/tflite_kernels_standalone/reverse_sequence.o obj/third_party/tflite/tflite_kernels_standalone/rfft2d.o obj/third_party/tflite/tflite_kernels_standalone/rng_bit_generator.o obj/third_party/tflite/tflite_kernels_standalone/rng_util.o obj/third_party/tflite/tflite_kernels_standalone/round.o obj/third_party/tflite/tflite_kernels_standalone/scatter_nd.o obj/third_party/tflite/tflite_kernels_standalone/segment_sum.o obj/third_party/tflite/tflite_kernels_standalone/select.o obj/third_party/tflite/tflite_kernels_standalone/shape.o obj/third_party/tflite/tflite_kernels_standalone/skip_gram.o obj/third_party/tflite/tflite_kernels_standalone/slice.o obj/third_party/tflite/tflite_kernels_standalone/space_to_batch_nd.o obj/third_party/tflite/tflite_kernels_standalone/space_to_depth.o obj/third_party/tflite/tflite_kernels_standalone/sparse_to_dense.o obj/third_party/tflite/tflite_kernels_standalone/split.o obj/third_party/tflite/tflite_kernels_standalone/split_v.o obj/third_party/tflite/tflite_kernels_standalone/squared_difference.o obj/third_party/tflite/tflite_kernels_standalone/squeeze.o obj/third_party/tflite/tflite_kernels_standalone/stablehlo_gather.o obj/third_party/tflite/tflite_kernels_standalone/stablehlo_scatter.o obj/third_party/tflite/tflite_kernels_standalone/strided_slice.o obj/third_party/tflite/tflite_kernels_standalone/sub.o obj/third_party/tflite/tflite_kernels_standalone/svdf.o obj/third_party/tflite/tflite_kernels_standalone/tensor_slice_util.o obj/third_party/tflite/tflite_kernels_standalone/tile.o obj/third_party/tflite/tflite_kernels_standalone/topk_v2.o obj/third_party/tflite/tflite_kernels_standalone/transpose.o obj/third_party/tflite/tflite_kernels_standalone/transpose_conv.o obj/third_party/tflite/tflite_kernels_standalone/unidirectional_sequence_lstm.o obj/third_party/tflite/tflite_kernels_standalone/unidirectional_sequence_rnn.o obj/third_party/tflite/tflite_kernels_standalone/unique.o obj/third_party/tflite/tflite_kernels_standalone/unpack.o obj/third_party/tflite/tflite_kernels_standalone/where.o obj/third_party/tflite/tflite_kernels_standalone/while.o obj/third_party/tflite/tflite_kernels_standalone/zeros_like.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a phony/third_party/tflite/tflite_kernels_standalone.inputs || phony/third_party/tflite/fft2d_deps phony/third_party/tflite/tflite_kernel_internals phony/third_party/abseil-cpp/absl phony/third_party/farmhash/farmhash phony/third_party/ruy/ruy phony/third_party/cpuinfo/cpuinfo phony/third_party/pthreadpool/pthreadpool_standalone phony/third_party/xnnpack/xnnpack_standalone phony/third_party/fft2d/fft2d phony/third_party/abseil-cpp/absl/base/base phony/third_party/abseil-cpp/absl/base/log_severity phony/third_party/abseil-cpp/absl/base/raw_logging_internal phony/third_party/abseil-cpp/absl/base/spinlock_wait phony/third_party/abseil-cpp/absl/container/btree phony/third_party/abseil-cpp/absl/container/layout phony/third_party/abseil-cpp/absl/debugging/demangle_internal phony/third_party/abseil-cpp/absl/debugging/demangle_rust phony/third_party/abseil-cpp/absl/debugging/decode_rust_punycode phony/third_party/abseil-cpp/absl/debugging/bounded_utf8_length_sequence phony/third_party/abseil-cpp/absl/numeric/bits phony/third_party/abseil-cpp/absl/base/endian phony/third_party/abseil-cpp/absl/debugging/utf8_for_code_point phony/third_party/abseil-cpp/absl/strings/strings phony/third_party/abseil-cpp/absl/strings/string_view phony/third_party/abseil-cpp/absl/base/throw_delegate phony/third_party/abseil-cpp/absl/strings/charset phony/third_party/abseil-cpp/absl/strings/internal phony/third_party/abseil-cpp/absl/numeric/int128 phony/third_party/abseil-cpp/absl/types/span phony/third_party/abseil-cpp/absl/strings/cord phony/third_party/abseil-cpp/absl/strings/cord_internal phony/third_party/abseil-cpp/absl/container/inlined_vector phony/third_party/abseil-cpp/absl/container/inlined_vector_internal phony/third_party/abseil-cpp/absl/crc/crc_cord_state phony/third_party/abseil-cpp/absl/crc/crc32c phony/third_party/abseil-cpp/absl/crc/cpu_detect phony/third_party/abseil-cpp/absl/crc/crc_internal phony/third_party/abseil-cpp/absl/strings/str_format phony/third_party/abseil-cpp/absl/strings/str_format_internal phony/third_party/abseil-cpp/absl/container/fixed_array phony/third_party/abseil-cpp/absl/strings/cordz_info phony/third_party/abseil-cpp/absl/strings/cordz_functions phony/third_party/abseil-cpp/absl/profiling/exponential_biased phony/third_party/abseil-cpp/absl/strings/cordz_handle phony/third_party/abseil-cpp/absl/synchronization/synchronization phony/third_party/abseil-cpp/absl/synchronization/graphcycles_internal phony/third_party/abseil-cpp/absl/base/malloc_internal phony/third_party/abseil-cpp/absl/synchronization/kernel_timeout_internal phony/third_party/abseil-cpp/absl/time/time phony/third_party/abseil-cpp/absl/time/internal/cctz/civil_time phony/third_party/abseil-cpp/absl/time/internal/cctz/time_zone phony/third_party/abseil-cpp/absl/base/tracing_internal phony/third_party/abseil-cpp/absl/debugging/stacktrace phony/third_party/abseil-cpp/absl/debugging/debugging_internal phony/third_party/abseil-cpp/absl/debugging/symbolize phony/third_party/abseil-cpp/absl/strings/cordz_update_scope phony/third_party/abseil-cpp/absl/container/flat_hash_map phony/third_party/abseil-cpp/absl/container/hash_container_defaults phony/third_party/abseil-cpp/absl/container/hash_function_defaults phony/third_party/abseil-cpp/absl/hash/hash phony/third_party/abseil-cpp/absl/hash/city phony/third_party/abseil-cpp/absl/hash/low_level_hash phony/third_party/abseil-cpp/absl/container/raw_hash_map phony/third_party/abseil-cpp/absl/container/raw_hash_set phony/third_party/abseil-cpp/absl/container/hashtable_control_bytes phony/third_party/abseil-cpp/absl/container/hashtablez_sampler phony/third_party/abseil-cpp/absl/profiling/sample_recorder phony/third_party/abseil-cpp/absl/container/flat_hash_set phony/third_party/abseil-cpp/absl/container/node_hash_map phony/third_party/abseil-cpp/absl/container/node_hash_set phony/third_party/abseil-cpp/absl/debugging/failure_signal_handler phony/third_party/abseil-cpp/absl/debugging/examine_stack phony/third_party/abseil-cpp/absl/log/absl_check phony/third_party/abseil-cpp/absl/log/internal/check_impl phony/third_party/abseil-cpp/absl/log/internal/check_op phony/third_party/abseil-cpp/absl/log/internal/nullguard phony/third_party/abseil-cpp/absl/log/internal/nullstream phony/third_party/abseil-cpp/absl/log/internal/strip phony/third_party/abseil-cpp/absl/log/internal/log_message phony/third_party/abseil-cpp/absl/log/internal/append_truncated phony/third_party/abseil-cpp/absl/log/internal/format phony/third_party/abseil-cpp/absl/log/internal/globals phony/third_party/abseil-cpp/absl/log/internal/log_sink_set phony/third_party/abseil-cpp/absl/log/globals phony/third_party/abseil-cpp/absl/log/internal/vlog_config phony/third_party/abseil-cpp/absl/log/internal/fnmatch phony/third_party/abseil-cpp/absl/log/log_entry phony/third_party/abseil-cpp/absl/log/log_sink phony/third_party/abseil-cpp/absl/log/internal/proto phony/third_party/abseil-cpp/absl/log/internal/structured_proto phony/third_party/abseil-cpp/absl/base/strerror phony/third_party/abseil-cpp/absl/log/log_sink_registry phony/third_party/abseil-cpp/absl/debugging/leak_check phony/third_party/abseil-cpp/absl/log/internal/conditions phony/third_party/abseil-cpp/absl/log/absl_log phony/third_party/abseil-cpp/absl/log/internal/log_impl phony/third_party/abseil-cpp/absl/log/absl_vlog_is_on phony/third_party/abseil-cpp/absl/log/die_if_null phony/third_party/abseil-cpp/absl/log/log phony/third_party/abseil-cpp/absl/log/vlog_is_on phony/third_party/abseil-cpp/absl/log/initialize phony/third_party/abseil-cpp/absl/random/random phony/third_party/abseil-cpp/absl/random/distributions phony/third_party/abseil-cpp/absl/random/internal/fast_uniform_bits phony/third_party/abseil-cpp/absl/random/internal/traits phony/third_party/abseil-cpp/absl/random/internal/fastmath phony/third_party/abseil-cpp/absl/random/internal/generate_real phony/third_party/abseil-cpp/absl/random/internal/iostream_state_saver phony/third_party/abseil-cpp/absl/random/internal/uniform_helper phony/third_party/abseil-cpp/absl/random/internal/wide_multiply phony/third_party/abseil-cpp/absl/random/seed_sequences phony/third_party/abseil-cpp/absl/random/seed_gen_exception phony/third_party/abseil-cpp/absl/random/internal/entropy_pool phony/third_party/abseil-cpp/absl/random/internal/platform phony/third_party/abseil-cpp/absl/random/internal/randen phony/third_party/abseil-cpp/absl/random/internal/randen_hwaes phony/third_party/abseil-cpp/absl/random/internal/randen_hwaes_impl phony/third_party/abseil-cpp/absl/random/internal/randen_slow phony/third_party/abseil-cpp/absl/random/internal/seed_material phony/third_party/abseil-cpp/absl/random/internal/salted_seed_seq phony/third_party/abseil-cpp/absl/random/internal/nonsecure_base phony/third_party/abseil-cpp/absl/random/internal/pcg_engine phony/third_party/abseil-cpp/absl/random/internal/randen_engine phony/third_party/abseil-cpp/absl/random/bit_gen_ref phony/third_party/abseil-cpp/absl/status/status phony/third_party/abseil-cpp/absl/status/statusor phony/third_party/ruy/ruy_context phony/third_party/ruy/ruy_allocator phony/third_party/ruy/ruy_system_aligned_alloc phony/third_party/ruy/ruy_ctx phony/third_party/ruy/ruy_cpuinfo phony/third_party/cpuinfo/cpu_and_os_specific phony/third_party/cpuinfo/cpu_specific phony/third_party/cpuinfo/os_specific phony/third_party/ruy/ruy_have_built_path_for phony/third_party/ruy/ruy_have_built_path_for_avx phony/third_party/ruy/ruy_have_built_path_for_avx2_fma phony/third_party/ruy/ruy_have_built_path_for_avx512 phony/third_party/ruy/ruy_prepacked_cache phony/third_party/ruy/ruy_profiler_instrumentation phony/third_party/ruy/ruy_instrumentation phony/third_party/ruy/ruy_thread_pool phony/third_party/ruy/ruy_blocking_counter phony/third_party/ruy/ruy_wait phony/third_party/ruy/ruy_denormal phony/third_party/ruy/ruy_tune phony/third_party/ruy/ruy_context_get_ctx phony/third_party/ruy/ruy_frontend phony/third_party/ruy/ruy_create_trmul_params phony/third_party/ruy/ruy_kernel phony/third_party/ruy/ruy_apply_multiplier phony/third_party/ruy/ruy_kernel_arm phony/third_party/ruy/ruy_kernel_common phony/third_party/ruy/ruy_kernel_avx phony/third_party/ruy/ruy_kernel_avx2_fma phony/third_party/ruy/ruy_kernel_avx512 phony/third_party/ruy/ruy_pack phony/third_party/ruy/ruy_pack_arm phony/third_party/ruy/ruy_pack_common phony/third_party/ruy/ruy_pack_avx phony/third_party/ruy/ruy_pack_avx2_fma phony/third_party/ruy/ruy_pack_avx512 phony/third_party/ruy/ruy_trmul_params phony/third_party/ruy/ruy_prepare_packed_matrices phony/third_party/ruy/ruy_trmul phony/third_party/ruy/ruy_block_map phony/third_party/xnnpack/configs_arm64_standalone phony/third_party/xnnpack/enums_arm64_standalone phony/third_party/xnnpack/f16-avgpool_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-conv-hwc2chw_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-dwconv2d-chw_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-dwconv_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-f32-vcvt_arm64_standalone phony/third_party/xnnpack/f16-f32acc-rdsum_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-f32acc-rsum_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-gemm_arch=armv8.2-a+fp16+dotprod_standalone phony/third_party/xnnpack/f16-gemm_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-ibilinear-chw_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-ibilinear_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-igemm_arch=armv8.2-a+fp16+dotprod_standalone phony/third_party/xnnpack/f16-igemm_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-maxpool_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-qs8-vcvt_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-qs8-vcvt_arm64_standalone phony/third_party/xnnpack/f16-qu8-vcvt_arm64_standalone phony/third_party/xnnpack/f16-raddstoreexpminusmax_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-rminmax_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-rminmax_arm64_standalone phony/third_party/xnnpack/f16-spmm_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-vapproxgelu_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-vapproxgelu_arm64_standalone phony/third_party/xnnpack/f16-vbinary_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-vclamp_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-vcmul_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-vcos_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-vcos_arm64_standalone phony/third_party/xnnpack/f16-velu_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-vgelu_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-vgelu_arm64_standalone phony/third_party/xnnpack/f16-vhswish_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-vlrelu_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-vmulcaddc_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-vrnd_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-vrsqrt_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-vsigmoid_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-vsin_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-vsin_arm64_standalone phony/third_party/xnnpack/f16-vsqrt_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-vtanh_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f16-vunary_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/f32-argmaxpool_arm64_standalone phony/third_party/xnnpack/f32-avgpool_arm64_standalone phony/third_party/xnnpack/f32-conv-hwc2chw_arm64_standalone phony/third_party/xnnpack/f32-dwconv2d-chw_arm64_standalone phony/third_party/xnnpack/f32-dwconv_arch=armv8.2-a+fp16+dotprod_standalone phony/third_party/xnnpack/f32-dwconv_arm64_standalone phony/third_party/xnnpack/f32-f16-vcvt_arm64_standalone phony/third_party/xnnpack/f32-gemm_arch=armv8.2-a+fp16+dotprod_standalone phony/third_party/xnnpack/f32-gemm_arm64_standalone phony/third_party/xnnpack/f32-ibilinear-chw_arm64_standalone phony/third_party/xnnpack/f32-ibilinear_arm64_standalone phony/third_party/xnnpack/f32-igemm_arch=armv8.2-a+fp16+dotprod_standalone phony/third_party/xnnpack/f32-igemm_arm64_standalone phony/third_party/xnnpack/f32-maxpool_arm64_standalone phony/third_party/xnnpack/f32-qc4w-gemm_arm64_standalone phony/third_party/xnnpack/f32-qc8w-gemm_arch=armv8.2-a+fp16+dotprod_standalone phony/third_party/xnnpack/f32-qc8w-gemm_arm64_standalone phony/third_party/xnnpack/f32-qs8-vcvt_arm64_standalone phony/third_party/xnnpack/f32-qu8-vcvt_arm64_standalone phony/third_party/xnnpack/f32-raddstoreexpminusmax_arm64_standalone phony/third_party/xnnpack/f32-rdsum_arm64_standalone phony/third_party/xnnpack/f32-rminmax_arm64_standalone phony/third_party/xnnpack/f32-rsum_arm64_standalone phony/third_party/xnnpack/f32-spmm_arm64_standalone phony/third_party/xnnpack/f32-vapproxgelu_arm64_standalone phony/third_party/xnnpack/f32-vbinary_arm64_standalone phony/third_party/xnnpack/f32-vclamp_arm64_standalone phony/third_party/xnnpack/f32-vcmul_arm64_standalone phony/third_party/xnnpack/f32-vcopysign_arm64_standalone phony/third_party/xnnpack/f32-vcos_arm64_standalone phony/third_party/xnnpack/f32-velu_arm64_standalone phony/third_party/xnnpack/f32-vexp_arm64_standalone phony/third_party/xnnpack/f32-vgelu_arm64_standalone phony/third_party/xnnpack/f32-vhswish_arm64_standalone phony/third_party/xnnpack/f32-vlog_arm64_standalone phony/third_party/xnnpack/f32-vlrelu_arm64_standalone phony/third_party/xnnpack/f32-vmulcaddc_arm64_standalone phony/third_party/xnnpack/f32-vrelu_arm64_standalone phony/third_party/xnnpack/f32-vrnd_arm64_standalone phony/third_party/xnnpack/f32-vrsqrt_arm64_standalone phony/third_party/xnnpack/f32-vsigmoid_arm64_standalone phony/third_party/xnnpack/f32-vsin_arm64_standalone phony/third_party/xnnpack/f32-vsqrt_arm64_standalone phony/third_party/xnnpack/f32-vtanh_arm64_standalone phony/third_party/xnnpack/f32-vunary_arm64_standalone phony/third_party/xnnpack/operators_arm64_standalone phony/third_party/xnnpack/qd8-f16-qb4w-gemm_arch=armv8.2-a+dotprod+fp16_standalone phony/third_party/xnnpack/qd8-f16-qb4w-gemm_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/qd8-f16-qb4w-gemm_arch=armv8.2-a+i8mm+fp16_standalone phony/third_party/xnnpack/qd8-f16-qc4w-gemm_arch=armv8.2-a+dotprod+fp16_standalone phony/third_party/xnnpack/qd8-f16-qc4w-gemm_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/qd8-f16-qc4w-gemm_arch=armv8.2-a+i8mm+fp16_standalone phony/third_party/xnnpack/qd8-f16-qc8w-gemm_arch=armv8.2-a+dotprod+fp16_standalone phony/third_party/xnnpack/qd8-f16-qc8w-gemm_arch=armv8.2-a+fp16+dotprod_standalone phony/third_party/xnnpack/qd8-f16-qc8w-gemm_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/qd8-f16-qc8w-gemm_arch=armv8.2-a+i8mm+fp16_standalone phony/third_party/xnnpack/qd8-f16-qc8w-igemm_arch=armv8.2-a+dotprod+fp16_standalone phony/third_party/xnnpack/qd8-f16-qc8w-igemm_arch=armv8.2-a+fp16+dotprod_standalone phony/third_party/xnnpack/qd8-f16-qc8w-igemm_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/qd8-f16-qc8w-igemm_arch=armv8.2-a+i8mm+fp16_standalone phony/third_party/xnnpack/qd8-f32-qb4w-gemm_arch=armv8.2-a+dotprod_standalone phony/third_party/xnnpack/qd8-f32-qb4w-gemm_arch=armv8.2-a+i8mm+fp16_standalone phony/third_party/xnnpack/qd8-f32-qb4w-gemm_arm64_standalone phony/third_party/xnnpack/qd8-f32-qc4w-gemm_arch=armv8.2-a+dotprod_standalone phony/third_party/xnnpack/qd8-f32-qc4w-gemm_arch=armv8.2-a+i8mm+fp16_standalone phony/third_party/xnnpack/qd8-f32-qc4w-gemm_arm64_standalone phony/third_party/xnnpack/qd8-f32-qc8w-gemm_arch=armv8.2-a+dotprod_standalone phony/third_party/xnnpack/qd8-f32-qc8w-gemm_arch=armv8.2-a+fp16+dotprod_standalone phony/third_party/xnnpack/qd8-f32-qc8w-gemm_arch=armv8.2-a+i8mm+fp16_standalone phony/third_party/xnnpack/qd8-f32-qc8w-gemm_arm64_standalone phony/third_party/xnnpack/qd8-f32-qc8w-igemm_arch=armv8.2-a+dotprod_standalone phony/third_party/xnnpack/qd8-f32-qc8w-igemm_arch=armv8.2-a+fp16+dotprod_standalone phony/third_party/xnnpack/qd8-f32-qc8w-igemm_arch=armv8.2-a+i8mm+fp16_standalone phony/third_party/xnnpack/qd8-f32-qc8w-igemm_arm64_standalone phony/third_party/xnnpack/qp8-f32-qb4w-gemm_arch=armv8.2-a+dotprod_standalone phony/third_party/xnnpack/qp8-f32-qb4w-gemm_arch=armv8.2-a+i8mm+fp16_standalone phony/third_party/xnnpack/qp8-f32-qc4w-gemm_arch=armv8.2-a+dotprod_standalone phony/third_party/xnnpack/qp8-f32-qc4w-gemm_arch=armv8.2-a+i8mm+fp16_standalone phony/third_party/xnnpack/qp8-f32-qc8w-gemm_arch=armv8.2-a+dotprod_standalone phony/third_party/xnnpack/qp8-f32-qc8w-gemm_arch=armv8.2-a+i8mm+fp16_standalone phony/third_party/xnnpack/qs8-dwconv_arm64_standalone phony/third_party/xnnpack/qs8-f16-vcvt_arch=armv8.2-a+fp16_standalone phony/third_party/xnnpack/qs8-f32-vcvt_arm64_standalone phony/third_party/xnnpack/qs8-packw_arm64_standalone phony/third_party/xnnpack/qs8-qc8w-dwconv_arm64_standalone phony/third_party/xnnpack/qs8-qc8w-gemm_arch=armv8.2-a+dotprod_standalone phony/third_party/xnnpack/qs8-qc8w-gemm_arch=armv8.2-a+fp16+dotprod_standalone phony/third_party/xnnpack/qs8-qc8w-gemm_arch=armv8.2-a+i8mm+fp16_standalone phony/third_party/xnnpack/qs8-qc8w-gemm_arm64_standalone phony/third_party/xnnpack/qs8-qc8w-igemm_arch=armv8.2-a+dotprod_standalone phony/third_party/xnnpack/qs8-qc8w-igemm_arch=armv8.2-a+fp16+dotprod_standalone phony/third_party/xnnpack/qs8-qc8w-igemm_arch=armv8.2-a+i8mm+fp16_standalone phony/third_party/xnnpack/qs8-qc8w-igemm_arm64_standalone phony/third_party/xnnpack/qs8-qu8-packw_arm64_standalone phony/third_party/xnnpack/qs8-rdsum_arm64_standalone phony/third_party/xnnpack/qs8-rsum_arch=armv8.2-a+dotprod_standalone phony/third_party/xnnpack/qs8-rsum_arm64_standalone phony/third_party/xnnpack/qs8-vadd_arm64_standalone phony/third_party/xnnpack/qs8-vaddc_arm64_standalone phony/third_party/xnnpack/qs8-vcvt_arm64_standalone phony/third_party/xnnpack/qs8-vlrelu_arm64_standalone phony/third_party/xnnpack/qs8-vmul_arm64_standalone phony/third_party/xnnpack/qs8-vmulc_arm64_standalone phony/third_party/xnnpack/qu8-dwconv_arm64_standalone phony/third_party/xnnpack/qu8-f32-vcvt_arm64_standalone phony/third_party/xnnpack/qu8-gemm_arch=armv8.2-a+fp16+dotprod_standalone phony/third_party/xnnpack/qu8-gemm_arm64_standalone phony/third_party/xnnpack/qu8-igemm_arch=armv8.2-a+fp16+dotprod_standalone phony/third_party/xnnpack/qu8-igemm_arm64_standalone phony/third_party/xnnpack/qu8-rdsum_arm64_standalone phony/third_party/xnnpack/qu8-rsum_arm64_standalone phony/third_party/xnnpack/qu8-vadd_arm64_standalone phony/third_party/xnnpack/qu8-vaddc_arm64_standalone phony/third_party/xnnpack/qu8-vcvt_arm64_standalone phony/third_party/xnnpack/qu8-vlrelu_arm64_standalone phony/third_party/xnnpack/qu8-vmul_arm64_standalone phony/third_party/xnnpack/qu8-vmulc_arm64_standalone phony/third_party/xnnpack/reference_arm64_standalone phony/third_party/xnnpack/s8-ibilinear_arm64_standalone phony/third_party/xnnpack/s8-maxpool_arm64_standalone phony/third_party/xnnpack/s8-vclamp_arm64_standalone phony/third_party/xnnpack/subgraph_arm64_standalone phony/third_party/xnnpack/tables_arm64_standalone phony/third_party/xnnpack/u8-ibilinear_arm64_standalone phony/third_party/xnnpack/u8-lut32norm_arm64_standalone phony/third_party/xnnpack/u8-maxpool_arm64_standalone phony/third_party/xnnpack/u8-rminmax_arm64_standalone phony/third_party/xnnpack/u8-vclamp_arm64_standalone phony/third_party/xnnpack/x16-packw_arm64_standalone phony/third_party/xnnpack/x16-transposec_arm64_standalone phony/third_party/xnnpack/x24-transposec_arm64_standalone phony/third_party/xnnpack/x32-packw_arm64_standalone phony/third_party/xnnpack/x32-transposec_arm64_standalone phony/third_party/xnnpack/x32-unpool_arm64_standalone phony/third_party/xnnpack/x64-transposec_arm64_standalone phony/third_party/xnnpack/x8-lut_arm64_standalone phony/third_party/xnnpack/x8-packq_arm64_standalone phony/third_party/xnnpack/x8-packw_arm64_standalone phony/third_party/xnnpack/x8-transposec_arm64_standalone phony/third_party/xnnpack/xx-copy_arm64_standalone phony/third_party/xnnpack/xx-fill_arm64_standalone phony/third_party/xnnpack/xx-pad_arm64_standalone phony/third_party/xnnpack/xx-transposev_arm64_standalone
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/third_party/tflite

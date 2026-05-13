@@ -1,0 +1,11 @@
+{
+  "deps": [
+    "web_ui_ts_test_other_mojo_bindings.build_metadata",
+    "../../mojo/public/mojom/base/base.build_metadata",
+    "../../url/mojom/url_mojom_gurl.build_metadata"
+  ],
+  "sources": [
+    "../../../../../src/content/test/data/web_ui_ts_test.test-mojom",
+    "../../../../../src/content/test/data/web_ui_ts_test_types.test-mojom"
+  ]
+}

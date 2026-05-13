@@ -1,0 +1,1 @@
+bindgen_static_fns_test_lib_unittests

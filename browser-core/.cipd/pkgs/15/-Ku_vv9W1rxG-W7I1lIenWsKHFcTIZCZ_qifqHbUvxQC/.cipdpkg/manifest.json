@@ -1,0 +1,89 @@
+{
+  "format_version": "1.1",
+  "package_name": "chromium/third_party/updater/chrome_mac_universal_prod",
+  "install_mode": "copy",
+  "actual_install_mode": "copy",
+  "files": [
+    {
+      "name": "GoogleUpdater.app/Contents/CodeResources",
+      "size": 1884,
+      "hash": "WkT6jjWh6Wt2HXBJk1_26mD4I_ZYk7YcFm7tZuv-Q6gC"
+    },
+    {
+      "name": "GoogleUpdater.app/Contents/Helpers/GoogleSoftwareUpdate.bundle/Contents/Helpers/ksadmin",
+      "size": 4632832,
+      "executable": true,
+      "hash": "i4uNY6arseUuUyWAoTT09l1Tm2y8-QPgDIHqPsVna7kC"
+    },
+    {
+      "name": "GoogleUpdater.app/Contents/Helpers/GoogleSoftwareUpdate.bundle/Contents/Helpers/ksinstall",
+      "size": 3556992,
+      "executable": true,
+      "hash": "yww4-QjurdtWOEdQlW__ZJMCQ5_tZ0hYzGv2RXwCpo0C"
+    },
+    {
+      "name": "GoogleUpdater.app/Contents/Helpers/GoogleSoftwareUpdate.bundle/Contents/Info.plist",
+      "size": 1086,
+      "hash": "sSdUpU2sV7SnDZFcyd1udLVm_-SlT0_AV8mN2cFjvT8C"
+    },
+    {
+      "name": "GoogleUpdater.app/Contents/Helpers/GoogleSoftwareUpdate.bundle/Contents/MacOS/GoogleSoftwareUpdate",
+      "size": 417808,
+      "executable": true,
+      "hash": "lxM5hQsbDSMB3KHsLZzybPzSyewh8zigIvnF3XjM68EC"
+    },
+    {
+      "name": "GoogleUpdater.app/Contents/Helpers/GoogleSoftwareUpdate.bundle/Contents/MacOS/ksadmin",
+      "size": 0,
+      "symlink": "../Helpers/ksadmin"
+    },
+    {
+      "name": "GoogleUpdater.app/Contents/Helpers/GoogleSoftwareUpdate.bundle/Contents/Resources/GoogleSoftwareUpdateAgent.app/Contents/Info.plist",
+      "size": 1107,
+      "hash": "7epTWV5Jr_o2GJs-iue8_IX9_d4vraaQ2deQ5BKZks0C"
+    },
+    {
+      "name": "GoogleUpdater.app/Contents/Helpers/GoogleSoftwareUpdate.bundle/Contents/Resources/GoogleSoftwareUpdateAgent.app/Contents/MacOS/GoogleSoftwareUpdateAgent",
+      "size": 5029504,
+      "executable": true,
+      "hash": "-Hno6tpIN2eUMMVUyfwXgfsqbS2Ebd17pMmlZzH0iYIC"
+    },
+    {
+      "name": "GoogleUpdater.app/Contents/Helpers/GoogleSoftwareUpdate.bundle/Contents/Resources/GoogleSoftwareUpdateAgent.app/Contents/_CodeSignature/CodeResources",
+      "size": 2200,
+      "hash": "ZobeEKKKL-EbNsu4bcusyCfPxOoRa02r8YReWu5inpsC"
+    },
+    {
+      "name": "GoogleUpdater.app/Contents/Helpers/GoogleSoftwareUpdate.bundle/Contents/_CodeSignature/CodeResources",
+      "size": 4093,
+      "hash": "A0ExtLaVpSCELpihHFV8MKjNBjxgoL3INQWqZR0jQJsC"
+    },
+    {
+      "name": "GoogleUpdater.app/Contents/Helpers/launcher",
+      "size": 421424,
+      "executable": true,
+      "hash": "yNVMak8juHxVGOXCraZSxV4Bq-_6_oglT3K29eFWs1UC"
+    },
+    {
+      "name": "GoogleUpdater.app/Contents/Info.plist",
+      "size": 1254,
+      "hash": "M2dCaeWC2sUofpGclCo4n2UBFgvg5XwwY54h5GAodaMC"
+    },
+    {
+      "name": "GoogleUpdater.app/Contents/MacOS/GoogleUpdater",
+      "size": 9846384,
+      "executable": true,
+      "hash": "lxiZTKYRLwHSZiKoH5yhzU8t_74HZT3svL5mN5_l6jEC"
+    },
+    {
+      "name": "GoogleUpdater.app/Contents/PkgInfo",
+      "size": 8,
+      "hash": "glAhkclISwTWhTdPmHmgBmBpxJuKyuegSwHTjQfo7KAC"
+    },
+    {
+      "name": "GoogleUpdater.app/Contents/_CodeSignature/CodeResources",
+      "size": 3038,
+      "hash": "Gj26FvdzNwzQQ0_8_sy_keIDOVCo5TO1-PEUStwfzF0C"
+    }
+  ]
+}

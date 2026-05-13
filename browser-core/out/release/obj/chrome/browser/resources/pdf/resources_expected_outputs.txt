@@ -1,0 +1,4 @@
+gen/chrome/grit/pdf_resources.h
+gen/chrome/grit/pdf_resources_map.cc
+gen/chrome/grit/pdf_resources_map.h
+gen/chrome/pdf_resources.pak

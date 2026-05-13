@@ -1,0 +1,9 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../../src/services/service_manager/tests/background.test-mojom",
+    "../../../../../../src/services/service_manager/tests/test_support.test-mojom"
+  ]
+}

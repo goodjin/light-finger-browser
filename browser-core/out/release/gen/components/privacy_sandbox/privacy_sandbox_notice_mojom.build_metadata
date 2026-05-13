@@ -1,0 +1,8 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../src/components/privacy_sandbox/privacy_sandbox_notice.mojom"
+  ]
+}

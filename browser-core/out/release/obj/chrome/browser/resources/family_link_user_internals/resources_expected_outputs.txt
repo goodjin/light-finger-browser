@@ -1,0 +1,4 @@
+gen/chrome/grit/family_link_user_internals_resources.h
+gen/chrome/grit/family_link_user_internals_resources_map.cc
+gen/chrome/grit/family_link_user_internals_resources_map.h
+gen/chrome/family_link_user_internals_resources.pak

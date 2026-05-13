@@ -1,0 +1,28 @@
+[
+  {
+    "traits_headers": [
+      "services/network/public/cpp/permissions_policy/permissions_policy_mojom_traits.h"
+    ],
+    "traits_public_deps": [
+      "//base",
+      "//services/network/public/cpp:web_platform",
+      "//url/mojom:mojom_traits"
+    ],
+    "types": [
+      {
+        "cpp": "::network::OriginWithPossibleWildcards",
+        "mojom": "network.mojom.OriginWithPossibleWildcards"
+      },
+      {
+        "cpp": "::network::ParsedPermissionsPolicyDeclaration",
+        "mojom": "network.mojom.ParsedPermissionsPolicyDeclaration"
+      },
+      {
+        "cpp": "::network::PermissionsPolicy",
+        "default_constructible": false,
+        "mojom": "network.mojom.PermissionsPolicy",
+        "move_only": true
+      }
+    ]
+  }
+]

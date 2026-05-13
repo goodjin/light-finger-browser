@@ -1,0 +1,406 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/libaom/source/config -I../../src/third_party/libaom/source/libaom -I../../src/third_party/libaom/source/config/linux/arm64-cpu-detect
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall
+cflags_c = -std=c11
+label_name = libaom
+root_out_dir = .
+target_out_dir = obj/third_party/libaom
+target_output_name = libaom
+
+build phony/third_party/libaom/libaom.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/libaom/libaom/arg_defs.o: cc ../../src/third_party/libaom/source/libaom/av1/arg_defs.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = arg_defs.c
+  source_name_part = arg_defs
+build obj/third_party/libaom/libaom/alloccommon.o: cc ../../src/third_party/libaom/source/libaom/av1/common/alloccommon.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = alloccommon.c
+  source_name_part = alloccommon
+build obj/third_party/libaom/libaom/av1_inv_txfm1d.o: cc ../../src/third_party/libaom/source/libaom/av1/common/av1_inv_txfm1d.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = av1_inv_txfm1d.c
+  source_name_part = av1_inv_txfm1d
+build obj/third_party/libaom/libaom/av1_inv_txfm2d.o: cc ../../src/third_party/libaom/source/libaom/av1/common/av1_inv_txfm2d.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = av1_inv_txfm2d.c
+  source_name_part = av1_inv_txfm2d
+build obj/third_party/libaom/libaom/av1_loopfilter.o: cc ../../src/third_party/libaom/source/libaom/av1/common/av1_loopfilter.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = av1_loopfilter.c
+  source_name_part = av1_loopfilter
+build obj/third_party/libaom/libaom/av1_txfm.o: cc ../../src/third_party/libaom/source/libaom/av1/common/av1_txfm.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = av1_txfm.c
+  source_name_part = av1_txfm
+build obj/third_party/libaom/libaom/blockd.o: cc ../../src/third_party/libaom/source/libaom/av1/common/blockd.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = blockd.c
+  source_name_part = blockd
+build obj/third_party/libaom/libaom/cdef.o: cc ../../src/third_party/libaom/source/libaom/av1/common/cdef.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = cdef.c
+  source_name_part = cdef
+build obj/third_party/libaom/libaom/cdef_block.o: cc ../../src/third_party/libaom/source/libaom/av1/common/cdef_block.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = cdef_block.c
+  source_name_part = cdef_block
+build obj/third_party/libaom/libaom/common_data.o: cc ../../src/third_party/libaom/source/libaom/av1/common/common_data.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = common_data.c
+  source_name_part = common_data
+build obj/third_party/libaom/libaom/convolve.o: cc ../../src/third_party/libaom/source/libaom/av1/common/convolve.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = convolve.c
+  source_name_part = convolve
+build obj/third_party/libaom/libaom/debugmodes.o: cc ../../src/third_party/libaom/source/libaom/av1/common/debugmodes.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = debugmodes.c
+  source_name_part = debugmodes
+build obj/third_party/libaom/libaom/entropy.o: cc ../../src/third_party/libaom/source/libaom/av1/common/entropy.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = entropy.c
+  source_name_part = entropy
+build obj/third_party/libaom/libaom/entropymode.o: cc ../../src/third_party/libaom/source/libaom/av1/common/entropymode.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = entropymode.c
+  source_name_part = entropymode
+build obj/third_party/libaom/libaom/entropymv.o: cc ../../src/third_party/libaom/source/libaom/av1/common/entropymv.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = entropymv.c
+  source_name_part = entropymv
+build obj/third_party/libaom/libaom/frame_buffers.o: cc ../../src/third_party/libaom/source/libaom/av1/common/frame_buffers.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = frame_buffers.c
+  source_name_part = frame_buffers
+build obj/third_party/libaom/libaom/idct.o: cc ../../src/third_party/libaom/source/libaom/av1/common/idct.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = idct.c
+  source_name_part = idct
+build obj/third_party/libaom/libaom/mvref_common.o: cc ../../src/third_party/libaom/source/libaom/av1/common/mvref_common.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = mvref_common.c
+  source_name_part = mvref_common
+build obj/third_party/libaom/libaom/obu_util.o: cc ../../src/third_party/libaom/source/libaom/av1/common/obu_util.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = obu_util.c
+  source_name_part = obu_util
+build obj/third_party/libaom/libaom/pred_common.o: cc ../../src/third_party/libaom/source/libaom/av1/common/pred_common.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = pred_common.c
+  source_name_part = pred_common
+build obj/third_party/libaom/libaom/quant_common.o: cc ../../src/third_party/libaom/source/libaom/av1/common/quant_common.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = quant_common.c
+  source_name_part = quant_common
+build obj/third_party/libaom/libaom/reconinter.o: cc ../../src/third_party/libaom/source/libaom/av1/common/reconinter.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = reconinter.c
+  source_name_part = reconinter
+build obj/third_party/libaom/libaom/reconintra.o: cc ../../src/third_party/libaom/source/libaom/av1/common/reconintra.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = reconintra.c
+  source_name_part = reconintra
+build obj/third_party/libaom/libaom/resize.o: cc ../../src/third_party/libaom/source/libaom/av1/common/resize.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = resize.c
+  source_name_part = resize
+build obj/third_party/libaom/libaom/scale.o: cc ../../src/third_party/libaom/source/libaom/av1/common/scale.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = scale.c
+  source_name_part = scale
+build obj/third_party/libaom/libaom/scan.o: cc ../../src/third_party/libaom/source/libaom/av1/common/scan.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = scan.c
+  source_name_part = scan
+build obj/third_party/libaom/libaom/seg_common.o: cc ../../src/third_party/libaom/source/libaom/av1/common/seg_common.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = seg_common.c
+  source_name_part = seg_common
+build obj/third_party/libaom/libaom/thread_common.o: cc ../../src/third_party/libaom/source/libaom/av1/common/thread_common.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = thread_common.c
+  source_name_part = thread_common
+build obj/third_party/libaom/libaom/tile_common.o: cc ../../src/third_party/libaom/source/libaom/av1/common/tile_common.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = tile_common.c
+  source_name_part = tile_common
+build obj/third_party/libaom/libaom/timing.o: cc ../../src/third_party/libaom/source/libaom/av1/common/timing.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = timing.c
+  source_name_part = timing
+build obj/third_party/libaom/libaom/txb_common.o: cc ../../src/third_party/libaom/source/libaom/av1/common/txb_common.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = txb_common.c
+  source_name_part = txb_common
+build obj/third_party/libaom/libaom/args_helper.o: cc ../../src/third_party/libaom/source/libaom/common/args_helper.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = args_helper.c
+  source_name_part = args_helper
+build obj/third_party/libaom/libaom/aom_convolve.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/aom_convolve.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = aom_convolve.c
+  source_name_part = aom_convolve
+build obj/third_party/libaom/libaom/bitreader_buffer.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/bitreader_buffer.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = bitreader_buffer.c
+  source_name_part = bitreader_buffer
+build obj/third_party/libaom/libaom/bitwriter_buffer.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/bitwriter_buffer.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = bitwriter_buffer.c
+  source_name_part = bitwriter_buffer
+build obj/third_party/libaom/libaom/blend_a64_hmask.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/blend_a64_hmask.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = blend_a64_hmask.c
+  source_name_part = blend_a64_hmask
+build obj/third_party/libaom/libaom/blend_a64_mask.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/blend_a64_mask.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = blend_a64_mask.c
+  source_name_part = blend_a64_mask
+build obj/third_party/libaom/libaom/blend_a64_vmask.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/blend_a64_vmask.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = blend_a64_vmask.c
+  source_name_part = blend_a64_vmask
+build obj/third_party/libaom/libaom/entcode.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/entcode.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = entcode.c
+  source_name_part = entcode
+build obj/third_party/libaom/libaom/intrapred.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/intrapred.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = intrapred.c
+  source_name_part = intrapred
+build obj/third_party/libaom/libaom/loopfilter.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/loopfilter.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = loopfilter.c
+  source_name_part = loopfilter
+build obj/third_party/libaom/libaom/odintrin.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/odintrin.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = odintrin.c
+  source_name_part = odintrin
+build obj/third_party/libaom/libaom/aom_mem.o: cc ../../src/third_party/libaom/source/libaom/aom_mem/aom_mem.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = aom_mem.c
+  source_name_part = aom_mem
+build obj/third_party/libaom/libaom/aom_dsp_rtcd.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/aom_dsp_rtcd.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = aom_dsp_rtcd.c
+  source_name_part = aom_dsp_rtcd
+build obj/third_party/libaom/libaom/aom_scale_rtcd.o: cc ../../src/third_party/libaom/source/libaom/aom_scale/aom_scale_rtcd.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = aom_scale_rtcd.c
+  source_name_part = aom_scale_rtcd
+build obj/third_party/libaom/libaom/av1_rtcd.o: cc ../../src/third_party/libaom/source/libaom/av1/common/av1_rtcd.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = av1_rtcd.c
+  source_name_part = av1_rtcd
+build obj/third_party/libaom/libaom/yv12config.o: cc ../../src/third_party/libaom/source/libaom/aom_scale/generic/yv12config.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = yv12config.c
+  source_name_part = yv12config
+build obj/third_party/libaom/libaom/yv12extend.o: cc ../../src/third_party/libaom/source/libaom/aom_scale/generic/yv12extend.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = yv12extend.c
+  source_name_part = yv12extend
+build obj/third_party/libaom/libaom/aom_codec.o: cc ../../src/third_party/libaom/source/libaom/aom/src/aom_codec.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = aom_codec.c
+  source_name_part = aom_codec
+build obj/third_party/libaom/libaom/aom_encoder.o: cc ../../src/third_party/libaom/source/libaom/aom/src/aom_encoder.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = aom_encoder.c
+  source_name_part = aom_encoder
+build obj/third_party/libaom/libaom/aom_image.o: cc ../../src/third_party/libaom/source/libaom/aom/src/aom_image.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = aom_image.c
+  source_name_part = aom_image
+build obj/third_party/libaom/libaom/aom_integer.o: cc ../../src/third_party/libaom/source/libaom/aom/src/aom_integer.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = aom_integer.c
+  source_name_part = aom_integer
+build obj/third_party/libaom/libaom/aom_thread.o: cc ../../src/third_party/libaom/source/libaom/aom_util/aom_thread.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = aom_thread.c
+  source_name_part = aom_thread
+build obj/third_party/libaom/libaom/av1_cx_iface.o: cc ../../src/third_party/libaom/source/libaom/av1/av1_cx_iface.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = av1_cx_iface.c
+  source_name_part = av1_cx_iface
+build obj/third_party/libaom/libaom/allintra_vis.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/allintra_vis.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = allintra_vis.c
+  source_name_part = allintra_vis
+build obj/third_party/libaom/libaom/aq_complexity.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/aq_complexity.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = aq_complexity.c
+  source_name_part = aq_complexity
+build obj/third_party/libaom/libaom/aq_cyclicrefresh.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/aq_cyclicrefresh.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = aq_cyclicrefresh.c
+  source_name_part = aq_cyclicrefresh
+build obj/third_party/libaom/libaom/aq_variance.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/aq_variance.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = aq_variance.c
+  source_name_part = aq_variance
+build obj/third_party/libaom/libaom/av1_fwd_txfm1d.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/av1_fwd_txfm1d.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = av1_fwd_txfm1d.c
+  source_name_part = av1_fwd_txfm1d
+build obj/third_party/libaom/libaom/av1_fwd_txfm2d.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/av1_fwd_txfm2d.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = av1_fwd_txfm2d.c
+  source_name_part = av1_fwd_txfm2d
+build obj/third_party/libaom/libaom/av1_noise_estimate.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/av1_noise_estimate.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = av1_noise_estimate.c
+  source_name_part = av1_noise_estimate
+build obj/third_party/libaom/libaom/av1_quantize.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/av1_quantize.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = av1_quantize.c
+  source_name_part = av1_quantize
+build obj/third_party/libaom/libaom/av1_temporal_denoiser.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/av1_temporal_denoiser.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = av1_temporal_denoiser.c
+  source_name_part = av1_temporal_denoiser
+build obj/third_party/libaom/libaom/bitstream.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/bitstream.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = bitstream.c
+  source_name_part = bitstream
+build obj/third_party/libaom/libaom/compound_type.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/compound_type.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = compound_type.c
+  source_name_part = compound_type
+build obj/third_party/libaom/libaom/context_tree.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/context_tree.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = context_tree.c
+  source_name_part = context_tree
+build obj/third_party/libaom/libaom/cost.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/cost.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = cost.c
+  source_name_part = cost
+build obj/third_party/libaom/libaom/dwt.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/dwt.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = dwt.c
+  source_name_part = dwt
+build obj/third_party/libaom/libaom/encode_strategy.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/encode_strategy.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = encode_strategy.c
+  source_name_part = encode_strategy
+build obj/third_party/libaom/libaom/encodeframe.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/encodeframe.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = encodeframe.c
+  source_name_part = encodeframe
+build obj/third_party/libaom/libaom/encodeframe_utils.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/encodeframe_utils.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = encodeframe_utils.c
+  source_name_part = encodeframe_utils
+build obj/third_party/libaom/libaom/encodemb.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/encodemb.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = encodemb.c
+  source_name_part = encodemb
+build obj/third_party/libaom/libaom/encodemv.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/encodemv.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = encodemv.c
+  source_name_part = encodemv
+build obj/third_party/libaom/libaom/encoder.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/encoder.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = encoder.c
+  source_name_part = encoder
+build obj/third_party/libaom/libaom/encoder_utils.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/encoder_utils.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = encoder_utils.c
+  source_name_part = encoder_utils
+build obj/third_party/libaom/libaom/encodetxb.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/encodetxb.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = encodetxb.c
+  source_name_part = encodetxb
+build obj/third_party/libaom/libaom/ethread.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/ethread.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = ethread.c
+  source_name_part = ethread
+build obj/third_party/libaom/libaom/extend.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/extend.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = extend.c
+  source_name_part = extend
+build obj/third_party/libaom/libaom/external_partition.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/external_partition.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = external_partition.c
+  source_name_part = external_partition
+build obj/third_party/libaom/libaom/hash.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/hash.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = hash.c
+  source_name_part = hash
+build obj/third_party/libaom/libaom/hash_motion.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/hash_motion.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = hash_motion.c
+  source_name_part = hash_motion
+build obj/third_party/libaom/libaom/hybrid_fwd_txfm.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/hybrid_fwd_txfm.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = hybrid_fwd_txfm.c
+  source_name_part = hybrid_fwd_txfm
+build obj/third_party/libaom/libaom/interp_search.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/interp_search.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = interp_search.c
+  source_name_part = interp_search
+build obj/third_party/libaom/libaom/intra_mode_search.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/intra_mode_search.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = intra_mode_search.c
+  source_name_part = intra_mode_search
+build obj/third_party/libaom/libaom/level.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/level.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = level.c
+  source_name_part = level
+build obj/third_party/libaom/libaom/lookahead.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/lookahead.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = lookahead.c
+  source_name_part = lookahead
+build obj/third_party/libaom/libaom/mcomp.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/mcomp.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = mcomp.c
+  source_name_part = mcomp
+build obj/third_party/libaom/libaom/ml.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/ml.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = ml.c
+  source_name_part = ml
+build obj/third_party/libaom/libaom/motion_search_facade.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/motion_search_facade.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = motion_search_facade.c
+  source_name_part = motion_search_facade
+build obj/third_party/libaom/libaom/mv_prec.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/mv_prec.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = mv_prec.c
+  source_name_part = mv_prec
+build obj/third_party/libaom/libaom/nonrd_opt.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/nonrd_opt.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = nonrd_opt.c
+  source_name_part = nonrd_opt
+build obj/third_party/libaom/libaom/nonrd_pickmode.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/nonrd_pickmode.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = nonrd_pickmode.c
+  source_name_part = nonrd_pickmode
+build obj/third_party/libaom/libaom/palette.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/palette.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = palette.c
+  source_name_part = palette
+build obj/third_party/libaom/libaom/partition_search.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/partition_search.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = partition_search.c
+  source_name_part = partition_search
+build obj/third_party/libaom/libaom/partition_strategy.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/partition_strategy.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = partition_strategy.c
+  source_name_part = partition_strategy
+build obj/third_party/libaom/libaom/pickcdef.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/pickcdef.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = pickcdef.c
+  source_name_part = pickcdef
+build obj/third_party/libaom/libaom/picklpf.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/picklpf.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = picklpf.c
+  source_name_part = picklpf
+build obj/third_party/libaom/libaom/ratectrl.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/ratectrl.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = ratectrl.c
+  source_name_part = ratectrl
+build obj/third_party/libaom/libaom/rd.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/rd.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = rd.c
+  source_name_part = rd
+build obj/third_party/libaom/libaom/rdopt.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/rdopt.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = rdopt.c
+  source_name_part = rdopt
+build obj/third_party/libaom/libaom/reconinter_enc.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/reconinter_enc.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = reconinter_enc.c
+  source_name_part = reconinter_enc
+build obj/third_party/libaom/libaom/segmentation.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/segmentation.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = segmentation.c
+  source_name_part = segmentation
+build obj/third_party/libaom/libaom/speed_features.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/speed_features.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = speed_features.c
+  source_name_part = speed_features
+build obj/third_party/libaom/libaom/superres_scale.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/superres_scale.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = superres_scale.c
+  source_name_part = superres_scale
+build obj/third_party/libaom/libaom/svc_layercontext.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/svc_layercontext.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = svc_layercontext.c
+  source_name_part = svc_layercontext
+build obj/third_party/libaom/libaom/tokenize.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/tokenize.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = tokenize.c
+  source_name_part = tokenize
+build obj/third_party/libaom/libaom/tx_search.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/tx_search.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = tx_search.c
+  source_name_part = tx_search
+build obj/third_party/libaom/libaom/txb_rdopt.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/txb_rdopt.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = txb_rdopt.c
+  source_name_part = txb_rdopt
+build obj/third_party/libaom/libaom/var_based_part.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/var_based_part.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = var_based_part.c
+  source_name_part = var_based_part
+build obj/third_party/libaom/libaom/wedge_utils.o: cc ../../src/third_party/libaom/source/libaom/av1/encoder/wedge_utils.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = wedge_utils.c
+  source_name_part = wedge_utils
+build obj/third_party/libaom/libaom/fast.o: cc ../../src/third_party/libaom/source/libaom/third_party/fastfeat/fast.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = fast.c
+  source_name_part = fast
+build obj/third_party/libaom/libaom/fast_9.o: cc ../../src/third_party/libaom/source/libaom/third_party/fastfeat/fast_9.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = fast_9.c
+  source_name_part = fast_9
+build obj/third_party/libaom/libaom/nonmax.o: cc ../../src/third_party/libaom/source/libaom/third_party/fastfeat/nonmax.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = nonmax.c
+  source_name_part = nonmax
+build obj/third_party/libaom/libaom/vector.o: cc ../../src/third_party/libaom/source/libaom/third_party/vector/vector.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = vector.c
+  source_name_part = vector
+build obj/third_party/libaom/libaom/avg.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/avg.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = avg.c
+  source_name_part = avg
+build obj/third_party/libaom/libaom/bitwriter.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/bitwriter.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = bitwriter.c
+  source_name_part = bitwriter
+build obj/third_party/libaom/libaom/blk_sse_sum.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/blk_sse_sum.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = blk_sse_sum.c
+  source_name_part = blk_sse_sum
+build obj/third_party/libaom/libaom/entenc.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/entenc.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = entenc.c
+  source_name_part = entenc
+build obj/third_party/libaom/libaom/fft.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/fft.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = fft.c
+  source_name_part = fft
+build obj/third_party/libaom/libaom/fwd_txfm.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/fwd_txfm.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = fwd_txfm.c
+  source_name_part = fwd_txfm
+build obj/third_party/libaom/libaom/psnr.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/psnr.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = psnr.c
+  source_name_part = psnr
+build obj/third_party/libaom/libaom/quantize.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/quantize.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = quantize.c
+  source_name_part = quantize
+build obj/third_party/libaom/libaom/sad.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/sad.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = sad.c
+  source_name_part = sad
+build obj/third_party/libaom/libaom/sad_av1.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/sad_av1.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = sad_av1.c
+  source_name_part = sad_av1
+build obj/third_party/libaom/libaom/sse.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/sse.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = sse.c
+  source_name_part = sse
+build obj/third_party/libaom/libaom/ssim.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/ssim.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = ssim.c
+  source_name_part = ssim
+build obj/third_party/libaom/libaom/subtract.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/subtract.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = subtract.c
+  source_name_part = subtract
+build obj/third_party/libaom/libaom/sum_squares.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/sum_squares.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = sum_squares.c
+  source_name_part = sum_squares
+build obj/third_party/libaom/libaom/variance.o: cc ../../src/third_party/libaom/source/libaom/aom_dsp/variance.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = variance.c
+  source_name_part = variance
+build obj/third_party/libaom/libaom/aarch64_cpudetect.o: cc ../../src/third_party/libaom/source/libaom/aom_ports/aarch64_cpudetect.c | phony/third_party/libaom/libaom.inputs
+  source_file_part = aarch64_cpudetect.c
+  source_name_part = aarch64_cpudetect
+
+build obj/third_party/libaom/libaom.a: alink obj/third_party/libaom/libaom/arg_defs.o obj/third_party/libaom/libaom/alloccommon.o obj/third_party/libaom/libaom/av1_inv_txfm1d.o obj/third_party/libaom/libaom/av1_inv_txfm2d.o obj/third_party/libaom/libaom/av1_loopfilter.o obj/third_party/libaom/libaom/av1_txfm.o obj/third_party/libaom/libaom/blockd.o obj/third_party/libaom/libaom/cdef.o obj/third_party/libaom/libaom/cdef_block.o obj/third_party/libaom/libaom/common_data.o obj/third_party/libaom/libaom/convolve.o obj/third_party/libaom/libaom/debugmodes.o obj/third_party/libaom/libaom/entropy.o obj/third_party/libaom/libaom/entropymode.o obj/third_party/libaom/libaom/entropymv.o obj/third_party/libaom/libaom/frame_buffers.o obj/third_party/libaom/libaom/idct.o obj/third_party/libaom/libaom/mvref_common.o obj/third_party/libaom/libaom/obu_util.o obj/third_party/libaom/libaom/pred_common.o obj/third_party/libaom/libaom/quant_common.o obj/third_party/libaom/libaom/reconinter.o obj/third_party/libaom/libaom/reconintra.o obj/third_party/libaom/libaom/resize.o obj/third_party/libaom/libaom/scale.o obj/third_party/libaom/libaom/scan.o obj/third_party/libaom/libaom/seg_common.o obj/third_party/libaom/libaom/thread_common.o obj/third_party/libaom/libaom/tile_common.o obj/third_party/libaom/libaom/timing.o obj/third_party/libaom/libaom/txb_common.o obj/third_party/libaom/libaom/args_helper.o obj/third_party/libaom/libaom/aom_convolve.o obj/third_party/libaom/libaom/bitreader_buffer.o obj/third_party/libaom/libaom/bitwriter_buffer.o obj/third_party/libaom/libaom/blend_a64_hmask.o obj/third_party/libaom/libaom/blend_a64_mask.o obj/third_party/libaom/libaom/blend_a64_vmask.o obj/third_party/libaom/libaom/entcode.o obj/third_party/libaom/libaom/intrapred.o obj/third_party/libaom/libaom/loopfilter.o obj/third_party/libaom/libaom/odintrin.o obj/third_party/libaom/libaom/aom_mem.o obj/third_party/libaom/libaom/aom_dsp_rtcd.o obj/third_party/libaom/libaom/aom_scale_rtcd.o obj/third_party/libaom/libaom/av1_rtcd.o obj/third_party/libaom/libaom/yv12config.o obj/third_party/libaom/libaom/yv12extend.o obj/third_party/libaom/libaom/aom_codec.o obj/third_party/libaom/libaom/aom_encoder.o obj/third_party/libaom/libaom/aom_image.o obj/third_party/libaom/libaom/aom_integer.o obj/third_party/libaom/libaom/aom_thread.o obj/third_party/libaom/libaom/av1_cx_iface.o obj/third_party/libaom/libaom/allintra_vis.o obj/third_party/libaom/libaom/aq_complexity.o obj/third_party/libaom/libaom/aq_cyclicrefresh.o obj/third_party/libaom/libaom/aq_variance.o obj/third_party/libaom/libaom/av1_fwd_txfm1d.o obj/third_party/libaom/libaom/av1_fwd_txfm2d.o obj/third_party/libaom/libaom/av1_noise_estimate.o obj/third_party/libaom/libaom/av1_quantize.o obj/third_party/libaom/libaom/av1_temporal_denoiser.o obj/third_party/libaom/libaom/bitstream.o obj/third_party/libaom/libaom/compound_type.o obj/third_party/libaom/libaom/context_tree.o obj/third_party/libaom/libaom/cost.o obj/third_party/libaom/libaom/dwt.o obj/third_party/libaom/libaom/encode_strategy.o obj/third_party/libaom/libaom/encodeframe.o obj/third_party/libaom/libaom/encodeframe_utils.o obj/third_party/libaom/libaom/encodemb.o obj/third_party/libaom/libaom/encodemv.o obj/third_party/libaom/libaom/encoder.o obj/third_party/libaom/libaom/encoder_utils.o obj/third_party/libaom/libaom/encodetxb.o obj/third_party/libaom/libaom/ethread.o obj/third_party/libaom/libaom/extend.o obj/third_party/libaom/libaom/external_partition.o obj/third_party/libaom/libaom/hash.o obj/third_party/libaom/libaom/hash_motion.o obj/third_party/libaom/libaom/hybrid_fwd_txfm.o obj/third_party/libaom/libaom/interp_search.o obj/third_party/libaom/libaom/intra_mode_search.o obj/third_party/libaom/libaom/level.o obj/third_party/libaom/libaom/lookahead.o obj/third_party/libaom/libaom/mcomp.o obj/third_party/libaom/libaom/ml.o obj/third_party/libaom/libaom/motion_search_facade.o obj/third_party/libaom/libaom/mv_prec.o obj/third_party/libaom/libaom/nonrd_opt.o obj/third_party/libaom/libaom/nonrd_pickmode.o obj/third_party/libaom/libaom/palette.o obj/third_party/libaom/libaom/partition_search.o obj/third_party/libaom/libaom/partition_strategy.o obj/third_party/libaom/libaom/pickcdef.o obj/third_party/libaom/libaom/picklpf.o obj/third_party/libaom/libaom/ratectrl.o obj/third_party/libaom/libaom/rd.o obj/third_party/libaom/libaom/rdopt.o obj/third_party/libaom/libaom/reconinter_enc.o obj/third_party/libaom/libaom/segmentation.o obj/third_party/libaom/libaom/speed_features.o obj/third_party/libaom/libaom/superres_scale.o obj/third_party/libaom/libaom/svc_layercontext.o obj/third_party/libaom/libaom/tokenize.o obj/third_party/libaom/libaom/tx_search.o obj/third_party/libaom/libaom/txb_rdopt.o obj/third_party/libaom/libaom/var_based_part.o obj/third_party/libaom/libaom/wedge_utils.o obj/third_party/libaom/libaom/fast.o obj/third_party/libaom/libaom/fast_9.o obj/third_party/libaom/libaom/nonmax.o obj/third_party/libaom/libaom/vector.o obj/third_party/libaom/libaom/avg.o obj/third_party/libaom/libaom/bitwriter.o obj/third_party/libaom/libaom/blk_sse_sum.o obj/third_party/libaom/libaom/entenc.o obj/third_party/libaom/libaom/fft.o obj/third_party/libaom/libaom/fwd_txfm.o obj/third_party/libaom/libaom/psnr.o obj/third_party/libaom/libaom/quantize.o obj/third_party/libaom/libaom/sad.o obj/third_party/libaom/libaom/sad_av1.o obj/third_party/libaom/libaom/sse.o obj/third_party/libaom/libaom/ssim.o obj/third_party/libaom/libaom/subtract.o obj/third_party/libaom/libaom/sum_squares.o obj/third_party/libaom/libaom/variance.o obj/third_party/libaom/libaom/aarch64_cpudetect.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a phony/third_party/libaom/libaom.inputs || phony/third_party/libaom/libaom_intrinsics_neon phony/third_party/libaom/libaom_intrinsics_arm_crc32 phony/third_party/libaom/libaom_intrinsics_neon_dotprod phony/third_party/libaom/libaom_intrinsics_neon_i8mm phony/third_party/libaom/libaom_intrinsics_sve phony/third_party/libaom/libaom_intrinsics_sve2
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/third_party/libaom

@@ -1,0 +1,4 @@
+gen/chrome/grit/whats_new_resources.h
+gen/chrome/grit/whats_new_resources_map.cc
+gen/chrome/grit/whats_new_resources_map.h
+gen/chrome/whats_new_resources.pak

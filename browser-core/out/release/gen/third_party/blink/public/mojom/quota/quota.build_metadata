@@ -1,0 +1,9 @@
+{
+  "deps": [
+
+  ],
+  "sources": [
+    "../../../../../../../../src/third_party/blink/public/mojom/quota/quota_manager_host.mojom",
+    "../../../../../../../../src/third_party/blink/public/mojom/quota/quota_types.mojom"
+  ]
+}

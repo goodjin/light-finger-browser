@@ -67,22 +67,40 @@ func (s *TabService) CreateTab(ctx context.Context, instanceID string, cfg *TabC
 	}
 	defer s.instanceSvc.CloseCDPClient(instanceID)
 
-	// 3. Create isolated browser context
-	contextId, err := mainClient.CreateBrowserContext(ctx)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create browser context: %w", err)
+	// 3. Create isolated browser context with retry logic
+	var contextId string
+	const maxRetries = 3
+	for attempt := 1; attempt <= maxRetries; attempt++ {
+		contextId, err = mainClient.CreateBrowserContext(ctx)
+		if err == nil {
+			break
+		}
+		if attempt == maxRetries {
+			return nil, fmt.Errorf("failed to create browser context after %d attempts: %w", maxRetries, err)
+		}
+		fmt.Printf("warning: CreateBrowserContext attempt %d failed: %v, retrying...\n", attempt, err)
+		time.Sleep(time.Duration(attempt*100) * time.Millisecond)
 	}
 
-	// 4. Create tab within that context
+	// 4. Create tab within that context with retry logic
 	url := cfg.URL
 	if url == "" {
 		url = "about:blank"
 	}
 
-	targetId, err := mainClient.CreateTargetWithContext(ctx, url, contextId)
-	if err != nil {
-		_ = mainClient.CloseBrowserContext(ctx, contextId)
-		return nil, fmt.Errorf("failed to create tab: %w", err)
+	var targetId string
+	for attempt := 1; attempt <= maxRetries; attempt++ {
+		targetId, err = mainClient.CreateTargetWithContext(ctx, url, contextId)
+		if err == nil {
+			break
+		}
+		if attempt == maxRetries {
+			// Cleanup context on final failure
+			_ = mainClient.CloseBrowserContext(ctx, contextId)
+			return nil, fmt.Errorf("failed to create tab after %d attempts: %w", maxRetries, err)
+		}
+		fmt.Printf("warning: CreateTargetWithContext attempt %d failed: %v, retrying...\n", attempt, err)
+		time.Sleep(time.Duration(attempt*100) * time.Millisecond)
 	}
 
 	// 5. Store context and tab info in memory

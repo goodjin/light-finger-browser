@@ -2,7 +2,8 @@ import { test, expect } from '@playwright/test';
 
 test.describe('指纹 CRUD 操作', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:5173/');
+    // Use Wails app URL for proper IPC connection
+    await page.goto('http://localhost:34115/');
     await page.waitForLoadState('networkidle');
   });
 

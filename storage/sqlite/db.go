@@ -116,6 +116,24 @@ func (db *DB) Migrate() error {
 			snapshot_json TEXT NOT NULL,
 			created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 		)`,
+		`CREATE TABLE IF NOT EXISTS fingerprint_windows (
+			id TEXT PRIMARY KEY,
+			country TEXT NOT NULL,
+			seed TEXT NOT NULL,
+			context_id TEXT NOT NULL DEFAULT '',
+			instance_id TEXT NOT NULL DEFAULT '',
+			status TEXT NOT NULL DEFAULT 'active',
+			created_at TEXT NOT NULL,
+			last_active_at TEXT NOT NULL,
+			closed_at TEXT,
+			window_type TEXT NOT NULL DEFAULT 'window',
+			parent_window_id TEXT NOT NULL DEFAULT '',
+			title TEXT NOT NULL DEFAULT '',
+			url TEXT NOT NULL DEFAULT ''
+		)`,
+		`CREATE INDEX IF NOT EXISTS idx_fingerprint_windows_instance ON fingerprint_windows(instance_id)`,
+		`CREATE INDEX IF NOT EXISTS idx_fingerprint_windows_context ON fingerprint_windows(context_id)`,
+		`CREATE INDEX IF NOT EXISTS idx_fingerprint_windows_status ON fingerprint_windows(status)`,
 	}
 
 	for _, m := range migrations {

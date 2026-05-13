@@ -1,0 +1,153 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0 -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS
+framework_dirs =
+include_dirs = -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/include -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/AArch64 -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/ARM -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/Mips -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/RISCV -I../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/X86 -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/include -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/IR -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/AArch64 -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/ARM -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/Mips -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/PowerPC -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/RISCV -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Target/X86 -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/common/lib/Transforms/InstCombine -I../../src/third_party/swiftshader/third_party/llvm-10.0/configs/darwin/include -I../../src -Igen -I../../src/buildtools/third_party/libc++
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall -Wno-shadow -Os -Wno-attributes -Wno-bitwise-instead-of-logical -Wno-deprecated-declarations -Wno-enum-compare -Wno-header-hygiene -Wno-unused-function -Wno-unused-local-typedef -Wno-unused-private-field -Wno-unused-result -Wno-unused-variable
+cflags_cc = -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness
+label_name = swiftshader_llvm_ppc
+root_out_dir = .
+target_out_dir = obj/third_party/swiftshader/third_party/llvm-10.0
+target_output_name = swiftshader_llvm_ppc
+
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCAsmParser.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/AsmParser/PPCAsmParser.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCAsmParser.cpp
+  source_name_part = PPCAsmParser
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCDisassembler.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/Disassembler/PPCDisassembler.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCDisassembler.cpp
+  source_name_part = PPCDisassembler
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCAsmBackend.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/MCTargetDesc/PPCAsmBackend.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCAsmBackend.cpp
+  source_name_part = PPCAsmBackend
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCELFObjectWriter.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/MCTargetDesc/PPCELFObjectWriter.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCELFObjectWriter.cpp
+  source_name_part = PPCELFObjectWriter
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCInstPrinter.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/MCTargetDesc/PPCInstPrinter.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCInstPrinter.cpp
+  source_name_part = PPCInstPrinter
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCMCAsmInfo.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/MCTargetDesc/PPCMCAsmInfo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCMCAsmInfo.cpp
+  source_name_part = PPCMCAsmInfo
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCMCCodeEmitter.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/MCTargetDesc/PPCMCCodeEmitter.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCMCCodeEmitter.cpp
+  source_name_part = PPCMCCodeEmitter
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCMCExpr.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/MCTargetDesc/PPCMCExpr.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCMCExpr.cpp
+  source_name_part = PPCMCExpr
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCMCTargetDesc.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/MCTargetDesc/PPCMCTargetDesc.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCMCTargetDesc.cpp
+  source_name_part = PPCMCTargetDesc
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCMachObjectWriter.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/MCTargetDesc/PPCMachObjectWriter.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCMachObjectWriter.cpp
+  source_name_part = PPCMachObjectWriter
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCPredicates.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/MCTargetDesc/PPCPredicates.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCPredicates.cpp
+  source_name_part = PPCPredicates
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCXCOFFObjectWriter.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/MCTargetDesc/PPCXCOFFObjectWriter.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCXCOFFObjectWriter.cpp
+  source_name_part = PPCXCOFFObjectWriter
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCAsmPrinter.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCAsmPrinter.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCAsmPrinter.cpp
+  source_name_part = PPCAsmPrinter
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCBoolRetToInt.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCBoolRetToInt.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCBoolRetToInt.cpp
+  source_name_part = PPCBoolRetToInt
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCBranchCoalescing.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCBranchCoalescing.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCBranchCoalescing.cpp
+  source_name_part = PPCBranchCoalescing
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCBranchSelector.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCBranchSelector.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCBranchSelector.cpp
+  source_name_part = PPCBranchSelector
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCCCState.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCCCState.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCCCState.cpp
+  source_name_part = PPCCCState
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCCTRLoops.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCCTRLoops.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCCTRLoops.cpp
+  source_name_part = PPCCTRLoops
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCCallingConv.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCCallingConv.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCCallingConv.cpp
+  source_name_part = PPCCallingConv
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCEarlyReturn.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCEarlyReturn.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCEarlyReturn.cpp
+  source_name_part = PPCEarlyReturn
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCExpandISEL.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCExpandISEL.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCExpandISEL.cpp
+  source_name_part = PPCExpandISEL
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCFastISel.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCFastISel.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCFastISel.cpp
+  source_name_part = PPCFastISel
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCFrameLowering.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCFrameLowering.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCFrameLowering.cpp
+  source_name_part = PPCFrameLowering
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCHazardRecognizers.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCHazardRecognizers.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCHazardRecognizers.cpp
+  source_name_part = PPCHazardRecognizers
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCISelDAGToDAG.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCISelDAGToDAG.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCISelDAGToDAG.cpp
+  source_name_part = PPCISelDAGToDAG
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCISelLowering.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCISelLowering.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCISelLowering.cpp
+  source_name_part = PPCISelLowering
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCInstrInfo.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCInstrInfo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCInstrInfo.cpp
+  source_name_part = PPCInstrInfo
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCLoopInstrFormPrep.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCLoopInstrFormPrep.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCLoopInstrFormPrep.cpp
+  source_name_part = PPCLoopInstrFormPrep
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCLowerMASSVEntries.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCLowerMASSVEntries.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCLowerMASSVEntries.cpp
+  source_name_part = PPCLowerMASSVEntries
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCMCInstLower.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCMCInstLower.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCMCInstLower.cpp
+  source_name_part = PPCMCInstLower
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCMIPeephole.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCMIPeephole.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCMIPeephole.cpp
+  source_name_part = PPCMIPeephole
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCMachineFunctionInfo.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCMachineFunctionInfo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCMachineFunctionInfo.cpp
+  source_name_part = PPCMachineFunctionInfo
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCMachineScheduler.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCMachineScheduler.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCMachineScheduler.cpp
+  source_name_part = PPCMachineScheduler
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCPreEmitPeephole.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCPreEmitPeephole.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCPreEmitPeephole.cpp
+  source_name_part = PPCPreEmitPeephole
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCQPXLoadSplat.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCQPXLoadSplat.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCQPXLoadSplat.cpp
+  source_name_part = PPCQPXLoadSplat
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCReduceCRLogicals.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCReduceCRLogicals.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCReduceCRLogicals.cpp
+  source_name_part = PPCReduceCRLogicals
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCRegisterInfo.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCRegisterInfo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCRegisterInfo.cpp
+  source_name_part = PPCRegisterInfo
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCSubtarget.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCSubtarget.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCSubtarget.cpp
+  source_name_part = PPCSubtarget
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCTLSDynamicCall.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCTLSDynamicCall.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCTLSDynamicCall.cpp
+  source_name_part = PPCTLSDynamicCall
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCTOCRegDeps.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCTOCRegDeps.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCTOCRegDeps.cpp
+  source_name_part = PPCTOCRegDeps
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCTargetMachine.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCTargetMachine.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCTargetMachine.cpp
+  source_name_part = PPCTargetMachine
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCTargetObjectFile.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCTargetObjectFile.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCTargetObjectFile.cpp
+  source_name_part = PPCTargetObjectFile
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCTargetTransformInfo.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCTargetTransformInfo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCTargetTransformInfo.cpp
+  source_name_part = PPCTargetTransformInfo
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCVSXCopy.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCVSXCopy.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCVSXCopy.cpp
+  source_name_part = PPCVSXCopy
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCVSXFMAMutate.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCVSXFMAMutate.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCVSXFMAMutate.cpp
+  source_name_part = PPCVSXFMAMutate
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCVSXSwapRemoval.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/PPCVSXSwapRemoval.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PPCVSXSwapRemoval.cpp
+  source_name_part = PPCVSXSwapRemoval
+build obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PowerPCTargetInfo.o: cxx ../../src/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Target/PowerPC/TargetInfo/PowerPCTargetInfo.cpp | ../../src/build/config/warning_suppression.txt
+  source_file_part = PowerPCTargetInfo.cpp
+  source_name_part = PowerPCTargetInfo
+
+build phony/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc: phony obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCAsmParser.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCDisassembler.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCAsmBackend.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCELFObjectWriter.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCInstPrinter.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCMCAsmInfo.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCMCCodeEmitter.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCMCExpr.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCMCTargetDesc.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCMachObjectWriter.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCPredicates.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCXCOFFObjectWriter.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCAsmPrinter.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCBoolRetToInt.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCBranchCoalescing.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCBranchSelector.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCCCState.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCCTRLoops.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCCallingConv.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCEarlyReturn.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCExpandISEL.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCFastISel.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCFrameLowering.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCHazardRecognizers.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCISelDAGToDAG.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCISelLowering.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCInstrInfo.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCLoopInstrFormPrep.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCLowerMASSVEntries.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCMCInstLower.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCMIPeephole.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCMachineFunctionInfo.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCMachineScheduler.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCPreEmitPeephole.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCQPXLoadSplat.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCReduceCRLogicals.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCRegisterInfo.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCSubtarget.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCTLSDynamicCall.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCTOCRegDeps.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCTargetMachine.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCTargetObjectFile.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCTargetTransformInfo.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCVSXCopy.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCVSXFMAMutate.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PPCVSXSwapRemoval.o obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_llvm_ppc/PowerPCTargetInfo.o

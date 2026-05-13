@@ -1,0 +1,14 @@
+--cfg
+f16_enabled
+--cfg
+f128_enabled
+--cfg
+intrinsics_enabled
+--cfg
+arch_enabled
+--cfg
+optimizations_enabled
+--cfg
+feature="unstable-intrinsics"
+--cfg
+feature="mem-unaligned"

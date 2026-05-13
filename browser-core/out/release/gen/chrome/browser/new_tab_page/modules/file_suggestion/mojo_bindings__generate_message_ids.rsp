@@ -1,0 +1,3 @@
+../../src/chrome/browser/new_tab_page/modules/file_suggestion/drive_suggestion.mojom
+../../src/chrome/browser/new_tab_page/modules/file_suggestion/file_suggestion.mojom
+../../src/chrome/browser/new_tab_page/modules/file_suggestion/microsoft_files.mojom

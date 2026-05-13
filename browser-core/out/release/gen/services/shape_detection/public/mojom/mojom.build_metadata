@@ -1,0 +1,15 @@
+{
+  "deps": [
+    "../../../../sandbox/policy/mojom/mojom.build_metadata",
+    "../../../../skia/public/mojom/mojom.build_metadata",
+    "../../../../ui/gfx/geometry/mojom/mojom.build_metadata"
+  ],
+  "sources": [
+    "../../../../../../../src/services/shape_detection/public/mojom/barcodedetection.mojom",
+    "../../../../../../../src/services/shape_detection/public/mojom/barcodedetection_provider.mojom",
+    "../../../../../../../src/services/shape_detection/public/mojom/facedetection.mojom",
+    "../../../../../../../src/services/shape_detection/public/mojom/facedetection_provider.mojom",
+    "../../../../../../../src/services/shape_detection/public/mojom/shape_detection_service.mojom",
+    "../../../../../../../src/services/shape_detection/public/mojom/textdetection.mojom"
+  ]
+}

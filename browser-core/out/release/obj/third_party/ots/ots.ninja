@@ -1,0 +1,127 @@
+defines = -DOFFICIAL_BUILD -D__ARM_NEON__=1 -DCR_XCODE_VERSION=2650 -DCR_CLANG_REVISION=\"llvmorg-21-init-5118-g52cd27e6-5\" -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS -D_LIBCPP_INSTRUMENTED_WITH_ASAN=0 -DCR_LIBCXX_REVISION=449310fe2e37834a7e62972d2a690cade2ef596b -DTMP_REBUILD_HACK -DNDEBUG -DNVALGRIND -DDYNAMIC_ANNOTATIONS_ENABLED=0
+framework_dirs =
+include_dirs = -I../../src -Igen -I../../src/buildtools/third_party/libc++ -I../../src/third_party/ots/src/include -I../../src/third_party/brotli/include -I../../src/third_party/woff2/include -I../../src/third_party/zlib
+cflags = -fno-delete-null-pointer-checks -fno-strict-overflow -fno-ident -fno-strict-aliasing -fstack-protector -fcolor-diagnostics -fmerge-all-constants -fno-sized-deallocation -fcrash-diagnostics-dir=../../src/tools/clang/crashreports -mllvm -instcombine-lower-dbg-declare=0 -mllvm -split-threshold-for-reg-with-hint=0 -ffp-contract=off -fcomplete-member-pointers --target=arm64-apple-macos -mno-outline -no-canonical-prefixes -Xclang --warning-suppression-mappings=../../src/build/config/warning_suppression.txt -ftrivial-auto-var-init=pattern -O2 -fno-math-errno -fno-omit-frame-pointer -fno-standalone-debug -g2 -gdwarf-aranges -Xclang -debug-info-kind=limited -isysroot ../../../../../../../Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk -mmacos-version-min=11.0 -fvisibility=hidden -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare -Xclang -add-plugin -Xclang find-bad-constructs -Xclang -plugin-arg-find-bad-constructs -Xclang span-ctor-from-string-literal -Xclang -plugin-arg-find-bad-constructs -Xclang raw-ref-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang raw-span-template-as-trivial-member -Xclang -plugin-arg-find-bad-constructs -Xclang check-stack-allocated -Xclang -add-plugin -Xclang raw-ptr-plugin -Xclang -plugin-arg-raw-ptr-plugin -Xclang check-raw-ptr-to-stack-allocated -Xclang -plugin-arg-raw-ptr-plugin -Xclang disable-check-raw-ptr-to-stack-allocated-error -Xclang -plugin-arg-raw-ptr-plugin -Xclang raw-ptr-exclude-path=../../src/third_party/dawn/ -DUNSAFE_BUFFERS_BUILD -Xclang -add-plugin -Xclang unsafe-buffers -Xclang -plugin-arg-unsafe-buffers -Xclang ../../src/build/config/unsafe_buffers_paths.txt -Wall -Wno-unused-variable -Wno-c++11-narrowing -Wno-unused-but-set-variable -Wno-misleading-indentation -Wunguarded-availability -Wno-missing-field-initializers -Wno-unused-parameter -Wno-psabi -Wloop-analysis -Wno-unneeded-internal-declaration -Wno-cast-function-type -Wno-thread-safety-reference-return -Wno-nontrivial-memcall
+cflags_cc = -std=c++20 -Wno-trigraphs -fno-exceptions -fno-rtti -nostdinc++ -isystem../../src/third_party/libc++/src/include -isystem../../src/third_party/libc++abi/src/include -fvisibility-inlines-hidden -Wno-invalid-offsetof -Wenum-compare-conditional -Wno-nullability-completeness
+label_name = ots
+root_out_dir = .
+target_out_dir = obj/third_party/ots
+target_output_name = libots
+
+build phony/third_party/ots/ots.inputs: phony ../../src/build/config/unsafe_buffers_paths.txt ../../src/build/config/warning_suppression.txt
+build obj/third_party/ots/ots/avar.o: cxx ../../src/third_party/ots/src/src/avar.cc | phony/third_party/ots/ots.inputs
+  source_file_part = avar.cc
+  source_name_part = avar
+build obj/third_party/ots/ots/cff.o: cxx ../../src/third_party/ots/src/src/cff.cc | phony/third_party/ots/ots.inputs
+  source_file_part = cff.cc
+  source_name_part = cff
+build obj/third_party/ots/ots/cff_charstring.o: cxx ../../src/third_party/ots/src/src/cff_charstring.cc | phony/third_party/ots/ots.inputs
+  source_file_part = cff_charstring.cc
+  source_name_part = cff_charstring
+build obj/third_party/ots/ots/cmap.o: cxx ../../src/third_party/ots/src/src/cmap.cc | phony/third_party/ots/ots.inputs
+  source_file_part = cmap.cc
+  source_name_part = cmap
+build obj/third_party/ots/ots/cvar.o: cxx ../../src/third_party/ots/src/src/cvar.cc | phony/third_party/ots/ots.inputs
+  source_file_part = cvar.cc
+  source_name_part = cvar
+build obj/third_party/ots/ots/cvt.o: cxx ../../src/third_party/ots/src/src/cvt.cc | phony/third_party/ots/ots.inputs
+  source_file_part = cvt.cc
+  source_name_part = cvt
+build obj/third_party/ots/ots/fpgm.o: cxx ../../src/third_party/ots/src/src/fpgm.cc | phony/third_party/ots/ots.inputs
+  source_file_part = fpgm.cc
+  source_name_part = fpgm
+build obj/third_party/ots/ots/fvar.o: cxx ../../src/third_party/ots/src/src/fvar.cc | phony/third_party/ots/ots.inputs
+  source_file_part = fvar.cc
+  source_name_part = fvar
+build obj/third_party/ots/ots/gasp.o: cxx ../../src/third_party/ots/src/src/gasp.cc | phony/third_party/ots/ots.inputs
+  source_file_part = gasp.cc
+  source_name_part = gasp
+build obj/third_party/ots/ots/gdef.o: cxx ../../src/third_party/ots/src/src/gdef.cc | phony/third_party/ots/ots.inputs
+  source_file_part = gdef.cc
+  source_name_part = gdef
+build obj/third_party/ots/ots/glyf.o: cxx ../../src/third_party/ots/src/src/glyf.cc | phony/third_party/ots/ots.inputs
+  source_file_part = glyf.cc
+  source_name_part = glyf
+build obj/third_party/ots/ots/gpos.o: cxx ../../src/third_party/ots/src/src/gpos.cc | phony/third_party/ots/ots.inputs
+  source_file_part = gpos.cc
+  source_name_part = gpos
+build obj/third_party/ots/ots/gsub.o: cxx ../../src/third_party/ots/src/src/gsub.cc | phony/third_party/ots/ots.inputs
+  source_file_part = gsub.cc
+  source_name_part = gsub
+build obj/third_party/ots/ots/gvar.o: cxx ../../src/third_party/ots/src/src/gvar.cc | phony/third_party/ots/ots.inputs
+  source_file_part = gvar.cc
+  source_name_part = gvar
+build obj/third_party/ots/ots/hdmx.o: cxx ../../src/third_party/ots/src/src/hdmx.cc | phony/third_party/ots/ots.inputs
+  source_file_part = hdmx.cc
+  source_name_part = hdmx
+build obj/third_party/ots/ots/head.o: cxx ../../src/third_party/ots/src/src/head.cc | phony/third_party/ots/ots.inputs
+  source_file_part = head.cc
+  source_name_part = head
+build obj/third_party/ots/ots/hhea.o: cxx ../../src/third_party/ots/src/src/hhea.cc | phony/third_party/ots/ots.inputs
+  source_file_part = hhea.cc
+  source_name_part = hhea
+build obj/third_party/ots/ots/hvar.o: cxx ../../src/third_party/ots/src/src/hvar.cc | phony/third_party/ots/ots.inputs
+  source_file_part = hvar.cc
+  source_name_part = hvar
+build obj/third_party/ots/ots/kern.o: cxx ../../src/third_party/ots/src/src/kern.cc | phony/third_party/ots/ots.inputs
+  source_file_part = kern.cc
+  source_name_part = kern
+build obj/third_party/ots/ots/layout.o: cxx ../../src/third_party/ots/src/src/layout.cc | phony/third_party/ots/ots.inputs
+  source_file_part = layout.cc
+  source_name_part = layout
+build obj/third_party/ots/ots/loca.o: cxx ../../src/third_party/ots/src/src/loca.cc | phony/third_party/ots/ots.inputs
+  source_file_part = loca.cc
+  source_name_part = loca
+build obj/third_party/ots/ots/ltsh.o: cxx ../../src/third_party/ots/src/src/ltsh.cc | phony/third_party/ots/ots.inputs
+  source_file_part = ltsh.cc
+  source_name_part = ltsh
+build obj/third_party/ots/ots/math.o: cxx ../../src/third_party/ots/src/src/math.cc | phony/third_party/ots/ots.inputs
+  source_file_part = math.cc
+  source_name_part = math
+build obj/third_party/ots/ots/maxp.o: cxx ../../src/third_party/ots/src/src/maxp.cc | phony/third_party/ots/ots.inputs
+  source_file_part = maxp.cc
+  source_name_part = maxp
+build obj/third_party/ots/ots/metrics.o: cxx ../../src/third_party/ots/src/src/metrics.cc | phony/third_party/ots/ots.inputs
+  source_file_part = metrics.cc
+  source_name_part = metrics
+build obj/third_party/ots/ots/mvar.o: cxx ../../src/third_party/ots/src/src/mvar.cc | phony/third_party/ots/ots.inputs
+  source_file_part = mvar.cc
+  source_name_part = mvar
+build obj/third_party/ots/ots/name.o: cxx ../../src/third_party/ots/src/src/name.cc | phony/third_party/ots/ots.inputs
+  source_file_part = name.cc
+  source_name_part = name
+build obj/third_party/ots/ots/os2.o: cxx ../../src/third_party/ots/src/src/os2.cc | phony/third_party/ots/ots.inputs
+  source_file_part = os2.cc
+  source_name_part = os2
+build obj/third_party/ots/ots/ots.o: cxx ../../src/third_party/ots/src/src/ots.cc | phony/third_party/ots/ots.inputs
+  source_file_part = ots.cc
+  source_name_part = ots
+build obj/third_party/ots/ots/post.o: cxx ../../src/third_party/ots/src/src/post.cc | phony/third_party/ots/ots.inputs
+  source_file_part = post.cc
+  source_name_part = post
+build obj/third_party/ots/ots/prep.o: cxx ../../src/third_party/ots/src/src/prep.cc | phony/third_party/ots/ots.inputs
+  source_file_part = prep.cc
+  source_name_part = prep
+build obj/third_party/ots/ots/stat.o: cxx ../../src/third_party/ots/src/src/stat.cc | phony/third_party/ots/ots.inputs
+  source_file_part = stat.cc
+  source_name_part = stat
+build obj/third_party/ots/ots/variations.o: cxx ../../src/third_party/ots/src/src/variations.cc | phony/third_party/ots/ots.inputs
+  source_file_part = variations.cc
+  source_name_part = variations
+build obj/third_party/ots/ots/vdmx.o: cxx ../../src/third_party/ots/src/src/vdmx.cc | phony/third_party/ots/ots.inputs
+  source_file_part = vdmx.cc
+  source_name_part = vdmx
+build obj/third_party/ots/ots/vhea.o: cxx ../../src/third_party/ots/src/src/vhea.cc | phony/third_party/ots/ots.inputs
+  source_file_part = vhea.cc
+  source_name_part = vhea
+build obj/third_party/ots/ots/vorg.o: cxx ../../src/third_party/ots/src/src/vorg.cc | phony/third_party/ots/ots.inputs
+  source_file_part = vorg.cc
+  source_name_part = vorg
+build obj/third_party/ots/ots/vvar.o: cxx ../../src/third_party/ots/src/src/vvar.cc | phony/third_party/ots/ots.inputs
+  source_file_part = vvar.cc
+  source_name_part = vvar
+
+build obj/third_party/ots/libots.a: alink obj/third_party/ots/ots/avar.o obj/third_party/ots/ots/cff.o obj/third_party/ots/ots/cff_charstring.o obj/third_party/ots/ots/cmap.o obj/third_party/ots/ots/cvar.o obj/third_party/ots/ots/cvt.o obj/third_party/ots/ots/fpgm.o obj/third_party/ots/ots/fvar.o obj/third_party/ots/ots/gasp.o obj/third_party/ots/ots/gdef.o obj/third_party/ots/ots/glyf.o obj/third_party/ots/ots/gpos.o obj/third_party/ots/ots/gsub.o obj/third_party/ots/ots/gvar.o obj/third_party/ots/ots/hdmx.o obj/third_party/ots/ots/head.o obj/third_party/ots/ots/hhea.o obj/third_party/ots/ots/hvar.o obj/third_party/ots/ots/kern.o obj/third_party/ots/ots/layout.o obj/third_party/ots/ots/loca.o obj/third_party/ots/ots/ltsh.o obj/third_party/ots/ots/math.o obj/third_party/ots/ots/maxp.o obj/third_party/ots/ots/metrics.o obj/third_party/ots/ots/mvar.o obj/third_party/ots/ots/name.o obj/third_party/ots/ots/os2.o obj/third_party/ots/ots/ots.o obj/third_party/ots/ots/post.o obj/third_party/ots/ots/prep.o obj/third_party/ots/ots/stat.o obj/third_party/ots/ots/variations.o obj/third_party/ots/ots/vdmx.o obj/third_party/ots/ots/vhea.o obj/third_party/ots/ots/vorg.o obj/third_party/ots/ots/vvar.o | ../../src/third_party/llvm-build/Release+Asserts/lib/clang/21/lib/darwin/libclang_rt.osx.a phony/third_party/ots/ots.inputs || obj/third_party/brotli/libdec.a obj/third_party/woff2/libwoff2_dec.a obj/third_party/zlib/libchrome_zlib.a obj/third_party/brotli/libcommon.a phony/third_party/zlib/zlib_adler32_simd phony/third_party/zlib/zlib_inflate_chunk_simd phony/third_party/zlib/zlib_arm_crc32
+  arflags = -T -s
+  output_extension = .a
+  output_dir = obj/third_party/ots

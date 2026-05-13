@@ -1,0 +1,19 @@
+{
+  "format_version": "1.1",
+  "package_name": "infra/tools/result_adapter/mac-arm64",
+  "version_file": ".versions/result_adapter.cipd_version",
+  "actual_install_mode": "copy",
+  "files": [
+    {
+      "name": "result_adapter",
+      "size": 19244338,
+      "executable": true,
+      "hash": "tYwFk_hN-scQHy2Zg7r5wFcgBfVeH6FfSQMO2ZipljMC"
+    },
+    {
+      "name": ".versions/result_adapter.cipd_version",
+      "size": 125,
+      "hash": "9Qx5zsxZ2GZX3oSCcnkE1hXrOFRJ5BCEgdVGZu9cAmYC"
+    }
+  ]
+}
