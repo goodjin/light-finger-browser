@@ -5,6 +5,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"log"
 	"sync"
 	"time"
 )
@@ -187,18 +188,21 @@ func (c *CDPClient) CloseBrowserContext(ctx context.Context, contextId string) e
 // CreateTargetWithContext creates a new target (tab) in the specified browser context.
 // The newWindow parameter is set to false to ensure the target opens as a tab, not a new window.
 func (c *CDPClient) CreateTargetWithContext(ctx context.Context, url string, contextId string) (string, error) {
+	log.Printf("[CreateTargetWithContext] Creating target with URL: %s, contextId: %s", url, contextId)
 	result, err := c.execute(ctx, "Target.createTarget", map[string]interface{}{
 		"url":              url,
 		"browserContextId": contextId,
 		"newWindow":        false, // Ensure tab opens in same window, not as new window
 	})
 	if err != nil {
+		log.Printf("[CreateTargetWithContext] Error: %v", err)
 		return "", err
 	}
 	targetID, ok := result["targetId"].(string)
 	if !ok {
 		return "", fmt.Errorf("CreateTarget response missing targetId")
 	}
+	log.Printf("[CreateTargetWithContext] Successfully created target: %s", targetID)
 	return targetID, nil
 }
 

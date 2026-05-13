@@ -509,6 +509,8 @@ func (s *InstanceService) GetCDPClient(ctx context.Context, id string) (instance
 		return nil, fmt.Errorf("browser WebSocket URL not found in version response")
 	}
 
+	log.Printf("[GetCDPClient] Browser-level WebSocket URL: %s", browserWSURL)
+
 	// Connect to browser-level WebSocket for commands that require browser-level access
 	// (e.g., createBrowserContext, disposeBrowserContext, getTargets)
 	conn, _, err := instance.DefaultDialer.DialContext(ctx, "tcp", browserWSURL)
@@ -524,6 +526,8 @@ func (s *InstanceService) GetCDPClient(ctx context.Context, id string) (instance
 		client.Close()
 		return nil, fmt.Errorf("CDP connection is not alive: browser process may have crashed")
 	}
+
+	log.Printf("[GetCDPClient] Successfully connected and validated browser-level CDP for instance %s", id)
 
 	// Use separate key for browser-level CDP client to avoid overwriting page-level clients
 	s.cdpClients.Store(id+":browser", client)

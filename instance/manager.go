@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"strings"
 	"sync"
@@ -219,14 +220,44 @@ func (m *instanceManager) GetBrowserCDPClient(ctx context.Context, id string) (C
 		wsURL = "ws://" + wsURL
 	}
 
+	// Query /json/version to get the correct browser-level WebSocket URL
+	// This returns a URL like ws://host:port/devtools/browser/<id>
+	versionURL := strings.Replace(wsURL, "ws://", "http://", 1) + "/json/version"
+	resp, err := http.Get(versionURL)
+	if err != nil {
+		return nil, fmt.Errorf("failed to query CDP version: %w", err)
+	}
+	defer resp.Body.Close()
+
+	var versionResp map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&versionResp); err != nil {
+		return nil, fmt.Errorf("failed to decode CDP version response: %w", err)
+	}
+
+	browserWSURL, ok := versionResp["webSocketDebuggerUrl"].(string)
+	if !ok || browserWSURL == "" {
+		return nil, fmt.Errorf("browser WebSocket URL not found in version response")
+	}
+
+	log.Printf("[GetBrowserCDPClient] Browser-level WebSocket URL for instance %s: %s", id, browserWSURL)
+
 	// Connect to the browser-level WebSocket endpoint
-	browserWSURL := wsURL + "/devtools/browser"
 	conn, _, err := DefaultDialer.DialContext(ctx, "tcp", browserWSURL)
 	if err != nil {
 		return nil, fmt.Errorf("failed to dial CDP browser endpoint: %w", err)
 	}
 
 	client := NewCDPClient(conn)
+
+	// Validate the connection is still alive by sending a simple command
+	// This catches cases where the browser process crashed but the WebSocket is still connected
+	if !client.IsConnected(ctx) {
+		client.Close()
+		return nil, fmt.Errorf("CDP connection is not alive: browser process may have crashed")
+	}
+
+	log.Printf("[GetBrowserCDPClient] Successfully connected and validated browser-level CDP for instance %s", id)
+
 	m.browserClients.Store(id, client)
 
 	return client, nil
