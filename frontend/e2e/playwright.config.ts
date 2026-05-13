@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './e2e/tests',
-  fullyParallel: true,
+  fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: 0,
   workers: 1,
@@ -13,8 +13,8 @@ export default defineConfig({
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
-    actionTimeout: 10000,
-    navigationTimeout: 30000,
+    actionTimeout: 15000,
+    navigationTimeout: 60000,
   },
 
   projects: [
@@ -24,12 +24,13 @@ export default defineConfig({
     },
   ],
 
+  // 自动启动完整应用进行测试
   webServer: {
-    command: 'cd /Users/jin/github/light-finger-browser && wails dev',
-    url: 'http://localhost:34115',
-    reuseExistingServer: true,
-    timeout: 120 * 1000,
-    stdout: 'ignore',
+    command: 'cd /Users/jin/github/light-finger-browser && ./e2e/start-app.sh',
+    url: 'http://localhost:5173',
+    reuseExistingServer: !process.env.CI,
+    timeout: 600 * 1000,
+    stdout: 'pipe',
     stderr: 'pipe',
   },
 });
