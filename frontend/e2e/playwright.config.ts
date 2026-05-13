@@ -6,7 +6,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: 0,
   workers: 1,
-  reporter: 'html',
+  reporter: 'list',
   
   use: {
     baseURL: 'http://localhost:5173',
@@ -24,13 +24,6 @@ export default defineConfig({
     },
   ],
 
-  // 自动启动完整应用进行测试
-  webServer: {
-    command: 'cd /Users/jin/github/light-finger-browser && ./e2e/start-app.sh',
-    url: 'http://localhost:5173',
-    reuseExistingServer: !process.env.CI,
-    timeout: 600 * 1000,
-    stdout: 'pipe',
-    stderr: 'pipe',
-  },
+  // webServer is not used - app must be started manually or via npm script
+  // Use: npm run test:e2e
 });
